@@ -21,3 +21,5 @@ Create a Python script file here and name it whatever you would like. The file n
 ### Write The Script
 
 Using the text editor of your choice, open the script file you just created.
+
+?> Documentation is still being written. Please check back later for a complete guide!

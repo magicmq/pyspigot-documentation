@@ -18,10 +18,17 @@ PySpigot is a Python scripting engine that allows you to write Python scripts th
 - Comprehensive logging of script errors/exceptions
 - And much more!
 
+## Getting Started
+
+See the [Quick Start Guide](quickstart.md) for a brief tutorial. Check out the rest of the documentation for more advanced usage.
+
 ## Examples
 
 Check out any of the [examples](examples.md) to see PySpigot in action.
 
+## Links
+
+- PySpigot's GitHub repository can be viewed [here](https://github.com/magicmq/pyspigot).
 - JavaDocs for the project can be viewed [here](https://docs.magicmq.dev/pyspigot/).
 - Check out PySpigot on GitHub [here](https://github.com/magicmq/PySpigot).
 - Also check out Jython on Github [here](https://github.com/jython/jython).

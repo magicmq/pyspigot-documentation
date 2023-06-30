@@ -1,4 +1,3 @@
-- [Home](/)
 - Getting Started
 	- [Quick Start](quickstart.md)
 	- [PySpigot Commands](plugincommands.md)
