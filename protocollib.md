@@ -11,11 +11,11 @@ There are several functions available from the protocol manager for registering 
 - `registerPacketListener(function, packet_type)`
 - `registerPacketListener(function, packet_type, listener_priority)`: `listener_priority` is a the priority of the listener. This is analogous to EventPriority for Bukkit events.
     - For information on listener priority, see ProtocolLib's [ListenerPriority class](https://ci.dmulloy2.net/job/ProtocolLib/javadoc/com/comphenix/protocol/events/ListenerPriority.html).
-- `unregisterPacketListener(function)`
+- `unregisterPacketListener(packet_listener)`: Takes a packet listener returned by one of the register functions.
 
-!> All ProtocolLib listeners are called from an *asynchronous* context. In other words, they are called from a thread other than the main server thread. Do not call any Bukkit code from this context, or issues may occur.
+!> All ProtocolLib listeners are called from an *asynchronous* context. In other words, they are called from a thread other than the main server thread. Do not call any Bukkit or PySpigot API from this context, or issues may occur.
 
-## Asynchronous listeners
+## Asynchronous Listeners
 
 The protocol manager also supports registering asynchronous listeners. Asynchronous listeners allow you to delay packet transmission, among other things. You may also register timeout listeners that can handle packets that time out on sending.
 
@@ -27,15 +27,15 @@ from dev.magicmq.pyspigot import PySpigot as ps
 async_manager = ps.protocol.async()
 ```
 
-The following functions are avialable for use from the asynchronous manager:
+The following functions are avialable for use from the asynchronous protocol manager:
 
-- `registerAsyncListener(function, packet_type)`
-- `registerAsyncListener(function, packet_type, listener_priority)`
-- `unregisterAsyncListener(function)`
-- `registerTimeoutListener(function, packet_type)`
-- `registerTimeoutListener(function, packet_type, listener_priority)`
-- `unregisterTimeoutListener(function)`
+- `registerAsyncPacketListener(function, packet_type)`
+- `registerAsyncPacketListener(function, packet_type, listener_priority)`
+- `registerTimeoutPacketListener(function, packet_type)`
+- `registerTimeoutPacketListener(function, packet_type, listener_priority)`
+- `unregisterAsyncPacketListener(packet_listener)`: Takes a packet listener returned by one of the register functions.
 
+?> See ProtocolLib's documentation for more detailed infromation regarding asynchronous and timeout listeners.
 
 # Code Example
 
@@ -50,7 +50,7 @@ def chat_packet_event(event):
     message = packet.getStrings().read(0)
     print('Player sent a chat! Their message was: ' + event.getMessage())
 
-ps.protocol.registerPacketListener(chat_packet_event, PacketType.Play.Client.CHAT)
+packet_listener = ps.protocol.registerPacketListener(chat_packet_event, PacketType.Play.Client.CHAT)
 ```
 
 On line 1, we import PySpigot as `ps` to utilize the protocol manager (`protocol`).
@@ -66,7 +66,9 @@ All packet listeners must be registered with PySpigot's protocol manager. Regist
 - The first argument accepts the function that should be called when the event fires.
 - The second argument accepts the event that should be listened for.
 
-Therefore, on line 7, we call the listener manager to register our event, passing the function we defined on line 5, `player_chat`, and the event we want to listen for, `AsyncPlayerChatEvent`.
+The `registerPacketListener` function returns a `ScriptPacketListener`, which represents the packet listener that was registered. This can be used to unregister the packet listener at a later time.
+
+Therefore, on line 7, we call the protocol manager to register the packet listener, passing the function we defined on line 5, `chat_packet_event`, and the packet we want to listen for, `PacketType.Play.Client.CHAT`, and assign the returned value to `packet_listener`.
 
 ## To summarize: {docsify-ignore}
 
@@ -74,3 +76,4 @@ Therefore, on line 7, we call the listener manager to register our event, passin
 - All packet listeners should be defined as functions in your script that accept a single parameter, the packet event (the parameter name can be whatever you like).
 - All packet listeners must be registered with PySpigot's packet manager. This can be done in a variety of ways, but the most basic way is by using `registerPacketListener(function, packet_type)`.
 - Packet listeners are called *asynchronously*. Any code that interfaces with Bukkit or PySpigot should be run *synchronously*. You can do this by using the task manager (`runTask(function)`)
+- When registering a packet listener, the register functions all return a `ScriptPacketListener`, which can be used to unregister the listener.
