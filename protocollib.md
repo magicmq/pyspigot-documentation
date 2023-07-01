@@ -4,6 +4,8 @@ PySpigot includes a manager that interfaces with ProtocolLib if you would like t
 
 See the [General Information](writingscripts#pyspigot39s-managers) page for instructions on how to import the protocol manager into your script.
 
+!> All packet listeners are called from an *asynchronous* context. In other words, they are called from a thread other than the main server thread. Do not call any Bukkit or PySpigot API from this context, or issues may occur.
+
 # Protocol Manager Usage
 
 There are several functions available from the protocol manager for registering and unregistering packet listeners:
@@ -13,7 +15,7 @@ There are several functions available from the protocol manager for registering 
     - For information on listener priority, see ProtocolLib's [ListenerPriority class](https://ci.dmulloy2.net/job/ProtocolLib/javadoc/com/comphenix/protocol/events/ListenerPriority.html).
 - `unregisterPacketListener(packet_listener)`: Takes a packet listener returned by one of the register functions.
 
-!> All ProtocolLib listeners are called from an *asynchronous* context. In other words, they are called from a thread other than the main server thread. Do not call any Bukkit or PySpigot API from this context, or issues may occur.
+?> You **do not** need to unregister your packet listeners when your script is stopped/unloaded. PySpigot will handle this for you.
 
 ## Asynchronous Listeners
 

@@ -21,6 +21,8 @@ Loading/reloading a config returns a `ScriptConfig` object. This object has many
 - `script_config.save()`: This saves the config so that any values you set will be persistent.
 - All methods present [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html) can also be used.
 
+!> Changes to the config are not saved to the file automatically! You *must* call `save` to write changes.
+
 # Code Example
 
 Let's take a look at the following code that loads a config, reads a number and string from it, writes to it, then saves it.

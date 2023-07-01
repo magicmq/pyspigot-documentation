@@ -18,7 +18,9 @@ The command manager makes several functions available to you to register and unr
 - `registerCommand(command_function, tab_function, name, description, usage, aliases)`
 - `registerCommand(command_function, tab_function, name, description, usage, aliases, permission, permission_message)`: The most comprehensive way to register a command. `permission_message` is displayed if the command sender does not have permission to execute the command.
 - `unregisterCommand(name)`: Allows you to unregister a command from your script using its name.
-- `unregisterCommand(command)`: Allows you to unregister a command from your script. Accepts the `ScriptCommand` object returned from any of the `registerCommand` functions
+- `unregisterCommand(command)`: Allows you to unregister a command from your script. Accepts the `ScriptCommand` object returned from any of the `registerCommand` functions.
+
+?> You **do not** need to unregister your commands when your script is stopped/unloaded. PySpigot will handle this for you.
 
 # Code Example
 

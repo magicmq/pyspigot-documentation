@@ -18,6 +18,8 @@ There are five functions available for you to use in your script in the listener
 - `listener.registerListener(function, event, priority, ignoreCancelled)`: Allows you to register an event that is ignored if cancelled *and* that has a priority (a combination of the previous two functions). Returns a `ScriptEventListener`, which can be used to unregister the event later.
 - `listener.unregisterEvent(event_listener)`: Allows you to unregister an event listener from your script. Takes the event listener that was returned when the listener was registered.
 
+?> You **do not** need to unregister your event listeners when your script is stopped/unloaded. PySpigot will handle this for you.
+
 # Code Example
 
 Let's look at the following code that defines and registers an event listener:

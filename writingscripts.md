@@ -2,7 +2,7 @@
 
 This tutorial provides an overview of PySpigot only, and does not cover in detail the Bukkit/Spigot API or writing Python code. Any questions concerning Python syntax or writing Python code in general should be redirected to the appropriate forum, as this tutorial will not provide an intoroduction to writing basic Python code. 
 
-There are a few guidelines that must be followed when writing PySpigot scripts. Please make sure to adhere to these guidelines at all times:
+There are a few basic things to keep in mind when writing PySpigot scripts:
 
 - Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
@@ -32,6 +32,14 @@ Currently, the latest version of Jython implements Python 2. Thus, for now, PySp
 
 For more information about Jython, visit [jython.org](https://www.jython.org/).
 
+## Standard Python Libraries
+
+Jython *does not* support many of the built-in Python modules (i.e. those that are written in C for Python). These would have to be ported to Java or implemented with a JNI bridge. Some built-in modules have been ported to Jython, most notably `cStringIO`, `cPickle`, `struct`, and `binascii`. Jython's documentation states it is unlikely JNI modules will ever be included in the Jython proper.
+
+Jython now supports a large marjority of the standard Python library. However, Jython's documentation has been slow in keeping up with these additions, so if Jython's documentation does not reference a library, it may still be supported.
+
+If you want to use a standard Python module in your script, try importing it. If that works, then you're probably all set. You can also call `dir()` on the modules to check the list of functions it implements.
+
 ## Basic Script Information
 
 All PySpigot scripts are designed to be *self-contained*, single files. This means that each script will, at most, consist of one file only. Additionally, scripts are *isolated* from one another, meaning they do not share variables, functions, or scope. Scripts are capable of interacting with one another in various ways (more detail on this below), but think of each .py file in the `scipts` folder as an individual entity, executed in its own environment.
@@ -47,6 +55,16 @@ There is one config option related to loading scripts:
 - `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts.
 
 Of course, scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load.
+
+## Start and Stop Functions
+
+There are two special functions you may include in your PySpigot scripts: `start` and `stop`. Both take no parameters.
+
+If a `start` function is defined in your script, it will be called by PySpigot when the script starts.
+
+If a `stop` function is defined in your script, it will be called by PySpigot when your script is stopped/unloaded.
+
+?> Both `start` and `stop` are optional, you do not need to define them in your script if they are not needed.
 
 ## PySpigot's Managers
 
