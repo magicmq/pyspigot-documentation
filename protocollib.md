@@ -1,4 +1,6 @@
-# ProtocolLib Manager
+# Protocol Manager
+
+!> The Protocol manager is an *optional* manager. This manager should only be accessed if the ProtocolLib plugin is present on the server when the PySpigot plugin is enabled.
 
 PySpigot includes a manager that interfaces with ProtocolLib if you would like to work with packets in your script.
 

@@ -74,19 +74,21 @@ PySpigot provides a variety of managers to more easily work with parts of the Bu
 - CommandManager, for registering and working with commands. This is accessed as `commmand` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.command.CommandManager`
 - TaskManager, for registering a variety of repeating, delayed, and asynchronous tasks. This is accessed as `scheduler` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.task.TaskManager`
 - ConfigManager, for working with configuration files. This is accessed as `config` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.config.ConfigManager`
-- ProtocolManager, to work with ProtocolLib (this will only load if ProtocolLib is present on your server). This is accessed as `protocol` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.protocol.ProtocolManager`
+- ProtocolManager, to work with ProtocolLib. This is accessed as `protocol` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.protocol.ProtocolManager`
+- PlaceholderManager, to work with PlaceholderAPI. This is accessed as `placeholder` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.placeholder.PlaceholderManager`
 
 The following table summarizes how to access managers:
 
-| Manager          | Access under PySpigot       | Standalone Import                                                   |
-| ---------------- | --------------------------- | ------------------------------------------------------------------- |
-| Listener Manager | `PySpigot.listener`         | `from dev.magicmq.pyspigot.manager.listener import ListenerManager` |
-| Command Manager  | `PySpigot.command`          | `from dev.magicmq.pyspigot.manager.command import CommandManager`   |
-| Task Manager     | `PySpigot.scheduler`        | `from dev.magicmq.pyspigot.manager.task import TaskManager`         |
-| Config Manager   | `PySpigot.config`           | `from dev.magicmq.pyspigot.manager.config import ConfigManager`     |
-| Protocol Manager | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager` |
+| Manager             | Access under PySpigot       | Standalone Import                                                         |
+| ------------------- | --------------------------- | ------------------------------------------------------------------------- |
+| Listener Manager    | `PySpigot.listener`         | `from dev.magicmq.pyspigot.manager.listener import ListenerManager`       |
+| Command Manager     | `PySpigot.command`          | `from dev.magicmq.pyspigot.manager.command import CommandManager`         |
+| Task Manager        | `PySpigot.scheduler`        | `from dev.magicmq.pyspigot.manager.task import TaskManager`               |
+| Config Manager      | `PySpigot.config`           | `from dev.magicmq.pyspigot.manager.config import ConfigManager`           |
+| Protocol Manager    | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager`       |
+| Placeholder Manager | `PySpigot.placeholder`      | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
 
-!> ProtocolManager is an *optional* manager. This manager is only accessible if the ProtocolLib plugin is present on the server when the PySpigot plugin is enabled.
+!> The Protocol Manager and Placeholder Manager are *optional* managers. These managers should only be accessed if the ProtocolLib and/or PlaceholderAPI plugins are loaded and enabled.
 
 To utilize these managers, they must be imported into your script. This can be done in two ways:
 
@@ -102,6 +104,7 @@ ps.command.<function>
 ps.scheduler.<function>
 ps.config.<function>
 ps.protocol.<function>
+ps.placeholder.<function>
 ```
 
 In the above code, PySpigot is imported as ps. Managers are called using their simplified name, `listener` for ListenerManager, `command` for CommandManager, `scheduler` for TaskManager, `config` for ConfigManager, and `protocol` for ProtocolManager.
@@ -139,13 +142,13 @@ For more advanced usage, see the [JavaDocs for HashMap](https://docs.oracle.com/
 
 ## Script Errors
 
-If a script happens to generate an unhandled error or exception during its execution, the script will be automatically unloaded. A notable exception to this is an exception that occurs while a listener, command, task, or packet listener is called. In this case, the script will not be unloaded. In any case, errors/exceptions will be logged to the console and to the respective script's log file (if file logging is enabled in the `config.yml`).
+Scripts can generate errors/exceptions. PySpigot will attempt to handle these to prevent other parts of your script from breaking. If a script happens to generate an unhandled error/exception when it is loaded, the script will be automatically unloaded to prevent further issues. If an unhandled error/exception occurs somewhere else at a later point in time, such as while calling an event listener or command function, the script will remain loaded, but subsequent code within the function will not be executed. In any case, errors/exceptions will be logged to the console and to the respective script's log file (if file logging is enabled in the `config.yml`). You may use Python's `try:` and `except:` syntax to handle exceptions yourself. This will work for Java exceptions as well.
 
 There are two types of errors that a script can produce:
 
 ### Python Exceptions
 
-These are exceptions intrinsic to the script's Python code. These exceptions will generate a log entry with a Python traceback indicating the script file and line that caused the exception. Because these exceptions originate in Python code, they should be fairly easy to debug. They will look like this:
+These are exceptions intrinsic to your script's Python code. These exceptions will generate a log entry with a Python traceback indicating the script file and line that caused the exception. Because these exceptions originate in Python code, they should be fairly easy to debug. They will look like this:
 
 ![An example of what a Python exception looks like in the server console.](images/python_exception.png)
 
@@ -153,30 +156,15 @@ The boxed text is the Python traceback.
 
 ### Java Exceptions
 
-These exceptions occur when a script calls Java code and the exception occurs somewhere within the Java code (but not from within the script). These exceptions will generate a log entry with a [Java stack trace](https://www.javatpoint.com/java-stack-trace) indicating where the exception occurred. These can be trickier to debug because the cause of the exception is not immediately apparent. Although these are Java stack traces, they also will indicate the script file and line that caused the exception. They will look like this:
+These exceptions occur when a script calls Java code and the exception occurs somewhere within the Java code (but not from within the script). These exceptions will also generate a log entry with a Python traceback indicating the script file and line that caused the exception. These can be trickier to debug because the cause of the exception may not be immediately apparent. The script log/console should give you an idea of what went wrong. They will look like this:
 
 ![An example of what a Java exception looks like in the server console.](images/java_exception.png)
 
-The boxed text indicates where to find the script file and line that caused the exception. If the exception resulted from code that was called from within a function, the function name will also be given.
+You'll notice that these look very similar to Python exceptions. The only difference is that there will be an accompanying Java exception (`java.lang.<exception>`) along with a brief message about why the exception occurred.
 
-Let's take a look at the code that caused the exception in the aboveimage to be thrown:
+### Final Note About Exceptions
 
-```python
-from dev.magicmq.pyspigot import PySpigot as ps
-
-def test_command(sender, label, args):
-    print('Command issued!')
-    return True
-
-ps.command.registerCommand(kick_command, 'kick_player')
-ps.command.unregisterCommand('command_does_not_exist')
-```
-
-On line 8, we attempt to unregister a command, but the command has not been registered, so this is most likely what caused the exception.
-
-### A Note About Exceptions
-
-Because PySpigot is an active project in youth stages of development, you may encounter exceptions that are caused by a bug within PySpigot itself. If you encounter an exception, and your debug efforts have been futile, please [submit an issue on Github](https://github.com/magicmq/PySpigot/issues).
+Because PySpigot is an active project in youth stages of development, you may encounter exceptions that are caused by a bug within PySpigot itself. If something goes wrong with your script, and your debuging efforts have been futile, please [submit an issue on Github](https://github.com/magicmq/PySpigot/issues).
 
 ## Script Logging
 

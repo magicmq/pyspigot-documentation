@@ -14,8 +14,9 @@
 	- [Command Manager](commands.md)
 	- [Config Manager](configuration.md)
 	- [Listener Manager](eventlisteners.md)
-	- [ProtocolLib Manager](protocollib.md)
 	- [Task Manager](tasks.md)
+	- [ProtocolLib Manager](protocollib.md)
+	- [Placeholder Manager](placeholders.md)
 
 - [Planned Features](plannedfeatures.md)
 - [License Info](license.md)

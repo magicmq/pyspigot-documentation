@@ -2,6 +2,12 @@
 
 PySpigot has several commands available to use, mostly for loading, unloading, and reloading scripts. They are all documented here.
 
+The base command for PySpigot is `/pyspigot`.
+
+- Syntax: `/pyspigot <argument>`
+- Aliases: `ps`
+- Permission: `pyspigot.command.listcmds`
+
 ## ListScripts Command
 
 Lists all scripts, both unloaded and loaded. Loaded scripts are shown in green, unloaded scripts are shown in red. Use `[page]` to go to another page, if there are multiple pages available.

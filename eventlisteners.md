@@ -16,7 +16,7 @@ There are five functions available for you to use in your script in the listener
 - `listener.registerListener(function, event, ignoreCancelled)`: Allows you to "ignore" the event if it has been cancelled by another event listener. The listener in your script will not be called if it is cancelled elsewhere. Returns a `ScriptEventListener`, which can be used to unregister the event later.
     - This will only work with events that are [cancellable](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/Cancellable.html).
 - `listener.registerListener(function, event, priority, ignoreCancelled)`: Allows you to register an event that is ignored if cancelled *and* that has a priority (a combination of the previous two functions). Returns a `ScriptEventListener`, which can be used to unregister the event later.
-- `listener.unregisterEvent(event_listener)`: Allows you to unregister an event listener from your script. Takes the event listener that was returned when the listener was registered.
+- `listener.unregisterListener(event_listener)`: Allows you to unregister an event listener from your script. Takes the event listener that was returned when the listener was registered.
 
 ?> You **do not** need to unregister your event listeners when your script is stopped/unloaded. PySpigot will handle this for you.
 
@@ -31,7 +31,7 @@ from org.bukkit.event.player import AsyncPlayerChatEvent
 def player_chat(event):
     print('Player sent a chat! Their message was: ' + event.getMessage())
 
-listener = ps.listener.registerEvent(player_chat, AsyncPlayerChatEvent)
+listener = ps.listener.registerListener(player_chat, AsyncPlayerChatEvent)
 ```
 
 On line 1, we import PySpigot as `ps` to utilize the listener manager (`listener`).
