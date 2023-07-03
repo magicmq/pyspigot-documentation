@@ -1,6 +1,7 @@
 - Getting Started
 	- [Quick Start](quickstart.md)
 	- [PySpigot Commands](plugincommands.md)
+	- [PySpigot Configuration](pluginconfiguration.md)
 
 - Writing Scripts
 
