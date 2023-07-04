@@ -8,15 +8,19 @@ PySpigot is a Python scripting engine that allows you to write Python scripts th
 
 ## Features
 
-- Write python scripts that can be dynamically loaded/unloaded on server start or at any time
+- Load scripts on server start and via commands
+- Stop, reload, and unload server scripts via commands
+- Register event listeners
 - Register commands
-- Write to and read from config files
-- Write event listeners
-- Schedule tasks with the task manager
-- Support for registering packet listeners through ProtocolLib
-- Load Java libraries at any time for scripts to work with
-- Comprehensive logging of script errors/exceptions
-- And much more!
+- Schedule tasks (synchronous and asynchronous)
+- Work with config files
+- Register ProtocolLib packet listeners
+- Register PlaceholderAPI placeholder expansions
+- Comprehensive logging of errors and exceptions on a per-script basis, to file
+- Load Java libraries you'd like to work with at runtime
+- Write scripts in Python syntax
+- Scripts have complete access to the Bukkit/Spigot API, as well as APIs of other plugins, so anything is possible.
+- And more!
 
 ## Getting Started
 
@@ -24,11 +28,11 @@ See the [Quick Start Guide](quickstart.md) for a brief tutorial. Check out the r
 
 ## Examples
 
-Check out any of the [examples](examples.md) to see PySpigot in action.
+Check out any of the [examples](examples.md) to see some examples of PySpigot scripts.
 
 ## Links
 
 - PySpigot's GitHub repository can be viewed [here](https://github.com/magicmq/pyspigot).
-- JavaDocs for the project can be viewed [here](https://docs.magicmq.dev/pyspigot/).
+- JavaDocs for the project can be viewed [here](https://javadocs.magicmq.dev/pyspigot/).
 - Check out PySpigot on GitHub [here](https://github.com/magicmq/PySpigot).
 - Also check out Jython on Github [here](https://github.com/jython/jython).

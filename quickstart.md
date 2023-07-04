@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Here is a very brief guide for creating your very first PySpigot script.
+Here is a very brief guide for creating your very first PySpigot script. If you don't know Python, that's okay! There are many great online tutorials to learn. See the [Helpful Resources](externalresources.md) page for some good Python tutorials.
 
 ## Download and Load PySpigot
 
