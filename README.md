@@ -33,6 +33,9 @@ Check out any of the [examples](examples.md) to see some examples of PySpigot sc
 ## Links
 
 - PySpigot's GitHub repository can be viewed [here](https://github.com/magicmq/pyspigot).
-- JavaDocs for the project can be viewed [here](https://javadocs.magicmq.dev/pyspigot/).
-- Check out PySpigot on GitHub [here](https://github.com/magicmq/PySpigot).
 - Also check out Jython on Github [here](https://github.com/jython/jython).
+- JavaDocs for the project can be viewed [here](https://javadocs.magicmq.dev/pyspigot/).
+
+## Licensing
+
+Please check out the [License Info](#license.md) page for information on licensing.
