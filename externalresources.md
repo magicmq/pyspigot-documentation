@@ -24,6 +24,10 @@ If you're working with PlaceholderAPI, here are some useful resources:
 - [PlaceholderAPI Documentation](https://github.com/PlaceholderAPI/PlaceholderAPI/wiki)
 - [PlaceholderAPI JavaDocs](https://extendedclip.com/javadoc/placeholderapi/me/clip/placeholderapi/PlaceholderAPI.html)
 
+## Discord
+
+PySpigot has its very own Discord server! Join if you're stuck and need help and/or you want to stay in the loop about updates/changes: https://discord.gg/f2u7nzRwuk
+
 ## New to Python? Check out these great tutorials to get started:
 
 - https://www.learnpython.org/
@@ -32,4 +36,4 @@ If you're working with PlaceholderAPI, here are some useful resources:
 
 ## For Developers
 
-- [PySpigot Javadocs](https://magicmq.dev/javadocs/pyspigot)
+- [PySpigot Javadocs](https://javadocs.magicmq.dev/pyspigot)

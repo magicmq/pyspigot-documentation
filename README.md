@@ -36,6 +36,10 @@ Check out any of the [examples](examples.md) to see some examples of PySpigot sc
 - Also check out Jython on Github [here](https://github.com/jython/jython).
 - JavaDocs for the project can be viewed [here](https://javadocs.magicmq.dev/pyspigot/).
 
+### Discord
+
+Join the official PySpigot Discord server here: https://discord.gg/f2u7nzRwuk
+
 ## Licensing
 
 Please check out the [License Info](#license.md) page for information on licensing.

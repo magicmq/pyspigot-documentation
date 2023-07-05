@@ -41,3 +41,5 @@ Alternatively, if the server is already running and the PySpigot plugin is loade
 ## Next Steps
 
 Check out the rest of the documentation for more advanced scripting.
+
+If you find yourself stuck and need help, join PySpigot's Discord server if you haven't already: https://discord.gg/f2u7nzRwuk
