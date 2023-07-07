@@ -3,6 +3,8 @@
 Here is PySpigot's configuration file. Comments should sufficiently explain each value:
 
 ```yaml
+#If false, will disable collection of metrics information by bStats for PySpigot. You may also disable bStats server-wide in the bStats config.yml under /plugins/bStats.
+metrics-enabled: true
 # The delay for loading scripts (in ticks) after the server finishes loading.
 script-load-delay: 20
 #List of relocation rules for libraries in the libs folder. Format as <pattern>|<relocated pattern>

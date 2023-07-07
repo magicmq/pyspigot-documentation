@@ -40,6 +40,10 @@ Check out any of the [examples](examples.md) to see some examples of PySpigot sc
 
 Join the official PySpigot Discord server here: https://discord.gg/f2u7nzRwuk
 
+## Metrics
+
+PySpigot uses [bStats](https://bstats.org/) to collect anonymous usage data for PySpigot. If you would like to disable this feature, set `metrics-enabled` to `false` in PySpigot's config.yml. Alternatively, you can disable bStats server-wide by setting `enabled` to `false` in /plugins/bStats/config.yml.
+
 ## Licensing
 
 Please check out the [License Info](#license.md) page for information on licensing.
