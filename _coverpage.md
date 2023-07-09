@@ -1,4 +1,4 @@
-# PySpigot <small>0.2.0</small>
+# PySpigot <small>0.3.1</small>
 
 > A Python scripting engine for your Minecraft server.
 
