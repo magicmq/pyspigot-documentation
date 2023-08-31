@@ -1,10 +1,10 @@
 # Configuration Files
 
-With PySpigot, your scripts can load, access, and save to configuration files. All configuration files that scripts access using the config manager are automatically stored in the `config` folder located within PySpigot\'s plugin folder.
+With PySpigot, your scripts can load, access, and save to configuration files. All configuration files that scripts access using the config manager are automatically stored in the `config` folder located within PySpigot's plugin folder.
 
 See the [General Information](writingscripts#pyspigot39s-managers) page for instructions on how to import the config manager into your script.
 
-This is not a comprehensive guide to working with config files. For more complete documentation on available methods/functions, see the Javadocs: <https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html>. All methods listed here can be called from within your script.
+This is not a comprehensive guide to working with config files. For more complete documentation on available methods/functions, see the [Javadocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html). All methods listed here can be called from within your script.
 
 # Config Manager Usage
 
@@ -19,9 +19,9 @@ Loading/reloading a config returns a `ScriptConfig` object. This object has many
 
 - `script_config.set(key, value)`: Set a value in the config at the given key. Takes a key representing the key to write to and value which is the value to write.
 - `script_config.save()`: This saves the config so that any values you set will be persistent.
-- All methods present [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html) can also be used.
+- For a complete list of methods/functions you can use to retrieve data from a config file, see [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html). 
 
-!> Changes to the config are not saved to the file automatically! You *must* call `save` to write changes.
+!> Changes to the config are not saved to the file automatically! You *must* call `save` to write changes to the config file.
 
 # Code Example
 
@@ -48,6 +48,44 @@ On lines 5 and 6, we read a number and a string from the config, respectively, b
 Finally, on lines 7 and 8, we first set the value 1337 to a config key called `test-set`. Then, we save the config with `script_config.save()`.
 
 !> Configuration files are not unique to each script! Any script can access any config file. Use names that are unique.
+
+# Special Python Data Types
+
+## Lists, Sets, and Tuples
+
+Lists, sets, and tuples are all saved in yaml syntax as a list, which will look like this:
+
+```yaml
+list:
+  - 'item1'
+  - 'item2'
+  - 'item3'
+```
+
+## Dictionaries
+
+A dictionary is represented in the `key: value` format in yaml syntax. For example, consider the following code:
+
+```python
+thisdict = {
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964
+}
+
+script_config.set('dict', thisdict)
+```
+
+This will output to yaml syntax in the following format:
+
+```yaml
+dict:
+  year: 1964
+  model: Mustang
+  brand: Ford
+```
+
+Of course, you may also nest lists, sets, tuples, and additional dictionaries within dictionaries and they will be saved accordingly. Dictionaries are particularly useful for setting multiple config values at the same time, without having to set each value individually.
 
 ## To summrize: {docsify-ignore}
 
