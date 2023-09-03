@@ -8,6 +8,14 @@ The base command for PySpigot is `/pyspigot`.
 - Aliases: `ps`
 - Permission: `pyspigot.command.listcmds`
 
+## Help Command
+
+Displays several helpful links, including the documentation (this site), the PySpigot plugin page on Spigot, the official Discord, and a link to report issues/bugs on GitHub.
+
+- Syntax: `/pyspigot help`
+- Aliases: `gethelp`, `info`, `getinfo`
+- Permission: `pyspigot.command.help`
+
 ## ListScripts Command
 
 Lists all scripts, both unloaded and loaded. Loaded scripts are shown in green, unloaded scripts are shown in red. Use `[page]` to go to another page, if there are multiple pages available.

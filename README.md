@@ -30,6 +30,17 @@ See the [Quick Start Guide](quickstart.md) for a brief tutorial. Check out the r
 
 Check out any of the [examples](examples.md) to see some examples of PySpigot scripts.
 
+## Updates
+
+When PySpigot is updated to a newer version, this update will be pushed to Spigot, as well as the official GitHub repository.
+
+If you're running an outdated version of PySpigot, you'll see notifications in two places as a reminder to update:
+
+- In the console, when the plugin loads (such as on server start).
+- In chat when you log into your server. This message is only displayed to players with the permission `pyspigot.admin`.
+
+?> It is recommended that you always use the latest version of PySpigot. Because the plugin is in its early stages of developmnt, newer versions likely contain key bug fixes and improvements.
+
 ## Links
 
 - PySpigot's GitHub repository can be viewed [here](https://github.com/magicmq/pyspigot).
