@@ -70,6 +70,7 @@ If a `stop` function is defined in your script, it will be called by PySpigot wh
 
 PySpigot provides a variety of managers to more easily work with parts of the Bukkit/Spigot API. For instructions on importing these into your script, see below. PySpigot managers currently include:
 
+- ScriptManager, for loading and unloading scripts from within another script. This is accessed as `script` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.script.ScriptManager`.
 - ListenerManager, for registering event listeners. This is accessed as `listener` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.listener.ListenerManager`.
 - CommandManager, for registering and working with commands. This is accessed as `commmand` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.command.CommandManager`
 - TaskManager, for registering a variety of repeating, delayed, and asynchronous tasks. This is accessed as `scheduler` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.task.TaskManager`
@@ -81,6 +82,7 @@ The following table summarizes how to access managers:
 
 | Manager             | Access Under PySpigot       | Standalone Import                                                         |
 | ------------------- | --------------------------- | ------------------------------------------------------------------------- |
+| Script Manager      | `PySpigot.script`           | `from dev.magicmq.pyspigot.manager.script import ScriptManager`           |
 | Listener Manager    | `PySpigot.listener`         | `from dev.magicmq.pyspigot.manager.listener import ListenerManager`       |
 | Command Manager     | `PySpigot.command`          | `from dev.magicmq.pyspigot.manager.command import CommandManager`         |
 | Task Manager        | `PySpigot.scheduler`        | `from dev.magicmq.pyspigot.manager.task import TaskManager`               |
@@ -99,6 +101,7 @@ This is the preferred way to import managers as less code is required:
 ```python
 from dev.magicmq.pyspigot import PySpigot as ps
 
+ps.script.<function>
 ps.listener.<function>
 ps.command.<function>
 ps.scheduler.<function>
@@ -107,18 +110,19 @@ ps.protocol.<function>
 ps.placeholder.<function>
 ```
 
-In the above code, PySpigot is imported as ps. Managers are called using their simplified name, `listener` for ListenerManager, `command` for CommandManager, `scheduler` for TaskManager, `config` for ConfigManager, and `protocol` for ProtocolManager.
+In the above code, PySpigot is imported as ps. Managers are called using their simplified name, `script` for ScriptManager, `listener` for ListenerManager, `command` for CommandManager, `scheduler` for TaskManager, `config` for ConfigManager, and `protocol` for ProtocolManager.
 
 ### Import each manager individually:
 
 ```python
-
+from dev.magicmq.pyspigot.manager.script import ScriptManager as script
 from dev.magicmq.pyspigot.manager.listener import ListenerManager as listener
 from dev.magicmq.pyspigot.manager.command import CommandManager as command
 from dev.magicmq.pyspigot.manager.task import TaskManager as scheduler
 from dev.magicmq.pyspigot.manager.config import ConfigManager as config
 from dev.magicmq.pyspigot.manager.protocol import ProtocolManager as protocol
 
+script.get().<function>
 listener.get().<function>
 command.get().<function>
 ...

@@ -12,6 +12,7 @@
 
 - Managers
 
+	- [Script Manager](scripts.md)
 	- [Command Manager](commands.md)
 	- [Config Manager](configuration.md)
 	- [Listener Manager](eventlisteners.md)
