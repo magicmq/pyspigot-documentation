@@ -70,16 +70,16 @@ If a `stop` function is defined in your script, it will be called by PySpigot wh
 
 PySpigot provides a variety of managers to more easily work with parts of the Bukkit/Spigot API. For instructions on importing these into your script, see below. PySpigot managers currently include:
 
-- ListenerManager, for registering event listeners. This is accessed as `listener` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.listener.ListenerManager`.
-- CommandManager, for registering and working with commands. This is accessed as `commmand` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.command.CommandManager`
-- TaskManager, for registering a variety of repeating, delayed, and asynchronous tasks. This is accessed as `scheduler` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.task.TaskManager`
-- ConfigManager, for working with configuration files. This is accessed as `config` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.config.ConfigManager`
-- ProtocolManager, to work with ProtocolLib. This is accessed as `protocol` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.protocol.ProtocolManager`
-- PlaceholderManager, to work with PlaceholderAPI. This is accessed as `placeholder` under PySpigot, or imported individually as `dev.magicmq.pyspigot.managers.placeholder.PlaceholderManager`
+- ListenerManager, for registering event listeners. This is accessed as `listener` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.listener.ListenerManager`.
+- CommandManager, for registering and working with commands. This is accessed as `commmand` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.command.CommandManager`
+- TaskManager, for registering a variety of repeating, delayed, and asynchronous tasks. This is accessed as `scheduler` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.task.TaskManager`
+- ConfigManager, for working with configuration files. This is accessed as `config` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.config.ConfigManager`
+- ProtocolManager, to work with ProtocolLib. This is accessed as `protocol` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.protocol.ProtocolManager`
+- PlaceholderManager, to work with PlaceholderAPI. This is accessed as `placeholder` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.placeholder.PlaceholderManager`
 
 The following table summarizes how to access managers:
 
-| Manager             | Access under PySpigot       | Standalone Import                                                         |
+| Manager             | Access Under PySpigot       | Standalone Import                                                         |
 | ------------------- | --------------------------- | ------------------------------------------------------------------------- |
 | Listener Manager    | `PySpigot.listener`         | `from dev.magicmq.pyspigot.manager.listener import ListenerManager`       |
 | Command Manager     | `PySpigot.command`          | `from dev.magicmq.pyspigot.manager.command import CommandManager`         |
@@ -112,12 +112,12 @@ In the above code, PySpigot is imported as ps. Managers are called using their s
 ### Import each manager individually:
 
 ```python
-from dev.magicmq.pyspigot.managers.listener import ListenerManager as listener
-from dev.magicmq.pyspigot.managers.command import CommandManager as command
-from dev.magicmq.pyspigot.managers.task import TaskManager as scheduler
-from dev.magicmq.pyspigot.managers.config import ConfigManager as config
-from dev.magicmq.pyspigot.managers.protocol import ProtocolManager as protocol
 
+from dev.magicmq.pyspigot.manager.listener import ListenerManager as listener
+from dev.magicmq.pyspigot.manager.command import CommandManager as command
+from dev.magicmq.pyspigot.manager.task import TaskManager as scheduler
+from dev.magicmq.pyspigot.manager.config import ConfigManager as config
+from dev.magicmq.pyspigot.manager.protocol import ProtocolManager as protocol
 listener.get().<function>
 command.get().<function>
 ...
