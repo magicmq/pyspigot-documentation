@@ -118,6 +118,7 @@ from dev.magicmq.pyspigot.manager.command import CommandManager as command
 from dev.magicmq.pyspigot.manager.task import TaskManager as scheduler
 from dev.magicmq.pyspigot.manager.config import ConfigManager as config
 from dev.magicmq.pyspigot.manager.protocol import ProtocolManager as protocol
+
 listener.get().<function>
 command.get().<function>
 ...
