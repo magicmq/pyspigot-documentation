@@ -6,7 +6,7 @@
 - Writing Scripts
 
 	- [General Information](writingscripts.md)
-	- [External Libraries](librarymanager.md)
+	- [External Libraries](externallibraries.md)
 	- [Helpful Resources](externalresources.md)
 	- [Example Scripts](examples.md)
 
