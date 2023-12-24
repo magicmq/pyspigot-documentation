@@ -18,7 +18,7 @@ Using the script manager to load/run and unload scripts is relatively simple. Th
 
 A `RunResult` represents the outcome of running a script. There are four possible outcomes:
 
-- `RunResult.SUCCESS`: Running the script was successful, and it is currently running. You can assume that if this is the result, then the script is running.
+- `RunResult.SUCCESS`: Running the script was successful, and it is currently running. You can safely assume that if this is the RunResult, then the script is running without errors.
 - `RunResult.FAIL_DISABLED`: Running the script failed, because the script is disabled in its options (in `script_options.yml`).
 - `RunResult.FAIL_DEPENDENCY`: Running the script failed, because it depends on one or more scripts that are not running.
 - `RunResult.FAIL_ERROR`: Running the script failed, because there was an error when it ran. This error will be printed to the server console as well as the script's log file (if file logging is enabled for the script).

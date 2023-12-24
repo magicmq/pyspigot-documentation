@@ -2,6 +2,8 @@
 
 In PySpigot's main plugin folder, you'll find a file titled `script_options.yml`. This file enables you to specify various script-specific options, all of which are covered here.
 
+!> Defining script options for each script is *optional*; see the [Defaults](#defaults) section for more info.
+
 ## Basic Format
 
 If you would like to specify options for a script, do it like so:

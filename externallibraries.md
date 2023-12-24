@@ -1,8 +1,14 @@
 # Using External Java/Python Libraries
 
-PySpigot allows you to use external Python and Java libraries when writing scripts. There are many open-source Python and Java libraries that simplify or otherwise hasten code writing. The [Apache Commons Libraries](https://commons.apache.org/) are one such example, a collection of Java utility libraries that provide an abundance of useful utility functions.
+PySpigot allows you to use external Python and Java libraries when writing scripts. There are many open-source Python and Java libraries that simplify or otherwise hasten code writing. The [Apache Commons Libraries](https://commons.apache.org/), a collection of Java utility libraries that provide an abundance of useful utility functions, are one such example.
 
 Of course, a more advanced usage of this functionality might include writing your own external libraries for frequently used or complicated code. See the [Handy Usage of External Python Modules](#Handy-Usage-of-External-Python-Modules) section below for more information on this.
+
+## General Information
+
+PySpigot will create two folders (if they don't already exist) called `python-libs` and `java-libs` when it loads, where external libraries should be placed.
+
+PySpigot automatically places a helper module called `pyspigot.py` into the `python-libs` folder on plugin load. For more information on this helper library, see the [Writing Scripts](writingscripts#the-pyspigot-helper-module) page.
 
 ## External Python Libraries
 
@@ -22,7 +28,9 @@ Suppose there is a certain piece of code that you use frequently, across multipl
 
 Under normal circumstances, a Java library would be "shaded" into a Bukkit/Spigot plugin (with the end result sometimes called a "fat" Jar or "Uber" Jar) so that the plugin has access to the dependency at runtime. We obviously can't do this with scripts.
 
-Instead, we can take advantage of Jython's capabilities. As I have stated before elsewhere in the documentation, Jython provides access to all loaded Java classes at runtime. Therefore, we can manually load a collection of Java classes (the library) into the classpath at runtime, which will give scripts access to those classes. PySpigot's LibraryManager provides this functionality.
+Instead, we can take advantage of Jython's capabilities. As stated before elsewhere in the documentation, Jython provides access to all loaded Java classes at runtime. Therefore, a collection of Java classes (the library) can be manually loaded into the classpath at runtime, which in turn gives scripts access to those classes. PySpigot's LibraryManager provides this functionality.
+
+When a JAR library is loaded, PySpigot creates a copy of the library that ends with "-relocated". For example, the library `jython-annotation-tools-0.9.0.jar` is copied to `jython-annotation-tools-0.9.0-relocated.jar`. This is done not only to accommodate relocation rules (see the [section on relocation rules](#jar-relocation-rules) below), but also to speed up loading of external libraries in future plugin loads. This behavior occurs even if you don't specify any relocation rules for the library.
 
 ### Loading and Using Java Libraries
 
@@ -46,9 +54,19 @@ The library should now be loaded, and you can use `import` statements to import 
 
 ### Jar Relocation Rules
 
-You may need to change the name/classpath of classes within a library/dependency. This is called "relocation". There are many reasons why you might want to do this, most of which are too complicated to explain here. If you need to relocate the classpath of your library/dependency, you'll likely know that already. In that case, read on for information on how to specify relocation rules.
+You may need to change the name/classpath of classes within a library/dependency. This is called "relocation". There are many reasons why you might want to do this, but that is beyond the scope of this documentation. If you need to relocate a classpath of your library/dependency, you'll likely know that you need to do so already. In that case, read on for information on how to specify relocation rules.
 
-Within PySpigot's `config.yml`, you'll find a `library-relocations` value. You may specify your own relocations rules here. Relocation rules should be in the format `<pattern>|<relocation>`. For example, if we want to relocate `com.apache.commons.lang3.stringutils` to `lib.com.apache.commons.lang3.stringutils`, we would specify this in the config like this:
+Within PySpigot's `config.yml`, you'll find a `library-relocations` value. You may specify your own relocations rules here. Relocation rules should be in the format `<path>|<relocated-path>`. For example, to relocate `com.apache.commons.lang3.stringutils` to `lib.com.apache.commons.lang3.stringutils`:
+
+```yaml
+...
+# List of relocation rules for libraries in the libs folder. Format as <pattern>|<relocated pattern>
+library-relocations:
+  - 'com.apache.commons.lang3.stringutils|lib.com.apache.commons.lang3.stringutils'
+...
+```
+
+An abbreviated list form is also permitted in YAML syntax:
 
 ```yaml
 ...
@@ -56,3 +74,7 @@ Within PySpigot's `config.yml`, you'll find a `library-relocations` value. You m
 library-relocations: ['com.apache.commons.lang3.stringutils|lib.com.apache.commons.lang3.stringutils']
 ...
 ```
+
+To add multiple relocation rules in the abbreviated list form, separate each with a comma.
+
+!> As stated previously, PySpigot creates a copy that ends with "-relocated" of every external JAR library. This file represents the relocated JAR, with all relocation rules applied to it. This copy is only created once, or, put differently, relocation rules are only applied once. In subsequent plugin loads, the relocated JAR library is loaded. Therefore, if changes are made to the relocation rules, it is necessary to delete the "-relocated.jar" copy of the relevant library/libraries so that the updated relocation rules are applied.
