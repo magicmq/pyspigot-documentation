@@ -7,6 +7,7 @@
 
 	- [General Information](writingscripts.md)
 	- [Script Options](scriptoptions.md)
+	- [Global Variables](globalvariables.md)
 	- [External Libraries](externallibraries.md)
 	- [Helpful Resources](externalresources.md)
 	- [Example Scripts](examples.md)
