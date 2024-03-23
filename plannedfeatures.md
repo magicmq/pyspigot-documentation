@@ -3,6 +3,7 @@
 PySpigot is an evolving project. I have several features planned for future releases. This is a non-comprehensive list of features I plan on adding in the future:
 
 - Add support for MySQL, Postgres, MonogDB, redis, and other databases
+- Add support for autocompletion in IDE/text editor when writing scripts
 - Add support for calling PySpigot methods from scripts with \*args and \*kwargs (both non-keyword and keyword arguments)
 - Script loading delay on a per-script basis
 - Ability to create and send packets via protocol manager (through ProtocolLib)
