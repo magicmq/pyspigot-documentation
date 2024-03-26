@@ -22,6 +22,12 @@ PySpigot is a Python scripting engine that allows you to write Python scripts th
 - Scripts have complete access to the Bukkit/Spigot API, as well as APIs of other plugins, so anything is possible.
 - And more!
 
+## Useful Links
+
+- [Check out PySpigot on Spigot](https://www.spigotmc.org/resources/pyspigot.111006/)
+- [Check out PySpigot on GitHub](https://github.com/magicmq/pyspigot)
+- [PySpigot JavaDocs](https://javadocs.magicmq.dev/pyspigot/)
+
 ## Getting Started
 
 See the [Quick Start Guide](quickstart.md) for a brief tutorial. Check out the rest of the documentation for more advanced usage.
@@ -40,12 +46,6 @@ If you're running an outdated version of PySpigot, you'll see notifications in t
 - In chat when you log into your server. This message is only displayed to players with the permission `pyspigot.admin`.
 
 ?> It is recommended that you always use the latest version of PySpigot. Because the plugin is in its early stages of developmnt, newer versions likely contain key bug fixes and improvements.
-
-## Links
-
-- PySpigot's GitHub repository can be viewed [here](https://github.com/magicmq/pyspigot).
-- Also check out Jython on Github [here](https://github.com/jython/jython).
-- JavaDocs for the project can be viewed [here](https://javadocs.magicmq.dev/pyspigot/).
 
 ### Discord
 

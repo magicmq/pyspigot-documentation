@@ -4,7 +4,8 @@
 
 - Write fully-functional Python scripts on your Bukkit Minecraft server
 - Full access to Bukkit/Spigot API from scripts
-- Multiple managers for easily registering commands, event listeners, tasks, and more
+- Multiple managers to easily register commands, event listeners, tasks, and more
 
+[Spigot](https://www.spigotmc.org/resources/pyspigot.111006/)
 [GitHub](https://github.com/magicmq/PySpigot)
 [Get Started](#pyspigot)
