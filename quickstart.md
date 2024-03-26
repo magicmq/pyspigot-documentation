@@ -4,7 +4,7 @@ Here is a very brief guide for creating your very first PySpigot script. If you 
 
 ## Download and Load PySpigot
 
-Download the latest version of PySpigot from GitHub or from Spigot. Drop the downloaded Jar file into your plugins folder and start your server.
+Download the latest version of PySpigot from [GitHub](https://github.com/magicmq/pyspigot) or from [Spigot](https://www.spigotmc.org/resources/pyspigot.111006/). Drop the downloaded Jar file into your plugins folder and start your server.
 
 ## Creating Your First Script
 

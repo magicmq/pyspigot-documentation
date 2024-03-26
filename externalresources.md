@@ -1,11 +1,17 @@
+# PySpigot Resources
+
+- [Spigot Plugin Page](https://www.spigotmc.org/resources/pyspigot.111006/)
+- [View PySpigot on GitHub](https://github.com/magicmq/pyspigot)
+- [View the JavaDocs for PySpigot](https://javadocs.magicmq.dev/pyspigot/)
+
 # External Resources
 
 Here are some excellent resources you should check out for help with writing PySpigot scripts:
 
-- [Jython](https://jython.org/)
-- [Jython Documentation](https://jython.readthedocs.io/en/latest/)
 - [Spigot/Bukkit JavaDocs](https://hub.spigotmc.org/javadocs/spigot/index.html?overview-summary.html)
 - [Java API Specification](https://docs.oracle.com/en/java/javase/11/docs/api/index.html)
+- [Jython](https://jython.org/)
+- [Jython Documentation](https://jython.readthedocs.io/en/latest/)
 - There are several publicly-available online Python syntax checkers, here are a few:
 	- https://www.pythonchecker.com/
 	- https://extendsclass.com/python-tester.html
