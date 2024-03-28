@@ -4,6 +4,8 @@ Here is a very brief guide for creating your very first PySpigot script. If you 
 
 ## Download and Load PySpigot
 
+PySpigot is officially supported on Spigot and Paper and on Minecraft versions 1.12.2 and newer. I cannot guarantee that PySpigot will work outside of these conditions, but some users report success on other server softwares and/or older MC versions.
+
 Download the latest version of PySpigot from [GitHub](https://github.com/magicmq/pyspigot) or from [Spigot](https://www.spigotmc.org/resources/pyspigot.111006/). Drop the downloaded Jar file into your plugins folder and start your server.
 
 ## Creating Your First Script
