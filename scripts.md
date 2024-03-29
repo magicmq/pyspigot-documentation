@@ -32,7 +32,7 @@ Let's look at some code that loads, runs and unloads a script:
 ## Loading and Running a Script
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 from dev.magicmq.pyspigot.manager.script import RunResult
 
 loaded_script = ps.script.loadScript('script.py')
@@ -55,7 +55,7 @@ On line 7, we check if the outcome of running the script was `RunResult.SUCCESS`
 ## Unloading a Script
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 
 unload_result = ps.script.unloadScript('script.py')
 

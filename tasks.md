@@ -23,7 +23,7 @@ In addition to scheduling synchronous repeating tasks, the task manager has many
 Let's take a look at the following code that defines and starts a task:
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 
 def run_task():
     #Do something...

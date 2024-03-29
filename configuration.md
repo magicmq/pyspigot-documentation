@@ -28,7 +28,7 @@ Loading/reloading a config returns a `ScriptConfig` object. This object has many
 Let's take a look at the following code that loads a config, reads a number and string from it, writes to it, then saves it.
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 
 script_config = ps.config.loadConfig('test.yml')
 

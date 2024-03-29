@@ -25,7 +25,7 @@ There are three functions available from the placeholder manager for registering
 Let's look at the following code that defines and registers a placeholder:
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 
 def replace(offline_player, placeholder):
 	if placeholder == 'placeholder1':

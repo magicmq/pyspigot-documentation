@@ -25,7 +25,7 @@ There are five functions available for you to use in your script in the listener
 Let's look at the following code that defines and registers an event listener:
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 from org.bukkit.event.player import AsyncPlayerChatEvent
 
 def player_chat(event):

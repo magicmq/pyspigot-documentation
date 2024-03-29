@@ -2,19 +2,32 @@
 
 PySpigot contains a global variable system that is available to scripts at runtime. On the Java end, this system relies on a `HashMap`, which is a data structure that stores data in key:value pairs, much like a dict in Python. The intention of this system is to allow for shared variables across scripts. This feature might be useful if you are writing a system of scripts that rely on information from other scripts in order to function correctly.
 
+Changes to variables inserted into this global set are automatically visible to all scripts. There is no need to re-insert a variable into the global set of variables if its value changes.
+
 # Accessing the Global Variables System
 
 PySpigot's global variables system is accessed just like any of PySpigot's managers. There are three ways to access it:
 
+## Via the pyspgigot helper module
+
 ```python
 import pyspigot as ps
 
-global_vars = ps.global_vars()
+global_vars = ps.global_variables()
 
 global_vars.<function>
 ```
 
-Or:
+The pyspigot helper module also defines a couple common aliases for convenience. Both `ps.global_vars` and `ps.gv` work. For example:
+
+```python
+import pyspigot as ps
+
+ps.global_vars.<function>
+ps.gv.<function>
+```
+
+## Via the PySpigot class
 
 ```python
 from dev.magicmq.pyspigot import PySpigot as ps
@@ -24,13 +37,15 @@ global_vars = ps.global_vars
 global_vars.<function>
 ```
 
-Or:
+## Via a direct import
 
 ```python
 from dev.magicmq.pyspigot.manager.script import GlobalVariables as global_vars
 
 global_vars.get().<function>
 ```
+
+!> If you directly import, you must call `get()`!
 
 # Usage
 
@@ -63,6 +78,8 @@ global_vars.remove('test')
 In the above code, we set the variable `test` in the global variables system in script A. Then, we retrieve and print the value of `test` from script B, and remove the variable after we retrieve it.
 
 ?> Once a global variable is set in the global variables system, its value is updated automatically if it is changed, and all scripts will see this change. There is no need to set the variable to the system again if its value changes.
+
+!> Names are unique. If a new value is inserted into the set of global values with the same name as an existing value, then the old value will be overridden and inevitably lost.
 
 ## Avoiding Memory Leaks
 
@@ -135,6 +152,7 @@ The following is a list of available functions in the global variables system:
 - The global variables system allows for cross-script sharing of variables.
 - The global variables system is accessed just like any of PySpigot's managers.
 - Basic usage involves the `set`, `get`, and `remove` functions.
+- The names of global variables are unique. If a new variable is inserted with the same name as an existing variable, the old value will be lost.
 - The values of variables stored in the global variables system are updated automatically, and changes are automatically visible to scripts accessing them without needing to call the `set` function over again.
 - Global variables should be removed when scripts finish using them in order to avoid memory leaks.
 - The global variables system uses a Java HashMap, and this underlying HashMap can be accessed with the `getHashMap` function.
