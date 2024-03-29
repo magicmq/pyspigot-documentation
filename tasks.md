@@ -10,13 +10,13 @@ This is not a comprehensive guide to scheduling tasks. For a more complete guide
 
 In addition to scheduling synchronous repeating tasks, the task manager has many other functions to schedule other types of tasks as well as stop tasks:
 
-- `scheduler.runTask(function)`: Run a synchronous task as soon as possible. Takes the function to call when the task runs.
-- `scheduler.runTaskAsync(function)`: Run an asychronous task (a task on a thread other than the main server thread). Takes the function to call when the task runs.
-- `scheduler.runTaskLater(function, delay)`: Run a synchronous task at some point in the future after the specified delay. Takes the function to call when the task runs and the delay to wait (in ticks) before running the task.
-- `scheduler.runTaskLaterAsync(function, delay)`: Run an asynchronous task at some point in the future after the specified delay. Takes the function to call when the task runs and the delay to wait (in ticks) before running the task.
-- `scheduler.scheduleRepeatingTask(function, delay, interval)`: Run a synchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run.
-- `scheduler.scheduleAsyncRepeatingTask(function, delay, interval)`: Run an asynchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run.
-- `scheduler.stopTask(id)`: Stop/Cancel a task. Takes the id of the task to stop.
+- `runTask(function)`: Run a synchronous task as soon as possible. Takes the function to call when the task runs.
+- `runTaskAsync(function)`: Run an asychronous task (a task on a thread other than the main server thread). Takes the function to call when the task runs.
+- `runTaskLater(function, delay)`: Run a synchronous task at some point in the future after the specified delay. Takes the function to call when the task runs and the delay to wait (in ticks) before running the task.
+- `runTaskLaterAsync(function, delay)`: Run an asynchronous task at some point in the future after the specified delay. Takes the function to call when the task runs and the delay to wait (in ticks) before running the task.
+- `scheduleRepeatingTask(function, delay, interval)`: Run a synchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run.
+- `scheduleAsyncRepeatingTask(function, delay, interval)`: Run an asynchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run.
+- `stopTask(id)`: Stop/Cancel a task. Takes the id of the task to stop.
 
 # Code Example
 

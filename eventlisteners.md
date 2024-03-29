@@ -10,13 +10,13 @@ This is not a comprehensive guide to events in Bukkit. For a more complete guide
 
 There are five functions available for you to use in your script in the listener manager if you would like greater control over events or need more advanced event handling:
 
-- `listener.registerListener(function, event)`: Takes the function to call when event fires as well as the event to listen to. Returns a `ScriptEventListener`, which can be used to unregister the event later.
-- `listener.registerListener(function, event, priority)`: Same as above, except also allows you to define an event priority (how early/late your event listener should fire relative to other listeners for the same event). The priority is a string, and represents an Event priority. Returns a `ScriptEventListener`, which can be used to unregister the event later.
+- `registerListener(function, event)`: Takes the function to call when event fires as well as the event to listen to. Returns a `ScriptEventListener`, which can be used to unregister the event later.
+- `registerListener(function, event, priority)`: Same as above, except also allows you to define an event priority (how early/late your event listener should fire relative to other listeners for the same event). The priority is a string, and represents an Event priority. Returns a `ScriptEventListener`, which can be used to unregister the event later.
     - Event priorities are the same as the priorities found in Bukkit's [EventPriority class](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/EventPriority.html).
-- `listener.registerListener(function, event, ignoreCancelled)`: Allows you to "ignore" the event if it has been cancelled by another event listener. The listener in your script will not be called if it is cancelled elsewhere. Returns a `ScriptEventListener`, which can be used to unregister the event later.
+- `registerListener(function, event, ignoreCancelled)`: Allows you to "ignore" the event if it has been cancelled by another event listener. The listener in your script will not be called if it is cancelled elsewhere. Returns a `ScriptEventListener`, which can be used to unregister the event later.
     - This will only work with events that are [cancellable](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/event/Cancellable.html).
-- `listener.registerListener(function, event, priority, ignoreCancelled)`: Allows you to register an event that is ignored if cancelled *and* that has a priority (a combination of the previous two functions). Returns a `ScriptEventListener`, which can be used to unregister the event later.
-- `listener.unregisterListener(event_listener)`: Allows you to unregister an event listener from your script. Takes the event listener that was returned when the listener was registered.
+- `registerListener(function, event, priority, ignoreCancelled)`: Allows you to register an event that is ignored if cancelled *and* that has a priority (a combination of the previous two functions). Returns a `ScriptEventListener`, which can be used to unregister the event later.
+- `unregisterListener(event_listener)`: Allows you to unregister an event listener from your script. Takes the event listener that was returned when the listener was registered.
 
 ?> You **do not** need to unregister your event listeners when your script is stopped/unloaded. PySpigot will handle this for you.
 
