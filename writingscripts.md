@@ -47,15 +47,23 @@ All PySpigot scripts are designed to be *self-contained*, single files. This mea
 
 PySpigot scripts are placed in the `scripts` folder in PySpigot's main plugin folder. PySpigot will attempt to load any file in the `scripts` folder that ends in the `.py` extension. Any files in the `scripts` folder that do not end in `.py` will not be loaded.
 
+## Script Options
+
+There are a variety of options that can be set for each script, including whether or not it is enabled, dependencies, and logging options. These are set within the `script_options.yml` file in PySpigot's main plugin folder. For more information on script options, see the [Script Options](scriptoptions.md) page.
+
+!> Defining script options for each script is *optional*; scripts will function normally without explicitly-defined options.
+
 ## Script Loading
 
-PySpigot loads and runs all scripts in the scripts folder automatically and **in alphabetical order**. This means that if a script depends on another script, then you should name it such that it falls after the script it depends on alphabetically (so it loads after the script it depends on).
+PySpigot loads and runs all scripts in the scripts folder automatically on plugin load or server start. Script load order is determined by script dependencies as defined in the `script_options.yml` file. Scripts that don't list any dependencies are loaded in no predetermined order (randomly).
+
+Scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load. If you make changes to a script during runtime, you must reload it for changes to take effect. Reload scripts with `/pyspigot reload <scriptname>`.
 
 There is one config option related to loading scripts:
 
-- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts.
+- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts.
 
-Of course, scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load.
+More documentation on this module will be added later.
 
 ## Start and Stop Functions
 
@@ -67,39 +75,94 @@ If a `stop` function is defined in your script, it will be called by PySpigot wh
 
 ?> Both `start` and `stop` are optional, you do not need to define them in your script if they are not needed.
 
+## The pyspigot Helper Module
+
+As of version 0.5.0, PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is automatically placed into the `python-libs` folder on plugin load. This file is meant to be a read-only file; any changes made will be overridden. This behavior is intentional and ensures that any changes, additions, and fixes are always reflected on the user end.
+
+[Click here](https://github.com/magicmq/pyspigot/blob/master/src/main/resources/python-libs/pyspigot.py) to view the source code of the `pyspigot.py` module.
+
 ## PySpigot's Managers
 
 PySpigot provides a variety of managers to more easily work with parts of the Bukkit/Spigot API. For instructions on importing these into your script, see below. PySpigot managers currently include:
 
-- ListenerManager, for registering event listeners. This is accessed as `listener` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.listener.ListenerManager`.
-- CommandManager, for registering and working with commands. This is accessed as `commmand` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.command.CommandManager`
-- TaskManager, for registering a variety of repeating, delayed, and asynchronous tasks. This is accessed as `scheduler` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.task.TaskManager`
-- ConfigManager, for working with configuration files. This is accessed as `config` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.config.ConfigManager`
-- ProtocolManager, to work with ProtocolLib. This is accessed as `protocol` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.protocol.ProtocolManager`
-- PlaceholderManager, to work with PlaceholderAPI. This is accessed as `placeholder` under PySpigot, or imported individually as `dev.magicmq.pyspigot.manager.placeholder.PlaceholderManager`
+- ScriptManager, for loading and unloading scripts from within another script.
+- ListenerManager, for registering event listeners.
+- CommandManager, for registering and working with commands.
+- TaskManager, for registering a variety of repeating, delayed, and asynchronous tasks.
+- ConfigManager, for working with configuration files.
+- ProtocolManager, to work with ProtocolLib.
+- PlaceholderManager, to work with PlaceholderAPI.
 
-The following table summarizes how to access managers:
+Managers must be imported into your script inn order for you to access them. The following table summarizes how to access managers, but read the sections below for more detail on how to import them:
 
-| Manager             | Access Under PySpigot       | Standalone Import                                                         |
-| ------------------- | --------------------------- | ------------------------------------------------------------------------- |
-| Listener Manager    | `PySpigot.listener`         | `from dev.magicmq.pyspigot.manager.listener import ListenerManager`       |
-| Command Manager     | `PySpigot.command`          | `from dev.magicmq.pyspigot.manager.command import CommandManager`         |
-| Task Manager        | `PySpigot.scheduler`        | `from dev.magicmq.pyspigot.manager.task import TaskManager`               |
-| Config Manager      | `PySpigot.config`           | `from dev.magicmq.pyspigot.manager.config import ConfigManager`           |
-| Protocol Manager    | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager`       |
-| Placeholder Manager | `PySpigot.placeholder`      | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
+| Manager             | Access Via Helper Module         | Access Under PySpigot       | Standalone Import                                                         |
+| ------------------- | -------------------------------- | --------------------------- | ------------------------------------------------------------------------- |
+| Script Manager      | `pyspigot.script_manager()`      | `PySpigot.script`           | `from dev.magicmq.pyspigot.manager.script import ScriptManager`           |
+| Listener Manager    | `pyspigot.listener_manager()`    | `PySpigot.listener`         | `from dev.magicmq.pyspigot.manager.listener import ListenerManager`       |
+| Command Manager     | `pyspigot.command_manager()`     | `PySpigot.command`          | `from dev.magicmq.pyspigot.manager.command import CommandManager`         |
+| Task Manager        | `pyspigot.task_manager()`        | `PySpigot.scheduler`        | `from dev.magicmq.pyspigot.manager.task import TaskManager`               |
+| Config Manager      | `pyspigot.config_manager()`      | `PySpigot.config`           | `from dev.magicmq.pyspigot.manager.config import ConfigManager`           |
+| Protocol Manager    | `pyspigot.protocol_manager()`    | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager`       |
+| Placeholder Manager | `pyspigot.placeholder_manager()` | `PySpigot.placeholder`      | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
 
 !> The Protocol Manager and Placeholder Manager are *optional* managers. These managers should only be accessed if the ProtocolLib and/or PlaceholderAPI plugins are loaded and enabled.
 
-To utilize these managers, they must be imported into your script. This can be done in two ways:
+To utilize these managers, they must be imported into your script. This can be done in three ways:
+
+### Import managers via the pyspigot.py helper library
+
+As of version 0.5.0, PySpigot ships with a `pyspigot.py` helper module, which is automatically placed into the `python-libs` folder when the plugin is initialized. This module contains several functions to allow for access to all managers.
+
+```python
+import pyspigot as ps
+
+ps.script_manager().<function>
+ps.listener_manager().<function>
+ps.command_manager().<function>
+ps.task_manager().<function>
+ps.config_manager().<function>
+ps.protocol_manager().<function>
+ps.placeholder_manager().<function>
+```
+
+In the above code, the PySpigot library is imported as `ps`. Then, functions within the library are called to get each manager. Of course, you can also assign the needed managers to a variable for ease of use in multiple locations within your code, like so:
+
+```python
+import pyspigot as ps
+
+script = ps.script_manager()
+listener = ps.listener_manager()
+command = ps.command_manager()
+...
+
+script.<function>
+listener.<function>
+command.<function>
+...
+```
+
+The PySpigot helper module also includes a series of convenience variables for ease of access of managers. You'll see these common aliases used in example code throughout the documentation for PySpigot.
+
+```python
+import pyspigot as ps
+```
+
+- ScriptManager: `ps.script`, `ps.scripts`, `ps.sm`
+- ListenerManager: `ps.listener`, `ps.listeners`, `ps.lm`, `ps.event`, `ps.events`, `ps.em`
+- CommandManager: `ps.command`, `ps.commands`, `ps.cm`
+- TaskManager: `ps.scheduler`, `ps.scm`, `ps.tasks`, `ps.tm`
+- ConfigManager: `ps.config`, `ps.configs`, `ps.com`
+- ProtocolManager: `ps.protocol`, `ps.protocol_lib`, `ps.protocols`, `ps.pm`
+- PlaceholderManager: `ps.placeholder`, `ps.placeholder_api`, `ps.placeholders`, `ps.plm`
 
 ### Import all managers at once using the PySpigot class
 
-This is the preferred way to import managers as less code is required:
+This used to be the preferred way to access managers, but is no longer the preferred method as of version 0.5.0. This method is nevertheless still functional and can be used if desired.
 
 ```python
 from dev.magicmq.pyspigot import PySpigot as ps
 
+ps.script.<function>
 ps.listener.<function>
 ps.command.<function>
 ps.scheduler.<function>
@@ -108,18 +171,21 @@ ps.protocol.<function>
 ps.placeholder.<function>
 ```
 
-In the above code, PySpigot is imported as ps. Managers are called using their simplified name, `listener` for ListenerManager, `command` for CommandManager, `scheduler` for TaskManager, `config` for ConfigManager, and `protocol` for ProtocolManager.
+In the above code, PySpigot is imported as ps. Managers are called using their simplified name, `script` for ScriptManager, `listener` for ListenerManager, `command` for CommandManager, `scheduler` for TaskManager, `config` for ConfigManager, and `protocol` for ProtocolManager.
 
 ### Import each manager individually:
 
-```python
+You can also import each manager class individually, directly from PySpigot's Java code.
 
+```python
+from dev.magicmq.pyspigot.manager.script import ScriptManager as script
 from dev.magicmq.pyspigot.manager.listener import ListenerManager as listener
 from dev.magicmq.pyspigot.manager.command import CommandManager as command
 from dev.magicmq.pyspigot.manager.task import TaskManager as scheduler
 from dev.magicmq.pyspigot.manager.config import ConfigManager as config
 from dev.magicmq.pyspigot.manager.protocol import ProtocolManager as protocol
 
+script.get().<function>
 listener.get().<function>
 command.get().<function>
 ...
@@ -129,18 +195,9 @@ command.get().<function>
 
 ## Global Variables
 
-PySpigot assigns a variable to the local namespace called `global` that is available to all loaded scripts. On the Java end, this variable is a `HashMap`, which stores data in key:value pairs, much like a dict in Python. The intention of this variable is to act as a global set of variables. This is a nifty feature if you would like to share variables/values across multiple different scripts.
+PySpigot assigns a variable to the local namespace called `global` that is available to all loaded scripts. On the Java end, this variable is a `HashMap`, which stores data in key:value pairs, much like a dict in Python. The intention of this system is to act as a global set of variables. This is a nifty feature if you would like to share variables/values across multiple different scripts.
 
-Changes to variables inserted into this global set are automatically visible to all scripts. There is no need to re-insert a variable into the global set of variables if its value changes.
-
--   `global.put(name, value)`: Inserts a new value into the global set of variables with the given name.
--   `global.get(name)`: Retrieves a value from the global set of variables. Will return `None` if no value is found.
--   `global.remove(name)`: Removes a value from the global set of variables with the given name.
--   `global.containsKey(name)`: Returns `True` if there is a value in the set of global variables with the given name, `False` if otherwise.
-
-!> Names are unique. If a new value is inserted into the set of global values with the same name as an existing value, then the old value will be overridden and inevitably lost.
-
-For more advanced usage, see the [JavaDocs for HashMap](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html) for a complete list of available functions.
+See the [Global Variables](globalvariables.md) page for detailed information on how to use the global variables system.
 
 ## Script Errors
 
@@ -172,9 +229,9 @@ Because PySpigot is an active project in youth stages of development, you may en
 
 Like scripts themselves, a script's logger is self-contained. Each script has its own logger, which is a subclass of [java.util.logging.Logger](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html).
 
-If you would like to print log messages in your script, it is highly recommended to use a script's respective logger. Using Python's `print` function works, but it will not automatically indicate which script the message came from (unless if you add this to the message yourself). `print` will also not log messages to a script's log file.
+PySpigot creates a new logger for each running script. A script's logger is automatically assigned to its global namespace under the variable name `logger`. To access your script's logger, use the `logger` variable.
 
-To access your script's logger, use the `logger` variable. PySpigot automatically assigns this when a script is loaded for convenience.
+If you would like to print log messages in your script, it is highly recommended to use a script's respective logger. Using Python's `print` function works, but it will not automatically indicate which script the message came from (unless if you add this to the message yourself). `print` will also not log messages to a script's log file.
 
 When accessing your script's logger, you can use any of the functions listed [here](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html). PySpigot adds two additional functions for convenience:
 

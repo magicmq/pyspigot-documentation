@@ -27,7 +27,7 @@ The command manager makes several functions available to you to register and unr
 Let's look at the following code that defines and registers a command:
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 
 def kick_command(sender, label, args):
     #Do something...

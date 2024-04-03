@@ -16,6 +16,13 @@ There are several functions available from the protocol manager for registering 
 - `registerPacketListener(function, packet_type, listener_priority)`: `listener_priority` is a the priority of the listener. This is analogous to EventPriority for Bukkit events.
     - For information on listener priority, see ProtocolLib's [ListenerPriority class](https://ci.dmulloy2.net/job/ProtocolLib/javadoc/com/comphenix/protocol/events/ListenerPriority.html).
 - `unregisterPacketListener(packet_listener)`: Takes a packet listener returned by one of the register functions.
+- `createPacket(packet_type)`: Creates and returns a packet with the given type. See the [PacketType class](https://ci.dmulloy2.net/job/ProtocolLib/javadoc/com/comphenix/protocol/PacketType.html).
+- `sendServerPacket(player, packet)`: Sends a packet to the provided player.
+- `broadcastServerPacket(packet)`: Broadcasts a packet to all players on the server.
+- `broadcastServerPacket(packet, entity)`: Broadcasts a packet to all players who are monitoring the given entity at the time of the packet being sent.
+- `broadcastServerPacket(packet, entity, include_tracker)`: Broadcasts a packet to all players who are monitoring the given entity. `includeTracker` is used to specify if the packet should also be broadcasted to the entity (in addition to the players tracking the entity), e.g. `true` or `false`.
+- `broadcastServerPacket(packet, origin, max_observer_distance)`: Broadcasts a packet to all players within a given max observer distance from an origin location (center point).
+- `broadcastServerPacket(packet, target_players)`: Broadcasts a packet to a list of target players.
 
 ?> You **do not** need to unregister your packet listeners when your script is stopped/unloaded. PySpigot will handle this for you.
 
@@ -26,7 +33,7 @@ The protocol manager also supports registering asynchronous listeners. Asynchron
 To get the asynchronous protocol manager, call `async()`. For example,
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 
 async_manager = ps.protocol.async()
 ```
@@ -46,7 +53,7 @@ The following functions are avialable for use from the asynchronous protocol man
 Let's look at the following code that defines and registers a chat packet listener:
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 from com.comphenix.protocol import PacketType
 
 def chat_packet_event(event):

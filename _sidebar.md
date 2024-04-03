@@ -6,12 +6,15 @@
 - Writing Scripts
 
 	- [General Information](writingscripts.md)
-	- [External Libraries](librarymanager.md)
+	- [Script Options](scriptoptions.md)
+	- [Global Variables](globalvariables.md)
+	- [External Libraries](externallibraries.md)
 	- [Helpful Resources](externalresources.md)
 	- [Example Scripts](examples.md)
 
 - Managers
 
+	- [Script Manager](scripts.md)
 	- [Command Manager](commands.md)
 	- [Config Manager](configuration.md)
 	- [Listener Manager](eventlisteners.md)

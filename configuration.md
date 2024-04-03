@@ -10,16 +10,16 @@ This is not a comprehensive guide to working with config files. For more complet
 
 The following functions are available from the config manager:
 
-- `config.loadConfig(name)`: This loads/creates the config, as described above. Takes the name of the file you wish to load or create. Returns a `ScriptConfig` object representing the config that was loaded/created.
-- `config.reloadConfig(config)`: This reloads a config in case there any changes to the file that need to be loaded in. Takes the config (a `ScriptConfig`) to reload. Returns another `ScriptConfig` object representing the config that was reloaded.
+- `loadConfig(name)`: This loads/creates the config, as described above. Takes the name of the file you wish to load or create. Returns a `ScriptConfig` object representing the config that was loaded/created.
+- `reloadConfig(config)`: This reloads a config in case there any changes to the file that need to be loaded in. Takes the config (a `ScriptConfig`) to reload. Returns another `ScriptConfig` object representing the config that was reloaded.
 
 # ScriptConfig Usage
 
 Loading/reloading a config returns a `ScriptConfig` object. This object has many methods/functions that you can use:
 
-- `script_config.set(key, value)`: Set a value in the config at the given key. Takes a key representing the key to write to and value which is the value to write.
-- `script_config.save()`: This saves the config so that any values you set will be persistent.
-- For a complete list of methods/functions you can use to retrieve data from a config file, see [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html). 
+- `set(key, value)`: Set a value in the config at the given key. Takes a key representing the key to write to and value which is the value to write.
+- `save()`: This saves the config so that any values you set will be persistent.
+- There are also multiple functions available for getting data from your config. For a complete list of methods/functions you can use to retrieve data from a config file, see [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html). 
 
 !> Changes to the config are not saved to the file automatically! You *must* call `save` to write changes to the config file.
 
@@ -28,7 +28,7 @@ Loading/reloading a config returns a `ScriptConfig` object. This object has many
 Let's take a look at the following code that loads a config, reads a number and string from it, writes to it, then saves it.
 
 ```python
-from dev.magicmq.pyspigot import PySpigot as ps
+import pyspigot as ps
 
 script_config = ps.config.loadConfig('test.yml')
 
