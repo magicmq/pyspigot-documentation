@@ -4,6 +4,7 @@ This tutorial provides an overview of PySpigot only, and does not cover in detai
 
 There are a few basic things to keep in mind when writing PySpigot scripts:
 
+- PySpigot officially supports Spigot and Paper on Minecraft versions 1.12.2 and newer.
 - Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
 - Scripts are placed in the `scripts` folder under the PySpigot plugin folder.
@@ -244,3 +245,39 @@ As stated above, each script has its own log file, and these can be found in the
 You may also change which messages are logged to a script's log file. To do so, edit the `min-log-level` value in the config.yml. Use Java's [Logging levels](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html).
 
 You may also change the format of time stamps within script logs files. To do so, edit the `log-timestamp-format` value in the config.yml. Use a format that conforms to Java's [DateTimeFormatter](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html).
+
+## Non-ASCII Characters in Script Files
+
+Jython reads and compiles script files using ASCII encoding. This means that it won't recognize non-ASCII characters in the file. You may see a `SyntaxError` when you load a script with non-ASCII characters. Additionally, in Python 2, the `str` type is a collection of 8-bit characters. Consequently, all characters in the English alphabet (and some basic symbols) can be represented using these 8-bit characters, but special symbols and characters from non-Latin alphabets cannot. There are a couple ways to work around these two constraints:
+
+### Workaround 1
+
+Jython allows you to specify the encoding of your script file. This is done by specifying an [encoding declaration](https://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations) in your script. This ensures that when Jython reads and compiles the file, it will recognize the non-ASCII characters. Add the following to the *first or second line* of your script file:
+
+`#coding: utf-8`
+
+Of course, you can replace `utf-8` with whatever character encoding standard you'd like Jython to use. For a list of supported encoding schemes, see [this page](https://docs.python.org/2/library/codecs.html#standard-encodings).
+
+!> You must put the encoding declaration on either the first or second line of your script, as Jython only searches for encoding declarations in this area.
+
+Python 2 includes a `unicode` type, which supports all UTF-8 characters (symbols, non-Latin alphabets, etc.). You can specify that you want to use the `unicode` type for the string (and not `str`) by adding a preceding `u`. For example:
+
+```python
+#coding: utf-8
+
+from org.bukkit import Bukkit
+
+Bukkit.broadcastMessage(u'Привет, мир!')
+```
+
+Notice that a `u` directly proceeds the string. This denotes that the string should be treated as a unicode string.
+
+### Workaround 2
+
+You can use also use the hex codes of the unicode characters you want to write. You will still need to denote that the string is a unicode string by adding a preceding `u`, but you don't need to add an encoding declaration at the top of your script file since you aren't actually writing any non-ASCII characters in the file. For example:
+
+```python
+from org.bukkit import Bukkit
+
+Bukkit.broadcastMessage(u'\u041f\u0440\u0438\u0432\u0435\u0442, \u043c\u0438\u0440!')
+```
