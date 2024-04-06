@@ -47,7 +47,7 @@ If you're running an outdated version of PySpigot, you'll see notifications in t
 - In the console, when the plugin loads (such as on server start).
 - In chat when you log into your server. This message is only displayed to players with the permission `pyspigot.admin`.
 
-?> It is recommended that you always use the latest version of PySpigot. Because the plugin is in its early stages of developmnt, newer versions likely contain key bug fixes and improvements.
+?> It is recommended that you always use the latest version of PySpigot. Because the plugin is in its early stages of development, newer versions likely contain important bug fixes and improvements.
 
 ### Discord
 
