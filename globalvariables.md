@@ -55,7 +55,7 @@ Script A:
 ```python
 import pyspigot as ps
 
-global_vars = ps.global_vars()
+global_vars = ps.global_variables()
 
 test = 'Global variable'
 
@@ -66,7 +66,7 @@ Script B:
 ```python
 import pyspigot as ps
 
-global_vars = ps.global_vars()
+global_vars = ps.global_variables()
 
 test = global_vars.get('test')
 
