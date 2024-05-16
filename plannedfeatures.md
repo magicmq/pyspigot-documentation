@@ -2,6 +2,7 @@
 
 PySpigot is an evolving project. I have several features planned for future releases. This is a non-comprehensive list of features I plan on adding in the future:
 
+- Add more example scripts, including one that demonstrates how to create a GUI menu
 - Add support for MySQL, Postgres, MonogDB, redis, and other databases
 - Add support for autocompletion in IDE/text editor when writing scripts
 - Add support for calling PySpigot methods from scripts with \*args and \*kwargs (both non-keyword and keyword arguments)
