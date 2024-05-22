@@ -77,7 +77,9 @@ If a `stop` function is defined in your script, it will be called by PySpigot wh
 
 ## The pyspigot Helper Module
 
-As of version 0.5.0, PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is automatically placed into the `python-libs` folder on plugin load. This file is meant to be a read-only file; any changes made will be overridden. This behavior is intentional and ensures that any changes, additions, and fixes are always reflected on the user end.
+As of version 0.5.0, PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is automatically placed into the `python-libs` folder on plugin load.
+
+PySpigot includes an automated system to automatically update the `pyspigot.py` helper module when changes are detected. This feature can be disabled if desired by setting the `auto-pyspigot-lib-update-enabled` option under `debug-options` in the config.yml file to `false`. It is recommended that you leave this enabled to ensure that any changes, additions, and fixes are always reflected on the user end.
 
 [Click here](https://github.com/magicmq/pyspigot/blob/master/src/main/resources/python-libs/pyspigot.py) to view the source code of the `pyspigot.py` module.
 

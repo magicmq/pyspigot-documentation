@@ -13,8 +13,16 @@ The base command for PySpigot is `/pyspigot`.
 Displays several helpful links, including the documentation (this site), the PySpigot plugin page on Spigot, the official Discord, and a link to report issues/bugs on GitHub.
 
 - Syntax: `/pyspigot help`
-- Aliases: `gethelp`, `info`, `getinfo`
+- Aliases: `gethelp`
 - Permission: `pyspigot.command.help`
+
+## Info Command
+
+Displays detailed information about a script, including uptime, registered listeners, commands, tasks, and more information.
+
+- Syntax: `/pyspigot info <scriptname>`
+- Aliases: `scriptinfo`
+- Permission: `pyspigot.command.info`
 
 ## ListScripts Command
 

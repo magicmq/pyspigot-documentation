@@ -8,6 +8,8 @@ PySpigot is a Python scripting engine that allows you to write Python scripts th
 
 **PySpigot officially supports Spigot and Paper on Minecraft versions 1.12.2 and newer.** I have seen anecdotal evidence from users that PySpigot works on other server softwares and on versions as old as 1.4.7, but I cannot guarantee that PySpigot works outside of what it's been tested on.
 
+**PySpigot is built using JDK 17.** This means that it will only work on Java 17 and above.
+
 ## Features
 
 - Load scripts on server start and via commands

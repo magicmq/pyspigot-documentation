@@ -8,7 +8,7 @@ PySpigot is an evolving project. I have several features planned for future rele
 - Add support for calling PySpigot methods from scripts with \*args and \*kwargs (both non-keyword and keyword arguments)
 - Script loading delay on a per-script basis
 - Support for scripts on BungeeCord/Waterfall/Velocity proxy server
-- Add per-script metrics (uptime, number of listeners registered, commands registered, etc.) that can be viewed via command
+- :heavy_check_mark: ~~Add per-script metrics (uptime, number of listeners registered, commands registered, etc.) that can be viewed via command~~
 - :heavy_check_mark: ~~Ability to create and send packets via protocol manager (through ProtocolLib)~~
 - :heavy_check_mark: ~~Allow scripts to stop themselves as well as start/stop other scripts (via script manager)~~
 - :heavy_check_mark: ~~Per-script logging (log to file as well as to console for each script)~~
