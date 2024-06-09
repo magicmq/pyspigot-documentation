@@ -2,6 +2,8 @@
 
 PySpigot has several commands available to use, mostly for loading, unloading, and reloading scripts. They are all documented here.
 
+In general, when a command takes a script name, this is the name of the file *only*. This also holds true if the script file is located within a subfolder. For example, if you have a script with the path `scripts/test/test.py`, you should reference it by the file name only (`test.py`). To load it, you would run the command `/pyspigot load test.py`. PySpigot automatically searches the `scripts` folder for a matching script file based on the name you provide, so you don't need to specify the full path of the script file.
+
 The base command for PySpigot is `/pyspigot`.
 
 - Syntax: `/pyspigot <argument>`

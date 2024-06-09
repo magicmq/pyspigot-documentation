@@ -7,7 +7,7 @@ There are a few basic things to keep in mind when writing PySpigot scripts:
 - PySpigot officially supports Spigot and Paper on Minecraft versions 1.12.2 and newer.
 - Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
-- Scripts are placed in the `scripts` folder under the PySpigot plugin folder.
+- Scripts are placed in the `scripts` folder under the PySpigot plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders.
 - Avoid using the variable names `global` and `logger`. These variable names are assigned automatically at runtime. More information on these below.
 - Scripts are functionally isolated from one another. With the exception of the `global` variable (see the [Global Variables](#global-variables) section below), nothing is shared across scripts.
 - To make use of any of the managers that PySpigot provides (such as registering listeners, tasks, etc.), they must be imported into your script. See the section below on Making Use of PySpigot's Managersfor details.
@@ -45,7 +45,9 @@ If you want to use a standard Python module in your script, try importing it. If
 
 All PySpigot scripts are designed to be *self-contained*, single files. This means that each script will, at most, consist of one file only. Additionally, scripts are *isolated* from one another, meaning they do not share variables, functions, or scope. Scripts are capable of interacting with one another in various ways (more detail on this below), but think of each .py file in the `scipts` folder as an individual entity, executed in its own environment.
 
-PySpigot scripts are placed in the `scripts` folder in PySpigot's main plugin folder. PySpigot will attempt to load any file in the `scripts` folder that ends in the `.py` extension. Any files in the `scripts` folder that do not end in `.py` will not be loaded.
+PySpigot scripts are placed in the `scripts` folder, which can be found in PySpigot's main plugin folder. Creation of subfolders within the `scripts` folder for organizational purposes is supported. PySpigot will attempt to load any file in the `scripts` folder (including in subfolders) that ends in the `.py` extension. Any files in the `scripts` folder that do not end in `.py` will not be loaded.
+
+!> Script names must be unique, as their names are used to identify them at runtime. This caveat also applies if you are using subfolders within the `scripts` folder. For example, `scripts/folder1/test.py` and `scripts/folder2/test.py` will conflict, but `scripts/folder1/test.py` and `scripts/folder2/test2.py` will not.
 
 ## Script Options
 
@@ -55,7 +57,7 @@ There are a variety of options that can be set for each script, including whethe
 
 ## Script Loading
 
-PySpigot loads and runs all scripts in the scripts folder automatically on plugin load or server start. Script load order is determined by script dependencies as defined in the `script_options.yml` file. Scripts that don't list any dependencies are loaded in no predetermined order (randomly).
+PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by script dependencies as defined in the `script_options.yml` file. Scripts that don't list any dependencies are loaded in no predetermined order (randomly).
 
 Scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load. If you make changes to a script during runtime, you must reload it for changes to take effect. Reload scripts with `/pyspigot reload <scriptname>`.
 
