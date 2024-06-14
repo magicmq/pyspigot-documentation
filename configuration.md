@@ -10,8 +10,12 @@ This is not a comprehensive guide to working with config files. For more complet
 
 The following functions are available from the config manager:
 
-- `loadConfig(name)`: This loads/creates the config, as described above. Takes the name of the file you wish to load or create. Returns a `ScriptConfig` object representing the config that was loaded/created.
-- `reloadConfig(config)`: This reloads a config in case there any changes to the file that need to be loaded in. Takes the config (a `ScriptConfig`) to reload. Returns another `ScriptConfig` object representing the config that was reloaded.
+- `doesConfigExist(filePath)`: This checks if a config file exists under the given name or path. Returns `True` if the file exists, `False` if it does not.
+- `loadConfig(filePath)`: This loads the config, and will create a file automatically if one does not already exist. Takes the name or path of the file you wish to load and/or create. Returns a `ScriptConfig` object representing the config that was loaded/created.
+- `reloadConfig(config)`: This reloads a config in case there any changes to the file that need to be loaded in. Takes the config (a `ScriptConfig` object) to reload. Returns another `ScriptConfig` object representing the config that was reloaded.
+- `deleteConfig(filePath)`: This will delete the config file with the specified name or path. Returns `True` if a file was deleted, `False` if no file existed previously under the provided name or path.
+
+?> The ConfigManager allows for usage of subfolders when working with script config files for organizational purposes. Simply pass the config file as a path to the above methods that accept a `filePath` parameter. For example, `ps.config_manager.loadConfig('test_script/config.yml')` will load the `config.yml` file in the `test_script` subfolder within the `configs` folder.
 
 # ScriptConfig Usage
 
@@ -41,7 +45,7 @@ script_config.save()
 
 On line 1, we import PySpigot as `ps` to utilize the config manager (`config`).
 
-On line 3, we load the config using the config manager. Fortunately, the config manager is loaded into the local namespace at runtime as a variable called `config`, so you do not need to access it manually. The `loadConfig` function takes a string representing the name of the config file to load. If the file does not exist, it will create it automatically.
+On line 3, we load the config using the config manager. Fortunately, the config manager is easily accessible from the `pyspigot` helper module under the variable name `config`, for easy access. The `loadConfig` function takes a string representing the name of the config file to load. If the file does not exist, it will create it automatically.
 
 On lines 5 and 6, we read a number and a string from the config, respectively, by using `getInt` and `getString`.
 
@@ -90,7 +94,7 @@ Of course, you may also nest lists, sets, tuples, and additional dictionaries wi
 ## To summrize: {docsify-ignore}
 
 - Scripts can load and save to config files that are automatically stored in PySpigot\'s plugin folder in the `configs` folder.
-- To load a config, use `config.load(name)`. The `name` parameter is the name of the config file you wish to load (including the `.yml` extension). If the config file does not exist, it will be created for you automatically. This returns a `ScriptConfig` object that is used to access the contents of the config and write to the config.
+- To load a config, use `config.load(filePath)`. The `filePath` parameter is the name *or* path of the config file you wish to load (including the `.yml` extension). If the config file does not exist, it will be created for you automatically. This returns a `ScriptConfig` object that is used to access the contents of the config and write to the config.
 - For all available functions/methods to get values from a loaded config, see the [Javadocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html).
 - To set a value in a config, use `script_config.set(key, value)`, where `key` is the key you wish to write to and `value` is the value to write.
 - Finally, to save a config, use `script_config.save()`.
