@@ -96,6 +96,8 @@ PySpigot provides a variety of managers to more easily work with parts of the Bu
 - ConfigManager, for working with configuration files.
 - ProtocolManager, to work with ProtocolLib.
 - PlaceholderManager, to work with PlaceholderAPI.
+- DatabaseManager, to connect to and interact with SQL-type and Mongo databases.
+- RedisManager, to connect to and interact with a Redis server instance.
 
 Managers must be imported into your script inn order for you to access them. The following table summarizes how to access managers, but read the sections below for more detail on how to import them:
 
@@ -108,6 +110,8 @@ Managers must be imported into your script inn order for you to access them. The
 | Config Manager      | `pyspigot.config_manager()`      | `PySpigot.config`           | `from dev.magicmq.pyspigot.manager.config import ConfigManager`           |
 | Protocol Manager    | `pyspigot.protocol_manager()`    | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager`       |
 | Placeholder Manager | `pyspigot.placeholder_manager()` | `PySpigot.placeholder`      | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
+| Database Manager    | `pyspigot.database_manager()`    | `PySpigot.database`         | `from dev.nagicmq.pyspigot.manager.database import DatabaseManager`       |
+| Redis Manager       | `pyspigot.redis_manager()`       | `PySpigot.redis`            | `from dev.magicmq.pyspigot.manager.redis import RedisManager`             |
 
 !> The Protocol Manager and Placeholder Manager are *optional* managers. These managers should only be accessed if the ProtocolLib and/or PlaceholderAPI plugins are loaded and enabled.
 
@@ -127,6 +131,8 @@ ps.task_manager().<function>
 ps.config_manager().<function>
 ps.protocol_manager().<function>
 ps.placeholder_manager().<function>
+ps.database_manager().<function>
+ps.redis_manager().<function>
 ```
 
 In the above code, the PySpigot library is imported as `ps`. Then, functions within the library are called to get each manager. Of course, you can also assign the needed managers to a variable for ease of use in multiple locations within your code, like so:
@@ -158,6 +164,8 @@ import pyspigot as ps
 - ConfigManager: `ps.config`, `ps.configs`, `ps.com`
 - ProtocolManager: `ps.protocol`, `ps.protocol_lib`, `ps.protocols`, `ps.pm`
 - PlaceholderManager: `ps.placeholder`, `ps.placeholder_api`, `ps.placeholders`, `ps.plm`
+- DatabaseManager: `ps.database`
+- RedisManager: `ps.redis`
 
 ### Import all managers at once using the PySpigot class
 
