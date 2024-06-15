@@ -16,11 +16,15 @@ There are several functions in the task manager available for you to use in your
 - `runTaskLaterAsync(function, delay, functionArgs)`: Run an asynchronous task at some point in the future after the specified delay. Takes the function to call when the task runs and the delay to wait (in ticks) before running the task. Also takes any number of arguments that should be passed to the function when the task runs.
 - `scheduleRepeatingTask(function, delay, interval, functionArgs)`: Run a synchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run. Also takes any number of arguments that should be passed to the function when the task runs.
 - `scheduleAsyncRepeatingTask(function, delay, interval, functionArgs)`: Run an asynchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run. Also takes any number of arguments that should be passed to the function when the task runs.
+- `runSyncCallbackTask(function, callback, functionArgs)`: Schedules an asynchronous task with a synchronous callback. Takes the function to call for the asynchronous portion, and another function to call for the synchronous portion. Also takes any number of arguments that should be passed to the function (asynchronous portion) when the task runs.
+- `runSyncCallbackTaskLater(function, callback, delay, functionArgs)`: Schedules an asynchronous task with a synchronous callback to run at some point in the future after the specified delay. Takes the function to call for the asynchronous portion, another function to call for the synchronous portion, and the delay to wait (in ticks) before running the task. Also takes any number of arguments that should be passed to the function (asynchronous portion) when the task runs.
 - `stopTask(id)`: Stop/Cancel a task. Takes the id of the task to stop.
 
-?> In the above functions, `functionArgs` is an optional argument. If the function to call does not accept any arguments, you do not need to specify any.
+Any time a task is scheduled, a task id (`int`) is returned. This is used to cancel the task later if desired.
 
-20 ticks of in-game time is one real-world second (assuming there is no server tick lag).
+In the above functions, `functionArgs` is an optional argument. If the function to call does not accept any arguments, you do not need to specify any.
+
+?> 20 ticks of in-game time is one real-world second (assuming there is no server tick lag). Therefore, one tick is equal to 1/20 of a second.
 
 # Code Example
 
@@ -71,6 +75,43 @@ task_id = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100, a_string, another
 This example is very similar to the first, except that we define another string (`another_string`) and pass it (as well as `a_string`) to the task manager when we register the task on line 8. These two strings are then passed, in order, to `run_task` when it is called by the task.
 
 As you can see, all arguments to be passed are added at the end of the function that registers the task, in the appropriate order that they should be passed.
+
+## Callback Tasks
+
+The task manager also includes a callback task, which is a special task that runs asynchronously, then runs another synchronous task upon completion of the asynchronous task. This task type is quite useful in situations where you want to do work asynchronously, and then process the work in a sychronous context. For example, consider a situation where a server has an SQL database that stores player data. When a player joins, the data should be fetched from the database asynchronously to avoid server lag, but it can't be applied to the player asynchronously, since all interaction with Bukkit and the server should be done synchronously. Therefore, a synchronous callback is useful in this situation to bring the data that was obtained from the database back to the main server thread for further processing and to apply it to the player.
+
+### Code Example
+
+The following is a simple example of how to use a callback task:
+
+```python
+import pyspigot as ps
+
+def async_task():
+    print('Asynchronous!')
+    data = 'some data'
+    return data
+
+def sync_task(data):
+    print('Synchronous!')
+    print(data)
+
+ps.runSyncCallbackTask(async_task, sync_task)
+```
+
+The following conosle output is observed:
+
+```
+[STDOUT] Asynchronous!
+[STDOUT] Synchronous!
+[STDOUT] some data
+```
+
+There are a few things to unpack with this example:
+
+- First, there are separate functions defined for the asynchronous and synchronous portions of the callback task.
+- Second, the asynchronous task happens *first*, and the synchronous task will not begin execution until the asynchronous task *finishes*.
+- Third, any data returned from the asynchrounous portion of the task (such as the return statement on line 6 of the above example) is passed as a function argument to the synchronous portion of the task (`sync_task` above takes the argument `data`). This allows for synchronous processing of whatever data was retrieved in the asynchronous portion of the task.
 
 ## To summarize: {docsify-ignore}
 
