@@ -204,8 +204,6 @@ documents = mongo.getDocuments('test', 'test_collection')
 
 for document in documents:
     print(document)
-
-print(document)
 ```
 
 !> The above code is run sycnchronously. As outlined above, it is best to interact with an external database server in an asychronous context to avoid server lag.
