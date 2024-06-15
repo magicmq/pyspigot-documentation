@@ -67,6 +67,12 @@ There is one config option related to loading scripts:
 
 More documentation on this module will be added later.
 
+## Script Permissions
+
+PySpigot allows scripts to define a list of permissions that it uses. This is useful if scripts want to restrict access to certain features. Script permissions are initialized and loaded just prior to parsing and executing the script's code, and are removed just after a script is stopped.
+
+Script permissions are defined in the `script_options.yml` file. For more information on how to define permissions, see the [documentation for script options](scriptoptions.md#permissions).
+
 ## Start and Stop Functions
 
 There are two special functions you may include in your PySpigot scripts: `start` and `stop`. Both take no parameters.
