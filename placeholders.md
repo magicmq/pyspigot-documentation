@@ -30,7 +30,7 @@ import pyspigot as ps
 def replace(offline_player, placeholder):
 	if placeholder == 'placeholder1':
 		return "Replace placeholder 1!"
-	else if placeholder == 'placeholder2':
+	elif placeholder == 'placeholder2':
 		return "Replace placeholder 2!"
 
 placeholder = ps.placeholder.registerPlaceholder(replace)
