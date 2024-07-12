@@ -96,7 +96,7 @@ def sync_task(data):
     print('Synchronous!')
     print(data)
 
-ps.runSyncCallbackTask(async_task, sync_task)
+ps.scheduler.runSyncCallbackTask(async_task, sync_task)
 ```
 
 The following conosle output is observed:
