@@ -5,18 +5,18 @@ This tutorial provides an overview of PySpigot only, and does not cover in detai
 There are a few basic things to keep in mind when writing PySpigot scripts:
 
 - PySpigot officially supports Spigot and Paper on Minecraft versions 1.12.2 and newer.
-- Under the hood, PySpigot utilizes GraalPy, a Java implementation of Python.
+- Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
 - Scripts are placed in the `scripts` folder under the PySpigot plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders.
 - Avoid using the variable names `global` and `logger`. These variable names are assigned automatically at runtime. More information on these below.
 - Scripts are functionally isolated from one another. With the exception of the `global` variable (see the [Global Variables](#global-variables) section below), nothing is shared across scripts.
 - To make use of any of the managers that PySpigot provides (such as registering listeners, tasks, etc.), they must be imported into your script. See the section below on Making Use of PySpigot's Managersfor details.
 
-## A Note About GraalPython
+## A Note About Jython
 
-Under the hood, PySpigot utilizes GraalPython (often abbreviated GraalPy), a high-performance implementation of the Python language that runs on the JVM (Java runtime). More specifically, PySpigot uses a special, embedded version of GraalPy called [Polyglot](https://www.graalvm.org/latest/reference-manual/polyglot-programming/) that is designed for use in standalone Java applications (such as this Bukkit plugin). Polyglot itself uses [Truffle](https://www.graalvm.org/latest/graalvm-as-a-platform/language-implementation-framework/) and the [Sulong LLVM Runtime](https://github.com/oracle/graal/tree/master/sulong).
+Under the hood, PySpigot utilizes Jython, a Java implementation of Python. The PySpigot jar file is quite large in comparison to other Spigot plugins because Jython (as well as its dependencies) are bundled into PySpigot.
 
-Without getting overly technical, GraalPy essentially works by dynamically compiling Python source files (I.E. scripts) into Python bytecode, which is then read by a Java application. This means that scripts written in Python have native access to the entire Java class path, making it very easy to work with the Spigot API and other aspects of the Minecraft server. Consider the following example:
+Jython is written such that scripts are compiled and interpreted entirely in Java. This means that scripts have native access to the entire Java class path at runtime, making it very easy to work with the Spigot API and other aspects of the server. Consider the following example:
 
 ```python
 from org.bukkit import Bukkit
@@ -27,19 +27,19 @@ online_players = Bukkit.getOnlinePlayers() for player in online_players:
 player.teleport(teleport_location)
 ```
 
-As you can see from the above code block, working with Java classes/objects is intuitive. Should you have any trouble interfacing with Java, GraalPy has an [excellent documentation](https://www.graalvm.org/latest/reference-manual/python/) and [JavaDocs](https://www.graalvm.org/sdk/javadoc/org/graalvm/polyglot/package-summary.html). PySpigot also has a Discord server where you're free to ask questions and solicit help.
+As you can see from the above code block, working with Java classes/objects is intuitive. Should you have any trouble interfacing with Java, Jython has fairly well-written documentation you can check out [here](https://jython.readthedocs.io/en/latest/).
 
-For more information about GraalPy, visit [graalvm.org](https://www.graalvm.org/python/).
+Currently, the latest version of Jython implements Python 2. Thus, for now, PySpigot scripts are written in Python 2. While some may see this as a drawback, Python 2 is usually sufficient for the vast majority of use cases of PySpigot, and I have not yet found any case where a Python 3 feature was required for script functionality. The developers of Jython intend on implementing Python 3 in a future release of Jython, but the expected timeframe of this update is unclear. Work is ongoing on the [Jython GitHub repository](https://github.com/jython/jython).
 
-?> GraalPython uses Python 3 syntax and libraries.
-
-### Regarding Jython
-
-Prior to version 0.7.0, PySpigot utilized [Jython](https://www.jython.org/), which is functionally quite similar to GraalPy. However, some key differences include performance and Python version support. Jython currently only supports Python 2 syntax and libraries, which can be quite limiting. Additionally, Jython runs slower and less efficiently than GraalPy.
+For more information about Jython, visit [jython.org](https://www.jython.org/).
 
 ## Standard Python Libraries
 
-GraalPython supports and includes a large marjority of the standard Python library. However, there isn't great documentation on what is and isn't available for you to use. If you want to use a standard Python library/module in your script, try importing it. If that works, then you're probably all set. You can also call `dir()` on the modules to check the list of functions it implements.
+Jython *does not* support many of the built-in Python modules (i.e. those that are written in C for Python). These would have to be ported to Java or implemented with a JNI bridge. Some built-in modules have been ported to Jython, most notably `cStringIO`, `cPickle`, `struct`, and `binascii`. Jython's documentation states it is unlikely JNI modules will ever be included in the Jython proper.
+
+Jython now supports a large marjority of the standard Python library. However, Jython's documentation has been slow in keeping up with these additions, so if Jython's documentation does not reference a library, it may still be supported.
+
+If you want to use a standard Python module in your script, try importing it. If that works, then you're probably all set. You can also call `dir()` on the modules to check the list of functions it implements.
 
 ## Basic Script Information
 
@@ -266,17 +266,17 @@ You may also change the format of time stamps within script logs files. To do so
 
 ## Non-ASCII Characters in Script Files
 
-By default, script files are read and compiled using ASCII encoding. This means that it won't recognize non-ASCII characters in the file. You may see a `SyntaxError` when you load a script with non-ASCII characters. Additionally, in Python 2, the `str` type is a collection of 8-bit characters. Consequently, all characters in the English alphabet (and some basic symbols) can be represented using these 8-bit characters, but special symbols and characters from non-Latin alphabets cannot. There are a couple ways to work around these two constraints:
+Jython reads and compiles script files using ASCII encoding. This means that it won't recognize non-ASCII characters in the file. You may see a `SyntaxError` when you load a script with non-ASCII characters. Additionally, in Python 2, the `str` type is a collection of 8-bit characters. Consequently, all characters in the English alphabet (and some basic symbols) can be represented using these 8-bit characters, but special symbols and characters from non-Latin alphabets cannot. There are a couple ways to work around these two constraints:
 
 ### Workaround 1
 
-Python allows you to specify the encoding of your script file. This is done by specifying an [encoding declaration](https://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations) in your script. This ensures that when GraalPy reads and compiles the file, it will recognize the non-ASCII characters. Add the following to the *first or second line* of your script file:
+Jython allows you to specify the encoding of your script file. This is done by specifying an [encoding declaration](https://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations) in your script. This ensures that when Jython reads and compiles the file, it will recognize the non-ASCII characters. Add the following to the *first or second line* of your script file:
 
 `#coding: utf-8`
 
-Of course, you can replace `utf-8` with whatever character encoding standard you'd like GraalPy to use. For a list of supported encoding schemes, see [this page](https://docs.python.org/2/library/codecs.html#standard-encodings).
+Of course, you can replace `utf-8` with whatever character encoding standard you'd like Jython to use. For a list of supported encoding schemes, see [this page](https://docs.python.org/2/library/codecs.html#standard-encodings).
 
-!> You must put the encoding declaration on either the first or second line of your script, as GraalPy only searches for encoding declarations in this area.
+!> You must put the encoding declaration on either the first or second line of your script, as Jython only searches for encoding declarations in this area.
 
 Python 2 includes a `unicode` type, which supports all UTF-8 characters (symbols, non-Latin alphabets, etc.). You can specify that you want to use the `unicode` type for the string (and not `str`) by adding a preceding `u`. For example:
 
