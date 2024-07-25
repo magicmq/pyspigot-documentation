@@ -60,6 +60,21 @@ test.py:
   depend: ['test1.py', 'test2.py']
 ```
 
+### plugin-depend
+
+Used to specify a list of plugins that this script requires to load. The script will not load if any of the plugin dependencies are not loaded and running on the server. Additionally, when a plugin is unloaded/disabled, any scripts that depend on that plugin as specified under this option are automatically unloaded (if the `script-unload-on-plugin-disable` option in the `config.yml` is set to `true`).
+
+?> If you are working with ProtocolLib or PlaceholderAPI in your script, you **do not** need to specify either of them here. PySpigot has built-in support for these two plugins, and the dependency management is handled internally.
+
+?> This value is a list (even if there is only one item!), and it should be formatted as `plugin-depend: ['item1', 'item2', 'item3', ...]`
+
+Default: None
+Usage:
+``` yaml
+test.py:
+  plugin-depend: ['test1.py', 'test2.py']
+```
+
 ### file-logging-enabled
 
 Specify if script file logging should be enabled for the script. If this option is `true`, a script log file will be generated for the script, and any error messages (and print messages sent to the script's logger) will be logged to this file. If this option is `false`, no messages will be logged to file, but messages will still be printed to the server console.

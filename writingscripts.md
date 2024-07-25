@@ -11,6 +11,7 @@ There are a few basic things to keep in mind when writing PySpigot scripts:
 - Avoid using the variable names `global` and `logger`. These variable names are assigned automatically at runtime. More information on these below.
 - Scripts are functionally isolated from one another. With the exception of the `global` variable (see the [Global Variables](#global-variables) section below), nothing is shared across scripts.
 - To make use of any of the managers that PySpigot provides (such as registering listeners, tasks, etc.), they must be imported into your script. See the section below on Making Use of PySpigot's Managersfor details.
+- If you are utilizing the API of any plugin other than ProtocolLib or PlaceholderAPI, make sure you specify the plugin as a dependency in the `script_options.yml` file. See the [Script Options](scriptoptions.md#plugin-depend) page for more info.
 
 ## A Note About Jython
 
