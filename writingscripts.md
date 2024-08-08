@@ -23,8 +23,11 @@ from org.bukkit import Bukkit
 from org.bukkit import Location
 
 teleport_location = Location(Bukkit.getWorld('world'), 0, 64, 0)
-online_players = Bukkit.getOnlinePlayers() for player in online_players:
-player.teleport(teleport_location)
+
+online_players = Bukkit.getOnlinePlayers()
+
+for player in online_players:
+    player.teleport(teleport_location)
 ```
 
 As you can see from the above code block, working with Java classes/objects is intuitive. Should you have any trouble interfacing with Java, Jython has fairly well-written documentation you can check out [here](https://jython.readthedocs.io/en/latest/).
