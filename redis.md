@@ -59,7 +59,7 @@ Available functions:
 - `publishSync(channel, message)`: Publishes a message to the given channel synchronously. Takes the channel to publish to, and the message to publish. Returns a number representing the number of clients that received the message.
 - `publishAsync(channel, message)`: Publishes a message to the given channel asynchronously. Takes the channel to publish to, and the message to publish. Returns a future that will return a number representing the number of clients that received the message when the operation completes.
 
-For more information, see the [Publish/Subscribe] section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
+For more information, see the [Publish/Subscribe](https://github.com/redis/lettuce/wiki/Pub-Sub) section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
 
 ## Using the Redis Manager
 
