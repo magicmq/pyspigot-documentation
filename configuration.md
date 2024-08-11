@@ -11,9 +11,12 @@ This is not a comprehensive guide to working with config files. For more complet
 The following functions are available from the config manager:
 
 - `doesConfigExist(filePath)`: This checks if a config file exists under the given name or path. Returns `True` if the file exists, `False` if it does not.
-- `loadConfig(filePath)`: This loads the config, and will create a file automatically if one does not already exist. Takes the name or path of the file you wish to load and/or create. Returns a `ScriptConfig` object representing the config that was loaded/created.
+- `loadConfig(filePath)`: This loads the config, and will create a file automatically if one does not already exist. Takes the name or path of the file you wish to load and/or create. Returns a `ScriptConfig` object representing the config that was loaded/created. No default values are specified.
+- `loadConfig(filePath, defaults)`: This loads the config, and will create a file automatically if one does not already exist. Takes the name or path of the file you wish to load and/or create. Returns a `ScriptConfig` object representing the config that was loaded/created. Also takes a YAML-formatted string (`defaults`) that is used to specify the desired default values for the config.
 - `reloadConfig(config)`: This reloads a config in case there any changes to the file that need to be loaded in. Takes the config (a `ScriptConfig` object) to reload. Returns another `ScriptConfig` object representing the config that was reloaded.
+  - *Note:* The `reloadConfig` function will be removed in a future release of PySpigot. Instead, use the `reload` function within ScriptConfig (outlined in more detail below)
 - `deleteConfig(filePath)`: This will delete the config file with the specified name or path. Returns `True` if a file was deleted, `False` if no file existed previously under the provided name or path.
+- `getConfigFolder()`: This returns a Path to the folder (within the PySpigot plugin folder) where config files live.
 
 ?> The ConfigManager allows for usage of subfolders when working with script config files for organizational purposes. Simply pass the config file as a path to the above methods that accept a `filePath` parameter. For example, `ps.config_manager.loadConfig('test_script/config.yml')` will load the `config.yml` file in the `test_script` subfolder within the `configs` folder.
 
@@ -21,9 +24,14 @@ The following functions are available from the config manager:
 
 Loading/reloading a config returns a `ScriptConfig` object. This object has many methods/functions that you can use:
 
+- Multiple functions are available for getting data from your config. For a complete list of methods/functions you can use to retrieve data from your config file, see the [Spigot JavaDocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html)
 - `set(key, value)`: Set a value in the config at the given key. Takes a key representing the key to write to and value which is the value to write.
-- `save()`: This saves the config so that any values you set will be persistent.
-- There are also multiple functions available for getting data from your config. For a complete list of methods/functions you can use to retrieve data from a config file, see [here](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html). 
+- `getConfigFile()`: Get the file that corresponds to the config.
+- `getConfigPath()`: Get the path for the file that corresponds to the config.
+- `setDefaults(defaults)`: Used to set the default values for the config. Takes a YAML-formatted string.
+- `load()`: Loads the configuration file. Under normal circumstances, this function should not be called, as it is done when `loadConfig` is called from the ScriptManager.
+- `reload()`: Reloads the configuration from its file. Useful if changes where made to the file since the last load/reload, as these changes will not be reflected automatically until the config is reloaded.
+- `save()`: This saves the config so that any values you set will be persistent. The configuration is automatically reloaded after saving.
 
 !> Changes to the config are not saved to the file automatically! You *must* call `save` to write changes to the config file.
 
