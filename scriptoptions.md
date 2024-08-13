@@ -107,28 +107,37 @@ Usage:
 test.py:
   permissions:
     permission.node:
-      description: "This is a permission node"
+      description: 'This is a permission node'
       default: op
       children:
         permission.node.child: true
     another.permission.node:
-      description: "This is another permission node"
+      description: 'This is another permission node'
       default: not op
 ```
 
 - `description` is a description of the permission node, and this is what will be displayed in the permissions list. The default value is the name of the permission node.
-- `default` is the default value of the permission node, or, in other words, who should have the permission node by default. The value for `default` can be either `OP`, `NOT_OP`, `true`, or `false`. `OP` means that only server operators will have the permission node by default. `NOT_OP` means that players who are not operators will have the permission node by default. `true` means that all players will have the permission (I.E. it is a default permission). `false` means that no players will have the permission (I.E. it is *not* a default permission). The default value is the value of `default_permission` (outlined below).
+- `default` is the default value of the permission node, or, in other words, who should have the permission node by default. There are four possible values for `default`: 
+  - `op`: Only server operators will have the permission node by default.
+  - `not op`: Players who are not operators will have the permission node by default.
+  - `true`: All players will have the permission (I.E. it is a default permission).
+  - `false`: No players will have the permission (I.E. it is *not* a default permission). The default value is the value of `default_permission` (outlined below).
 - `children` is a list of child permissions that should inherit from the parent permission. Each permission node may have children. When set to `true`, the child will inherit the parent permission.
 
 ### default-permission
 
 Specify a default value that permissions should have, if they do not have a `default` value defined.
 
-Default: `OP`
+Default: `op`
 Usage:
 ```yaml
 test.py:
-  default-permission: true
+  permission-default: true
 ```
 
-The allowed values for `default-permission` are `OP`, `NOT_OP`, `true`, and `false`. See the above section for descriptions of each of these values.
+The allowed values for `permission-default` are `op`, `not op`, `true`, and `false`:
+
+- `op`: Only server operators will have the permission node by default.
+- `not op`: Players who are not operators will have the permission node by default.
+- `true`: All players will have the permission (I.E. it is a default permission).
+- `false`: No players will have the permission (I.E. it is *not* a default permission). 
