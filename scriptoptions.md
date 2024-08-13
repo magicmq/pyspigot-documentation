@@ -30,9 +30,9 @@ As you can see, in the above code snippet, we define a new section titled `test2
 
 ## Defaults
 
-Specifying script options for each script is not a requirement. Furthermore, you may omit certain script options if you do not wish to set them. All options have default values, as outlined above, and if you do not explicitly define certain options (or any options), the default values will be used.
+Specifying script options for each script is not a requirement. Furthermore, you may omit certain script options if you do not wish to set them. All options have default values, which can be customized in the PySpigot `config.yml` file, under the `script-option-defaults` section.
 
-If a script does not have any script options defined in `script_options.yml`, then the default values will be used for all script options.
+If a script does not have any script options defined in `script_options.yml`, then PySpigot will fall back to whatever default values are defined in the `config.yml`. If a default value is not defined in the `config.yml`, then an internal fallback value is used. These internal fallback values are listed below under each option.
 
 ## Options
 
