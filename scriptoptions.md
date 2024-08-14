@@ -47,13 +47,11 @@ test.py:
   enabled: true
 ```
 
-### depend
+### load-priority
 
-Used to specify a list of other scripts that this script requires to load. This will ensure the script loads *after* all of its dependency scripts are loaded. Furthermore, if any of the script's dependencies are missing, the script will not load. To list a dependency, use the full name of the script (including `.py`).
+Used to specify an integer load priority for the script. Scripts are loaded in order from highest to lowest load priority. In other words, scripts that have a higher load priority are loaded earlier, and scripts with a lower load priority are loaded later. If multiple scripts have the same load priority, they are loaded in alphabetical order. To list a dependency, use the full name of the script (including `.py`).
 
-?> This value is a list (even if there is only one item!), and it should be formatted as `depend: ['item1', 'item2', 'item3', ...]`
-
-Default: None
+Default: 1
 Usage:
 ``` yaml
 test.py:

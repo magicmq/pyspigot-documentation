@@ -52,13 +52,13 @@ PySpigot scripts are placed in the `scripts` folder, which can be found in PySpi
 
 ## Script Options
 
-There are a variety of options that can be set for each script, including whether or not it is enabled, dependencies, and logging options. These are set within the `script_options.yml` file in PySpigot's main plugin folder. For more information on script options, see the [Script Options](scriptoptions.md) page.
+There are a variety of options that can be set for each script, including whether or not it is enabled, load priority, and logging options. These are set within the `script_options.yml` file in PySpigot's main plugin folder. For more information on script options, see the [Script Options](scriptoptions.md) page.
 
 !> Defining script options for each script is *optional*; scripts will function normally without explicitly-defined options.
 
 ## Script Loading
 
-PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by script dependencies as defined in the `script_options.yml` file. Scripts that don't list any dependencies are loaded in no predetermined order (randomly).
+PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by load priority, as defined in the `script_options.yml` file. Scripts that don't list any load priority will inherit the default load priority specified in the `config.yml`. Scripts that have the same load priority are loaded in alphabetical order.
 
 Scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load. If you make changes to a script during runtime, you must reload it for changes to take effect. Reload scripts with `/pyspigot reload <scriptname>`.
 
