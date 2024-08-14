@@ -104,11 +104,14 @@ Usage:
 ```yaml
 test.py:
   permissions:
-    permission.node:
+    permission.node.*:
       description: 'This is a permission node'
       default: op
       children:
         permission.node.child: true
+    permission.node.child:
+      description: 'This is a child permission node'
+      default: true
     another.permission.node:
       description: 'This is another permission node'
       default: not op
