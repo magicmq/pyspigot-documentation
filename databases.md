@@ -6,11 +6,11 @@ See the [General Information](writingscripts#pyspigot39s-managers) page for inst
 
 This is not a comprehensive guide to working with SQL or MongoDB. Please seek out the appropriate tutorials/information if you're unsure how to use SQL or MongoDB.
 
-## SQL
+# SQL
 
 The database manager allows you to connect to and interact with SQL-type databases. 
 
-### Database Manager Usage for SQL Databases
+## Database Manager Usage for SQL Databases
 
 There are several functions available for you to use in the database manager for interacting with SQL databases. They are:
 
@@ -28,7 +28,7 @@ The database manager also allows you to specify a [connection string/URI/URL](ht
 
 ?> If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of a statement, there is no guarantee that execution of the statement will occur.
 
-### The HikariConfig
+## The HikariConfig
 
 The HikariConfig is a configuration object that allows greater control over the SQL connection. For example, it allows you to set a minimum idle time, pool size, idle timeout time, and more. For detailed information on the HikariConfig, see the [HikariCP JavaDocs](https://www.javadoc.io/doc/com.zaxxer/HikariCP/latest/com.zaxxer.hikari/com/zaxxer/hikari/HikariConfig.html).
 
@@ -36,7 +36,7 @@ You may also use a HikariConfig object *alone* to establish a connection (via th
 
 A `newHikariConfig()` function is provided in the database manager for convenience. It returns a new HikariConfig with default options that you may modify. Once you modify the options to your liking, you may then pass your HikariConfig to one of the `connectSql` functions.
 
-### The SqlDatabase Object
+## The SqlDatabase Object
 
 Once we call any of the above `connectSql` functions, a connection is established. If the connection is established successfully, then an `SqlDatabase` object is returned. The SqlDatabase object contains the functions used to interact directly with the database:
 
@@ -69,7 +69,7 @@ sql.update('INSERT INTO test_table (id, val) VALUES (?, ?)', [11, 1])
 ```
 The above statement effectively becomes `INSERT INTO test_table (id, val) VALUES (11, 1);`. Note that the ordering of objects in `values` is important as it determines the order in which the placeholders are replaced in the SQL statement. The first question mark is replaced with the object at position zero, the second question mark is replaced with the object at position one, and so on.
 
-### Code Example for SQL Databases
+## Code Example for SQL Databases
 
 The following code connects to and performs some simple operations on a remote SQL database. The table being interacted with is named `test_table` and has columns `id` (auto-increment, not null, unique) and `value` (not null):
 
@@ -110,7 +110,7 @@ On line 16, we close the database connection by calling the `disconnect` functio
 
 !> It's important to keep in mind that interacting with any remote database is an *I/O operation*. If we run this code on the main server thread (I.E., not in an asynchronous task), then the server *will hang* and be unresponsive until the interaction with the remove server completes. For laggy and/or high-latency connections, this can cause significant amounts of server lag. To avoid lag, it is best practice to wrap all *I/O operations* in an asynchronous task. See the section below for an example.
 
-### Code Example for SQL Databases, Asynchronous
+## Code Example for SQL Databases, Asynchronous
 
 The following code takes the above code example but wraps the interaction with the database in an asynchronous task. Of note, the connection to the database (`connectSql` function on line 6) is still synchronous, but we want this to remain synchronous because a failed connection affects the rest of the script's execution, and the script should terminate if the connection failes (I.E. an error is thrown).
 
@@ -142,11 +142,11 @@ def update():
 task_manager.runTaskAsync(update)
 ```
 
-## MongoDB
+# MongoDB
 
 The database manager allows you to connect to and interact with Mongo databases (MongoDB).
 
-### Database Manager Usage for MongoDB
+## Database Manager Usage for MongoDB
 
 There are several functions available for you to use in the database manager for interacting with MongoDB. They are:
 
@@ -164,7 +164,7 @@ These function very similar to the functions for initializing a connection to an
 
 ?> If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of an operation, there is no guarantee that execution of the opteration will occur.
 
-### The MongoClientSettings
+## The MongoClientSettings
 
 The MongoClientSettings is a configuration object that allows greater control over the MongoDB connection. For example, it allows you to set connection pool settings, connection string, encryption settings, read preference, write preference, etc. For detailed information on the MongoClientSettings, see the [MongoDB documentation](https://www.mongodb.com/docs/drivers/java/sync/current/fundamentals/connection/mongoclientsettings/).
 
@@ -174,7 +174,7 @@ A `newMongoClientSettings()` function is provided in the database manager for co
 
 !> Once you finish setting the options you'd like to set for the MongoClientSettings, you must call `build()` to build the settings into a readable object prior to passing it to one of the `connectMongo` functions.
 
-### The MongoDatabase Object
+## The MongoDatabase Object
 
 Once we call any of the above `connectMongo` functions, a connection is established. If the connection is established successfully, then a `MongoDatabase` object is returned. The MongoDatabase object contains the functions used to interact directly with the database.
 
@@ -184,7 +184,7 @@ Additionally, the [MongoDB documentation](https://www.mongodb.com/docs/drivers/j
 
 ?> If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of an operation, there is no guarantee that execution of the operation will occur.
 
-### Code Example for MongoDB
+## Code Example for MongoDB
 
 The following code established a connection to a remote MongoDB server, creates a collection, inserts a document, and then retrieves the document that was created.
 

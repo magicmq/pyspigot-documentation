@@ -6,7 +6,7 @@ See the [General Information](writingscripts#pyspigot39s-managers) page for inst
 
 This is not a comprehensive guide to working with redis. Please seek out the appropriate tutorials/information if you're unsure.
 
-## Redis Client Type
+# Redis Client Type
 
 For organizational purposes, there are three different types of redis clients available to use based on your specific use case. These are specified using the `ClientType` parameter when initializing/opening a redis client through the Redis Manager. The client types available are:
 
@@ -18,7 +18,7 @@ Which client you use will depend on your specific use case. For example, if you 
 
 ?> The lettuce library includes functionality for both synchronous and asynchronous operations, and this is also reflected in PySpigot. For example, the pub/sub client has ability to publish messages synchronously and asynchronously. In most cases, you should be performing operations asynchronously.
 
-### Generic (Basic) Redis Client
+## Generic (Basic) Redis Client
 
 The basic redis client provides access to the underlying RedisClient for you to access whatever you wish. No other functionality is implemented. The object that corresponds to this client type is `ScriptRedisClient`.
 
@@ -30,7 +30,7 @@ Available functions:
 
 For more information, see the [Basic Usage](https://github.com/redis/lettuce/wiki/Basic-usage) section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
 
-### Command Client
+## Command Client
 
 The command client allows for submitting and executing commands on the redis server. Lettuce supports 400+ commands; these can all be viewed in the link to the lettuce documentation at the end of this section. The object that corresponds to this client type is `RedisCommandClient`.
 
@@ -43,7 +43,7 @@ Available functions:
 
 For more information, see the [Command Interfaces](https://github.com/redis/lettuce/wiki/Command-Interfaces-(4.0)) section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
 
-### Pub/Sub Client
+## Pub/Sub Client
 
 The pub/sub client allows for subscribing and publishing to messaging channels on a redis server. The object that corresponds to this client type is `RedisPubSubClient`.
 
@@ -61,7 +61,7 @@ Available functions:
 
 For more information, see the [Publish/Subscribe](https://github.com/redis/lettuce/wiki/Pub-Sub) section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
 
-## Using the Redis Manager
+# Using the Redis Manager
 
 There are several functions available for you to use in the redis manager to facilitate interaction with a redis server. They are:
 
@@ -74,17 +74,125 @@ There are several functions available for you to use in the redis manager to fac
 - `closeRedisClient(client)`: Closes the provided redis client.
 - `closeRedisClientAsync(client)`: Closes the provided redis client asynchronously.
 
-### The RedisURI
+?> If you're finished using a redis client, it is good practice to close it. If you have any open redis clients when your script is stopped or terminated, then these open clients will be closed automatically. If a redis client is closed either during or pending execution of a transaction, the client will attempt to wait for completion of the pending transactions prior to closing, but there is no guarantee that the transactions will complete successfully.
+
+## The RedisURI
 
 The RedisURI builder is a convenience object that allows you to easily build a URI connection string for connecting to a remote redis server. Using a URI is probably the most convenient way to establish a connection with a remote redis server, because you can also specify connection settings within the URI, in addition to IP, port, password, etc. For more information on usage, see the [lettuce documentation](https://github.com/redis/lettuce/wiki/Redis-URI-and-connection-details).
 
 A `newRedisURI()` function is provided in the redis manager for convenience in obtaining a new RedisURI builder object.
 
-### The redis ClientOptions
+## The redis ClientOptions
 
 The ClientOptions builder object is a convenience object provided by lettuce that allows you to have greater control over the settings that correspond to the connection. For example, it allows you to set auto reconnect, buffer usage ratio, and request queue size. For more information on ClientOptions, see the [lettuce documentation](https://github.com/redis/lettuce/wiki/Client-Options).
 
 A `newClientOptions()` function is provided in the redis manager for convenience in obtaining a new ClientOptions builder object.
 
-## Code Examples
+# Code Examples
 
+## General Client Example
+
+The following example utilizes the basic client to connect to a remote redis server.
+
+```python
+import pyspigot as ps
+from dev.magicmq.pyspigot.manager.redis import ClientType
+
+redis = ps.redis_manager()
+
+basic_client = redis.openRedisClient(ClientType.BASIC, 'localhost', '6379', None)
+
+client = redis_client.getRedisClient()
+
+# Do something with the redis client...
+```
+
+On line 1, we import PySpigot as `ps` to utilize the redis manager. On line 2, we import `ClientType` so it can be used later.
+
+On line 4, we get the database manager from `ps` and set it to `redis`.
+
+On line 6, we open a new redis client with the `BASIC` client type, using the provided IP/address, port, and no password. We assign the connected client to `basic_client`.
+
+On line 8, we fetch the underlying redis client from the PySpigot basic client, and assign it to `client`. At this point, you are able to work with the underlying redis client however you see fit.
+
+## Command Client Example
+
+The following example utilizes the command client to connect to and submit a command to a remote redis server.
+
+```python
+import pyspigot as ps
+from dev.magicmq.pyspigot.manager.redis import ClientType
+
+redis = ps.redis_manager()
+
+command_client = redis.openRedisClient(ClientType.COMMAND, 'localhost', '6379', None)
+
+commands = command_client.getCommands()
+
+commands.set('test_record', 'Helloredis!')
+
+print(commands.get('test_record'))
+```
+
+On line 1, we import PySpigot as `ps` to utilize the redis manager. On line 2, we import `ClientType` so it can be used later.
+
+On line 4, we get the database manager from `ps` and set it to `redis`.
+
+On line 6, we open a new redis client with the `COMMAND` client type, using the provided IP/address, port, and no password. We assign the connected client to `command_client`.
+
+On line 8, we fetch redis commands from the command client and assign it to the `commands` variable.
+
+On line 10, we submit a new command record `test_record` with the value `Helloredis!`.
+
+On line 12, we verify that the command was submitted by getting the command record from `commands` and printing its value.
+
+## Pub/Sub Client Example
+
+The following example utilizes the pub/sub client to connect to a remote redis server and subscribe to and submit messages to its pub/sub messaging system.
+
+```python
+import pyspigot as ps
+from dev.magicmq.pyspigot.manager.redis import ClientType
+
+redis = ps.redis_manager()
+
+pub_sub_client = redis.openRedisClient(ClientType.PUB_SUB, 'localhost', '6379', None)
+
+def message_received(channel, message):
+    print('Received message on channel \'' + channel + '\': ' + message)
+
+listener = pub_sub_client.registerAsyncListener(message_received, 'test_channel')
+
+num_received = pub_sub_client.publishAsync('test_channel', 'This is a test message!')
+
+pub_sub_client.unregisterListener(listener)
+```
+
+On line 1, we import PySpigot as `ps` to utilize the redis manager. On line 2, we import `ClientType` so it can be used later.
+
+On line 4, we get the database manager from `ps` and set it to `redis`.
+
+On line 6, we open a new redis client with the `PUB_SUB` client type, using the provided IP/address, port, and no password. We assign the connected client to `pub_sub_client`.
+
+On line 8, we define a new function called `message_received`, that accepts two arguments: `channel` (a string), and `message` (also a string). Inside the function, we print a message that contains `channel` and `message`.
+
+On line 11, we register a new *asynchronous* listener, passing the previously defined function `message_received`, as well as the channel we want to listen to (`test_channel` in this case). We assign the registered listener to `listener` so that we can unregister it later.
+
+?> When a message is received on the `test_channel` channel, the `message_received` function is called automatically, and it will be passed the name of the channel (the `channel` argument), which would be `test_channel` in this case, as well as the content of the message (the `message` argument).
+
+On line 13, we publish a message *asynchronously* to the channel `test_channel` with the content `This is a test message!`. All functions that publish a message to a channel (both sychronous and asynchronous) return a value that represents the number of clients that received the message. We assign this value to `num_received`.
+
+?> Note that because the message is published *asynchronously*, `num_received` is a [RedisFuture](https://lettuce.io/lettuce-4/release/api/com/lambdaworks/redis/RedisFuture.html) object. Additional code, not detailed here, is required to fetch the value from this object. If you need help with this, ask on the Discord.
+
+On line 15, we unregister the previously registered listener by passing `listener` to the `unregisterListener` function.
+
+!> As outlined previously, functions are included to execute redis operations both synchronously and asynchronously. In general, it is best to do things asynchronously, to avoid server hangs and lag (since most of these functions perform interactions with a remote redis server, these are all I/O operations and are thus relatively slow to complete).
+
+## To summarize: {docsify-ignore}
+
+- The RedisManager allows you to connect to and interact with remote redis servers.
+- There are three available client types: `ClientType.BASIC`, `ClientType.COMMAND`, and `ClientType.PUB_SUB`. Which one you should use depends on your specific use case.
+- Use the `openRedisClient` functions (along with the client type and other provided options, based on your specific situation) to connect to a redis server.
+- When connecting to a redis server, a redis client object (will be either a `ScriptRedisClient`, `RedisCommandClient`, or a `RedisPubSubClient`, depending on the specified client type) is returned by the `openRedisClient` functions, which is then used to interact with redis.
+- Interacting with a redis is an *I/O operation*. Except in very limited contexts, asynchronous functions should be used over the synchronous ones. For example, if using the `RedisPubSubClient`, `publishAsync` should be used instead of `publish` or `publishSync`.
+- Redis clients are closed automatically when a script is stopped. At any other time, if you are finished using a redis client, it should be closed by calling either `closeRedisClient` or `closeRedisClientAsync` from the redis manager. The `closeRedisClient`/`closeRedisClientAsync` functions take the redis client object that was returned when opening the client.
