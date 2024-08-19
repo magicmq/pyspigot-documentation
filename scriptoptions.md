@@ -36,7 +36,7 @@ If a script does not have any script options defined in `script_options.yml`, th
 
 ## Options
 
-### enabled
+### `enabled`
 
 Used to enable or disable a script. To disable a script, set this value to `false`.
 
@@ -47,7 +47,7 @@ test.py:
   enabled: true
 ```
 
-### load-priority
+### `load-priority`
 
 Used to specify an integer load priority for the script. Scripts are loaded in order from highest to lowest load priority. In other words, scripts that have a higher load priority are loaded earlier, and scripts with a lower load priority are loaded later. If multiple scripts have the same load priority, they are loaded in alphabetical order. To list a dependency, use the full name of the script (including `.py`).
 
@@ -58,7 +58,7 @@ test.py:
   depend: ['test1.py', 'test2.py']
 ```
 
-### plugin-depend
+### `plugin-depend`
 
 Used to specify a list of plugins that this script requires to load. The script will not load if any of the plugin dependencies are not loaded and running on the server. Additionally, when a plugin is unloaded/disabled, any scripts that depend on that plugin as specified under this option are automatically unloaded (if the `script-unload-on-plugin-disable` option in the `config.yml` is set to `true`).
 
@@ -73,7 +73,7 @@ test.py:
   plugin-depend: ['test1.py', 'test2.py']
 ```
 
-### file-logging-enabled
+### `file-logging-enabled`
 
 Specify if script file logging should be enabled for the script. If this option is `true`, a script log file will be generated for the script, and any error messages (and print messages sent to the script's logger) will be logged to this file. If this option is `false`, no messages will be logged to file, but messages will still be printed to the server console.
 
@@ -84,7 +84,7 @@ test.py:
   file-logging-enabled: true
 ```
 
-### min-logging-level
+### `min-logging-level`
 
 Specify the minimum logging level that should be logged to the script's log file and the console for the script. Options can be found on the [Javadocs](https://docs.oracle.com/javase/8/docs/api/java/util/logging/Level.html).
 
@@ -95,7 +95,7 @@ test.py:
   min-log-level: 'INFO'
 ```
 
-### permissions
+### `permissions`
 
 Specify a list of permissions that the script uses. This is useful for scripts that want to restrict access to certain features. This section is defined in the [exact same way](https://docs.papermc.io/paper/dev/plugin-yml#permissions) that permissions are defined in the `plugin.yml` file for a Bukkit plugin. See usage code example below for how to define permissions, defaults, and child permissions.
 
@@ -125,7 +125,7 @@ test.py:
   - `false`: No players will have the permission (I.E. it is *not* a default permission). The default value is the value of `default_permission` (outlined below).
 - `children` is a list of child permissions that should inherit from the parent permission. Each permission node may have children. When set to `true`, the child will inherit the parent permission.
 
-### default-permission
+### `permission-default`
 
 Specify a default value that permissions should have, if they do not have a `default` value defined.
 
