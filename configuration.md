@@ -159,4 +159,5 @@ Finally, on lines 7 and 8, we first set the value 1337 to a config key called `t
 - To load a config, use `config.load(filePath)`. The `filePath` parameter is the name *or* path of the config file you wish to load (including the `.yml` extension). If the config file does not exist, it will be created for you automatically. This returns a `ScriptConfig` object that is used to access the contents of the config and write to the config.
 - For all available functions/methods to get values from a loaded config, see the [Javadocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html).
 - To set a value in a config, use `script_config.set(key, value)`, where `key` is the key you wish to write to and `value` is the value to write.
+- You can set config defaults by passing a YAML-formatted string containing the default config values to the `loadConfig` function.
 - Finally, to save a config, use `script_config.save()`.
