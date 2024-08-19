@@ -6,7 +6,7 @@
 
 PySpigot is a Python scripting engine that allows you to write Python scripts that can interface with Bukkit and other parts of a Minecraft server seamlessly, without writing a plugin. Scripts have full access to the Java class path at runtime (meaning anything is possible!) and also have access to PySpigot's managers, which help make writing scripts much easier.
 
-**PySpigot officially supports Spigot and Paper on Minecraft versions 1.12.2 and newer.** I have seen anecdotal evidence from users that PySpigot works on other server softwares and on versions as old as 1.4.7, but I cannot guarantee that PySpigot works outside of what it's been tested on.
+**PySpigot officially supports Spigot and Paper on Minecraft versions 1.16.1 and newer.** I have seen anecdotal evidence from users that PySpigot works on other server softwares and on versions as old as 1.4.7, but I cannot guarantee that PySpigot works outside of what it's been tested on.
 
 **PySpigot is built using JDK 17.** This means that it will only work on Java 17 and above.
 
