@@ -4,7 +4,8 @@ This tutorial provides an overview of PySpigot only, and does not cover in detai
 
 There are a few basic things to keep in mind when writing PySpigot scripts:
 
-- PySpigot officially supports Spigot and Paper on Minecraft versions 1.12.2 and newer.
+- PySpigot requires Java 17 or above.
+- PySpigot officially supports Spigot and Paper on Minecraft versions 1.18 and newer.
 - Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
 - Scripts are placed in the `scripts` folder under the PySpigot plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders.
