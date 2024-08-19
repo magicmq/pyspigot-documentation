@@ -55,7 +55,7 @@ Loads a Java library that you would like to use in a script. See [External Libra
 Performs a complete reload of PySpigot, including the `config.yml`, `script_options.yml`, the library manager, and all scripts.
 
 - Syntax: `/pyspigot reloadall`
-- Aliases: `reset`, `resetall`
+- Aliases: `reset`, `restart`, `reboot`, `resetall`
 - Permission: `pyspigot.command.reloadall`
 
 ## Reload Command
@@ -63,7 +63,7 @@ Performs a complete reload of PySpigot, including the `config.yml`, `script_opti
 Reloads a script. Useful if you made changes to a script while it is running and you would like to reload it.
 
 - Syntax: `/pyspigot reload <scriptname>`
-- Aliases: `restart`
+- Aliases: None
 - Permission: `pyspigot.command.reload`
 
 ## ReloadConfig Command
