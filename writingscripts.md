@@ -4,13 +4,15 @@ This tutorial provides an overview of PySpigot only, and does not cover in detai
 
 There are a few basic things to keep in mind when writing PySpigot scripts:
 
-- PySpigot officially supports Spigot and Paper on Minecraft versions 1.12.2 and newer.
+- PySpigot requires Java 17 or above.
+- PySpigot officially supports Spigot and Paper on Minecraft versions 1.16 and newer.
 - Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
-- Scripts are placed in the `scripts` folder under the PySpigot plugin folder.
+- Scripts are placed in the `scripts` folder under the PySpigot plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders.
 - Avoid using the variable names `global` and `logger`. These variable names are assigned automatically at runtime. More information on these below.
 - Scripts are functionally isolated from one another. With the exception of the `global` variable (see the [Global Variables](#global-variables) section below), nothing is shared across scripts.
 - To make use of any of the managers that PySpigot provides (such as registering listeners, tasks, etc.), they must be imported into your script. See the section below on Making Use of PySpigot's Managersfor details.
+- If you are utilizing the API of any plugin other than ProtocolLib or PlaceholderAPI, make sure you specify the plugin as a dependency in the `script_options.yml` file. See the [Script Options](scriptoptions.md#plugin-depend) page for more info.
 
 ## A Note About Jython
 
@@ -48,17 +50,19 @@ If you want to use a standard Python module in your script, try importing it. If
 
 All PySpigot scripts are designed to be *self-contained*, single files. This means that each script will, at most, consist of one file only. Additionally, scripts are *isolated* from one another, meaning they do not share variables, functions, or scope. Scripts are capable of interacting with one another in various ways (more detail on this below), but think of each .py file in the `scipts` folder as an individual entity, executed in its own environment.
 
-PySpigot scripts are placed in the `scripts` folder in PySpigot's main plugin folder. PySpigot will attempt to load any file in the `scripts` folder that ends in the `.py` extension. Any files in the `scripts` folder that do not end in `.py` will not be loaded.
+PySpigot scripts are placed in the `scripts` folder, which can be found in PySpigot's main plugin folder. Creation of subfolders within the `scripts` folder for organizational purposes is supported. PySpigot will attempt to load any file in the `scripts` folder (including in subfolders) that ends in the `.py` extension. Any files in the `scripts` folder that do not end in `.py` will not be loaded.
+
+!> Script names must be unique, as their names are used to identify them at runtime. This caveat also applies if you are using subfolders within the `scripts` folder. For example, `scripts/folder1/test.py` and `scripts/folder2/test.py` will conflict, but `scripts/folder1/test.py` and `scripts/folder2/test2.py` will not.
 
 ## Script Options
 
-There are a variety of options that can be set for each script, including whether or not it is enabled, dependencies, and logging options. These are set within the `script_options.yml` file in PySpigot's main plugin folder. For more information on script options, see the [Script Options](scriptoptions.md) page.
+There are a variety of options that can be set for each script, including whether or not it is enabled, load priority, and logging options. These are set within the `script_options.yml` file in PySpigot's main plugin folder. For more information on script options, see the [Script Options](scriptoptions.md) page.
 
 !> Defining script options for each script is *optional*; scripts will function normally without explicitly-defined options.
 
 ## Script Loading
 
-PySpigot loads and runs all scripts in the scripts folder automatically on plugin load or server start. Script load order is determined by script dependencies as defined in the `script_options.yml` file. Scripts that don't list any dependencies are loaded in no predetermined order (randomly).
+PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by load priority, as defined in the `script_options.yml` file. Scripts that don't list any load priority will inherit the default load priority specified in the `config.yml`. Scripts that have the same load priority are loaded in alphabetical order.
 
 Scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load. If you make changes to a script during runtime, you must reload it for changes to take effect. Reload scripts with `/pyspigot reload <scriptname>`.
 
@@ -67,6 +71,12 @@ There is one config option related to loading scripts:
 - `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts.
 
 More documentation on this module will be added later.
+
+## Script Permissions
+
+PySpigot allows scripts to define a list of permissions that it uses. This is useful if scripts want to restrict access to certain features. Script permissions are initialized and loaded just prior to parsing and executing the script's code, and are removed just after a script is stopped.
+
+Script permissions are defined in the `script_options.yml` file. For more information on how to define permissions, see the [documentation for script options](scriptoptions.md#permissions).
 
 ## Start and Stop Functions
 
@@ -97,6 +107,8 @@ PySpigot provides a variety of managers to more easily work with parts of the Bu
 - ConfigManager, for working with configuration files.
 - ProtocolManager, to work with ProtocolLib.
 - PlaceholderManager, to work with PlaceholderAPI.
+- DatabaseManager, to connect to and interact with SQL-type and Mongo databases.
+- RedisManager, to connect to and interact with a Redis server instance.
 
 Managers must be imported into your script inn order for you to access them. The following table summarizes how to access managers, but read the sections below for more detail on how to import them:
 
@@ -109,6 +121,8 @@ Managers must be imported into your script inn order for you to access them. The
 | Config Manager      | `pyspigot.config_manager()`      | `PySpigot.config`           | `from dev.magicmq.pyspigot.manager.config import ConfigManager`           |
 | Protocol Manager    | `pyspigot.protocol_manager()`    | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager`       |
 | Placeholder Manager | `pyspigot.placeholder_manager()` | `PySpigot.placeholder`      | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
+| Database Manager    | `pyspigot.database_manager()`    | `PySpigot.database`         | `from dev.nagicmq.pyspigot.manager.database import DatabaseManager`       |
+| Redis Manager       | `pyspigot.redis_manager()`       | `PySpigot.redis`            | `from dev.magicmq.pyspigot.manager.redis import RedisManager`             |
 
 !> The Protocol Manager and Placeholder Manager are *optional* managers. These managers should only be accessed if the ProtocolLib and/or PlaceholderAPI plugins are loaded and enabled.
 
@@ -128,6 +142,8 @@ ps.task_manager().<function>
 ps.config_manager().<function>
 ps.protocol_manager().<function>
 ps.placeholder_manager().<function>
+ps.database_manager().<function>
+ps.redis_manager().<function>
 ```
 
 In the above code, the PySpigot library is imported as `ps`. Then, functions within the library are called to get each manager. Of course, you can also assign the needed managers to a variable for ease of use in multiple locations within your code, like so:
@@ -159,6 +175,8 @@ import pyspigot as ps
 - ConfigManager: `ps.config`, `ps.configs`, `ps.com`
 - ProtocolManager: `ps.protocol`, `ps.protocol_lib`, `ps.protocols`, `ps.pm`
 - PlaceholderManager: `ps.placeholder`, `ps.placeholder_api`, `ps.placeholders`, `ps.plm`
+- DatabaseManager: `ps.database`
+- RedisManager: `ps.redis`
 
 ### Import all managers at once using the PySpigot class
 

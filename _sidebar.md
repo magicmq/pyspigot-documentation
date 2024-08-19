@@ -21,6 +21,8 @@
 	- [Task Manager](tasks.md)
 	- [ProtocolLib Manager](protocollib.md)
 	- [Placeholder Manager](placeholders.md)
+	- [Database Manager](databases.md)
+	- [Redis Manager](redis.md)
 
 - [Planned Features](plannedfeatures.md)
 - [License Info](license.md)
