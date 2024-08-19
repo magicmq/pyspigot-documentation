@@ -2,6 +2,8 @@
 
 PySpigot has several commands available to use, mostly for loading, unloading, and reloading scripts. They are all documented here.
 
+In general, when a command takes a script name, this is the name of the file *only*. This also holds true if the script file is located within a subfolder. For example, if you have a script with the path `scripts/test/test.py`, you should reference it by the file name only (`test.py`). To load it, you would run the command `/pyspigot load test.py`. PySpigot automatically searches the `scripts` folder for a matching script file based on the name you provide, so you don't need to specify the full path of the script file.
+
 The base command for PySpigot is `/pyspigot`.
 
 - Syntax: `/pyspigot <argument>`
@@ -37,7 +39,7 @@ Lists all scripts, both unloaded and loaded. Loaded scripts are shown in green, 
 Loads and runs a script.
 
 - Syntax: `/pyspigot load <scriptname>`
-- Aliases: None
+- Aliases: `start`
 - Permission: `pyspigot.command.load`
 
 ## LoadLibrary Command
@@ -53,7 +55,7 @@ Loads a Java library that you would like to use in a script. See [External Libra
 Performs a complete reload of PySpigot, including the `config.yml`, `script_options.yml`, the library manager, and all scripts.
 
 - Syntax: `/pyspigot reloadall`
-- Aliases: `reset`
+- Aliases: `reset`, `restart`, `reboot`, `resetall`
 - Permission: `pyspigot.command.reloadall`
 
 ## Reload Command
@@ -79,5 +81,5 @@ Reloads PySpigot's `config.yml` and `script_options.yml`.
 Stops and unloads a script.
 
 - Syntax: `/pyspigot unload <scriptname>`
-- Aliases: None
+- Aliases: `stop`
 - Permission: `pyspigot.command.unload`
