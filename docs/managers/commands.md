@@ -55,7 +55,7 @@ All commands must be registered with PySpigot's command manager to work. Command
 
 Additionally, on line 7, we assign the returned value of `registerCommand` to `registered_command`. This is a `ScriptCommand` object, an object that represents the command that was registered. This can be used to unregister the command if you would like to do so later.
 
-## To summarize: {docsify-ignore}
+## Summary
 
 - Commands are defined as functions in your script. Command functions *must* take three parameters: a sender, label, and args (the names of these parameters can be whatever you like). The function is called when the command is executed.
 - All commands must be registered with PySpigot\'s command manager using `command.registerCommand(function, name)`.
