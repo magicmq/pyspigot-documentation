@@ -2,7 +2,7 @@
 
 使用 PySpigot 的 ListenerManager，您有能力注册事件监听器。类似于 Bukkit 的监听器系统，当事件触发时，您的脚本中的相应函数会被调用，您可以在脚本中处理该事件。
 
-请参阅[一般信息](writingscripts#PySpigot-的管理器)页面了解如何将监听器管理器导入到您的脚本中的说明。
+请参阅[一般信息](writingscripts#pyspigot-的管理器)页面了解如何将监听器管理器导入到您的脚本中的说明。
 
 这不是一个关于 Bukkit 事件的全面指南。要了解更完整的事件指南，请参阅 Spigot 关于使用事件 API 的教程[这里](https://www.spigotmc.org/wiki/using-the-event-api/)。
 

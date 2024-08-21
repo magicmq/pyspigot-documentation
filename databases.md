@@ -2,7 +2,7 @@
 
 PySpigot 包含了一个数据库管理器，允许你连接并与 SQL 类型的数据库（包括 MySQL、MariaDB、PostgreSQL 等）以及 MongoDB 进行交互。在底层，PySpigot 使用 [HikariCP](https://github.com/brettwooldridge/HikariCP) 来与 SQL 类型的数据库服务器进行接口，并使用 [MongoDB Java 驱动程序](https://www.mongodb.com/docs/drivers/java-drivers/) 来与 MongoDB 数据库服务器进行接口。
 
-请参见 [一般信息](writingscripts#PySpigot-的管理器) 页面了解如何将数据库管理器导入到你的脚本中的说明。
+请参见 [一般信息](writingscripts#pyspigot-的管理器) 页面了解如何将数据库管理器导入到你的脚本中的说明。
 
 这不是一个关于使用 SQL 或 MongoDB 的全面指南。如果你不确定如何使用 SQL 或 MongoDB，请查找适当的教程和信息。
 

@@ -4,7 +4,7 @@
 
 如果你想在脚本中注册占位符扩展，PySpigot 包含了一个与 PlaceholderAPI 交互的管理器。
 
-请参阅 [一般信息](writingscripts#PySpigot-的管理器) 页面上的说明来了解如何将占位符管理器导入到你的脚本中。
+请参阅 [一般信息](writingscripts#pyspigot-的管理器) 页面上的说明来了解如何将占位符管理器导入到你的脚本中。
 
 # 占位符管理器使用方法
 

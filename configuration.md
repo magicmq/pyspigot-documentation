@@ -2,7 +2,7 @@
 
 使用 PySpigot，您的脚本可以加载、访问和保存到配置文件。所有使用配置管理器访问的配置文件都会自动存储在 PySpigot 插件文件夹内的 `config` 文件夹中。
 
-有关如何将配置管理器导入到您的脚本中的说明，请参见 [一般信息](writingscripts#PySpigot-的管理器) 页面。
+有关如何将配置管理器导入到您的脚本中的说明，请参见 [一般信息](writingscripts#pyspigot-的管理器) 页面。
 
 这不是一个全面的配置文件操作指南。对于可用方法/函数的更完整文档，请参阅 [Javadocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html)。这里列出的所有方法都可以在您的脚本中调用。
 

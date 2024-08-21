@@ -2,7 +2,7 @@
 
 PySpigot 允许您在脚本中定义和注册新命令。这些命令的功能与游戏内的任何命令相同。
 
-有关如何将命令管理器导入到您的脚本中的说明，请参见 [一般信息](writingscripts#PySpigot-的管理器) 页面。
+有关如何将命令管理器导入到您的脚本中的说明，请参见 [一般信息](writingscripts#pyspigot-的管理器) 页面。
 
 这不是一个全面的 Bukkit 命令指南。对于更完整的命令指南，请参阅 Spigot 关于命令的教程 [这里](https://www.spigotmc.org/wiki/create-a-simple-command/)。
 

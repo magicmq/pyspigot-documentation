@@ -2,7 +2,7 @@
 
 PySpigot 包含了一个 Redis 管理器，用于让你连接并交互 Redis 服务器。在内部，PySpigot 利用了 [lettuce](https://lettuce.io/) 来与远程 Redis 服务器实例进行交互。RedisManager 允许你通过两种方式与 Redis 服务器交互：一是执行命令（即与 Redis 数据库交互），二是发布和订阅 Redis 的 [发布/订阅消息系统](https://redis.io/docs/latest/develop/interact/pubsub/)。这两种交互方式分别通过 `RedisCommandClient` 和 `RedisPubSubClient` 实现。PySpigot 还包括了一个通用的 `ScriptRedisClient`，如果你想要处理 Redis 的其他方面，例如 Redis Sentinel 或 Redis 集群，你可以创建此类客户端。
 
-请参阅 [一般信息](writingscripts#PySpigot-的管理器) 页面了解如何将 Redis 管理器导入到你的脚本中的说明。
+请参阅 [一般信息](writingscripts#pyspigot-的管理器) 页面了解如何将 Redis 管理器导入到你的脚本中的说明。
 
 这不是一个全面的 Redis 使用指南。如果你不确定如何操作，请查找适当的教程或信息。
 
