@@ -1,98 +1,98 @@
 # Redis Manager
 
-PySpigot includes a Redis manager to allow you to connect to and interact with redis servers. Under the hood, PySpigot utilizes [lettuce](https://lettuce.io/) for interfacing with remote Redis server instances. There are two ways the RedisManager allows you to interact with redis servers: by issuing commands (I.E. interacting with the redis database) and by publishing and subscribing to redis' [pub/sub messaging system](https://redis.io/docs/latest/develop/interact/pubsub/). These are implemented in PySpigot via the RedisCommandClient and RedisPubSubClient, respectively. PySpigot also includes a generic ScriptRedisClient that you may create if you would like to work with other aspects of Redis such as Redis Sentinel or Redis Cluster.
+PySpigot 包含了一个 Redis 管理器，用于让你连接并交互 Redis 服务器。在内部，PySpigot 利用了 [lettuce](https://lettuce.io/) 来与远程 Redis 服务器实例进行交互。RedisManager 允许你通过两种方式与 Redis 服务器交互：一是执行命令（即与 Redis 数据库交互），二是发布和订阅 Redis 的 [发布/订阅消息系统](https://redis.io/docs/latest/develop/interact/pubsub/)。这两种交互方式分别通过 `RedisCommandClient` 和 `RedisPubSubClient` 实现。PySpigot 还包括了一个通用的 `ScriptRedisClient`，如果你想要处理 Redis 的其他方面，例如 Redis Sentinel 或 Redis 集群，你可以创建此类客户端。
 
-See the [General Information](writingscripts#pyspigot39s-managers) page for instructions on how to import the redis manager into your script.
+请参阅 [一般信息](writingscripts#PySpigot-的管理器) 页面了解如何将 Redis 管理器导入到你的脚本中的说明。
 
-This is not a comprehensive guide to working with redis. Please seek out the appropriate tutorials/information if you're unsure.
+这不是一个全面的 Redis 使用指南。如果你不确定如何操作，请查找适当的教程或信息。
 
-# Redis Client Type
+# Redis 客户端类型
 
-For organizational purposes, there are three different types of redis clients available to use based on your specific use case. These are specified using the `ClientType` parameter when initializing/opening a redis client through the Redis Manager. The client types available are:
+为了便于组织，有三种不同类型的 Redis 客户端可供使用，具体取决于你的特定用途。这些类型是在通过 Redis 管理器初始化/打开 Redis 客户端时使用 `ClientType` 参数指定的。可用的客户端类型包括：
 
-- `ClientType.BASIC`: This is a generic redis client with no built-in functionality. You can use it if you have a specific use case that the other two redis client types aren't well-suited for.
-- `ClientType.COMMAND`: This client type allows for submitting and executing commands on a redis server.
-- `ClientType.PUB_SUB`: This client allows for connection to and publishing/subscription to redis pub/sub messaging channels.
+- `ClientType.BASIC`: 这是一个通用的 Redis 客户端，没有内置的功能。如果你有一个特定的用途，而其他两种客户端类型不适合，则可以使用它。
+- `ClientType.COMMAND`: 此客户端类型允许向 Redis 服务器提交和执行命令。
+- `ClientType.PUB_SUB`: 此客户端允许连接到 Redis 发布/订阅消息通道，并在其上发布/订阅消息。
 
-Which client you use will depend on your specific use case. For example, if you wish to suscribe to and publish to a redis pub/sub channel, you should use the `PUB_SUB` client type. If you want to do more than one thing at a time, you should open a new connection for each type of activity you wish to do. For example, if you wish to utilize pub/sub messaging *and* commands, you should open two connections, one with the `COMMAND` client type, and another for the `PUB_SUB` client type.
+你使用的客户端类型取决于你的特定用途。例如，如果你想订阅和发布到 Redis 的发布/订阅通道，你应该使用 `PUB_SUB` 客户端类型。如果你想同时做多件事，你应该为每种活动打开一个新的连接。例如，如果你想利用发布/订阅消息和命令，你应该打开两个连接，一个使用 `COMMAND` 客户端类型，另一个使用 `PUB_SUB` 客户端类型。
 
-?> The lettuce library includes functionality for both synchronous and asynchronous operations, and this is also reflected in PySpigot. For example, the pub/sub client has ability to publish messages synchronously and asynchronously. In most cases, you should be performing operations asynchronously.
+?> lettuce 库包含了同步和异步操作的功能，这同样反映在 PySpigot 中。例如，发布/订阅客户端具有同步和异步发布消息的能力。在大多数情况下，你应该异步执行操作。
 
-## Generic (Basic) Redis Client
+## 通用（基本）Redis 客户端
 
-The basic redis client provides access to the underlying RedisClient for you to access whatever you wish. No other functionality is implemented. The object that corresponds to this client type is `ScriptRedisClient`.
+基本 Redis 客户端为你提供了访问底层 RedisClient 的途径，以便你可以访问任何你需要的东西。除此之外没有实现其他功能。与此客户端类型对应的对象是 `ScriptRedisClient`。
 
-Available functions:
+可用函数：
 
-- `getRedisURI()`: Get the RedisURI associated with the client.
-- `getClientOptions()`: Get the ClientOptions associated with the client.
-- `getRedisClient()`: Get the underlying redis client associated with the `ScriptRedisClient`.
+- `getRedisURI()`: 获取与客户端关联的 RedisURI。
+- `getClientOptions()`: 获取与客户端关联的 ClientOptions。
+- `getRedisClient()`: 获取与 `ScriptRedisClient` 关联的底层 Redis 客户端。
 
-For more information, see the [Basic Usage](https://github.com/redis/lettuce/wiki/Basic-usage) section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
+更多信息，请参阅 lettuce 文档中的 [基本使用](https://github.com/redis/lettuce/wiki/Basic-usage) 部分。下面的 [代码示例](#代码示例) 部分提供了示例用法。
 
-## Command Client
+## 命令客户端
 
-The command client allows for submitting and executing commands on the redis server. Lettuce supports 400+ commands; these can all be viewed in the link to the lettuce documentation at the end of this section. The object that corresponds to this client type is `RedisCommandClient`.
+命令客户端允许向 Redis 服务器提交和执行命令。lettuce 支持 400 多个命令；所有这些命令都可以在本节末尾链接的 lettuce 文档中查看。与此客户端类型对应的对象是 `RedisCommandClient`。
 
-Available functions:
+可用函数：
 
-- All functions in the generic `ScriptRedisClient` as outlined above, plus:
-- `getConnection()`: Returns the stateful redis connection of the client.
-- `getCommands()`: Returns a `RedisCommands` object representing the RedisCommands API for the client connection.
-- `getAsyncCommands()`: Returns a `RedisAsyncCommands` object representing the RedisAsyncCommands API for the client connection.
+- 上面概述的所有通用 `ScriptRedisClient` 的函数，再加上：
+- `getConnection()`: 返回客户端的状态化 Redis 连接。
+- `getCommands()`: 返回代表客户端连接的 RedisCommands API 的 `RedisCommands` 对象。
+- `getAsyncCommands()`: 返回代表客户端连接的 RedisAsyncCommands API 的 `RedisAsyncCommands` 对象。
 
-For more information, see the [Command Interfaces](https://github.com/redis/lettuce/wiki/Command-Interfaces-(4.0)) section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
+更多信息，请参阅 lettuce 文档中的 [命令接口](https://github.com/redis/lettuce/wiki/Command-Interfaces-(4.0)) 部分。下面的 [代码示例](#代码示例) 部分提供了示例用法。
 
-## Pub/Sub Client
+## 发布/订阅客户端
 
-The pub/sub client allows for subscribing and publishing to messaging channels on a redis server. The object that corresponds to this client type is `RedisPubSubClient`.
+发布/订阅客户端允许在 Redis 服务器上的消息通道上订阅和发布消息。与此客户端类型对应的对象是 `RedisPubSubClient`。
 
-Available functions:
+可用函数：
 
-- All functions in the generic `ScriptRedisClient` as outlined above, plus:
-- `registerListener(function, channel)`: Registers a new synchronous listener. Takes a function, which will be called when a message is received, and `channel`, the name of the channel to listen to. Returns a `ScriptPubSubListener` object, which represents the listener that was registered.
-- `registerSyncListener(function, channel)`: Registers a new synchronous listener. Takes a function, which will be called when a message is received, and `channel`, the name of the channel to listen to. Returns a `ScriptPubSubListener` object, which represents the listener that was registered.
-- `registerAsyncListener(function, channel)`: Registers a new asynchronous listener. Takes a function, which will be called when a message is received, and `channel`, the name of the channel to listen to. Returns a `ScriptPubSubListener` object, which represents the listener that was registered.
-- `unregisterListener(listener)`: Unregisters a listener. Takes a `ScriptPubSubListener` to unregister.
-- `unregisterListeners(channel)`: Unregisters all listeners listening on the provided channel.
-- `publish(channel, message)`: Publishes a message to the given channel synchronously. Takes the channel to publish to, and the message to publish. Returns a number representing the number of clients that received the message.
-- `publishSync(channel, message)`: Publishes a message to the given channel synchronously. Takes the channel to publish to, and the message to publish. Returns a number representing the number of clients that received the message.
-- `publishAsync(channel, message)`: Publishes a message to the given channel asynchronously. Takes the channel to publish to, and the message to publish. Returns a future that will return a number representing the number of clients that received the message when the operation completes.
+- 上面概述的所有通用 `ScriptRedisClient` 的函数，再加上：
+- `registerListener(function, channel)`: 注册一个新的同步监听器。接受一个函数，当接收到消息时将调用该函数，以及 `channel`，即要监听的通道名称。返回一个 `ScriptPubSubListener` 对象，表示已注册的监听器。
+- `registerSyncListener(function, channel)`: 注册一个新的同步监听器。接受一个函数，当接收到消息时将调用该函数，以及 `channel`，即要监听的通道名称。返回一个 `ScriptPubSubListener` 对象，表示已注册的监听器。
+- `registerAsyncListener(function, channel)`: 注册一个新的异步监听器。接受一个函数，当接收到消息时将调用该函数，以及 `channel`，即要监听的通道名称。返回一个 `ScriptPubSubListener` 对象，表示已注册的监听器。
+- `unregisterListener(listener)`: 取消注册监听器。接受一个 `ScriptPubSubListener` 来取消注册。
+- `unregisterListeners(channel)`: 取消注册所有监听指定通道的监听器。
+- `publish(channel, message)`: 同步地向指定通道发布一条消息。接受要发布的通道和消息。返回一个数字，表示接收消息的客户端数量。
+- `publishSync(channel, message)`: 同步地向指定通道发布一条消息。接受要发布的通道和消息。返回一个数字，表示接收消息的客户端数量。
+- `publishAsync(channel, message)`: 异步地向指定通道发布一条消息。接受要发布的通道和消息。返回一个 Future，当操作完成时返回一个数字，表示接收消息的客户端数量。
 
-For more information, see the [Publish/Subscribe](https://github.com/redis/lettuce/wiki/Pub-Sub) section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
+更多信息，请参阅 lettuce 文档中的 [发布/订阅](https://github.com/redis/lettuce/wiki/Pub-Sub) 部分。下面的 [代码示例](#代码示例) 部分提供了示例用法。
 
-# Using the Redis Manager
+# 使用 Redis 管理器
 
-There are several functions available for you to use in the redis manager to facilitate interaction with a redis server. They are:
+Redis 管理器中有几个函数供你使用，以方便与 Redis 服务器进行交互。它们是：
 
-- `newRedisURI()`: Returns a new, empty RedisURI builder for convenience.
-- `newClientOptions()`: Returns a new ClientOptions builder for convenience.
-- `openRedisClient(clientType, ip, port, password)`: Opens a connection with the remote redis server with the specified IP, port, and password, using the specified client type. Uses the default client options.
-- `openRedisClient(clientType, ip, port, password, clientOptions)`: Opens a connection with the remote redis server with the specified IP, port, and password, using the specified client type. Uses the provided client options.
-- `openRedisClient(clientType, redisURI)`: Opens a connection with the remote redis server with the given RedisURI connection string, using the specified client type. Uses the default client options.
-- `openRedisClient(clientType, redisURI, clientOptions)`: Opens a connection with the remote redis server with the given RedisURI connection string, using the specified client type. Uses the provided client options.
-- `closeRedisClient(client)`: Closes the provided redis client.
-- `closeRedisClientAsync(client)`: Closes the provided redis client asynchronously.
+- `newRedisURI()`: 返回一个新的空 RedisURI 构造器，以方便使用。
+- `newClientOptions()`: 返回一个新的 ClientOptions 构造器，以方便使用。
+- `openRedisClient(clientType, ip, port, password)`: 使用指定的 IP、端口和密码，以及指定的客户端类型，打开与远程 Redis 服务器的连接。使用默认的客户端选项。
+- `openRedisClient(clientType, ip, port, password, clientOptions)`: 使用指定的 IP、端口和密码，以及指定的客户端类型，打开与远程 Redis 服务器的连接。使用提供的客户端选项。
+- `openRedisClient(clientType, redisURI)`: 使用指定的 RedisURI 连接字符串和指定的客户端类型，打开与远程 Redis 服务器的连接。使用默认的客户端选项。
+- `openRedisClient(clientType, redisURI, clientOptions)`: 使用指定的 RedisURI 连接字符串和指定的客户端类型，打开与远程 Redis 服务器的连接。使用提供的客户端选项。
+- `closeRedisClient(client)`: 关闭提供的 Redis 客户端。
+- `closeRedisClientAsync(client)`: 异步关闭提供的 Redis 客户端。
 
-?> If you're finished using a redis client, it is good practice to close it. If you have any open redis clients when your script is stopped or terminated, then these open clients will be closed automatically. If a redis client is closed either during or pending execution of a transaction, the client will attempt to wait for completion of the pending transactions prior to closing, but there is no guarantee that the transactions will complete successfully.
+?> 如果你完成了对 Redis 客户端的使用，遵循良好实践，应该关闭它。如果你在脚本停止或终止时有任何打开的 Redis 客户端，这些打开的客户端将自动关闭。如果在交易期间或等待交易完成时关闭 Redis 客户端，客户端将尝试等待未完成交易的完成，但无法保证交易会成功完成。
 
-## The RedisURI
+## RedisURI
 
-The RedisURI builder is a convenience object that allows you to easily build a URI connection string for connecting to a remote redis server. Using a URI is probably the most convenient way to establish a connection with a remote redis server, because you can also specify connection settings within the URI, in addition to IP, port, password, etc. For more information on usage, see the [lettuce documentation](https://github.com/redis/lettuce/wiki/Redis-URI-and-connection-details).
+RedisURI 构造器是一个方便的对象，它允许你轻松地构建用于连接到远程 Redis 服务器的 URI 连接字符串。使用 URI 可能是最方便的方式之一来建立与远程 Redis 服务器的连接，因为除了 IP、端口、密码等之外，你还可以在 URI 中指定连接设置。有关用法的更多信息，请参阅 [lettuce 文档](https://github.com/redis/lettuce/wiki/Redis-URI-and-connection-details)。
 
-A `newRedisURI()` function is provided in the redis manager for convenience in obtaining a new RedisURI builder object.
+Redis 管理器中提供了一个 `newRedisURI()` 函数，以便方便地获取新的 RedisURI 构造器对象。
 
-## The redis ClientOptions
+## Redis ClientOptions
 
-The ClientOptions builder object is a convenience object provided by lettuce that allows you to have greater control over the settings that correspond to the connection. For example, it allows you to set auto reconnect, buffer usage ratio, and request queue size. For more information on ClientOptions, see the [lettuce documentation](https://github.com/redis/lettuce/wiki/Client-Options).
+ClientOptions 构造器对象是由 lettuce 提供的一个方便的对象，它允许你对与连接相关的设置拥有更大的控制权。例如，它可以让你设置自动重连、缓冲区使用比率和请求队列大小。有关 ClientOptions 的更多信息，请参阅 [lettuce 文档](https://github.com/redis/lettuce/wiki/Client-Options)。
 
-A `newClientOptions()` function is provided in the redis manager for convenience in obtaining a new ClientOptions builder object.
+Redis 管理器中提供了一个 `newClientOptions()` 函数，以便方便地获取新的 ClientOptions 构造器对象。
 
-# Code Examples
+# 代码示例
 
-## General Client Example
+## 通用客户端示例
 
-The following example utilizes the basic client to connect to a remote redis server.
+以下示例使用基本客户端连接到远程 Redis 服务器。
 
 ```python
 import pyspigot as ps
@@ -107,17 +107,17 @@ client = redis_client.getRedisClient()
 # Do something with the redis client...
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the redis manager. On line 2, we import `ClientType` so it can be used later.
+第 1 行，我们导入 PySpigot 作为 `ps` 以使用 Redis 管理器。第 2 行，我们导入 `ClientType` 以便稍后使用。
 
-On line 4, we get the database manager from `ps` and set it to `redis`.
+第 4 行，我们从 `ps` 获取数据库管理器并将其设置为 `redis`。
 
-On line 6, we open a new redis client with the `BASIC` client type, using the provided IP/address, port, and no password. We assign the connected client to `basic_client`.
+第 6 行，我们使用 `BASIC` 客户端类型、提供的 IP/地址、端口和无密码打开一个新的 Redis 客户端。我们将连接的客户端赋值给 `basic_client`。
 
-On line 8, we fetch the underlying redis client from the PySpigot basic client, and assign it to `client`. At this point, you are able to work with the underlying redis client however you see fit.
+第 8 行，我们从 PySpigot 基本客户端获取底层 Redis 客户端，并将其赋值给 `client`。此时，你可以根据需要自由地使用底层 Redis 客户端。
 
-## Command Client Example
+## 命令客户端示例
 
-The following example utilizes the command client to connect to and submit a command to a remote redis server.
+以下示例使用命令客户端连接到远程 Redis 服务器并提交命令。
 
 ```python
 import pyspigot as ps
@@ -134,21 +134,21 @@ commands.set('test_record', 'Helloredis!')
 print(commands.get('test_record'))
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the redis manager. On line 2, we import `ClientType` so it can be used later.
+第 1 行，我们导入 PySpigot 作为 `ps` 以使用 Redis 管理器。第 2 行，我们导入 `ClientType` 以便稍后使用。
 
-On line 4, we get the database manager from `ps` and set it to `redis`.
+第 4 行，我们从 `ps` 获取数据库管理器并将其设置为 `redis`。
 
-On line 6, we open a new redis client with the `COMMAND` client type, using the provided IP/address, port, and no password. We assign the connected client to `command_client`.
+第 6 行，我们使用 `COMMAND` 客户端类型、提供的 IP/地址、端口和无密码打开一个新的 Redis 客户端。我们将连接的客户端赋值给 `command_client`。
 
-On line 8, we fetch redis commands from the command client and assign it to the `commands` variable.
+第 8 行，我们从命令客户端获取 Redis 命令，并将其赋值给 `commands` 变量。
 
-On line 10, we submit a new command record `test_record` with the value `Helloredis!`.
+第 10 行，我们提交一个新的命令记录 `test_record`，其值为 `Helloredis!`。
 
-On line 12, we verify that the command was submitted by getting the command record from `commands` and printing its value.
+第 12 行，我们通过从 `commands` 获取命令记录并打印其值来验证命令已被提交。
 
-## Pub/Sub Client Example
+## 发布/订阅客户端示例
 
-The following example utilizes the pub/sub client to connect to a remote redis server and subscribe to and submit messages to its pub/sub messaging system.
+以下示例使用发布/订阅客户端连接到远程 Redis 服务器，并订阅和提交消息到其发布/订阅消息系统。
 
 ```python
 import pyspigot as ps
@@ -168,31 +168,31 @@ num_received = pub_sub_client.publishAsync('test_channel', 'This is a test messa
 pub_sub_client.unregisterListener(listener)
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the redis manager. On line 2, we import `ClientType` so it can be used later.
+第 1 行，我们导入 PySpigot 作为 `ps` 以使用 Redis 管理器。第 2 行，我们导入 `ClientType` 以便稍后使用。
 
-On line 4, we get the database manager from `ps` and set it to `redis`.
+第 4 行，我们从 `ps` 获取数据库管理器并将其设置为 `redis`。
 
-On line 6, we open a new redis client with the `PUB_SUB` client type, using the provided IP/address, port, and no password. We assign the connected client to `pub_sub_client`.
+第 6 行，我们使用 `PUB_SUB` 客户端类型、提供的 IP/地址、端口和无密码打开一个新的 Redis 客户端。我们将连接的客户端赋值给 `pub_sub_client`。
 
-On line 8, we define a new function called `message_received`, that accepts two arguments: `channel` (a string), and `message` (also a string). Inside the function, we print a message that contains `channel` and `message`.
+第 8 行，我们定义了一个名为 `message_received` 的新函数，它接受两个参数：`channel`（一个字符串）和 `message`（也是一个字符串）。在函数内部，我们打印一条包含 `channel` 和 `message` 的消息。
 
-On line 11, we register a new *asynchronous* listener, passing the previously defined function `message_received`, as well as the channel we want to listen to (`test_channel` in this case). We assign the registered listener to `listener` so that we can unregister it later.
+第 11 行，我们注册一个新的 *异步* 监听器，传递之前定义的函数 `message_received` 以及我们要监听的通道（在这个例子中是 `test_channel`）。我们将注册的监听器赋值给 `listener`，以便稍后取消注册。
 
-?> When a message is received on the `test_channel` channel, the `message_received` function is called automatically, and it will be passed the name of the channel (the `channel` argument), which would be `test_channel` in this case, as well as the content of the message (the `message` argument).
+?> 当在 `test_channel` 通道上收到消息时，`message_received` 函数会被自动调用，并将通道名称（`channel` 参数）传递给它，在这种情况下将是 `test_channel`，以及消息的内容（`message` 参数）。
 
-On line 13, we publish a message *asynchronously* to the channel `test_channel` with the content `This is a test message!`. All functions that publish a message to a channel (both sychronous and asynchronous) return a value that represents the number of clients that received the message. We assign this value to `num_received`.
+第 13 行，我们异步地向通道 `test_channel` 发布一条内容为 `This is a test message!` 的消息。所有向通道发布消息的函数（无论是同步还是异步）都会返回一个值，表示接收消息的客户端数量。我们将这个值赋值给 `num_received`。
 
-?> Note that because the message is published *asynchronously*, `num_received` is a [RedisFuture](https://lettuce.io/lettuce-4/release/api/com/lambdaworks/redis/RedisFuture.html) object. Additional code, not detailed here, is required to fetch the value from this object. If you need help with this, ask on the Discord.
+?> 注意由于消息是异步发布的，`num_received` 是一个 [RedisFuture](https://lettuce.io/lettuce-4/release/api/com/lambdaworks/redis/RedisFuture.html) 对象。需要额外的代码（这里没有详细说明）来从该对象获取值。如果你需要帮助，可以在 Discord 上提问。
 
-On line 15, we unregister the previously registered listener by passing `listener` to the `unregisterListener` function.
+第 15 行，我们通过将 `listener` 传递给 `unregisterListener` 函数来取消注册之前注册的监听器。
 
-!> As outlined previously, functions are included to execute redis operations both synchronously and asynchronously. In general, it is best to do things asynchronously, to avoid server hangs and lag (since most of these functions perform interactions with a remote redis server, these are all I/O operations and are thus relatively slow to complete).
+!> 如前所述，包括了同步和异步执行 Redis 操作的函数。一般来说，最好异步执行操作，以避免服务器挂起和延迟（因为大多数这些函数涉及与远程 Redis 服务器的交互，这些都是 I/O 操作，因此相对缓慢）。
 
-## To summarize: {docsify-ignore}
+## 总结
 
-- The RedisManager allows you to connect to and interact with remote redis servers.
-- There are three available client types: `ClientType.BASIC`, `ClientType.COMMAND`, and `ClientType.PUB_SUB`. Which one you should use depends on your specific use case.
-- Use the `openRedisClient` functions (along with the client type and other provided options, based on your specific situation) to connect to a redis server.
-- When connecting to a redis server, a redis client object (will be either a `ScriptRedisClient`, `RedisCommandClient`, or a `RedisPubSubClient`, depending on the specified client type) is returned by the `openRedisClient` functions, which is then used to interact with redis.
-- Interacting with a redis is an *I/O operation*. Except in very limited contexts, asynchronous functions should be used over the synchronous ones. For example, if using the `RedisPubSubClient`, `publishAsync` should be used instead of `publish` or `publishSync`.
-- Redis clients are closed automatically when a script is stopped. At any other time, if you are finished using a redis client, it should be closed by calling either `closeRedisClient` or `closeRedisClientAsync` from the redis manager. The `closeRedisClient`/`closeRedisClientAsync` functions take the redis client object that was returned when opening the client.
+- RedisManager 允许你连接到并与远程 Redis 服务器交互。
+- 有三种可用的客户端类型：`ClientType.BASIC`、`ClientType.COMMAND` 和 `ClientType.PUB_SUB`。你应该使用哪一种取决于你的特定用途。
+- 使用 `openRedisClient` 函数（加上客户端类型和其他根据你的具体情况提供的选项）来连接到 Redis 服务器。
+- 当连接到 Redis 服务器时，`openRedisClient` 函数会返回一个 Redis 客户端对象（将是一个 `ScriptRedisClient`、`RedisCommandClient` 或 `RedisPubSubClient`，具体取决于指定的客户端类型），然后使用它来与 Redis 交互。
+- 与 Redis 交互是一种 *I/O 操作*。除非在非常有限的情况下，否则应使用异步函数而不是同步函数。例如，如果使用 `RedisPubSubClient`，应使用 `publishAsync` 而不是 `publish` 或 `publishSync`。
+- Redis 客户端会在脚本停止时自动关闭。在其他任何时候，如果你完成了对 Redis 客户端的使用，应该通过从 Redis 管理器调用 `closeRedisClient` 或 `closeRedisClientAsync` 来关闭它。`closeRedisClient` / `closeRedisClientAsync` 函数接受在打开客户端时返回的 Redis 客户端对象。

@@ -1,24 +1,24 @@
-# Scripts
+# 脚本
 
-This tutorial provides an overview of PySpigot only, and does not cover in detail the Bukkit/Spigot API or writing Python code. Any questions concerning Python syntax or writing Python code in general should be redirected to the appropriate forum, as this tutorial will not provide an intoroduction to writing basic Python code. 
+本教程仅提供 PySpigot 的概述，并不详细涵盖 Bukkit/Spigot API 或编写 Python 代码的内容。有关 Python 语法或编写 Python 代码的一般问题应转至相应的论坛，因为本教程不会提供编写基本 Python 代码的介绍。
 
-There are a few basic things to keep in mind when writing PySpigot scripts:
+编写 PySpigot 脚本时，有几点基本事项需要注意：
 
-- PySpigot requires Java 17 or above.
-- PySpigot officially supports Spigot and Paper on Minecraft versions 1.16 and newer.
-- Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
-- Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
-- Scripts are placed in the `scripts` folder under the PySpigot plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders.
-- Avoid using the variable names `global` and `logger`. These variable names are assigned automatically at runtime. More information on these below.
-- Scripts are functionally isolated from one another. With the exception of the `global` variable (see the [Global Variables](#global-variables) section below), nothing is shared across scripts.
-- To make use of any of the managers that PySpigot provides (such as registering listeners, tasks, etc.), they must be imported into your script. See the section below on Making Use of PySpigot's Managersfor details.
-- If you are utilizing the API of any plugin other than ProtocolLib or PlaceholderAPI, make sure you specify the plugin as a dependency in the `script_options.yml` file. See the [Script Options](scriptoptions.md#plugin-depend) page for more info.
+- PySpigot 需要 Java 17 或更高版本。
+- PySpigot 正式支持 Minecraft 版本 1.16 及以上版本的 Spigot 和 Paper。
+- 在底层，PySpigot 使用 Jython，即 Python 的 Java 实现。目前，Jython 只实现了 Python 2，因此在编写 PySpigot 脚本时应使用 Python 2 语法。
+- 脚本必须使用 Python 语法编写，脚本文件应以 `.py` 结尾。不以 `.py` 结尾的文件将不会被加载。
+- 脚本放置在 PySpigot 插件目录下的 `scripts` 文件夹中。PySpigot 支持在 `scripts` 文件夹内创建子文件夹以方便组织，但所有子文件夹中的脚本名称必须唯一。
+- 避免使用变量名 `global` 和 `logger`。这些变量名会在运行时自动分配。更多关于这些变量的信息如下所述。
+- 脚本在功能上相互隔离。除了 `global` 变量（见下面的 [全局变量](#全局变量) 部分）外，脚本之间不共享任何内容。
+- 若要使用 PySpigot 提供的任何管理器（如注册监听器、任务等），必须将它们导入到你的脚本中。有关如何利用 PySpigot 的管理器的详细信息，请参阅下面的“利用 PySpigot 的管理器”部分。
+- 如果你正在使用除 ProtocolLib 或 PlaceholderAPI 以外的任何插件的 API，请确保在 `script_options.yml` 文件中指定了该插件为依赖项。有关更多信息，请参阅 [脚本选项](scriptoptions.md#plugin-depend) 页面。
 
-## A Note About Jython
+## 关于 Jython 的说明
 
-Under the hood, PySpigot utilizes Jython, a Java implementation of Python. The PySpigot jar file is quite large in comparison to other Spigot plugins because Jython (as well as its dependencies) are bundled into PySpigot.
+在底层，PySpigot 使用 Jython，即 Python 的 Java 实现。PySpigot 的 jar 文件与其他 Spigot 插件相比相当大，因为 Jython（及其依赖项）都被打包到了 PySpigot 中。
 
-Jython is written such that scripts are compiled and interpreted entirely in Java. This means that scripts have native access to the entire Java class path at runtime, making it very easy to work with the Spigot API and other aspects of the server. Consider the following example:
+Jython 的设计使得脚本完全在 Java 中编译和解释。这意味着脚本在运行时具有对整个 Java 类路径的原生访问权限，使得与 Spigot API 和服务器的其他方面一起工作变得非常容易。考虑以下示例：
 
 ```python
 from org.bukkit import Bukkit
@@ -32,105 +32,105 @@ for player in online_players:
     player.teleport(teleport_location)
 ```
 
-As you can see from the above code block, working with Java classes/objects is intuitive. Should you have any trouble interfacing with Java, Jython has fairly well-written documentation you can check out [here](https://jython.readthedocs.io/en/latest/).
+从上面的代码块可以看出，与 Java 类/对象一起工作非常直观。如果你在与 Java 交互时遇到任何困难，Jython 有一份写得很好的文档，你可以在此查阅：[这里](https://jython.readthedocs.io/en/latest/)。
 
-Currently, the latest version of Jython implements Python 2. Thus, for now, PySpigot scripts are written in Python 2. While some may see this as a drawback, Python 2 is usually sufficient for the vast majority of use cases of PySpigot, and I have not yet found any case where a Python 3 feature was required for script functionality. The developers of Jython intend on implementing Python 3 in a future release of Jython, but the expected timeframe of this update is unclear. Work is ongoing on the [Jython GitHub repository](https://github.com/jython/jython).
+目前，Jython 的最新版本实现了 Python 2。因此，目前 PySpigot 脚本是用 Python 2 编写的。虽然有些人可能认为这是一个缺点，但 Python 2 对于 PySpigot 的绝大多数用途来说通常是足够的，而且我还没有发现任何需要 Python 3 功能来实现脚本功能的情况。Jython 的开发人员打算在未来版本的 Jython 中实现 Python 3，但更新的时间框架尚不清楚。相关工作正在进行中，可以在 [Jython GitHub 仓库](https://github.com/jython/jython) 查看。
 
-For more information about Jython, visit [jython.org](https://www.jython.org/).
+要了解更多信息，请访问 [jython.org](https://www.jython.org/)。
 
-## Standard Python Libraries
+## 标准 Python 库
 
-Jython *does not* support many of the built-in Python modules (i.e. those that are written in C for Python). These would have to be ported to Java or implemented with a JNI bridge. Some built-in modules have been ported to Jython, most notably `cStringIO`, `cPickle`, `struct`, and `binascii`. Jython's documentation states it is unlikely JNI modules will ever be included in the Jython proper.
+Jython *不支持* 许多内置的 Python 模块（即那些为 Python 用 C 语言编写的模块）。这些模块需要移植到 Java 或使用 JNI 桥接实现。一些内置模块已经被移植到 Jython，最显著的是 `cStringIO`、`cPickle`、`struct` 和 `binascii`。Jython 的文档指出，不太可能将 JNI 模块包含在 Jython 本身中。
 
-Jython now supports a large marjority of the standard Python library. However, Jython's documentation has been slow in keeping up with these additions, so if Jython's documentation does not reference a library, it may still be supported.
+Jython 现在支持标准 Python 库的大部分内容。然而，Jython 的文档在跟上这些新增内容方面进展缓慢，因此如果 Jython 的文档没有提及某个库，它可能仍然被支持。
 
-If you want to use a standard Python module in your script, try importing it. If that works, then you're probably all set. You can also call `dir()` on the modules to check the list of functions it implements.
+如果你想在脚本中使用标准 Python 模块，尝试导入它。如果可以导入，那么你可能就可以使用了。你也可以调用 `dir()` 方法来检查模块实现的函数列表。
 
-## Basic Script Information
+## 基础脚本信息
 
-All PySpigot scripts are designed to be *self-contained*, single files. This means that each script will, at most, consist of one file only. Additionally, scripts are *isolated* from one another, meaning they do not share variables, functions, or scope. Scripts are capable of interacting with one another in various ways (more detail on this below), but think of each .py file in the `scipts` folder as an individual entity, executed in its own environment.
+所有 PySpigot 脚本都是设计为 *自包含* 的单个文件。这意味着每个脚本最多只包含一个文件。此外，脚本之间是 *隔离* 的，意味着它们不共享变量、函数或作用域。脚本可以通过多种方式相互交互（下面会有更多细节），但可以将 `scripts` 文件夹中的每个 `.py` 文件视为一个独立的实体，在自己的环境中执行。
 
-PySpigot scripts are placed in the `scripts` folder, which can be found in PySpigot's main plugin folder. Creation of subfolders within the `scripts` folder for organizational purposes is supported. PySpigot will attempt to load any file in the `scripts` folder (including in subfolders) that ends in the `.py` extension. Any files in the `scripts` folder that do not end in `.py` will not be loaded.
+PySpigot 脚本放置在 `scripts` 文件夹中，该文件夹位于 PySpigot 的主插件文件夹中。支持在 `scripts` 文件夹内创建子文件夹以方便组织。PySpigot 将尝试加载 `scripts` 文件夹（包括子文件夹）中所有以 `.py` 扩展名结尾的文件。`scripts` 文件夹中不以 `.py` 结尾的任何文件都不会被加载。
 
-!> Script names must be unique, as their names are used to identify them at runtime. This caveat also applies if you are using subfolders within the `scripts` folder. For example, `scripts/folder1/test.py` and `scripts/folder2/test.py` will conflict, but `scripts/folder1/test.py` and `scripts/folder2/test2.py` will not.
+!> 脚本名称必须唯一，因为它们的名称用于在运行时识别它们。如果你在 `scripts` 文件夹中使用子文件夹，这一点同样适用。例如，`scripts/folder1/test.py` 和 `scripts/folder2/test.py` 会产生冲突，但 `scripts/folder1/test.py` 和 `scripts/folder2/test2.py` 不会。
 
-## Script Options
+## 脚本选项
 
-There are a variety of options that can be set for each script, including whether or not it is enabled, load priority, and logging options. These are set within the `script_options.yml` file in PySpigot's main plugin folder. For more information on script options, see the [Script Options](scriptoptions.md) page.
+对于每个脚本，可以设置各种选项，包括是否启用、加载优先级和日志记录选项。这些选项在 PySpigot 主插件文件夹中的 `script_options.yml` 文件中设置。有关脚本选项的更多信息，请参阅 [脚本选项](scriptoptions.md) 页面。
 
-!> Defining script options for each script is *optional*; scripts will function normally without explicitly-defined options.
+!> 为每个脚本定义脚本选项是 *可选的*；如果没有明确定义选项，脚本仍能正常运行。
 
-## Script Loading
+## 脚本加载
 
-PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by load priority, as defined in the `script_options.yml` file. Scripts that don't list any load priority will inherit the default load priority specified in the `config.yml`. Scripts that have the same load priority are loaded in alphabetical order.
+PySpigot 在插件加载或服务器启动时自动加载和运行 `scripts` 文件夹（包括子文件夹中的脚本）中的所有脚本。脚本加载顺序由 `script_options.yml` 文件中定义的加载优先级确定。未列出任何加载优先级的脚本将继承 `config.yml` 中指定的默认加载优先级。具有相同加载优先级的脚本将按字母顺序加载。
 
-Scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load. If you make changes to a script during runtime, you must reload it for changes to take effect. Reload scripts with `/pyspigot reload <scriptname>`.
+你也可以使用 `/pyspigot load <scriptname>` 手动加载脚本，如果你想要在服务器启动/插件加载后加载/启用脚本。如果你在运行时对脚本进行了更改，则必须重新加载脚本才能使更改生效。使用 `/pyspigot reload <scriptname>` 重新加载脚本。
 
-There is one config option related to loading scripts:
+有一个与加载脚本相关的配置选项：
 
-- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts.
+- `script-load-delay`：这是 PySpigot 在 **服务器加载完成** 后等待加载脚本的延迟（以刻为单位）。一秒钟有 20 个服务器刻。例如，如果值为 20，则 PySpigot 将在服务器加载完成后等待 20 刻（或 1 秒）再加载脚本。
 
-More documentation on this module will be added later.
+稍后将添加更多关于此模块的文档。
 
-## Script Permissions
+## 脚本权限
 
-PySpigot allows scripts to define a list of permissions that it uses. This is useful if scripts want to restrict access to certain features. Script permissions are initialized and loaded just prior to parsing and executing the script's code, and are removed just after a script is stopped.
+PySpigot 允许脚本定义它们使用的权限列表。这对于限制对某些功能的访问非常有用。脚本权限在解析和执行脚本代码之前初始化和加载，并在脚本停止后立即移除。
 
-Script permissions are defined in the `script_options.yml` file. For more information on how to define permissions, see the [documentation for script options](scriptoptions.md#permissions).
+脚本权限在 `script_options.yml` 文件中定义。有关如何定义权限的更多信息，请参阅 [脚本选项文档](scriptoptions.md#permissions)。
 
-## Start and Stop Functions
+## 启动和停止函数
 
-There are two special functions you may include in your PySpigot scripts: `start` and `stop`. Both take no parameters.
+你可以包含两个特殊的函数在你的 PySpigot 脚本中：`start` 和 `stop`。这两个函数都不接受参数。
 
-If a `start` function is defined in your script, it will be called by PySpigot when the script starts.
+如果你的脚本中定义了一个 `start` 函数，当脚本启动时，PySpigot 将调用它。
 
-If a `stop` function is defined in your script, it will be called by PySpigot when your script is stopped/unloaded.
+如果你的脚本中定义了一个 `stop` 函数，当你的脚本停止/卸载时，PySpigot 将调用它。
 
-?> Both `start` and `stop` are optional, you do not need to define them in your script if they are not needed.
+?> `start` 和 `stop` 都是可选的，如果不需要的话，你不必在脚本中定义它们。
 
-## The pyspigot Helper Module
+## PySpigot 辅助模块
 
-As of version 0.5.0, PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is automatically placed into the `python-libs` folder on plugin load.
+从版本 0.5.0 开始，PySpigot 包含了一个名为 `pyspigot.py` 的辅助模块，其中包含各种有用的函数，用于访问 PySpigot 的管理器类。此模块会在插件加载时自动放置到 `python-libs` 文件夹中。
 
-PySpigot includes an automated system to automatically update the `pyspigot.py` helper module when changes are detected. This feature can be disabled if desired by setting the `auto-pyspigot-lib-update-enabled` option under `debug-options` in the config.yml file to `false`. It is recommended that you leave this enabled to ensure that any changes, additions, and fixes are always reflected on the user end.
+PySpigot 包括一个自动化系统，当检测到变化时会自动更新 `pyspigot.py` 辅助模块。如果需要，可以通过将 `config.yml` 文件中的 `debug-options` 下的 `auto-pyspigot-lib-update-enabled` 选项设置为 `false` 来禁用此功能。建议保持启用状态以确保任何更改、新增功能和修复都能在用户端得到反映。
 
-[Click here](https://github.com/magicmq/pyspigot/blob/master/src/main/resources/python-libs/pyspigot.py) to view the source code of the `pyspigot.py` module.
+[点击此处](https://github.com/magicmq/pyspigot/blob/master/src/main/resources/python-libs/pyspigot.py) 查看 `pyspigot.py` 模块的源代码。
 
-## PySpigot's Managers
+## PySpigot 的管理器
 
-PySpigot provides a variety of managers to more easily work with parts of the Bukkit/Spigot API. For instructions on importing these into your script, see below. PySpigot managers currently include:
+PySpigot 提供了一系列管理器，以便更轻松地处理 Bukkit/Spigot API 的各个部分。有关如何将这些管理器导入到你的脚本中的说明，请参阅下面的内容。PySpigot 当前提供的管理器包括：
 
-- ScriptManager, for loading and unloading scripts from within another script.
-- ListenerManager, for registering event listeners.
-- CommandManager, for registering and working with commands.
-- TaskManager, for registering a variety of repeating, delayed, and asynchronous tasks.
-- ConfigManager, for working with configuration files.
-- ProtocolManager, to work with ProtocolLib.
-- PlaceholderManager, to work with PlaceholderAPI.
-- DatabaseManager, to connect to and interact with SQL-type and Mongo databases.
-- RedisManager, to connect to and interact with a Redis server instance.
+- ScriptManager，用于从另一个脚本中加载和卸载脚本。
+- ListenerManager，用于注册事件监听器。
+- CommandManager，用于注册和处理命令。
+- TaskManager，用于注册各种重复、延迟和异步任务。
+- ConfigManager，用于处理配置文件。
+- ProtocolManager，用于与 ProtocolLib 工作。
+- PlaceholderManager，用于与 PlaceholderAPI 工作。
+- DatabaseManager，用于连接和交互 SQL 类型和 MongoDB 数据库。
+- RedisManager，用于连接和交互 Redis 服务器实例。
 
-Managers must be imported into your script inn order for you to access them. The following table summarizes how to access managers, but read the sections below for more detail on how to import them:
+为了能够访问这些管理器，你需要将它们导入到你的脚本中。下表总结了如何访问管理器，但请阅读下面的部分以获取更多关于如何导入它们的详细信息：
 
-| Manager             | Access Via Helper Module         | Access Under PySpigot       | Standalone Import                                                         |
-| ------------------- | -------------------------------- | --------------------------- | ------------------------------------------------------------------------- |
-| Script Manager      | `pyspigot.script_manager()`      | `PySpigot.script`           | `from dev.magicmq.pyspigot.manager.script import ScriptManager`           |
-| Listener Manager    | `pyspigot.listener_manager()`    | `PySpigot.listener`         | `from dev.magicmq.pyspigot.manager.listener import ListenerManager`       |
-| Command Manager     | `pyspigot.command_manager()`     | `PySpigot.command`          | `from dev.magicmq.pyspigot.manager.command import CommandManager`         |
-| Task Manager        | `pyspigot.task_manager()`        | `PySpigot.scheduler`        | `from dev.magicmq.pyspigot.manager.task import TaskManager`               |
-| Config Manager      | `pyspigot.config_manager()`      | `PySpigot.config`           | `from dev.magicmq.pyspigot.manager.config import ConfigManager`           |
-| Protocol Manager    | `pyspigot.protocol_manager()`    | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager`       |
-| Placeholder Manager | `pyspigot.placeholder_manager()` | `PySpigot.placeholder`      | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
-| Database Manager    | `pyspigot.database_manager()`    | `PySpigot.database`         | `from dev.nagicmq.pyspigot.manager.database import DatabaseManager`       |
-| Redis Manager       | `pyspigot.redis_manager()`       | `PySpigot.redis`            | `from dev.magicmq.pyspigot.manager.redis import RedisManager`             |
+| 管理器      | 通过辅助模块访问         | 通过 PySpigot 访问       | 单独导入                                                         |
+|----------| ------------------------ | ------------------------ | ---------------------------------------------------------------- |
+| 脚本管理器    | `pyspigot.script_manager()` | `PySpigot.script`         | `from dev.magicmq.pyspigot.manager.script import ScriptManager`   |
+| 事件管理器    | `pyspigot.listener_manager()` | `PySpigot.listener`       | `from dev.magicmq.pyspigot.manager.listener import ListenerManager` |
+| 命令管理器    | `pyspigot.command_manager()` | `PySpigot.command`        | `from dev.magicmq.pyspigot.manager.command import CommandManager` |
+| 任务管理器    | `pyspigot.task_manager()`   | `PySpigot.scheduler`      | `from dev.magicmq.pyspigot.manager.task import TaskManager`       |
+| 配置管理器    | `pyspigot.config_manager()` | `PySpigot.config`         | `from dev.magicmq.pyspigot.manager.config import ConfigManager`   |
+| 协议管理器    | `pyspigot.protocol_manager()` | `PySpigot.protocol`       | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager` |
+| 占位符管理器   | `pyspigot.placeholder_manager()` | `PySpigot.placeholder` | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
+| 数据库管理器   | `pyspigot.database_manager()` | `PySpigot.database`       | `from dev.nagicmq.pyspigot.manager.database import DatabaseManager` |
+| Redis管理器 | `pyspigot.redis_manager()`   | `PySpigot.redis`          | `from dev.magicmq.pyspigot.manager.redis import RedisManager`     |
 
-!> The Protocol Manager and Placeholder Manager are *optional* managers. These managers should only be accessed if the ProtocolLib and/or PlaceholderAPI plugins are loaded and enabled.
+!> Protocol Manager 和 Placeholder Manager 是 *可选* 管理器。只有在 ProtocolLib 和/或 PlaceholderAPI 插件已加载并启用的情况下才应访问这些管理器。
 
-To utilize these managers, they must be imported into your script. This can be done in three ways:
+为了使用这些管理器，必须将它们导入到你的脚本中。这可以通过三种方式完成：
 
-### Import managers via the pyspigot.py helper library
+### 通过 `pyspigot.py` 辅助库导入管理器
 
-As of version 0.5.0, PySpigot ships with a `pyspigot.py` helper module, which is automatically placed into the `python-libs` folder when the plugin is initialized. This module contains several functions to allow for access to all managers.
+从版本 0.5.0 开始，PySpigot 包含了一个 `pyspigot.py` 辅助模块，该模块会在插件初始化时自动放置到 `python-libs` 文件夹中。此模块包含多个函数，允许访问所有管理器。
 
 ```python
 import pyspigot as ps
@@ -146,7 +146,7 @@ ps.database_manager().<function>
 ps.redis_manager().<function>
 ```
 
-In the above code, the PySpigot library is imported as `ps`. Then, functions within the library are called to get each manager. Of course, you can also assign the needed managers to a variable for ease of use in multiple locations within your code, like so:
+在上面的代码中，PySpigot 库被导入为 `ps`。然后，通过调用库内的函数来获取每个管理器。当然，你也可以将所需的管理器赋值给变量，以便在代码的多个位置方便使用，如下所示：
 
 ```python
 import pyspigot as ps
@@ -154,33 +154,33 @@ import pyspigot as ps
 script = ps.script_manager()
 listener = ps.listener_manager()
 command = ps.command_manager()
-...
 
+...
 script.<function>
 listener.<function>
 command.<function>
 ...
 ```
 
-The PySpigot helper module also includes a series of convenience variables for ease of access of managers. You'll see these common aliases used in example code throughout the documentation for PySpigot.
+PySpigot 辅助模块还包括一系列方便的变量，以便于访问管理器。你会在 PySpigot 文档中的示例代码中看到这些常见的别名。
 
 ```python
 import pyspigot as ps
 ```
 
-- ScriptManager: `ps.script`, `ps.scripts`, `ps.sm`
-- ListenerManager: `ps.listener`, `ps.listeners`, `ps.lm`, `ps.event`, `ps.events`, `ps.em`
-- CommandManager: `ps.command`, `ps.commands`, `ps.cm`
-- TaskManager: `ps.scheduler`, `ps.scm`, `ps.tasks`, `ps.tm`
-- ConfigManager: `ps.config`, `ps.configs`, `ps.com`
-- ProtocolManager: `ps.protocol`, `ps.protocol_lib`, `ps.protocols`, `ps.pm`
-- PlaceholderManager: `ps.placeholder`, `ps.placeholder_api`, `ps.placeholders`, `ps.plm`
-- DatabaseManager: `ps.database`
-- RedisManager: `ps.redis`
+- 脚本管理器: `ps.script`, `ps.scripts`, `ps.sm`
+- 事件管理器: `ps.listener`, `ps.listeners`, `ps.lm`, `ps.event`, `ps.events`, `ps.em`
+- 命令管理器: `ps.command`, `ps.commands`, `ps.cm`
+- 任务管理器: `ps.scheduler`, `ps.scm`, `ps.tasks`, `ps.tm`
+- 配置管理器: `ps.config`, `ps.configs`, `ps.com`
+- 协议管理器: `ps.protocol`, `ps.protocol_lib`, `ps.protocols`, `ps.pm`
+- 占位符管理器: `ps.placeholder`, `ps.placeholder_api`, `ps.placeholders`, `ps.plm`
+- 数据库管理器: `ps.database`
+- Redis管理器: `ps.redis`
 
-### Import all managers at once using the PySpigot class
+### 使用 PySpigot 类一次性导入所有管理器
 
-This used to be the preferred way to access managers, but is no longer the preferred method as of version 0.5.0. This method is nevertheless still functional and can be used if desired.
+这曾经是访问管理器的首选方法，但从版本 0.5.0 开始不再作为首选方法。不过，这种方法仍然有效，可以根据需要使用。
 
 ```python
 from dev.magicmq.pyspigot import PySpigot as ps
@@ -194,11 +194,11 @@ ps.protocol.<function>
 ps.placeholder.<function>
 ```
 
-In the above code, PySpigot is imported as ps. Managers are called using their simplified name, `script` for ScriptManager, `listener` for ListenerManager, `command` for CommandManager, `scheduler` for TaskManager, `config` for ConfigManager, and `protocol` for ProtocolManager.
+在上面的代码中，PySpigot 被导入为 `ps`。使用简化的名称来调用管理器，如 `script` 对应 ScriptManager，`listener` 对应 ListenerManager，`command` 对应 CommandManager，`scheduler` 对应 TaskManager，`config` 对应 ConfigManager，以及 `protocol` 对应 ProtocolManager。
 
-### Import each manager individually:
+### 单独导入每个管理器
 
-You can also import each manager class individually, directly from PySpigot's Java code.
+你也可以直接从 PySpigot 的 Java 代码中单独导入每个管理器类。
 
 ```python
 from dev.magicmq.pyspigot.manager.script import ScriptManager as script
@@ -214,76 +214,76 @@ command.get().<function>
 ...
 ```
 
-!> If importing a manager individually, `get()` *must* be used each time the manager is called!
+!> 如果单独导入管理器，则每次调用管理器时 *必须* 使用 `get()`！
 
-## Global Variables
+## 全局变量
 
-PySpigot assigns a variable to the local namespace called `global` that is available to all loaded scripts. On the Java end, this variable is a `HashMap`, which stores data in key:value pairs, much like a dict in Python. The intention of this system is to act as a global set of variables. This is a nifty feature if you would like to share variables/values across multiple different scripts.
+PySpigot 为所有加载的脚本分配了一个称为 `global` 的本地命名空间变量。在 Java 端，这个变量是一个 `HashMap`，存储键值对数据，类似于 Python 中的字典。这个系统的目的是充当一组全局变量。如果你希望在多个不同的脚本之间共享变量/值，这是一个很实用的功能。
 
-See the [Global Variables](globalvariables.md) page for detailed information on how to use the global variables system.
+有关如何使用全局变量系统的详细信息，请参阅 [全局变量](globalvariables.md) 页面。
 
-## Script Errors
+## 脚本错误
 
-Scripts can generate errors/exceptions. PySpigot will attempt to handle these to prevent other parts of your script from breaking. If a script happens to generate an unhandled error/exception when it is loaded, the script will be automatically unloaded to prevent further issues. If an unhandled error/exception occurs somewhere else at a later point in time, such as while calling an event listener or command function, the script will remain loaded, but subsequent code within the function will not be executed. In any case, errors/exceptions will be logged to the console and to the respective script's log file (if file logging is enabled in the `config.yml`). You may use Python's `try:` and `except:` syntax to handle exceptions yourself. This will work for Java exceptions as well.
+脚本可能会产生错误/异常。PySpigot 将尝试处理这些错误以防止脚本的其他部分崩溃。如果脚本加载时产生了未处理的错误/异常，脚本将自动卸载以防止进一步的问题。如果在稍后的某个时刻，在调用事件监听器或命令函数时发生未处理的错误/异常，脚本将继续加载，但在函数中的后续代码将不会被执行。无论如何，错误/异常都会被记录到控制台和相应的脚本日志文件中（如果在 `config.yml` 中启用了文件日志记录）。你可以使用 Python 的 `try:` 和 `except:` 语法来自己处理异常。这对于 Java 异常也同样适用。
 
-There are two types of errors that a script can produce:
+脚本可能产生的错误有两种类型：
 
-### Python Exceptions
+### Python 异常
 
-These are exceptions intrinsic to your script's Python code. These exceptions will generate a log entry with a Python traceback indicating the script file and line that caused the exception. Because these exceptions originate in Python code, they should be fairly easy to debug. They will look like this:
+这些是脚本 Python 代码内在的异常。这些异常会产生一条带有 Python 跟踪回溯的日志条目，指示导致异常的脚本文件和行。因为这些异常源自 Python 代码，所以应该比较容易调试。它们看起来像这样：
 
-![An example of what a Python exception looks like in the server console.](images/python_exception.png)
+![Python 异常在服务器控制台中的示例](images/python_exception.png)
 
-The boxed text is the Python traceback.
+方框中的文本是 Python 的跟踪回溯。
 
-### Java Exceptions
+### Java 异常
 
-These exceptions occur when a script calls Java code and the exception occurs somewhere within the Java code (but not from within the script). These exceptions will also generate a log entry with a Python traceback indicating the script file and line that caused the exception. These can be trickier to debug because the cause of the exception may not be immediately apparent. The script log/console should give you an idea of what went wrong. They will look like this:
+这些异常发生在脚本调用 Java 代码时，并且异常发生在 Java 代码中的某个地方（但不是在脚本内部）。这些异常也会产生一条带有 Python 跟踪回溯的日志条目，指示导致异常的脚本文件和行。这些异常可能更难调试，因为异常的原因可能不明显。脚本日志/控制台应该能给你一些关于发生了什么问题的线索。它们看起来像这样：
 
-![An example of what a Java exception looks like in the server console.](images/java_exception.png)
+![Java 异常在服务器控制台中的示例](images/java_exception.png)
 
-You'll notice that these look very similar to Python exceptions. The only difference is that there will be an accompanying Java exception (`java.lang.<exception>`) along with a brief message about why the exception occurred.
+你会注意到这些异常看起来非常类似于 Python 异常。唯一的区别是会有伴随的 Java 异常 (`java.lang.<exception>`) 以及关于异常发生原因的简短消息。
 
-### Final Note About Exceptions
+### 关于异常的最终说明
 
-Because PySpigot is an active project in youth stages of development, you may encounter exceptions that are caused by a bug within PySpigot itself. If something goes wrong with your script, and your debuging efforts have been futile, please [submit an issue on Github](https://github.com/magicmq/PySpigot/issues).
+由于 PySpigot 是一个处于早期开发阶段的活跃项目，你可能会遇到由 PySpigot 自身的 bug 所引起的异常。如果你的脚本出现问题，并且你的调试努力没有成功，请在 [GitHub 上提交问题](https://github.com/magicmq/PySpigot/issues)。
 
-## Script Logging
+## 脚本日志记录
 
-Like scripts themselves, a script's logger is self-contained. Each script has its own logger, which is a subclass of [java.util.logging.Logger](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html).
+就像脚本本身一样，脚本的日志记录也是独立的。每个脚本都有自己的日志记录器，它是 [java.util.logging.Logger](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html) 的子类。
 
-PySpigot creates a new logger for each running script. A script's logger is automatically assigned to its global namespace under the variable name `logger`. To access your script's logger, use the `logger` variable.
+PySpigot 为每个运行中的脚本创建一个新的日志记录器。脚本的日志记录器自动分配给其全局命名空间下的变量 `logger`。要访问你的脚本的日志记录器，请使用 `logger` 变量。
 
-If you would like to print log messages in your script, it is highly recommended to use a script's respective logger. Using Python's `print` function works, but it will not automatically indicate which script the message came from (unless if you add this to the message yourself). `print` will also not log messages to a script's log file.
+如果你想在脚本中打印日志消息，强烈建议使用脚本相应的日志记录器。使用 Python 的 `print` 函数也可以工作，但它不会自动表明消息来自哪个脚本（除非你自己在消息中添加这些信息）。`print` 也不会将消息记录到脚本的日志文件中。
 
-When accessing your script's logger, you can use any of the functions listed [here](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html). PySpigot adds two additional functions for convenience:
+当你访问脚本的日志记录器时，你可以使用 [这里](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html) 列出的所有函数。PySpigot 添加了两个额外的函数以方便使用：
 
-- `logger.print(message)`: Useful for quickly adding debug messages to your script
-- `logger.debug(message)`: Under the hood, functions the same as `logger.print`
+- `logger.print(message)`：用于快速向脚本添加调试消息
+- `logger.debug(message)`：底层功能与 `logger.print` 相同
 
-### Script Log Files
+### 脚本日志文件
 
-As stated above, each script has its own log file, and these can be found in the `logs` folder within the PySpigot plugin folder. All messages related to a script will be logged here. If you would like to disable file logging for scripts, set the `log-to-file` value to `false` in PySpigot config.yml.
+如上所述，每个脚本都有自己的日志文件，这些文件可以在 PySpigot 插件文件夹内的 `logs` 文件夹中找到。所有与脚本相关的消息都将记录在这里。如果你想禁用脚本的日志文件记录，可以将 PySpigot `config.yml` 中的 `log-to-file` 值设置为 `false`。
 
-You may also change which messages are logged to a script's log file. To do so, edit the `min-log-level` value in the config.yml. Use Java's [Logging levels](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html).
+你也可以改变哪些消息会被记录到脚本的日志文件中。为此，请编辑 `config.yml` 中的 `min-log-level` 值。使用 Java 的 [日志级别](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html)。
 
-You may also change the format of time stamps within script logs files. To do so, edit the `log-timestamp-format` value in the config.yml. Use a format that conforms to Java's [DateTimeFormatter](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html).
+你还可以改变脚本日志文件中时间戳的格式。为此，请编辑 `config.yml` 中的 `log-timestamp-format` 值。使用符合 Java 的 [DateTimeFormatter](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html) 的格式。
 
-## Non-ASCII Characters in Script Files
+## 脚本文件中的非 ASCII 字符
 
-Jython reads and compiles script files using ASCII encoding. This means that it won't recognize non-ASCII characters in the file. You may see a `SyntaxError` when you load a script with non-ASCII characters. Additionally, in Python 2, the `str` type is a collection of 8-bit characters. Consequently, all characters in the English alphabet (and some basic symbols) can be represented using these 8-bit characters, but special symbols and characters from non-Latin alphabets cannot. There are a couple ways to work around these two constraints:
+Jython 使用 ASCII 编码读取和编译脚本文件。这意味着它不会识别文件中的非 ASCII 字符。当你加载包含非 ASCII 字符的脚本时，可能会看到 `SyntaxError`。此外，在 Python 2 中，`str` 类型是一组 8 位字符。因此，英语字母表中的所有字符（以及一些基本符号）都可以使用这些 8 位字符表示，但特殊符号和非拉丁字母表的字符则不能。有几种方法可以解决这两个限制：
 
-### Workaround 1
+### 解决方案 1
 
-Jython allows you to specify the encoding of your script file. This is done by specifying an [encoding declaration](https://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations) in your script. This ensures that when Jython reads and compiles the file, it will recognize the non-ASCII characters. Add the following to the *first or second line* of your script file:
+Jython 允许你指定脚本文件的编码。这是通过在脚本中指定 [编码声明](https://docs.python.org/2/reference/lexical_analysis.html#encoding-declarations) 来实现的。这确保了当 Jython 读取和编译文件时，它将识别非 ASCII 字符。将以下内容添加到脚本文件的 *第一行或第二行*：
 
 `#coding: utf-8`
 
-Of course, you can replace `utf-8` with whatever character encoding standard you'd like Jython to use. For a list of supported encoding schemes, see [this page](https://docs.python.org/2/library/codecs.html#standard-encodings).
+当然，你可以将 `utf-8` 替换为你希望 Jython 使用的任何字符编码标准。支持的编码方案列表，请参见 [此页面](https://docs.python.org/2/library/codecs.html#standard-encodings)。
 
-!> You must put the encoding declaration on either the first or second line of your script, as Jython only searches for encoding declarations in this area.
+!> 必须将编码声明放在脚本的第一行或第二行，因为 Jython 只在这个区域搜索编码声明。
 
-Python 2 includes a `unicode` type, which supports all UTF-8 characters (symbols, non-Latin alphabets, etc.). You can specify that you want to use the `unicode` type for the string (and not `str`) by adding a preceding `u`. For example:
+Python 2 包含一个 `unicode` 类型，支持所有 UTF-8 字符（符号、非拉丁字母等）。你可以在字符串前面加上一个前置 `u` 来指定你想使用 `unicode` 类型（而不是 `str`）。例如：
 
 ```python
 #coding: utf-8
@@ -293,11 +293,11 @@ from org.bukkit import Bukkit
 Bukkit.broadcastMessage(u'Привет, мир!')
 ```
 
-Notice that a `u` directly proceeds the string. This denotes that the string should be treated as a unicode string.
+注意字符串前面有一个 `u`。这表示字符串应该被视为 unicode 字符串。
 
-### Workaround 2
+### 解决方案 2
 
-You can use also use the hex codes of the unicode characters you want to write. You will still need to denote that the string is a unicode string by adding a preceding `u`, but you don't need to add an encoding declaration at the top of your script file since you aren't actually writing any non-ASCII characters in the file. For example:
+你也可以使用你想写的 unicode 字符的十六进制代码。你仍然需要通过在字符串前面加上一个前置 `u` 来标明字符串是 unicode 字符串，但是你不需要在脚本文件顶部添加编码声明，因为你实际上并没有在文件中写入任何非 ASCII 字符。例如：
 
 ```python
 from org.bukkit import Bukkit

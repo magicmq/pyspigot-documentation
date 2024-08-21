@@ -1,36 +1,36 @@
-# Protocol Manager
+# 协议管理器
 
-!> The Protocol manager is an *optional* manager. This manager should only be accessed if the ProtocolLib plugin is present on the server when the PySpigot plugin is enabled.
+!> 协议管理器是一个 *可选* 的管理器。只有当 ProtocolLib 插件在 PySpigot 插件启用时存在于服务器上时，才应该访问此管理器。
 
-PySpigot includes a manager that interfaces with ProtocolLib if you would like to work with packets in your script.
+PySpigot 包含了一个与 ProtocolLib 交互的管理器，如果你想在脚本中处理数据包的话。
 
-See the [General Information](writingscripts#pyspigot39s-managers) page for instructions on how to import the protocol manager into your script.
+有关如何将协议管理器导入到你的脚本中的说明，请参阅 [一般信息](writingscripts#PySpigot-的管理器) 页面。
 
-!> All packet listeners are called from an *asynchronous* context. In other words, they are called from a thread other than the main server thread. Do not call any Bukkit or PySpigot API from this context, or issues may occur.
+!> 所有数据包监听器都是从 *异步* 上下文中调用的。换句话说，它们是从主服务器线程之外的线程中调用的。不要在此上下文中调用任何 Bukkit 或 PySpigot API，否则可能会出现问题。
 
-# Protocol Manager Usage
+# 协议管理器使用方法
 
-There are several functions available from the protocol manager for registering and unregistering packet listeners:
+协议管理器提供了几个用于注册和注销数据包监听器的函数：
 
 - `registerPacketListener(function, packet_type)`
-- `registerPacketListener(function, packet_type, listener_priority)`: `listener_priority` is a the priority of the listener. This is analogous to EventPriority for Bukkit events.
-    - For information on listener priority, see ProtocolLib's [ListenerPriority class](https://ci.dmulloy2.net/job/ProtocolLib/javadoc/com/comphenix/protocol/events/ListenerPriority.html).
-- `unregisterPacketListener(packet_listener)`: Takes a packet listener returned by one of the register functions.
-- `createPacket(packet_type)`: Creates and returns a packet with the given type. See the [PacketType class](https://ci.dmulloy2.net/job/ProtocolLib/javadoc/com/comphenix/protocol/PacketType.html).
-- `sendServerPacket(player, packet)`: Sends a packet to the provided player.
-- `broadcastServerPacket(packet)`: Broadcasts a packet to all players on the server.
-- `broadcastServerPacket(packet, entity)`: Broadcasts a packet to all players who are monitoring the given entity at the time of the packet being sent.
-- `broadcastServerPacket(packet, entity, include_tracker)`: Broadcasts a packet to all players who are monitoring the given entity. `includeTracker` is used to specify if the packet should also be broadcasted to the entity (in addition to the players tracking the entity), e.g. `true` or `false`.
-- `broadcastServerPacket(packet, origin, max_observer_distance)`: Broadcasts a packet to all players within a given max observer distance from an origin location (center point).
-- `broadcastServerPacket(packet, target_players)`: Broadcasts a packet to a list of target players.
+- `registerPacketListener(function, packet_type, listener_priority)`：`listener_priority` 是监听器的优先级。这类似于 Bukkit 事件的 EventPriority。
+    - 关于监听器优先级的信息，请参见 ProtocolLib 的 [ListenerPriority 类](https://ci.dmulloy2.net/job/ProtocolLib/javadoc/com/comphenix/protocol/events/ListenerPriority.html)。
+- `unregisterPacketListener(packet_listener)`：接受一个由注册函数返回的数据包监听器。
+- `createPacket(packet_type)`：创建并返回具有给定类型的包。参见 [PacketType 类](https://ci.dmulloy2.net/job/ProtocolLib/javadoc/com/comphenix/protocol/PacketType.html)。
+- `sendServerPacket(player, packet)`：向提供的玩家发送一个包。
+- `broadcastServerPacket(packet)`：向服务器上的所有玩家广播一个包。
+- `broadcastServerPacket(packet, entity)`：向在发送包时正在监视给定实体的所有玩家广播一个包。
+- `broadcastServerPacket(packet, entity, include_tracker)`：向正在监视给定实体的所有玩家广播一个包。`include_tracker` 用于指定包是否也应广播给实体（除了监视实体的玩家），例如 `true` 或 `false`。
+- `broadcastServerPacket(packet, origin, max_observer_distance)`：向从原点位置（中心点）一定最大观察距离内的所有玩家广播一个包。
+- `broadcastServerPacket(packet, target_players)`：向目标玩家列表广播一个包。
 
-?> You **do not** need to unregister your packet listeners when your script is stopped/unloaded. PySpigot will handle this for you.
+?> 当你的脚本停止或卸载时，**不需要** 注销你的数据包监听器。PySpigot 会为你处理这个问题。
 
-## Asynchronous Listeners
+## 异步监听器
 
-The protocol manager also supports registering asynchronous listeners. Asynchronous listeners allow you to delay packet transmission, among other things. You may also register timeout listeners that can handle packets that time out on sending.
+协议管理器还支持注册异步监听器。异步监听器允许你延迟数据包传输等功能。你还可以注册超时监听器来处理在发送过程中超时的数据包。
 
-To get the asynchronous protocol manager, call `async()`. For example,
+要获取异步协议管理器，调用 `async()`。例如，
 
 ```python
 import pyspigot as ps
@@ -38,19 +38,19 @@ import pyspigot as ps
 async_manager = ps.protocol.async()
 ```
 
-The following functions are avialable for use from the asynchronous protocol manager:
+以下函数可用于异步协议管理器：
 
 - `registerAsyncPacketListener(function, packet_type)`
 - `registerAsyncPacketListener(function, packet_type, listener_priority)`
 - `registerTimeoutPacketListener(function, packet_type)`
 - `registerTimeoutPacketListener(function, packet_type, listener_priority)`
-- `unregisterAsyncPacketListener(packet_listener)`: Takes a packet listener returned by one of the register functions.
+- `unregisterAsyncPacketListener(packet_listener)`：接受一个由注册函数返回的数据包监听器。
 
-?> See ProtocolLib's documentation for more detailed infromation regarding asynchronous and timeout listeners.
+?> 有关异步和超时监听器的更详细信息，请参阅 ProtocolLib 的文档。
 
-# Code Example
+# 代码示例
 
-Let's look at the following code that defines and registers a chat packet listener:
+让我们来看一下下面的代码，该代码定义并注册了一个聊天数据包监听器：
 
 ```python
 import pyspigot as ps
@@ -64,27 +64,27 @@ def chat_packet_event(event):
 packet_listener = ps.protocol.registerPacketListener(chat_packet_event, PacketType.Play.Client.CHAT)
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the protocol manager (`protocol`).
+第 1 行，我们导入 PySpigot 作为 `ps` 以便利用协议管理器 (`protocol`)。
 
-On line 2, we import `PacketType` from ProtocolLib. This will be used to define which packet we want to listen to.
+第 2 行，我们从 ProtocolLib 导入 `PacketType`。这将用于定义我们要监听的数据包。
 
-On line 4, we define `chat_packet_event`, a function that will be called when the packet we are listening to is intercepted. This function has one parameter, `event`, which represents the event that occurred (a chat packet was received).
+第 4 行，我们定义 `chat_packet_event`，这是一个在拦截到我们监听的数据包时将被调用的函数。这个函数有一个参数 `event`，代表发生的事件（接收到聊天数据包）。
 
-On lines 4 and 5, we get the packet from the event and read the data from the packet.
+第 4 和 5 行，我们从事件中获取数据包并读取数据包中的数据。
 
-All packet listeners must be registered with PySpigot's protocol manager. Registering packet listeners is very similar to 
+所有数据包监听器都必须通过 PySpigot 的协议管理器进行注册。注册数据包监听器的方式与
 
-- The first argument accepts the function that should be called when the event fires.
-- The second argument accepts the event that should be listened for.
+- 第一个参数接受一个函数，在事件触发时调用。
+- 第二个参数接受要监听的事件。
 
-The `registerPacketListener` function returns a `ScriptPacketListener`, which represents the packet listener that was registered. This can be used to unregister the packet listener at a later time.
+`registerPacketListener` 函数返回一个 `ScriptPacketListener`，表示已注册的数据包监听器。这可用于稍后注销数据包监听器。
 
-Therefore, on line 7, we call the protocol manager to register the packet listener, passing the function we defined on line 5, `chat_packet_event`, and the packet we want to listen for, `PacketType.Play.Client.CHAT`, and assign the returned value to `packet_listener`.
+因此，在第 7 行，我们调用协议管理器来注册数据包监听器，传递我们在第 5 行定义的函数 `chat_packet_event` 以及我们要监听的数据包 `PacketType.Play.Client.CHAT`，并将返回的值赋给 `packet_listener`。
 
-## To summarize: {docsify-ignore}
+## 总结：{docsify-ignore}
 
-- To define the packet type for your listener, you must import `PacketType` from ProtocolLib.
-- All packet listeners should be defined as functions in your script that accept a single parameter, the packet event (the parameter name can be whatever you like).
-- All packet listeners must be registered with PySpigot's packet manager. This can be done in a variety of ways, but the most basic way is by using `registerPacketListener(function, packet_type)`.
-- Packet listeners are called *asynchronously*. Any code that interfaces with Bukkit or PySpigot should be run *synchronously*. You can do this by using the task manager (`runTask(function)`)
-- When registering a packet listener, the register functions all return a `ScriptPacketListener`, which can be used to unregister the listener.
+- 为了定义你的监听器的数据包类型，你必须从 ProtocolLib 导入 `PacketType`。
+- 所有数据包监听器都应该在你的脚本中定义为函数，接受一个参数，即数据包事件（参数名称可以自定义）。
+- 所有数据包监听器都必须通过 PySpigot 的数据包管理器进行注册。这可以通过多种方式完成，但最基本的方法是使用 `registerPacketListener(function, packet_type)`。
+- 数据包监听器是 *异步* 调用的。任何与 Bukkit 或 PySpigot 交互的代码都应 *同步* 运行。你可以通过使用任务管理器 (`runTask(function)`) 来实现这一点。
+- 在注册数据包监听器时，注册函数都会返回一个 `ScriptPacketListener`，这可用于注销监听器。

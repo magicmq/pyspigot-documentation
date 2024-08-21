@@ -1,51 +1,53 @@
-# Configuration Files
+# 配置文件
 
-With PySpigot, your scripts can load, access, and save to configuration files. All configuration files that scripts access using the config manager are automatically stored in the `config` folder located within PySpigot's plugin folder.
+使用 PySpigot，您的脚本可以加载、访问和保存到配置文件。所有使用配置管理器访问的配置文件都会自动存储在 PySpigot 插件文件夹内的 `config` 文件夹中。
 
-See the [General Information](writingscripts#pyspigot39s-managers) page for instructions on how to import the config manager into your script.
+有关如何将配置管理器导入到您的脚本中的说明，请参见 [一般信息](writingscripts#PySpigot-的管理器) 页面。
 
-This is not a comprehensive guide to working with config files. For more complete documentation on available methods/functions, see the [Javadocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html). All methods listed here can be called from within your script.
+这不是一个全面的配置文件操作指南。对于可用方法/函数的更完整文档，请参阅 [Javadocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html)。这里列出的所有方法都可以在您的脚本中调用。
 
-# Config Manager Usage
+# 配置管理器用法
 
-The following functions are available from the config manager:
+以下是从配置管理器中可用的函数：
 
-- `doesConfigExist(filePath)`: This checks if a config file exists under the given name or path. Returns `True` if the file exists, `False` if it does not.
-- `loadConfig(filePath)`: This loads the config, and will create a file automatically if one does not already exist. Takes the name or path of the file you wish to load and/or create. Returns a `ScriptConfig` object representing the config that was loaded/created. No default values are specified.
-- `loadConfig(filePath, defaults)`: This loads the config, and will create a file automatically if one does not already exist. Takes the name or path of the file you wish to load and/or create. Returns a `ScriptConfig` object representing the config that was loaded/created. Also takes a YAML-formatted string (`defaults`) that is used to specify the desired default values for the config.
-- `reloadConfig(config)`: This reloads a config in case there any changes to the file that need to be loaded in. Takes the config (a `ScriptConfig` object) to reload. Returns another `ScriptConfig` object representing the config that was reloaded.
-  - *Note:* The `reloadConfig` function will be removed in a future release of PySpigot. Instead, use the `reload` function within ScriptConfig (outlined in more detail below)
-- `deleteConfig(filePath)`: This will delete the config file with the specified name or path. Returns `True` if a file was deleted, `False` if no file existed previously under the provided name or path.
-- `getConfigFolder()`: This returns a Path to the folder (within the PySpigot plugin folder) where config files live.
+- `doesConfigExist(filePath)`: 检查是否有一个配置文件存在给定的名称或路径下。如果文件存在则返回 `True`，不存在则返回 `False`。
+- `loadConfig(filePath)`: 加载配置文件，并且如果文件尚不存在则自动创建。接受您希望加载和/或创建的文件的名称或路径。返回一个表示已加载/创建的配置的 `ScriptConfig` 对象。不指定默认值。
+- `loadConfig(filePath, defaults)`: 加载配置文件，并且如果文件尚不存在则自动创建。接受您希望加载和/或创建的文件的名称或路径。返回一个表示已加载/创建的配置的 `ScriptConfig` 对象。还接受一个 YAML 格式的字符串 (`defaults`)，用于指定配置所需的默认值。
+- `reloadConfig(config)`: 如果文件有任何需要加载的变化，则重新加载配置。接受要重新加载的配置（一个 `ScriptConfig` 对象）。返回另一个表示已重新加载的配置的 `ScriptConfig` 对象。
+  - *注意:* `reloadConfig` 函数将在未来的 PySpigot 版本中移除。相反，应在 `ScriptConfig` 中使用 `reload` 函数（下面详细说明）。
+- `deleteConfig(filePath)`: 删除具有指定名称或路径的配置文件。如果删除了文件则返回 `True`，如果之前提供的名称或路径下不存在文件则返回 `False`。
+- `getConfigFolder()`: 返回一个指向配置文件所在的文件夹（位于 PySpigot 插件文件夹内）的路径。
 
-?> The ConfigManager allows for usage of subfolders when working with script config files for organizational purposes. Simply pass the config file as a path to the above methods that accept a `filePath` parameter. For example, `ps.config_manager.loadConfig('test_script/config.yml')` will load the `config.yml` file in the `test_script` subfolder within the `configs` folder.
+?> 配置管理器允许在处理脚本配置文件时使用子文件夹以达到组织的目的。只需将配置文件作为路径传递给上述接受 `filePath` 参数的方法即可。例如，`ps.config_manager.loadConfig('test_script/config.yml')` 将加载 `configs` 文件夹内的 `test_script` 子文件夹中的 `config.yml` 文件。
 
-# ScriptConfig Usage
+# ScriptConfig 用法
 
-Loading/reloading a config returns a `ScriptConfig` object. This object has many methods/functions that you can use:
+加载/重新加载配置返回一个 `ScriptConfig` 对象。这个对象有许多您可以使用的方法/函数：
 
-- Multiple functions are available for getting data from your config. For a complete list of methods/functions you can use to retrieve data from your config file, see the [Spigot JavaDocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html)
-- `set(key, value)`: Set a value in the config at the given key. Takes a key representing the key to write to and value which is the value to write.
-- `setIfNotExists(path, value)`: Set a value in the config at the given path, only if there is not already a value set at that path. Returns `True` if the path was set to the value (the path was not previously set), or `False` if the path *was not* set to the given value (the path was already previously set). This is useful if you would like to add new keys to your config file but you do not want to override them if they are already set. 
-- `getConfigFile()`: Get the file that corresponds to the config.
-- `getConfigPath()`: Get the path for the file that corresponds to the config.
-- `load()`: Loads the configuration file. Under normal circumstances, this function should not be called, as it is done when `loadConfig` is called from the ScriptManager.
-- `reload()`: Reloads the configuration from its file. Useful if changes where made to the file since the last load/reload, as these changes will not be reflected automatically until the config is reloaded.
-- `save()`: This saves the config so that any values you set will be persistent. The configuration is automatically reloaded after saving.
+- 有许多函数可用于从您的配置中获取数据。要获取从配置文件中检索数据可以使用的完整方法/函数列表，请参阅 [Spigot JavaDocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html)
+- `set(key, value)`: 在配置中设置给定键处的值。接受一个键，表示要写入的键，以及一个值，表示要写入的值。
+- `setIfNotExists(path, value)`: 只有在给定路径处尚未设置值的情况下才在配置中设置值。如果路径被设置为值（路径之前未设置），则返回 `True`；如果路径 *未* 被设置为给定的值（路径之前已设置），则返回 `False`。如果您希望向配置文件添加新的键，但不想覆盖它们如果它们已经设置的话，这很有用。
+- `getConfigFile()`: 获取与配置对应的文件。
+- `getConfigPath()`: 获取与配置对应的文件的路径。
+- `load()`: 加载配置文件。在正常情况下，不应调用此函数，因为它在从 ScriptManager 调用 `loadConfig` 时完成。
+- `reload()`: 从文件重新加载配置。如果自上次加载/重新加载以来对文件进行了更改，则很有用，因为这些更改不会自动反映出来，直到配置被重新加载。
+- `save()`: 保存配置，使您设置的任何值都是持久的。保存后会自动重新加载配置。
 
-!> Changes to the config are not saved to the file automatically! You *must* call `save` to write changes to the config file.
+!> 对配置所做的更改不会自动保存到文件！您 *必须* 调用 `save` 以将更改写入配置文件。
 
-# Config Defaults
+# 默认配置值
 
-The Bukkit configuration libraries (upon which PySpigot's configuration system is built) has a built-in system for handling default config values. Default values are values that you can specify when you load your config that the configuration system will fall back on when a value isn't defined in your config file. These default values are only used if the path/key doesn't exist in the config file. Take the following example:
+Bukkit 配置库（PySpigot 的配置系统基于此构建）内置了一套处理默认配置值的系统。默认值是在加载配置时可以指定的值，当配置文件中没有定义某个值时，配置系统会回退使用这些默认值。这些默认值仅在配置文件中不存在相应的路径/键时使用。请看以下示例：
 
-Config file:
+配置文件：
+
 ```yaml
 key-1: 'Key 1 is set'
 key-2: 'Key 2 is set'
 ```
 
-Script:
+脚本：
+
 ```python
 import pyspigot as ps
 
@@ -62,20 +64,21 @@ print(config.getString('key-2'))
 print(config.getString('key-3'))
 ```
 
-Console output:
+控制台输出：
+
 ```
 [14:17:22 INFO]: [PySpigot/test.py] [STDOUT] Key 1 is set
 [14:17:22 INFO]: [PySpigot/test.py] [STDOUT] Key 2 is set
 [14:17:22 INFO]: [PySpigot/test.py] [STDOUT] Key 3
 ```
 
-In the above example, a multi-line string is defined in YAML format containing all the desired default values. Then, the config file is loaded, passing the default config string appropriately. Then, `key-1`, `key-2`, and `key-3` are printed. As you can see from the console output, `key-1` and `key-2` print "Key 1 is set" and "Key 2 is set", respectively, because these are *actually* defined in the config file. However, since `key-3` is *not* defined in the config file, it defaults to the default value for `key-3`, which is "Key 3", specified previously in the `config_defaults` string.
+在上面的例子中，定义了一个 YAML 格式的多行字符串，其中包含了所有期望的默认值。然后加载配置文件，并适当地传递默认配置字符串。接着打印出 `key-1`、`key-2` 和 `key-3` 的值。从控制台输出可以看出，`key-1` 和 `key-2` 分别打印出 "Key 1 is set" 和 "Key 2 is set"，因为这些值实际上在配置文件中定义了。然而，由于 `key-3` 在配置文件中未定义，所以它默认使用了 `key-3` 的默认值 "Key 3"，这是在 `config_defaults` 字符串中预先指定的。
 
-Specifying default values is particularly useful if you would like to add newer config values to an existing config file but you don't want to delete and regenerate the entire config. It's also useful if a user accidentally deletes a config value but you don't want your script to break if the config value isn't found (because it will fall back to whatever default value you specified).
+指定默认值特别有用，如果你想要向现有的配置文件中添加新的配置值，但又不想删除并重新生成整个配置。这也非常有用，如果用户不小心删除了一个配置值，但你不希望脚本因找不到配置值而中断（因为它会回退到你指定的默认值）。
 
-## Another way to specify defaults
+## 另一种指定默认值的方式
 
-The Bukkit config system also has built-in functions that allow you to specify a default value when you get a value. For example:
+Bukkit 配置系统还内置了一些函数，允许你在获取值时指定一个默认值。例如：
 
 ```python
 import pyspigot as ps
@@ -87,13 +90,13 @@ print(config.getString('key-2', 'Key 2 default'))
 print(config.getString('key-3', 'Key 3 default'))
 ```
 
-In the above code, default values are passed in the `getString` function, which are returned only if the value doesn't exist in the config. Similar functions exist when getting other types of values, including `getInt`, `getDouble`, `getLong`, `getBoolean`, etc.
+在上面的代码中，在 `getString` 函数中传递了默认值，只有在配置中不存在该值时才会返回这些默认值。获取其他类型的值时也有类似的函数，包括 `getInt`、`getDouble`、`getLong`、`getBoolean` 等。
 
-# Special Python Data Types
+# 特殊的 Python 数据类型
 
-## Lists, Sets, and Tuples
+## 列表、集合和元组
 
-Lists, sets, and tuples are all saved in yaml syntax as a list, which will look like this:
+列表、集合和元组都以 YAML 语法中的列表形式保存，看起来像这样：
 
 ```yaml
 list:
@@ -102,9 +105,9 @@ list:
   - 'item3'
 ```
 
-## Dictionaries
+## 字典
 
-A dictionary is represented in the `key: value` format in yaml syntax. For example, consider the following code:
+字典在 YAML 语法中以 `key: value` 的形式表示。例如，考虑以下代码：
 
 ```python
 thisdict = {
@@ -116,7 +119,7 @@ thisdict = {
 script_config.set('dict', thisdict)
 ```
 
-This will output to yaml syntax in the following format:
+这将以以下格式输出到 YAML 语法中：
 
 ```yaml
 dict:
@@ -125,11 +128,11 @@ dict:
   brand: Ford
 ```
 
-Of course, you may also nest lists, sets, tuples, and additional dictionaries within dictionaries and they will be saved accordingly. Dictionaries are particularly useful for setting multiple config values at the same time, without having to set each value individually.
+当然，你也可以在字典中嵌套列表、集合、元组和其他字典，并相应地保存它们。字典对于同时设置多个配置值特别有用，无需逐个设置每个值。
 
-# Code Example
+# 代码示例
 
-Let's take a look at the following code that loads a config, reads a number and string from it, writes to it, then saves it.
+让我们来看一个加载配置文件、从中读取一个数字和一个字符串、写入值并保存的示例代码。
 
 ```python
 import pyspigot as ps
@@ -143,21 +146,21 @@ script_config.set('test-set', 1337)
 script_config.save()
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the config manager (`config`).
+第 1 行，我们导入 PySpigot 并将其命名为 `ps` 以便使用配置管理器 (`config`)。
 
-On line 3, we load the config using the config manager. Fortunately, the config manager is easily accessible from the `pyspigot` helper module under the variable name `config`, for easy access. The `loadConfig` function takes a string representing the name of the config file to load. If the file does not exist, it will create it automatically.
+第 3 行，我们使用配置管理器加载配置。幸运的是，配置管理器很容易从 `pyspigot` 辅助模块中通过变量名 `config` 访问。`loadConfig` 函数接受一个代表要加载的配置文件名称的字符串。如果文件不存在，它会自动为你创建。
 
-On lines 5 and 6, we read a number and a string from the config, respectively, by using `getInt` and `getString`.
+第 5 和 6 行，我们分别使用 `getInt` 和 `getString` 从配置中读取一个数字和一个字符串。
 
-Finally, on lines 7 and 8, we first set the value 1337 to a config key called `test-set`. Then, we save the config with `script_config.save()`.
+最后，在第 7 和 8 行，我们首先将值 1337 设置为名为 `test-set` 的配置键。然后，我们使用 `script_config.save()` 保存配置。
 
-!> Configuration files are not unique to each script! Any script can access any config file. Use names that are unique.
+!> 配置文件不是每个脚本独有的！任何脚本都可以访问任何配置文件。请使用独特的名称。
 
-## To summrize: {docsify-ignore}
+## 总结: {docsify-ignore}
 
-- Scripts can load and save to config files that are automatically stored in PySpigot\'s plugin folder in the `configs` folder.
-- To load a config, use `config.load(filePath)`. The `filePath` parameter is the name *or* path of the config file you wish to load (including the `.yml` extension). If the config file does not exist, it will be created for you automatically. This returns a `ScriptConfig` object that is used to access the contents of the config and write to the config.
-- For all available functions/methods to get values from a loaded config, see the [Javadocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html).
-- To set a value in a config, use `script_config.set(key, value)`, where `key` is the key you wish to write to and `value` is the value to write.
-- You can set config defaults by passing a YAML-formatted string containing the default config values to the `loadConfig` function.
-- Finally, to save a config, use `script_config.save()`.
+- 脚本可以加载和保存自动存储在 PySpigot 插件文件夹的 `configs` 文件夹中的配置文件。
+- 要加载配置，使用 `config.load(filePath)`。`filePath` 参数是你希望加载的配置文件的名称 *或* 路径（包括 `.yml` 扩展名）。如果配置文件不存在，它将自动为你创建。这返回一个 `ScriptConfig` 对象，用于访问配置的内容和写入配置。
+- 要获取已加载配置的所有可用函数/方法，请参阅 [Javadocs](https://hub.spigotmc.org/javadocs/spigot/org/bukkit/configuration/MemorySection.html)。
+- 要在配置中设置值，使用 `script_config.set(key, value)`，其中 `key` 是你要写入的键，`value` 是要写的值。
+- 你可以通过向 `loadConfig` 函数传递包含默认配置值的 YAML 格式字符串来设置配置默认值。
+- 最后，要保存配置，使用 `script_config.save()`。

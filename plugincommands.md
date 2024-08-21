@@ -1,85 +1,85 @@
-# PySpigot Commands
+# PySpigot 命令
 
-PySpigot has several commands available to use, mostly for loading, unloading, and reloading scripts. They are all documented here.
+PySpigot 提供了多个命令，主要用于加载、卸载和重载脚本。以下是这些命令的文档。
 
-In general, when a command takes a script name, this is the name of the file *only*. This also holds true if the script file is located within a subfolder. For example, if you have a script with the path `scripts/test/test.py`, you should reference it by the file name only (`test.py`). To load it, you would run the command `/pyspigot load test.py`. PySpigot automatically searches the `scripts` folder for a matching script file based on the name you provide, so you don't need to specify the full path of the script file.
+通常情况下，当一个命令需要脚本名称时，指的是文件名本身。即使脚本文件位于子文件夹中也是如此。例如，如果你有一个路径为 `scripts/test/test.py` 的脚本，你应该只通过文件名（`test.py`）来引用它。要加载它，你可以运行命令 `/pyspigot load test.py`。PySpigot 会根据你提供的名称自动在 `scripts` 文件夹中搜索匹配的脚本文件，因此不需要指定脚本文件的完整路径。
 
-The base command for PySpigot is `/pyspigot`.
+PySpigot 的基础命令是 `/pyspigot`。
 
-- Syntax: `/pyspigot <argument>`
-- Aliases: `ps`
-- Permission: `pyspigot.command.listcmds`
+- 语法: `/pyspigot <argument>`
+- 别名: `ps`
+- 权限: `pyspigot.command.listcmds`
 
-## Help Command
+## 帮助命令
 
-Displays several helpful links, including the documentation (this site), the PySpigot plugin page on Spigot, the official Discord, and a link to report issues/bugs on GitHub.
+显示多个有用链接，包括文档（本网站）、Spigot 上的 PySpigot 插件页面、官方 Discord 频道以及在 GitHub 上报告问题/错误的链接。
 
-- Syntax: `/pyspigot help`
-- Aliases: `gethelp`
-- Permission: `pyspigot.command.help`
+- 语法: `/pyspigot help`
+- 别名: `gethelp`
+- 权限: `pyspigot.command.help`
 
-## Info Command
+## 信息命令
 
-Displays detailed information about a script, including uptime, registered listeners, commands, tasks, and more information.
+显示有关脚本的详细信息，包括运行时间、已注册的监听器、命令、任务等更多信息。
 
-- Syntax: `/pyspigot info <scriptname>`
-- Aliases: `scriptinfo`
-- Permission: `pyspigot.command.info`
+- 语法: `/pyspigot info <scriptname>`
+- 别名: `scriptinfo`
+- 权限: `pyspigot.command.info`
 
-## ListScripts Command
+## 列出脚本命令
 
-Lists all scripts, both unloaded and loaded. Loaded scripts are shown in green, unloaded scripts are shown in red. Use `[page]` to go to another page, if there are multiple pages available.
+列出所有脚本，包括未加载和已加载的。已加载的脚本显示为绿色，未加载的脚本显示为红色。如果有多个页面可用，可以使用 `[page]` 跳转到其他页面。
 
-- Syntax: `/pyspigot listscripts [page]`
-- Aliases: `list`, `scriptslist`, `ls`
-- Permission: `pyspigot.command.listscripts`
+- 语法: `/pyspigot listscripts [page]`
+- 别名: `list`, `scriptslist`, `ls`
+- 权限: `pyspigot.command.listscripts`
 
-## Load Command
+## 加载命令
 
-Loads and runs a script.
+加载并运行一个脚本。
 
-- Syntax: `/pyspigot load <scriptname>`
-- Aliases: `start`
-- Permission: `pyspigot.command.load`
+- 语法: `/pyspigot load <scriptname>`
+- 别名: `start`
+- 权限: `pyspigot.command.load`
 
-## LoadLibrary Command
+## 加载库命令
 
-Loads a Java library that you would like to use in a script. See [External Libraries](librarymanager.md) for more information.
+加载你希望在脚本中使用的 Java 库。更多信息请参见 [外部库](librarymanager.md)。
 
-- Syntax: `/pyspigot loadlibrary <filename>`
-- Aliases: `loadlib`
-- Permission: `pyspigot.command.loadlibrary`
+- 语法: `/pyspigot loadlibrary <filename>`
+- 别名: `loadlib`
+- 权限: `pyspigot.command.loadlibrary`
 
-## ReloadAll Command
+## 重载全部命令
 
-Performs a complete reload of PySpigot, including the `config.yml`, `script_options.yml`, the library manager, and all scripts.
+执行 PySpigot 的完全重载，包括 `config.yml`、`script_options.yml`、库管理器和所有脚本。
 
-- Syntax: `/pyspigot reloadall`
-- Aliases: `reset`, `restart`, `reboot`, `resetall`
-- Permission: `pyspigot.command.reloadall`
+- 语法: `/pyspigot reloadall`
+- 别名: `reset`, `restart`, `reboot`, `resetall`
+- 权限: `pyspigot.command.reloadall`
 
-## Reload Command
+## 重载命令
 
-Reloads a script. Useful if you made changes to a script while it is running and you would like to reload it.
+重载一个脚本。如果你在脚本运行时对其进行了修改，并希望重新加载它，这将非常有用。
 
-- Syntax: `/pyspigot reload <scriptname>`
-- Aliases: None
-- Permission: `pyspigot.command.reload`
+- 语法: `/pyspigot reload <scriptname>`
+- 别名: 无
+- 权限: `pyspigot.command.reload`
 
-## ReloadConfig Command
+## 重载配置命令
 
-Reloads PySpigot's `config.yml` and `script_options.yml`.
+重载 PySpigot 的 `config.yml` 和 `script_options.yml`。
 
-- Syntax: `/pyspigot reloadconfig`
-- Aliases: `configreload`
-- Permission: `pyspigot.command.reloadconfig`
+- 语法: `/pyspigot reloadconfig`
+- 别名: `configreload`
+- 权限: `pyspigot.command.reloadconfig`
 
-!> This does not reload scripts! Use `/pyspigot reload <scriptname>` to reload a script.
+!> 这个命令不会重载脚本！使用 `/pyspigot reload <scriptname>` 来重载脚本。
 
-## Unload Command
+## 卸载命令
 
-Stops and unloads a script.
+停止并卸载一个脚本。
 
-- Syntax: `/pyspigot unload <scriptname>`
-- Aliases: `stop`
-- Permission: `pyspigot.command.unload`
+- 语法: `/pyspigot unload <scriptname>`
+- 别名: `stop`
+- 权限: `pyspigot.command.unload`

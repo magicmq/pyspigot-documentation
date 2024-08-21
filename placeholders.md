@@ -1,28 +1,28 @@
-# Placeholder Manager
+# 占位符管理器
 
-!> The Placeholder manager is an *optional* manager. This manager should only be accessed if the PlaceholderAPI plugin is present on the server when the PySpigot plugin is enabled.
+!> 占位符管理器是一个 *可选* 的管理器。只有当 PySpigot 插件启用时服务器上安装了 PlaceholderAPI 插件，才应访问此管理器。
 
-PySpigot includes a manager that interfaces with PlaceholderAPI if you would like to register placeholder expansions in your script.
+如果你想在脚本中注册占位符扩展，PySpigot 包含了一个与 PlaceholderAPI 交互的管理器。
 
-See the [General Information](writingscripts#pyspigot39s-managers) page for instructions on how to import the placeholder manager into your script.
+请参阅 [一般信息](writingscripts#PySpigot-的管理器) 页面上的说明来了解如何将占位符管理器导入到你的脚本中。
 
-# Placeholder Manager Usage
+# 占位符管理器使用方法
 
-All placeholders created by scripts will follow this general format: `%script:<scriptname>_<placeholder>%`, where `<name>` is the name of your script (without .py), and `<placeholder>` is the specific placeholder, which you will handle yourself in a placeholder "replacer" function. See the code example below for details.
+所有由脚本创建的占位符都会遵循这样的通用格式：`%script:<scriptname>_<placeholder>%`，其中 `<scriptname>` 是你的脚本名称（不含 .py 扩展名），而 `<placeholder>` 是具体的占位符，你需要在占位符的“替换”函数中自行处理。详情请参见下面的代码示例。
 
-There are three functions available from the placeholder manager for registering/unregistering placeholders:
+占位符管理器提供了三个函数用于注册和注销占位符：
 
-- `registerPlaceholder(placeholder_function)`: Registers a new placeholder expansion with default author ("Script Author") and version ("1.0.0"). When the placeholder is used, `placeholder_function` is called. It should return the text that should replace the placeholder. Returns a ScriptPlaceholder, which represents the placeholder that was registered.
-- `registerPlaceholder(placeholder_function, author, version)`: Registers a new placeholder expansion with a custom name and version. Returns a ScriptPlaceholder, which represents the placeholder that was registered.
-- `unregisterPlaceholder(placeholder)`: Unregisters a previously registered placeholder. Takes a ScriptPlaceholder that was previously returned by the `registerPlaceholder` function.
+- `registerPlaceholder(placeholder_function)`: 使用默认作者 ("Script Author") 和版本 ("1.0.0") 注册一个新的占位符扩展。当使用占位符时，会调用 `placeholder_function`。它应该返回用来替换占位符的文本。返回一个 `ScriptPlaceholder` 对象，表示已注册的占位符。
+- `registerPlaceholder(placeholder_function, author, version)`: 使用自定义作者和版本注册一个新的占位符扩展。返回一个 `ScriptPlaceholder` 对象，表示已注册的占位符。
+- `unregisterPlaceholder(placeholder)`: 注销先前注册的占位符。需要一个之前由 `registerPlaceholder` 函数返回的 `ScriptPlaceholder` 对象。
 
-?> You **do not** need to unregister your placeholders when your script is stopped/unloaded. PySpigot will handle this for you.
+?> 当你的脚本停止或卸载时，**无需**注销你的占位符。PySpigot 会为你处理这些事情。
 
-!> Scripts can only have one placeholder expansion registered at a time. To see how to define multiple placeholders for a script, see the code example below.
+!> 脚本一次只能注册一个占位符扩展。关于如何为一个脚本定义多个占位符，请参见下面的代码示例。
 
-# Code Example
+# 代码示例
 
-Let's look at the following code that defines and registers a placeholder:
+让我们来看一段定义并注册占位符的代码：
 
 ```python
 import pyspigot as ps
@@ -36,24 +36,24 @@ def replace(offline_player, placeholder):
 placeholder = ps.placeholder.registerPlaceholder(replace)
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the placeholder manager (`placeholder`).
+在第 1 行，我们导入 PySpigot 并将其别名为 `ps`，以便使用占位符管理器 (`placeholder`)。
 
-On line 3, we define `replace`, a function that will be called when the placeholder is used. This function has two parameters. `offline_player` is a Bukkit API OfflinePlayer that represents the player associated with the placeholder. `placeholder` is the text of the specific placeholder.
+在第 3 行，我们定义了一个 `replace` 函数，该函数会在使用占位符时被调用。这个函数有两个参数：`offline_player` 是一个代表与占位符关联的玩家的 Bukkit API 的 `OfflinePlayer` 对象；`placeholder` 是具体占位符的文本。
 
-!> `offline_player` could be null if there is no player associated with the placeholder.
+!> 如果占位符与玩家无关，则 `offline_player` 可能为 `None`。
 
-On line 4, we check if `placeholder` is equal to the specific placeholder we want to define, `placeholder1`. Then, on line 5, we return the "replaced" text.
+在第 4 行，我们检查 `placeholder` 是否等于我们想要定义的具体占位符 `placeholder1`。然后，在第 5 行，我们返回被替换的文本。
 
-On line 6, we use `else if` to define another specific placeholder, `placeholder2`. We return the text for this placeholder on line 6.
+在第 6 行，我们使用 `elif` 定义另一个具体的占位符 `placeholder2`。我们在第 6 行返回该占位符的文本。
 
-As you can see, you need not register a new placeholder expansion for each specific placeholder you want to define. Instead, all you need to do is check if the `placeholder` parameter of your replacer function is equal to the placeholder you want to define. Use `if` and `else if` statements for this.
+如你所见，你无需为每个具体占位符单独注册新的占位符扩展。相反，你只需要检查替换函数中的 `placeholder` 参数是否等于你想定义的占位符即可。可以使用 `if` 和 `elif` 语句来实现这一点。
 
-If we call the script test.py, the two placeholders we define in the above code are `%script:test_placeholder1%` and `%script:test_placeholder2%`.
+如果我们把这个脚本命名为 `test.py`，上面代码中定义的两个占位符分别是 `%script:test_placeholder1%` 和 `%script:test_placeholder2%`。
 
-## To summarize: {docsify-ignore}
+## 总结：{docsify-ignore}
 
-- Placeholders defined by scripts follow the format `%script:<scriptname>_<placeholder%`. 
-- Your placeholder replacer function should take two parameters, `offline_player` and `placeholder`. You can name them whatever you like. It will be called when the placeholder is used. `offline_player` is the player associated with the placeholder, if there is one. `placeholder` is the specific placeholder that was used.
-- Register your placeholder with PySpigot's placeholder manager using `registerPlaceholder(placeholder_function)` or `registerPlaceholder(placeholder_function, author, version)`.
-- Each script only needs to have one placeholder expansion registered. Check the `placeholder` parameter of your replacer function to handle specific placeholders.
-- When registering a placeholder expansion, the register functions all return a `ScriptPlaceholder`, which can be used to unregister the placeholder expansion at a later time.
+- 由脚本定义的占位符遵循格式 `%script:<scriptname>_<placeholder%>`。
+- 你的占位符替换函数应该接受两个参数：`offline_player` 和 `placeholder`。你可以给它们命名任何你喜欢的名字。当占位符被使用时，会调用这个函数。`offline_player` 是与占位符相关的玩家（如果存在的话）。`placeholder` 是使用的具体占位符。
+- 使用 PySpigot 的占位符管理器通过 `registerPlaceholder(placeholder_function)` 或 `registerPlaceholder(placeholder_function, author, version)` 注册你的占位符。
+- 每个脚本只需要注册一个占位符扩展。在替换函数中检查 `placeholder` 参数来处理具体占位符。
+- 在注册占位符扩展时，注册函数都会返回一个 `ScriptPlaceholder` 对象，稍后可以使用它来注销占位符扩展。

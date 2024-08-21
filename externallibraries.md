@@ -1,62 +1,62 @@
-# Using External Java/Python Libraries
+# 使用外部 Java/Python 库
 
-PySpigot allows you to use external Python and Java libraries when writing scripts. There are many open-source Python and Java libraries that simplify or otherwise hasten code writing. The [Apache Commons Libraries](https://commons.apache.org/), a collection of Java utility libraries that provide an abundance of useful utility functions, are one such example.
+PySpigot 允许你在编写脚本时使用外部 Python 和 Java 库。有许多开源的 Python 和 Java 库可以简化或加速代码编写过程。例如，[Apache Commons Libraries](https://commons.apache.org/) 是一系列 Java 实用库，提供了大量的实用工具函数。
 
-Of course, a more advanced usage of this functionality might include writing your own external libraries for frequently used or complicated code. See the [Handy Usage of External Python Modules](#Handy-Usage-of-External-Python-Modules) section below for more information on this.
+当然，更高级的用法可能是为你经常使用的或复杂的代码编写自己的外部库。有关这方面的更多信息，请参阅下面的 [外部 Python 模块的便捷使用](#加载和使用外部-Python-模块) 部分。
 
-## General Information
+## 一般信息
 
-PySpigot will create two folders (if they don't already exist) called `python-libs` and `java-libs` when it loads, where external libraries should be placed.
+当 PySpigot 加载时，它会创建两个文件夹（如果它们还不存在的话），分别叫做 `python-libs` 和 `java-libs`，用于存放外部库。
 
-PySpigot automatically places a helper module called `pyspigot.py` into the `python-libs` folder on plugin load. For more information on this helper library, see the [Writing Scripts](writingscripts#the-pyspigot-helper-module) page.
+PySpigot 会在插件加载时自动将一个辅助模块 `pyspigot.py` 放入 `python-libs` 文件夹中。关于这个辅助库的更多信息，请参阅 [编写脚本](writingscripts#the-pyspigot-helper-module) 页面。
 
-## External Python Libraries
+## 外部 Python 库
 
-PySpigot currently supports the usage of a *single-module file* for use as an external library. Currently, fully-fledged libraries/packages (I.E. those with an `__init__.py`) are not supported, but support for these is planned in a future release. Thus, from this point onwards, "external Python library" will be referred to as **module**.
+PySpigot 目前支持使用 *单模块文件* 作为外部库。目前还不支持完全成熟的库/包（即那些带有 `__init__.py` 的），但计划在未来版本中增加对这些的支持。因此，从现在起，“外部 Python 库”将被称为 **模块**。
 
-### Loading and Using an External Python Module
+### 加载和使用外部 Python 模块
 
-Using an external Python module is relatively simple and does not require usage of one of PySpigot's managers or any commands, unlike Java libaries. The external Python module you plan to use should be a single `.py` file. To use it, drag and drop it into the `python-libs` folder within PySpigot's main plugin folder. Then, simply `import` the module into your script, and you're good to go.
+使用外部 Python 模块相对简单，并不需要使用 PySpigot 的管理器或任何命令，与 Java 库不同。你打算使用的外部 Python 模块应该是一个单一的 `.py` 文件。要使用它，只需将它拖放到 PySpigot 主插件文件夹内的 `python-libs` 文件夹中。然后，在你的脚本中简单地 `import` 这个模块即可。
 
-?> Adding new modules or deleting old modules does not require a server restart or plugin reload. However, if the code of a module is changed, all scripts that use said module should be reloaded.
+?> 添加新模块或删除旧模块不需要重启服务器或重新加载插件。然而，如果模块的代码有所更改，则所有使用该模块的脚本都应重新加载。
 
-### Handy Usage of External Python Modules
+### 外部 Python 模块的便捷使用
 
-Suppose there is a certain piece of code that you use frequently, across multiple scripts. This code could be something like converting a player's location to a config-friendly `dict`, formatting an `str`, or sending a player a message in a neat format. Instead of writing the same code multiple times across different scripts, you might consider breaking this code out into its own external Python module, then add it to the `python-libs` folder, so that you can access it from all your scripts.
+假设有一段代码是你在多个脚本中频繁使用的。这段代码可能包括将玩家的位置转换为配置友好的 `dict`，格式化一个 `str` 字符串，或者以整洁的格式向玩家发送消息。与其在不同的脚本中多次编写相同的代码，你可以考虑将这段代码拆分成自己的外部 Python 模块，然后将其添加到 `python-libs` 文件夹中，这样就可以从所有脚本中访问它了。
 
-## External Java Libraries
+## 外部 Java 库
 
-Under normal circumstances, a Java library would be "shaded" into a Bukkit/Spigot plugin (with the end result sometimes called a "fat" Jar or "Uber" Jar) so that the plugin has access to the dependency at runtime. We obviously can't do this with scripts.
+通常情况下，Java 库会被“打包”进 Bukkit/Spigot 插件中（最终结果有时称为“胖”Jar 或 “Uber”Jar），以便插件在运行时可以访问依赖项。显然我们不能直接这样做对于脚本。
 
-Instead, we can take advantage of Jython's capabilities. As stated before elsewhere in the documentation, Jython provides access to all loaded Java classes at runtime. Therefore, a collection of Java classes (the library) can be manually loaded into the classpath at runtime, which in turn gives scripts access to those classes. PySpigot's LibraryManager provides this functionality.
+相反，我们可以利用 Jython 的能力。如文档其他部分所述，Jython 提供了在运行时访问所有已加载 Java 类的能力。因此，可以通过手动在运行时将一组 Java 类（即库）加载到类路径中，从而让脚本能够访问这些类。PySpigot 的 `LibraryManager` 提供了这种功能。
 
-When a JAR library is loaded, PySpigot creates a copy of the library that ends with "-relocated". For example, the library `jython-annotation-tools-0.9.0.jar` is copied to `jython-annotation-tools-0.9.0-relocated.jar`. This is done not only to accommodate relocation rules (see the [section on relocation rules](#jar-relocation-rules) below), but also to speed up loading of external libraries in future plugin loads. This behavior occurs even if you don't specify any relocation rules for the library.
+当一个 JAR 库被加载时，PySpigot 会创建一个以 `-relocated` 结尾的库副本。例如，库 `jython-annotation-tools-0.9.0.jar` 会被复制为 `jython-annotation-tools-0.9.0-relocated.jar`。这样做不仅是为了适应重定位规则（见下面的 [JAR 重定位规则](#JAR-重定位规则) 部分），也是为了加快未来插件加载时外部库的加载速度。即使你不为库指定任何重定位规则，这种行为也会发生。
 
-### Loading and Using Java Libraries
+### 加载和使用 Java 库
 
-!> It's possible that another plugin on the server is already using the library/dependency that you'd like to use. You should check if this is the case before you attempt to load the library yourself. You can do this by trying to `import` the dependency into your script. If you're able to import it, **stop here!** You won't need to load it yourself, as it is already loaded (likely by another plugin).
+!> 可能服务器上另一个插件已经在使用你想使用的库/依赖项。在尝试自己加载库之前，你应该检查是否已经有插件在使用它。你可以尝试在脚本中 `import` 该依赖项。如果能够导入成功，**就到这里为止！** 你无需自己加载它，因为它已经被加载（很可能是由另一个插件加载的）。
 
-All Java libraries/dependencies *should* have a Jar file available for download somewhere, perhaps on its Github repository or on its official website. You may need to download it manually from the repository where the dependency is hosted. If you can't find the Jar file, reach out on PySpigot's Discord for help.
+所有的 Java 库/依赖项 *应该* 都可以从某个地方下载到 Jar 文件，比如在其 Github 仓库或官方网站上。你可能需要从托管该依赖项的仓库手动下载它。如果你找不到 Jar 文件，请在 PySpigot 的 Discord 上寻求帮助。
 
-Once you have the physical Jar file for the dependency you'd like to use, drag and drop it into the `java-libs` folder of the main PySpigot plugin folder. The dependency will be loaded when the PySpigot plugin is loaded and enabled (on server startup). From here, you can use `import` statements in your script to import the desired code from the library.
+一旦你有了想要使用的依赖项的实际 Jar 文件，只需将其拖放到 PySpigot 主插件文件夹中的 `java-libs` 文件夹内。当 PySpigot 插件加载并启用（服务器启动时）时，该依赖项会被加载。从这里开始，你可以在脚本中使用 `import` 语句来导入库中的所需代码。
 
-?> All Jar files present in the `java-libs` folder are loaded *on plugin load* (when the server starts). Loading new Jar files while PySpigot is already running requires usage of a command (see below), or a complete reload of the plugin (`/ps reloadall`).
+?> `java-libs` 文件夹中的所有 Jar 文件都会在插件加载时（服务器启动时）被加载。在 PySpigot 已经运行的情况下加载新的 Jar 文件需要使用命令（见下文），或者完全重新加载插件（使用 `/ps reloadall`）。
 
-#### Loading a Java library when PySpigot is already running
+#### 在 PySpigot 已经运行时加载 Java 库
 
-Like before, obtain the Jar file for the library you would like to use. Then, drag and drop it into the `java-libs` folder of the main PySpigot plugin folder.
+像之前一样，获取你想要使用的库的 Jar 文件。然后，将其拖放到 PySpigot 主插件文件夹中的 `java-libs` 文件夹内。
 
-Next, you'll need to load the library manually with the command `/ps loadlibrary <filename>`, where `<filename>` is the name of the Jar file you are loading. Be sure to include the `.jar` extension in the file name. This will import the library.
+接下来，你需要使用命令 `/ps loadlibrary <filename>` 手动加载库，其中 `<filename>` 是你要加载的 Jar 文件的名称。确保文件名中包含 `.jar` 扩展名。这将会导入库。
 
-The library should now be loaded, and you can use `import` statements to import the desired code.
+现在库应该已经被加载，你可以使用 `import` 语句来导入所需的代码。
 
-!> PySpigot does not have a way to unload previously loaded libraries due to limitations within Java's class loading system. Nevertheless, a library *will not* be loaded more than once; if it already loaded, PySpigot will not load it again.
+!> 由于 Java 类加载系统的限制，PySpigot 没有办法卸载已经加载的库。不过，库不会被加载超过一次；如果它已经被加载过，PySpigot 将不会再次加载它。
 
-### Jar Relocation Rules
+### JAR 重定位规则
 
-You may need to change the name/classpath of classes within a library/dependency. This is called "relocation". There are many reasons why you might want to do this, but that is beyond the scope of this documentation. If you need to relocate a classpath of your library/dependency, you'll likely know that you need to do so already. In that case, read on for information on how to specify relocation rules.
+你可能需要改变库/依赖项中的类名/类路径。这称为“重定位”。有很多原因可能会让你想这样做，但这里不深入讨论。如果你需要重定位你的库/依赖项的类路径，你可能已经知道你需要这样做。在这种情况下，请继续阅读有关如何指定重定位规则的信息。
 
-Within PySpigot's `config.yml`, you'll find a `library-relocations` value. You may specify your own relocations rules here. Relocation rules should be in the format `<path>|<relocated-path>`. For example, to relocate `com.apache.commons.lang3.stringutils` to `lib.com.apache.commons.lang3.stringutils`:
+在 PySpigot 的 `config.yml` 文件中，你会找到一个 `library-relocations` 的值。你可以在这里指定自己的重定位规则。重定位规则应采用 `<path>|<relocated-path>` 的格式。例如，要将 `com.apache.commons.lang3.stringutils` 重定位到 `lib.com.apache.commons.lang3.stringutils`：
 
 ```yaml
 ...
@@ -66,7 +66,7 @@ library-relocations:
 ...
 ```
 
-An abbreviated list form is also permitted in YAML syntax:
+在 YAML 语法中也允许使用简化的列表形式：
 
 ```yaml
 ...
@@ -75,6 +75,6 @@ library-relocations: ['com.apache.commons.lang3.stringutils|lib.com.apache.commo
 ...
 ```
 
-To add multiple relocation rules in the abbreviated list form, separate each with a comma.
+要在简化的列表形式中添加多个重定位规则，每个规则之间用逗号隔开。
 
-!> As stated previously, PySpigot creates a copy that ends with "-relocated" of every external JAR library. This file represents the relocated JAR, with all relocation rules applied to it. This copy is only created once, or, put differently, relocation rules are only applied once. In subsequent plugin loads, the relocated JAR library is loaded. Therefore, if changes are made to the relocation rules, it is necessary to delete the "-relocated.jar" copy of the relevant library/libraries so that the updated relocation rules are applied.
+!> 如前所述，PySpigot 会对每个外部 JAR 库创建一个以 `-relocated` 结尾的副本。这个文件代表了重定位后的 JAR，所有重定位规则都已应用到它上面。这个副本只创建一次，或者说，重定位规则只应用一次。在后续的插件加载过程中，加载的是重定位后的 JAR 库。因此，如果对重定位规则进行了更改，则有必要删除相关库的 `-relocated.jar` 副本，以便更新后的重定位规则得到应用。

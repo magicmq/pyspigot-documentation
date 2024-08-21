@@ -1,77 +1,86 @@
-# Database Manager
+# 数据库管理器
 
-PySpigot includes a database manager that allows you to connect to and interact with SQL database types (including MySQL, MariaDB, PostgreSQL, and more) as well as MongoDB. Under the hood, PySpigot utilizes [HikariCP](https://github.com/brettwooldridge/HikariCP) for interfacing with SQL-type database servers, and the [MongoDB Java Driver](https://www.mongodb.com/docs/drivers/java-drivers/) for interfacing with MongoDB database servers.
+PySpigot 包含了一个数据库管理器，允许你连接并与 SQL 类型的数据库（包括 MySQL、MariaDB、PostgreSQL 等）以及 MongoDB 进行交互。在底层，PySpigot 使用 [HikariCP](https://github.com/brettwooldridge/HikariCP) 来与 SQL 类型的数据库服务器进行接口，并使用 [MongoDB Java 驱动程序](https://www.mongodb.com/docs/drivers/java-drivers/) 来与 MongoDB 数据库服务器进行接口。
 
-See the [General Information](writingscripts#pyspigot39s-managers) page for instructions on how to import the database manager into your script.
+请参见 [一般信息](writingscripts#PySpigot-的管理器) 页面了解如何将数据库管理器导入到你的脚本中的说明。
 
-This is not a comprehensive guide to working with SQL or MongoDB. Please seek out the appropriate tutorials/information if you're unsure how to use SQL or MongoDB.
+这不是一个关于使用 SQL 或 MongoDB 的全面指南。如果你不确定如何使用 SQL 或 MongoDB，请查找适当的教程和信息。
 
 # SQL
 
-The database manager allows you to connect to and interact with SQL-type databases. 
+数据库管理器允许你连接并与 SQL 类型的数据库进行交互。
 
-## Database Manager Usage for SQL Databases
+## SQL 数据库的数据库管理器使用
 
-There are several functions available for you to use in the database manager for interacting with SQL databases. They are:
+数据库管理器提供了几个函数供你使用来与 SQL 数据库进行交互。这些函数包括：
 
-- `newHikariConfig()`: Returns a new HikariConfig object for convenience.
-- `connectSql(host, port, database, username, password)`: Connects to a remote SQL database with the given host, port, database name, username, and password.
-- `connectSql(host, port, database, username, password, hikariConfig)`: Connects to a remote SQL database with the given host, port, database name, username, password, using the provided HikariConfig.
-- `connectSql(uri)`: Connects to a remote SQL database with the given connection string (see below for details on connection strings).
-- `connectSql(uri, hikariConfig)`: Connects to a remote SQL database with the given connection string (see below for details on connection strings), using the provided HikariConfig.
-- `connectSql(hikariConfig)`: Connects to a remote SQL database with the given HikariConfig.
-- `disconnect(database)`: Disconnect and close an open connection to a database. Accepts the SqlDatabase object returned by `connectSql`.
+- `newHikariConfig()`: 返回一个新的 HikariConfig 对象以方便使用。
+- `connectSql(host, port, database, username, password)`: 使用给定的主机、端口、数据库名、用户名和密码连接到远程 SQL 数据库。
+- `connectSql(host, port, database, username, password, hikariConfig)`: 使用给定的主机、端口、数据库名、用户名、密码以及提供的 HikariConfig 连接到远程 SQL 数据库。
+- `connectSql(uri)`: 使用给定的连接字符串连接到远程 SQL 数据库（有关连接字符串的详细信息，请参见下文）。
+- `connectSql(uri, hikariConfig)`: 使用给定的连接字符串以及提供的 HikariConfig 连接到远程 SQL 数据库（有关连接字符串的详细信息，请参见下文）。
+- `connectSql(hikariConfig)`: 使用给定的 HikariConfig 连接到远程 SQL 数据库。
+- `disconnect(database)`: 断开并关闭对数据库的打开连接。接受 `connectSql` 返回的 `SqlDatabase` 对象。
 
-All of the `connectSql` functions above accomplish the same task: they will initialize a new connection to a remote database and return an `SQLDatabase` object, which can then be used to select and update tables within the database. Which `connectSql` function you use will depend on your specific use case. Of all of the above, `connectSql(host, port, database, username, password)` is the most basic, and if you're just getting started, you should probably use this one.
+上述所有的 `connectSql` 函数都实现了相同的目标：初始化与远程数据库的新连接，并返回一个 `SQLDatabase` 对象，该对象可用于选择和更新数据库中的表。你使用哪个 `connectSql` 函数取决于你的具体应用场景。在所有上述函数中，`connectSql(host, port, database, username, password)` 是最基础的，如果你刚开始使用，你应该可能使用这个函数。
 
-The database manager also allows you to specify a [connection string/URI/URL](https://learn.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver16), if you want finer control over the connection parameters and settings. You may also specify options in the connection string. The `connectSql` functions that accept `uri` are functions that accept a connection string.
+数据库管理器还允许你指定一个 [连接字符串/URI/URL](https://learn.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver16)，如果你想要更精细地控制连接参数和设置。你也可以在连接字符串中指定选项。接受 `uri` 的 `connectSql` 函数是指接受连接字符串的函数。
 
-?> If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of a statement, there is no guarantee that execution of the statement will occur.
+?> 如果你完成了对数据库连接的使用，遵循良好的实践关闭它是好的。如果你在脚本停止或终止时有任何打开的数据库连接，则这些打开的连接将被自动关闭。如果在执行语句期间或即将执行语句时关闭了数据库，则无法保证语句的执行。
 
-## The HikariConfig
+## HikariConfig
 
-The HikariConfig is a configuration object that allows greater control over the SQL connection. For example, it allows you to set a minimum idle time, pool size, idle timeout time, and more. For detailed information on the HikariConfig, see the [HikariCP JavaDocs](https://www.javadoc.io/doc/com.zaxxer/HikariCP/latest/com.zaxxer.hikari/com/zaxxer/hikari/HikariConfig.html).
+HikariConfig 是一个配置对象，允许你对 SQL 连接有更大的控制权。例如，它可以让你设置最小空闲时间、池大小、空闲超时时间等。有关 HikariConfig 的详细信息，请参阅 [HikariCP JavaDoc](https://www.javadoc.io/doc/com.zaxxer/HikariCP/latest/com.zaxxer.hikari/com/zaxxer/hikari/HikariConfig.html)。
 
-You may also use a HikariConfig object *alone* to establish a connection (via the `connectSql(hikariConfig)` function). The HikariConfig object allows you to directly specify a host, port, database, username, and password within the object. This is probably the simplest way to establish a new connection with a remote database.
+你也可以单独使用 HikariConfig 对象（通过 `connectSql(hikariConfig)` 函数）来建立连接。HikariConfig 对象允许你在对象内直接指定主机、端口、数据库、用户名和密码。这可能是与远程数据库建立新连接最简单的方法。
 
-A `newHikariConfig()` function is provided in the database manager for convenience. It returns a new HikariConfig with default options that you may modify. Once you modify the options to your liking, you may then pass your HikariConfig to one of the `connectSql` functions.
+数据库管理器中提供了一个 `newHikariConfig()` 函数以方便使用。它返回一个带有默认选项的新 HikariConfig，你可以对其进行修改。一旦你按照自己的喜好修改了选项，你就可以将你的 HikariConfig 传递给其中一个 `connectSql` 函数。
 
-## The SqlDatabase Object
+## SqlDatabase 对象
 
-Once we call any of the above `connectSql` functions, a connection is established. If the connection is established successfully, then an `SqlDatabase` object is returned. The SqlDatabase object contains the functions used to interact directly with the database:
+当我们调用上述任何一个 `connectSql` 函数时，就会建立连接。如果连接成功建立，则会返回一个 `SqlDatabase` 对象。SqlDatabase 对象包含了用于直接与数据库交互的函数：
 
-- `getHikariDataSource()`: Returns the underlying HikariDataSource connection object.
-- `select(sql)`: Executes a select statement on the database with the provided `sql`. Returns a Map (essentially the same as a python dict), with keys that represent column names and values that represent column data (a list of objects).
-- `select(sql, values)`: Executes a select statement on the database with the provided `sql`, with `values` (a list of objects) that will be replaced in the `sql` statement. Returns a Map (essentially the same as a python dict), with keys that represent column names and values that represent column data (a list of objects).
-- `update(sql)`: Executes an update statement on the database with the provided `sql`. Returns an int that signals the number of rows affected by the update.
-- `update(sql, values)`: Executes an update statement on the database, with `values` (a list of objects) that will be replaced in the `sql` statement. Returns an int that signals the number of rows affected by the update.
+- `getHikariDataSource()`: 返回底层的 HikariDataSource 连接对象。
+- `select(sql)`: 使用提供的 `sql` 在数据库上执行 SELECT 语句。返回一个映射（基本上等同于 Python 字典），其中键代表列名，值代表列数据（对象列表）。
+- `select(sql, values)`: 使用提供的 `sql` 和 `values`（对象列表）在数据库上执行 SELECT 语句。返回一个映射（基本上等同于 Python 字典），其中键代表列名，值代表列数据（对象列表）。
+- `update(sql)`: 使用提供的 `sql` 在数据库上执行 UPDATE 语句。返回一个整数，指示受影响的行数。
+- `update(sql, values)`: 使用提供的 `sql` 和 `values`（对象列表）在数据库上执行 UPDATE 语句。返回一个整数，指示受影响的行数。
 
-`sql` in the above functions is simply an SQL statement. For example:
+上述函数中的 `sql` 仅仅是一个 SQL 语句。例如：
+
 ```sql
 SELECT * FROM test_table;
 ```
 
-We can also define values that will be automatically inserted into the SQL statement. For example, we can define an SQL statement like the following:
+我们还可以定义将在 SQL 语句中自动插入的值。例如，我们可以定义一个这样的 SQL 语句：
+
 ```sql
 SELECT * FROM test_table WHERE id = ?;
 ```
-This statement is called a **parameterized query**, because it contains question marks (`?`). Question marks in the SQL statement function as *placeholders*, or, values that will be inserted later. This is where the `values` parameter comes into play: question marks are replaced with the values that are passed in `values`. For example, if we call
+
+这个语句被称为**参数化查询**，因为它包含了问号 (`?`)。SQL 语句中的问号充当*占位符*，即稍后将插入的值。这就是 `values` 参数发挥作用的地方：问号会被 `values` 中传递的值替换。例如，如果我们调用
+
 ```python
 sql.select('SELECT * FROM test_table WHERE id = ?', [10])
 ```
-then the *actual* SQL statement sent to the server will be
-```sql
-SELECT * FROM test_table WHERE id = 10;
+
+那么实际发送到服务器的 SQL 语句将是
+
+```python
+sql.select('SELECT * FROM test_table WHERE id = ?', [10])
 ```
-because the question mark was replaced with the value `10` we passed in `values`. This also works if we want to pass multiple values in `values`:
+
+因为问号被我们在 `values` 中传递的值 `10` 替换。如果你想要在 `values` 中传递多个值，这也适用：
+
 ```python
 sql.update('INSERT INTO test_table (id, val) VALUES (?, ?)', [11, 1])
 ```
-The above statement effectively becomes `INSERT INTO test_table (id, val) VALUES (11, 1);`. Note that the ordering of objects in `values` is important as it determines the order in which the placeholders are replaced in the SQL statement. The first question mark is replaced with the object at position zero, the second question mark is replaced with the object at position one, and so on.
 
-## Code Example for SQL Databases
+上述语句实际上变成了 `INSERT INTO test_table (id, val) VALUES (11, 1);`。请注意 `values` 中对象的顺序很重要，因为它决定了 SQL 语句中占位符被替换的顺序。第一个问号被位置零的对象替换，第二个问号被位置一的对象替换，依此类推。
 
-The following code connects to and performs some simple operations on a remote SQL database. The table being interacted with is named `test_table` and has columns `id` (auto-increment, not null, unique) and `value` (not null):
+## SQL 数据库代码示例
+
+以下代码连接到远程 SQL 数据库并执行一些简单操作。交互的表名为 `test_table`，具有列 `id`（自动递增，不可为空，唯一）和 `value`（不可为空）：
 
 ```python
 import pyspigot as ps
@@ -92,29 +101,29 @@ print('Rows affected: ' + str(rows_affected))
 db_manager.disconnect(sql)
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the database manager.
+第 1 行，我们导入 PySpigot 并将其别名为 `ps` 以利用数据库管理器。
 
-On line 3, we get the database manager from `ps` and set it to `db_manager`.
+第 3 行，我们从 `ps` 获取数据库管理器，并将其设置为 `db_manager`。
 
-On line 5, we establish a new connection with `connectSql` and assign the returned object to `sql`. This variable is what we will subsequently use to interact with the database.
+第 5 行，我们使用 `connectSql` 建立新的连接，并将返回的对象赋值给 `sql`。此变量是我们随后用于与数据库交互的对象。
 
-On line 7, we select all data from `test_table` and order it by the column `val`, descending, and assign the selected data to the `data` variable.
+第 7 行，我们从 `test_table` 中选择所有数据，并按 `val` 列降序排列，将所选数据分配给变量 `data`。
 
-On lines 9-11, we loop through all of the data and print the column name along with the data corresponding to that column.
+第 9 至 11 行，我们遍历所有数据并打印列名以及对应于该列的数据。
 
-On line 13, we execute an update on `test_table` and insert a new row with values 11 for `id` and 1 for `val`, and assign the result (number of rows affected) to the variable `rows_affected`.
+第 13 行，我们对 `test_table` 执行更新操作，插入新行，其中 `id` 的值为 11，`val` 的值为 1，并将结果（受影响的行数）分配给变量 `rows_affected`。
 
-On line 14, we print the number of rows affected.
+第 14 行，我们打印受影响的行数。
 
-On line 16, we close the database connection by calling the `disconnect` function from the database manager and passing our database object we got earlier when we connected with `connectSql`.
+第 16 行，我们通过调用数据库管理器的 `disconnect` 函数并传递我们之前连接时获取的数据库对象来关闭数据库连接。
 
-!> It's important to keep in mind that interacting with any remote database is an *I/O operation*. If we run this code on the main server thread (I.E., not in an asynchronous task), then the server *will hang* and be unresponsive until the interaction with the remove server completes. For laggy and/or high-latency connections, this can cause significant amounts of server lag. To avoid lag, it is best practice to wrap all *I/O operations* in an asynchronous task. See the section below for an example.
+!> 需要注意的是，与任何远程数据库的交互都是 **I/O 操作**。如果我们在此主服务器线程上运行此代码（即不在异步任务中运行），则服务器将会挂起且无响应，直到与远程服务器的交互完成。对于延迟高或高延迟的连接，这可能会导致大量的服务器延迟。为了避免延迟，最佳做法是将所有 **I/O 操作** 包装在异步任务中。请参见下面的部分了解示例。
 
-## Code Example for SQL Databases, Asynchronous
+## 异步 SQL 数据库代码示例
 
-The following code takes the above code example but wraps the interaction with the database in an asynchronous task. Of note, the connection to the database (`connectSql` function on line 6) is still synchronous, but we want this to remain synchronous because a failed connection affects the rest of the script's execution, and the script should terminate if the connection failes (I.E. an error is thrown).
+以下代码采用上述代码示例，但将与数据库的交互包装在一个异步任务中。值得注意的是，与数据库的连接（第 6 行的 `connectSql` 函数）仍然是同步的，但我们希望它保持同步，因为连接失败会影响脚本其余部分的执行，如果连接失败（即抛出错误），脚本应该终止。
 
-The code below makes use of the task manager's callback task, which runs a task asychronously, then calls back to the main server thread when the asychronous task finishes via another user-defined function.
+下面的代码利用了任务管理器的回调任务，该任务异步运行一个任务，然后当异步任务完成后通过另一个用户定义的函数回调到主服务器线程。
 
 ```python
 import pyspigot as ps
@@ -144,49 +153,50 @@ task_manager.runTaskAsync(update)
 
 # MongoDB
 
-The database manager allows you to connect to and interact with Mongo databases (MongoDB).
+数据库管理器允许您连接并交互 MongoDB 数据库（MongoDB）。
 
-## Database Manager Usage for MongoDB
+## MongoDB 数据库管理器使用方法
 
-There are several functions available for you to use in the database manager for interacting with MongoDB. They are:
+数据库管理器提供了多个函数供您用于与 MongoDB 进行交互。这些函数包括：
 
-- `newMongoClientSettings()`: Returns a new MongoClientSettings builder for convenience.
-- `connectMongo(host, port, username, password)`: Connects to a remote MongoDB server with the given host, port, username, and password.
-- `connectMongo(host, port, username, password, clientSettings)`: Connects to a remote MongoDB server with the given host, port, username, and password, using the given MongoClientSettings.
-- `connectMongo(uri)`: Connects to a remote MongoDB server with the given connection string.
-- `connectMongo(uri, clientSettings)`: Connects to a remote MongoDB server with the given connection string, using the given MongoClientSettings.
-- `connectMongo(clientSettings)`: Connects to a remote MongoDB server with the given MongoClientSettings.
-- `disconnect(database)`: Disconnect and close an open connection to a database. Accepts the MongoDatabase object returned by `connectMongo`.
+- `newMongoClientSettings()`: 返回一个新的 MongoClientSettings 构造器以方便使用。
+- `connectMongo(host, port, username, password)`: 使用指定的主机、端口、用户名和密码连接到远程 MongoDB 服务器。
+- `connectMongo(host, port, username, password, clientSettings)`: 使用指定的主机、端口、用户名和密码以及提供的 MongoClientSettings 连接到远程 MongoDB 服务器。
+- `connectMongo(uri)`: 使用指定的连接字符串连接到远程 MongoDB 服务器。
+- `connectMongo(uri, clientSettings)`: 使用指定的连接字符串和提供的 MongoClientSettings 连接到远程 MongoDB 服务器。
+- `connectMongo(clientSettings)`: 使用提供的 MongoClientSettings 连接到远程 MongoDB 服务器。
+- `disconnect(database)`: 断开并关闭与数据库的打开连接。接受 `connectMongo` 返回的 MongoDatabase 对象。
 
-The database manager allows you to specify a [connection string/URI/URL](https://learn.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver16), if you want finer control over the connection parameters and settings. You may also specify options in the connection string. The `connectMongo` functions that accept `uri` are functions that accept a connection string.
+如果您想要更精细地控制连接参数和设置，数据库管理器允许您指定[连接字符串/URI/URL](https://learn.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver16)。您也可以在连接字符串中指定选项。接受 `uri` 的 `connectMongo` 函数是可以接受连接字符串的函数。
 
-These function very similar to the functions for initializing a connection to an SQL database. The only real difference is that instead of a HikariConfig, we can use a MongoCLientSettings to specify connection settings.
+这些函数与初始化 SQL 数据库连接的函数非常相似。唯一的真正区别在于，我们不是使用 HikariConfig，而是可以使用 MongoClientSettings 来指定连接设置。
 
-?> If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of an operation, there is no guarantee that execution of the opteration will occur.
+?> 如果您完成了对数据库连接的使用，遵循良好实践关闭它是明智的。如果您的脚本停止或终止时有未关闭的数据库连接，则这些打开的连接将自动关闭。如果在操作执行期间或即将执行时关闭数据库，则无法保证操作会执行。
 
-## The MongoClientSettings
+## MongoClientSettings
 
-The MongoClientSettings is a configuration object that allows greater control over the MongoDB connection. For example, it allows you to set connection pool settings, connection string, encryption settings, read preference, write preference, etc. For detailed information on the MongoClientSettings, see the [MongoDB documentation](https://www.mongodb.com/docs/drivers/java/sync/current/fundamentals/connection/mongoclientsettings/).
+MongoClientSettings 是一个配置对象，允许对 MongoDB 连接进行更多控制。例如，它可以设置连接池设置、连接字符串、加密设置、读取偏好、写入偏好等。有关 MongoClientSettings 的详细信息，请参阅[MongoDB 文档](https://www.mongodb.com/docs/drivers/java/sync/current/fundamentals/connection/mongoclientsettings/)。
 
-You may also use a MongoClientSettings object *alone* to establish a connection (via the `connectMongo(clientSettings)` function). The MongoClientSettings builder object allows you to directly specify a connection string or host, port, database, username, and password within the object. This is probably the simplest way to establish a new connection with a remote database.
+您还可以仅使用 MongoClientSettings 对象来建立连接（通过 `connectMongo(clientSettings)` 函数）。MongoClientSettings 构造器对象允许您直接在对象中指定连接字符串或主机、端口、数据库、用户名和密码。这可能是与远程数据库建立新连接最简单的方法。
 
-A `newMongoClientSettings()` function is provided in the database manager for convenience. It returns a new MongoClientSettings builder with default options that you may modify. Once you modify the options to your liking, you may then call `build()` on the object and pass the result to one of the `connectMongo` functions.
+数据库管理器提供了一个 `newMongoClientSettings()` 函数以供方便使用。它返回一个带有默认选项的新 MongoClientSettings 构造器，您可以对其进行修改。一旦您按照自己的喜好修改了选项，就可以调用 `build()` 方法并将结果传递给其中一个 `connectMongo` 函数。
 
-!> Once you finish setting the options you'd like to set for the MongoClientSettings, you must call `build()` to build the settings into a readable object prior to passing it to one of the `connectMongo` functions.
+!> 在您完成 MongoClientSettings 的设置后，必须调用 `build()` 以构建设置为可读对象，然后再将其传递给其中一个 `connectMongo` 函数。
 
-## The MongoDatabase Object
 
-Once we call any of the above `connectMongo` functions, a connection is established. If the connection is established successfully, then a `MongoDatabase` object is returned. The MongoDatabase object contains the functions used to interact directly with the database.
+## MongoDatabase 对象
 
-There are too many functions in the MongoDatabase object to list them all here. For a complete list, see the [PySpigot JavaDocs](https://javadocs.magicmq.dev/pyspigot/dev/magicmq/pyspigot/manager/database/mongo/MongoDatabase.html).
+当我们调用上述任何一个 `connectMongo` 函数时，就会建立连接。如果连接成功建立，那么会返回一个 `MongoDatabase` 对象。`MongoDatabase` 对象包含了直接与数据库交互使用的函数。
 
-Additionally, the [MongoDB documentation](https://www.mongodb.com/docs/drivers/java/sync/current/usage-examples/) contains detailed documentation and example code. I highly recommend you check it out for information on how to work with the MongoDatabase object, since many of the functions I have defined in MongoDatabase are simply passthroughs to the underlying MongoDB library.
+`MongoDatabase` 对象中的函数太多，无法在这里一一列出。要查看完整列表，请参阅[PySpigot JavaDocs](https://javadocs.magicmq.dev/pyspigot/dev/magicmq/pyspigot/manager/database/mongo/MongoDatabase.html)。
 
-?> If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of an operation, there is no guarantee that execution of the operation will occur.
+此外，[MongoDB 文档](https://www.mongodb.com/docs/drivers/java/sync/current/usage-examples/)包含了详细的文档和示例代码。我强烈建议您查阅这些文档来了解如何使用 `MongoDatabase` 对象，因为我定义的许多 `MongoDatabase` 函数仅仅是底层 MongoDB 库的传递接口。
 
-## Code Example for MongoDB
+?> 如果您完成了对数据库连接的使用，遵循良好实践关闭它是明智的。如果您的脚本停止或终止时有未关闭的数据库连接，则这些打开的连接将自动关闭。如果在操作执行期间或即将执行时关闭数据库，则无法保证操作会执行。
 
-The following code established a connection to a remote MongoDB server, creates a collection, inserts a document, and then retrieves the document that was created.
+## MongoDB 代码示例
+
+以下代码建立了与远程 MongoDB 服务器的连接，创建了一个集合，插入了一个文档，然后检索了创建的文档。
 
 ```python
 import pyspigot as ps
@@ -206,13 +216,13 @@ for document in documents:
     print(document)
 ```
 
-!> The above code is run sycnchronously. As outlined above, it is best to interact with an external database server in an asychronous context to avoid server lag.
+!> 上述代码是同步运行的。如上所述，最好在异步上下文中与外部数据库服务器交互，以避免服务器延迟。
 
-## To summarize: {docsify-ignore}
+## 总结：{docsify-ignore}
 
-- The DatabaseManager allows you to connect to and interact with SQL-type and Mongo databases.
-- Use the `connectSql` functions (along with the provided arguments, based on your specific situation) to connect to an SQL database.
-- Use the `connectMongo` functions (along with the provided arguments, based on your specific situation) to connect to a Mongo database.
-- When connecting to a database, a database object (either `SqlDatabase` or `MongoDatabase`) is returned by the connect function, which is then used to interact with the database.
-- Interacting with a database is an *I/O operation*, and these interactions should be done in an asynchronous context, such as within a scheduled asynchronous task or within a callback task.
-- Database connections are closed automatically when a script is stopped. At any other time, if you are finished using a database, it should be closed by calling the database manager `disconnect` function. The `disconnect` function takes the database object that was procured when connecting to the database.
+- 数据库管理器允许您连接并交互 SQL 类型和 MongoDB 数据库。
+- 使用 `connectSql` 函数（根据您的具体情况提供相应的参数）来连接到 SQL 数据库。
+- 使用 `connectMongo` 函数（根据您的具体情况提供相应的参数）来连接到 MongoDB 数据库。
+- 当连接到数据库时，连接函数会返回一个数据库对象（要么是 `SqlDatabase` 要么是 `MongoDatabase`），然后使用该对象与数据库交互。
+- 与数据库的交互是一个 *I/O 操作*，这些交互应在异步上下文中进行，例如在计划的异步任务中或在回调任务内。
+- 当脚本停止时，数据库连接会自动关闭。在其他任何时候，如果您完成了对数据库的使用，应通过调用数据库管理器的 `disconnect` 函数来关闭它。`disconnect` 函数接受在连接到数据库时获取的数据库对象。

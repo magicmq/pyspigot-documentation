@@ -1,14 +1,14 @@
-# Global Variables
+# 全局变量
 
-PySpigot contains a global variable system that is available to scripts at runtime. On the Java end, this system relies on a `HashMap`, which is a data structure that stores data in key:value pairs, much like a dict in Python. The intention of this system is to allow for shared variables across scripts. This feature might be useful if you are writing a system of scripts that rely on information from other scripts in order to function correctly.
+PySpigot 包含了一个全局变量系统，该系统在运行时可供脚本访问。在 Java 端，这个系统依赖于 `HashMap`，这是一种存储键值对数据的数据结构，类似于 Python 中的字典。这个系统的目的是允许脚本间共享变量。如果你正在编写一组需要从其他脚本获取信息才能正确运行的脚本，这个功能可能会很有用。
 
-Changes to variables inserted into this global set are automatically visible to all scripts. There is no need to re-insert a variable into the global set of variables if its value changes.
+插入到这个全局集合中的变量的变化会自动对所有脚本可见。如果变量的值发生了变化，无需再次将其插入到全局变量集合中。
 
-# Accessing the Global Variables System
+# 访问全局变量系统
 
-PySpigot's global variables system is accessed just like any of PySpigot's managers. There are three ways to access it:
+PySpigot 的全局变量系统就像 PySpigot 的其他管理器一样进行访问。有三种访问方式：
 
-## Via the pyspgigot helper module
+## 通过 pyspigot 辅助模块
 
 ```python
 import pyspigot as ps
@@ -18,7 +18,7 @@ global_vars = ps.global_variables()
 global_vars.<function>
 ```
 
-The pyspigot helper module also defines a couple common aliases for convenience. Both `ps.global_vars` and `ps.gv` work. For example:
+pyspigot 辅助模块还定义了一些常用的别名以方便使用。`ps.global_vars` 和 `ps.gv` 都可以使用。例如：
 
 ```python
 import pyspigot as ps
@@ -27,7 +27,7 @@ ps.global_vars.<function>
 ps.gv.<function>
 ```
 
-## Via the PySpigot class
+## 通过 PySpigot 类
 
 ```python
 from dev.magicmq.pyspigot import PySpigot as ps
@@ -37,7 +37,7 @@ global_vars = ps.global_vars
 global_vars.<function>
 ```
 
-## Via a direct import
+## 通过直接导入
 
 ```python
 from dev.magicmq.pyspigot.manager.script import GlobalVariables as global_vars
@@ -45,13 +45,14 @@ from dev.magicmq.pyspigot.manager.script import GlobalVariables as global_vars
 global_vars.get().<function>
 ```
 
-!> If you directly import, you must call `get()`!
+**注意**：如果你直接导入，必须调用 `get()`！
 
-# Usage
+# 使用方法
 
-Basic usage of the global variables system would involve calling the `set`, `get`, and `remove` functions. See below for more detailed descriptions of these functions. Here is a short example:
+全局变量系统的基本使用涉及调用 `set`、`get` 和 `remove` 函数。下面将详细介绍这些函数。这里有一个简短的例子：
 
-Script A:
+脚本 A:
+
 ```python
 import pyspigot as ps
 
@@ -62,7 +63,8 @@ test = 'Global variable'
 global_vars.set('test', test)
 ```
 
-Script B:
+脚本 B:
+
 ```python
 import pyspigot as ps
 
@@ -75,84 +77,84 @@ print(test)
 global_vars.remove('test')
 ```
 
-In the above code, we set the variable `test` in the global variables system in script A. Then, we retrieve and print the value of `test` from script B, and remove the variable after we retrieve it.
+在上面的代码中，我们在脚本 A 中将变量 `test` 设置到全局变量系统中。然后，我们从脚本 B 中检索并打印 `test` 的值，并在检索后移除该变量。
 
-?> Once a global variable is set in the global variables system, its value is updated automatically if it is changed, and all scripts will see this change. There is no need to set the variable to the system again if its value changes.
+**提示**：一旦全局变量被设置到全局变量系统中，如果其值发生变化，会自动更新，所有脚本都能看到这个变化。如果变量的值发生变化，无需再次将其设置到系统中。
 
-!> Names are unique. If a new value is inserted into the set of global values with the same name as an existing value, then the old value will be overridden and inevitably lost.
+**注意**：名称是唯一的。如果使用与现有值相同的名称向全局值集合中插入新值，则旧值将被覆盖并最终丢失。
 
-## Avoiding Memory Leaks
+## 避免内存泄漏
 
-The global variables system is not smart. It will keep variables stored *indefinitely*, unless if they are overritten or intentionally cleared. The system will not remove variables unless it is explicitly told to do so. Consider the following example: script A sets a variable to the global variables system for script B to use. Script B retrieves the variable and uses it. Some time later, script B finishes its tasks and shuts down. But, the variable that script B used is still present in the global variables system. In this case, the variable is leaky: it still exists and can be read, but it's not being used anymore. In programming, this is called a [memory leak](https://en.wikipedia.org/wiki/Memory_leak), and it is frowned upon because it leads to unnecessary use of memory. It's also preventable.
+全局变量系统并不智能。它会无限期地存储变量，除非它们被覆盖或有意清除。系统不会自动删除变量，除非明确被告知这样做。考虑以下例子：脚本 A 将一个变量设置到全局变量系统中供脚本 B 使用。脚本 B 检索该变量并使用它。一段时间后，脚本 B 完成任务并关闭。但是，脚本 B 使用的变量仍然存在于全局变量系统中。在这种情况下，该变量是“泄漏”的：它仍然存在并且可以读取，但不再被使用。在编程中，这种情况称为 [内存泄漏](https://en.wikipedia.org/wiki/Memory_leak)，这是不受欢迎的，因为它会导致不必要的内存使用。这也是可以避免的。
 
-Returning to the above example: because script B is the script using the data, script A has no way of knowing when script B has seen that data. Therefore, it is script B's responsibility to remove the variable from the global variables system when it is finished retrieving it. You can see this is done in the above code once the `test` variable is printed
+回到上面的例子：因为脚本 B 是使用数据的脚本，脚本 A 无法知道脚本 B 何时已经看到了该数据。因此，当脚本 B 完成检索后，有责任从全局变量系统中移除该变量。你可以看到在上面的代码中，一旦 `test` 变量被打印出来，就会被移除。
 
-In general, when you're working with the global variables system, you should ensure that somewhere in your code, old variables are removed when they're no longer neeeded.
+一般来说，当你使用全局变量系统时，应确保在代码的某个地方，不再需要的旧变量会被移除。
 
-## Advanced Usage
+## 高级使用
 
-The global variables system contains a function called `getHashMap()`, which returns the underlying Java HashMap where variables are stored. You can use this function to get the underlying Hashmap and access more advanced functions. For a complete list of available functions within the Java HashMap class, see the [JavaDocs for HashMap](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html).
+全局变量系统包含一个名为 `getHashMap()` 的函数，该函数返回存储变量的底层 Java HashMap。你可以使用此函数获取底层的哈希表，并访问更高级的功能。有关 Java HashMap 类中可用函数的完整列表，请参阅 [JavaDocs for HashMap](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html)。
 
-# Available Functions
+# 可用函数
 
-The following is a list of available functions in the global variables system:
+以下是全局变量系统中可用的函数列表：
 
 `set(key, value)`:
-- Inserts a new value into the global set of variables with the given key (name). Will always override an existing variable with the same name.
-- Parameters:
-	- key: The name of the global variable to set
-	- value: The value of the variable to set
-- Returns: The value that was previously set with the given name, or `None` if there was none
+- 使用给定的键（名称）将新值插入全局变量集合。总是会覆盖具有相同名称的现有变量。
+- 参数：
+    - key: 要设置的全局变量的名称
+    - value: 要设置的变量的值
+- 返回：先前使用给定名称设置的值，如果没有则返回 `None`
 
-!> The above function will override existing variables with the same name!
+**注意**：上述函数会覆盖具有相同名称的现有变量！
 
 `set(key, value, override)`:
-- Inserts a new value into the global set of variables with the given key (name), with the option to override an existing value.
-- Parameters:
-	- key: The name of the global variable to set
-	- value: The value of the variable to set
-	- override: `True` if an existing variable with the given name should be overriden, or `False` if it should not
-- Returns: The value that was previously set with the given name, or `None` if there was none
+- 使用给定的键（名称）将新值插入全局变量集合，可以选择是否覆盖现有值。
+- 参数：
+    - key: 要设置的全局变量的名称
+    - value: 要设置的变量的值
+    - override: 如果具有给定名称的现有变量应该被覆盖，则为 `True`；否则为 `False`
+- 返回：先前使用给定名称设置的值，如果没有则返回 `None`
 
 `remove(key)`:
-- Removes a global variable with the given key (name).
-- Parameters:
-	- key: The name of the global variable to remove
-- Returns: The value of the variable that was removed, or null if there was none
+- 移除具有给定键（名称）的全局变量。
+- 参数：
+    - key: 要移除的全局变量的名称
+- 返回：被移除的变量的值，如果没有则返回 `None`
 
 `get(key)`:
-- Gets a global variable with the given key (name).
-- Returns: The variable with the given name, or null if there was none
+- 获取具有给定键（名称）的全局变量。
+- 返回：具有给定名称的变量，如果没有则返回 `None`
 
 `getKeys()`:
-- Gets a list of all global variable keys (names) that are currently set.
-- Returns: An immutable (changes are not reflected in the global variables system) set of the names of all global variables currently stored. Will return an empty set if there are no global variables
+- 获取当前设置的所有全局变量的键（名称）列表。
+- 返回：当前存储的所有全局变量名称的不可变集合。如果没有全局变量则返回空集合
 
 `getValues()`:
-- Gets a list of all global variable values that are currently set.
-- Returns: An immutable (changes are not reflected in the global variables system) set of the values of all currently stored global variables. Will return an empty set if there are no global variables
+- 获取当前设置的所有全局变量的值列表。
+- 返回：当前存储的所有全局变量值的不可变集合。如果没有全局变量则返回空集合
 
 `getHashMap()`:
-- Gets the underlying Java HashMap data structure that stores all global variables.
-- Returns: The underlying HashMap, which is mutable (can make changes to it that will be reflected in the global variables system)
+- 获取存储所有全局变量的底层 Java HashMap 数据结构。
+- 返回：底层 HashMap，它是可变的（可以对其进行更改，这些更改会在全局变量系统中反映）
 
 `contains(key)`:
-- Check if a global variable is currently stored with the given key (name).
-- Returns: `True` if there is a global variable with the given name, `False` if there is not
+- 检查当前是否存储了具有给定键（名称）的全局变量。
+- 返回：如果有具有给定名称的全局变量则返回 `True`，否则返回 `False`
 
 `containsValue(value)`:
-- Check if a global variable is currently stored with the given value.
-- Returns: `True` if there is a global variable with the given value, `False` if there is not
+- 检查当前是否存储了具有给定值的全局变量。
+- 返回：如果有具有给定值的全局变量则返回 `True`，否则返回 `False`
 
 `purge()`:
-- Clear all variables from the global variables system. Acts as a 'reset'.
+- 清除全局变量系统中的所有变量。相当于重置。
 
-## To summarize: {docsify-ignore}
+## 总结：
 
-- The global variables system allows for cross-script sharing of variables.
-- The global variables system is accessed just like any of PySpigot's managers.
-- Basic usage involves the `set`, `get`, and `remove` functions.
-- The names of global variables are unique. If a new variable is inserted with the same name as an existing variable, the old value will be lost.
-- The values of variables stored in the global variables system are updated automatically, and changes are automatically visible to scripts accessing them without needing to call the `set` function over again.
-- Global variables should be removed when scripts finish using them in order to avoid memory leaks.
-- The global variables system uses a Java HashMap, and this underlying HashMap can be accessed with the `getHashMap` function.
+- 全局变量系统允许脚本间共享变量。
+- 全局变量系统像 PySpigot 的其他管理器一样进行访问。
+- 基本使用涉及 `set`、`get` 和 `remove` 函数。
+- 全局变量的名称是唯一的。如果使用与现有变量相同的名称插入新变量，则旧值将丢失。
+- 存储在全局变量系统中的变量值会自动更新，变化会自动对访问它们的脚本可见，无需再次调用 `set` 函数。
+- 当脚本完成使用全局变量时，应移除它们以避免内存泄漏。
+- 全局变量系统使用 Java HashMap，并且可以通过 `getHashMap` 函数访问底层的 HashMap。

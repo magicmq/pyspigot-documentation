@@ -1,29 +1,23 @@
-# License
+# 许可证
 
-## General Information
+## 一般信息
 
-PySpigot is a free-to-use open-source project licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0), and I intend to keep it this way. The tldr; of this license is that you are free to use PySpigot for commercial and non-commercial purposes. You are also free to use, modify, and redistribute PySpigot's code, as long as you: 1) include a description of changes made, 2) include documentation of my copyright on my code, and 3) include PySpigot's license documentation in the redistribution. I'm also not liable for any damages that PySpigot causes. If you would like to do something with PySpigot but you aren't sure if it's allowed as per the license, please reach out to me.
+PySpigot 是一个免费使用的开源项目，采用 [Apache 2.0 许可证](https://www.apache.org/licenses/LICENSE-2.0) 许可，我打算继续保持这种状态。该许可证的简要说明是你可以自由地将 PySpigot 用于商业和非商业用途。你也可以自由地使用、修改和重新分发 PySpigot 的代码，只要你做到以下几点：1) 包括所做的更改的描述，2) 包括我的版权说明，3) 在重新分发时包括 PySpigot 的许可证文档。我也不会对 PySpigot 引起的任何损害负责。如果你想要对 PySpigot 进行某些操作但不确定是否符合许可证的要求，请随时联系我。
 
-## License Text
+## 许可证文本
 
-Copyright 2023 magicmq
+版权所有 2023 magicmq
 
-Licensed under the Apache License, Version 2.0 (the \"License\"); you
-may not use this file except in compliance with the License. You may
-obtain a copy of the License at
+根据 Apache 许可证 2.0 版（以下简称“许可证”）授权；未经许可，您不得使用此文件，除非遵守许可证的规定。您可以在以下网址获得许可证副本：
 
 http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an \"AS IS\" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+除非适用法律要求或书面协议另有规定，根据许可证分发的软件将以“现状”为基础提供，不附带任何形式的明示或暗示的保证或条件。请参见许可证以了解具体的权限和限制。
 
-# Contact
+# 联系方式
 
 magicmq
 
 business@magicmq.dev
 
-[My personal website](https://magicmq.dev)
+[我的个人网站](https://magicmq.dev)
