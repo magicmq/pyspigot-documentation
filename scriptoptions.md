@@ -55,7 +55,7 @@ Default: 1
 Usage:
 ``` yaml
 test.py:
-  depend: ['test1.py', 'test2.py']
+  load-priority: 1
 ```
 
 ### `plugin-depend`
@@ -86,7 +86,7 @@ test.py:
 
 ### `min-logging-level`
 
-Specify the minimum logging level that should be logged to the script's log file and the console for the script. Options can be found on the [Javadocs](https://docs.oracle.com/javase/8/docs/api/java/util/logging/Level.html).
+Specify the minimum logging level that should be logged to the script's log file and the console for the script. Options can be found on the [Javadocs](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html).
 
 Default: `min-log-level` value in PySpigot's `config.yml`, which is `INFO` by default
 Usage:
