@@ -153,6 +153,13 @@ script-option-defaults:
 
 Default: `op`
 
+??? note "A note about default script permissions"
+
+    The astute reader will notice that the `script-option-defaults` section of the config does not contain a `permissions` section to specify default script permissions. Originally, this feature existed, but it had to be removed, due to a quirk/bug in the way Bukkit parses permissions from the config file.
+    
+    In order to get this feature working for the `script_options.yml` file, an entirely custom config system had to be written for the script options config to parse permissions. I considered doing the same for the plugin config in order to allow the user to specify default permissions, however, I decided against this as I realized that specifying a default list of script permissions wouldn't really be useful to most users.
+
+
 ## `debug-options`
 
 The configuration values in the `default-options` section are more advanced options that should only be changed if you encounter issues or would like to disable recommended features.
