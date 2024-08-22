@@ -87,10 +87,6 @@ Check out any of the [examples](/docs/scripts/examples.md) to see some examples 
 
 See the [Quick Start Guide](/docs/pyspigot/quickstart.md) for a brief tutorial. Check out the rest of the documentation for more advanced usage.
 
-!!! tip
-
-    It is recommended that you always use the latest version of PySpigot. Because the plugin is in its early stages of development, newer versions will usually contain important bug fixes and improvements.
-
 ## Discord
 
 PySpigot has an official Discord server with help channels, bug reporting, and more. I'm usually active on Discord, so if you want to reach me, joining the Discord server is an excellent way to do so. [Join the Discord server here.](https://discord.gg/f2u7nzRwuk)

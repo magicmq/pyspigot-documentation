@@ -2,11 +2,11 @@
 
 ## How Does PySpigot Work?
 
-A standard Python installation runs CPython. CPython is an implementation of Python that runs on the C programming language. CPython is perhaps the most popular Python implementation, since it is the reference implementation of python, or, in other words, the default implementation. Several other implementations of Python exist, including Cython, IronPython, Nuitka, Numba, PyPy, and Stackless Python. Jython is another Python implementation.
+A standard Python installation runs CPython. CPython is an implementation of Python that runs on the C programming language. CPython is perhaps the most popular Python implementation, since it is the reference implementation of python, or, in other words, the default implementation. Several other implementations of Python exist, including Cython, IronPython, Nuitka, Numba, PyPy, and Stackless Python. PySpigot utilizes [Jython](https://www.jython.org/), another implementation of Python.
 
-Just as CPython is an implementation of Python that runs on the C programming language, Jython is an implementation of Python that runs on Java. Because Minecraft also runs on Java, Jython can run within the same environment that Minecraft runs. Indeed, PySpigot ships with Jython bundled in. Jython supports interpretation of Python code on the fly, which is essentially how scripts are run.
+Just as CPython is an implementation of Python that runs on the C programming language, Jython is an implementation of Python that runs on Java. Because Minecraft also runs on Java, Jython can run within the same environment that Minecraft runs. Indeed, PySpigot ships with Jython bundled in, and it runs on top of the Minecraft server instance. Additionally, Jython supports interpretation of Python code on the fly, which is essentially how scripts are run.
 
-The real magic of Jython is that, because it runs within the same environment that Minecraft does, all of the code on the Minecraft side of things is fully available to Jython, and by extension, to scripts that are run on Jython. This makes it possible to reference Java classes within the Python code. The integration is almost completely seamless. Jython also handles conversion of variables and data structures between Python and Java types automatically.
+The real magic of Jython is that, because it runs within the same environment that Minecraft does, all of the code on the Minecraft side of things is fully available to Jython, and by extension, to scripts that are executed with Jython. This makes it possible to reference Java classes within the Python code. The integration is almost completely seamless. Jython also handles conversion of variables and data structures between Python and Java types automatically.
 
 ### One Noteable Drawback Regarding Jython
 
@@ -31,13 +31,39 @@ If you would like to opt out of this feature, set `metrics-enabled` to `false` i
 
 ## Updates
 
-When PySpigot is updated to a newer version, this update will be pushed to Spigot, as well as the official GitHub repository.
-
-If you're running an outdated version of PySpigot, you'll see notifications in two places as a reminder to update:
+When PySpigot is updated to a newer version, this update will be pushed to Spigot, as well as the official GitHub repository. PySpigot has an automated system that checks Spigot for any available plugin updates.  If PySpigot finds a more up to date version available on Spigot, it will send notifications in two places:
 
 - In the console, when the plugin loads (such as on server start).
 - In chat when you log into your server. This message is only displayed to players with the permission `pyspigot.admin`.
 
-!!! tip
+To disable these update messages, set `show-update-messages` to `false` in the config.yml.
+
+???+ tip
 
     It is recommended that you always use the latest version of PySpigot. Because the plugin is in its early stages of development, newer versions will usually contain important bug fixes and improvements.
+
+## Security and Permissions
+
+???+ quote-custom "Inspirational Quote"
+
+    ***"With great power comes great responsibility."** - Uncle Ben to Peter Parker, Spider-Man*
+
+PySpigot is an incredibly powerful plugin, and with such power, much damage could be done. Unlike other plugins, PySpigot is virtually unlimited in what it can access and in what it can do on the server. Therefore, you are advised to use **extreme** caution when deciding who to grant permissions to. This includes permissions to write scripts, load scripts, and unload scripts. See the next section for a list of permissions PySpigot defines as well as a description of each.
+
+PySpigot does not include any security safeguards outside of required permissions to use commands, so judicious usage of the plugin is advised.
+
+### Permissions
+
+| Permission                      | Description                                                                                           |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `pyspigot.admin`                | If a plugin update is available, users with this permission will be shown an update message on login. |
+| `pyspigot.command.listcmds`     | Grants permission to list all possible subcommands of `/pyspigot`.                                    |
+| `pyspigot.command.help`         | Grants permission to use the `/pyspigot help` command.                                                |
+| `pyspigot.command.info`         | Grants permission to use the `/pyspigot info` command.                                                |
+| `pyspigot.command.listscripts`  | Grants permission to use the `/pyspigot listscripts` command.                                         |
+| `pyspigot.command.load`         | Grants permission to use the `/pyspigot load` command.                                                |
+| `pyspigot.command.loadlibrary`  | Grants permission to use the `/pyspigot loadlibrary` command.                                         |
+| `pyspigot.command.reloadall`    | Grants permission to use the `/pyspigot reloadall` command.                                           |
+| `pyspigot.command.reload`       | Grants permission to use the `/pyspigot reload` command.                                              |
+| `pyspigot.command.reloadconfig` | Grants permission to use the `/pyspigot reloadconfig` command.                                        |
+| `pyspigot.command.unload`       | Grants permission to use the `/pyspigot unload` command.                                              |

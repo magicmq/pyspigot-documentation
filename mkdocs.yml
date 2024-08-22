@@ -5,6 +5,8 @@ site_description: PySpigot is a Spigot plugin that acts as a Python scripting en
 repo_name: PySpigot
 repo_url: https://github.com/magicmq/pyspigot
 
+copyright: Copyright &copy; 2024 <a href="https://github.com/magicmq" target="a_blank" rel"noopener">magicmq</a>
+
 theme:
   name: material
 
@@ -62,6 +64,9 @@ extra:
       class: md-social__link
       link: https://github.com/magicmq/pyspigot
 
+extra_css:
+  - stylesheets/extra.css
+
 markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -73,13 +78,16 @@ markdown_extensions:
       generic: true
   - footnotes
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.mark
   - pymdownx.tabbed:
       alternate_style: true
   - admonition
+  - abbr
   - attr_list
   - md_in_html
   - pymdownx.tilde
@@ -132,4 +140,5 @@ nav:
     - For Java Developers:
       - PySpigot API: misc/api.md
 
-copyright: Copyright &copy; 2024 <a href="https://github.com/magicmq" target="a_blank" rel"noopener">magicmq</a>
+watch:
+  - includes
