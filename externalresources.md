@@ -16,6 +16,7 @@ Here are some excellent resources you should check out for help with writing PyS
 	- https://www.pythonchecker.com/
 	- https://extendsclass.com/python-tester.html
 	- https://www.online-ide.com/online_python_syntax_checker
+	- https://pythonium.net/linter
 
 If you're working with ProtocolLib, here are some useful resources:
 
