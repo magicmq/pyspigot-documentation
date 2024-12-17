@@ -1,0 +1,154 @@
+site_name: PySpigot Documentation
+site_author: magicmq
+site_description: PySpigot is a Spigot plugin that acts as a Python scripting engine for your Minecraft server.
+#site_url: https://pyspigot-docs.magicmq.dev
+repo_name: PySpigot
+repo_url: https://github.com/magicmq/pyspigot
+
+copyright: Copyright &copy; 2024 <a href="https://github.com/magicmq" target="a_blank" rel"noopener">magicmq</a>
+
+theme:
+  name: material
+
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.ico
+  font:
+    text: Open Sans
+    code: Fira Code
+  features:
+    - content.code.annotate
+    - content.tabs.link
+    - content.code.copy
+    - announce.dismiss
+    - navigation.footer
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - navigation.instant
+    - navigation.instant.progress
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - search.share
+  language: en
+  palette:
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/brightness-3
+        name: Switch to dark mode
+  icon:
+    alternate: material/file-document-multiple-outline
+
+extra:
+  social:
+    - icon: fontawesome/brands/discord
+      class: md-social__link
+      link: https://discord.gg/f2u7nzRwuk
+      name: Discord
+    - icon: fontawesome/brands/github
+      class: md-social__link
+      link: https://github.com/magicmq/pyspigot
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.mark
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - abbr
+  - attr_list
+  - md_in_html
+  - pymdownx.tilde
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+
+nav:
+  - PySpigot:
+    - Home: index.md
+    - Plugin Information:
+      - About PySpigot: pyspigot/pyspigot.md
+      - Plugin Commands: pyspigot/plugincommands.md
+      - Plugin Configuration: pyspigot/pluginconfiguration.md
+    - Getting Started:
+      - Quick Start Guide: pyspigot/quickstart.md
+    - Helpful Links:
+      - Example Scripts: scripts/examples.md
+      - PySpigot on SpigotMC: https://www.spigotmc.org/resources/pyspigot.111006/
+      - Discord Server: https://discord.gg/f2u7nzRwuk
+      - Bugs and Issues: https://github.com/magicmq/pyspigot/issues/new/choose
+      - Feature Requests: https://github.com/magicmq/pyspigot/issues/new/choose
+      - PySpigot JavaDocs: https://javadocs.magicmq.dev/pyspigot/
+
+  - Writing Scripts:
+    - General Information: scripts/writingscripts.md
+    - Script Options: scripts/scriptoptions.md
+    - Global Variables: scripts/globalvariables.md
+    - External Libraries: scripts/externallibraries.md
+    - Helpful Resources: scripts/externalresources.md
+    - Example Scripts: scripts/examples.md
+  - Managers:
+    - Using the Managers in your Script: managers/usage.md
+    - Available Managers:
+      - Script Manager: managers/scripts.md
+      - Command Manager: managers/commands.md
+      - Config Manager: managers/configuration.md
+      - Listener Manager: managers/eventlisteners.md
+      - Task Manager: managers/tasks.md
+      - Database Manager: managers/databases.md
+      - Redis Manager: managers/redis.md
+    - Optional Managers:
+      - ProtocolLib Manager: managers/protocollib.md
+      - Placeholder Manager: managers/placeholders.md
+  - Miscellaneous:
+    - Planned Features: misc/plannedfeatures.md
+    - Licensing Info: misc/license.md
+    - For Java Developers:
+      - PySpigot API: misc/api.md
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      type: timeago
+      enable_creation_date: true
+
+watch:
+  - includes

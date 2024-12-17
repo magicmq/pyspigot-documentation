@@ -4,7 +4,7 @@ Below is a curated list of example scripts that perform various functions. You a
 
 - [`clearinventory.py`](https://github.com/magicmq/pyspigot/blob/master/examples/clearinventory.py): Registers a command that clears the player's inventory.
 - [`communitychest.py`](https://github.com/magicmq/pyspigot/blob/master/examples/communitychest.py): Adds a community chest command that opens an inventory where players can place items to share with the rest of the server.
-- [`gameoflife.py](https://github.com/magicmq/pyspigot/blob/master/examples/gameoflife.py): Plays [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in Minecraft.
+- [`gameoflife.py`](https://github.com/magicmq/pyspigot/blob/master/examples/gameoflife.py): Plays [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in Minecraft.
 - [`joinmessage.py`](https://github.com/magicmq/pyspigot/blob/master/examples/joinmessage.py): Displays notifications when a player joins the server.
 - [`kickcommand.py`](https://github.com/magicmq/PySpigot/blob/master/examples/kickcommand.py): Registers a simple command to kick a player from the server.
 - [`periodicmessage.py`](https://github.com/magicmq/PySpigot/blob/master/examples/periodicmessage.py): Creates a task that automatically sends a message to all online players every five seconds.
@@ -13,4 +13,6 @@ Below is a curated list of example scripts that perform various functions. You a
 - [`placeholder.py`](https://github.com/magicmq/pyspigot/blob/master/examples/placeholder.py): A very brief script that demonstrates how to register a placeholder with PlaceholderAPI.
 - [`swearfilter.py`](https://github.com/magicmq/PySpigot/blob/master/examples/swearfilter.py): Creates a chat listener that filters swear words out of chat messages and replaces them with asterisks (\*).
 
-?> Do you have a script you would like to showcase as an example script? Please get in touch with me!
+???+ info
+
+    Do you have a script you would like to showcase as an example script? Please get in touch with me!

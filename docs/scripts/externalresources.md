@@ -13,9 +13,9 @@ Here are some excellent resources you should check out for help with writing PyS
 - [Jython](https://jython.org/)
 - [Jython Documentation](https://jython.readthedocs.io/en/latest/)
 - There are several publicly-available online Python syntax checkers, here are a few:
-	- https://www.pythonchecker.com/
-	- https://extendsclass.com/python-tester.html
-	- https://www.online-ide.com/online_python_syntax_checker
+	- [pythonchecker.com](https://www.pythonchecker.com/)
+	- [extendclass.com](https://extendsclass.com/python-tester.html)
+	- [online-ide.com](https://www.online-ide.com/online_python_syntax_checker)
 
 If you're working with ProtocolLib, here are some useful resources:
 
@@ -32,13 +32,13 @@ If you're working with PlaceholderAPI, here are some useful resources:
 
 ## Discord
 
-PySpigot has its very own Discord server! Join if you're stuck and need help and/or you want to stay in the loop about updates/changes: https://discord.gg/f2u7nzRwuk
+PySpigot has its very own Discord server! [Join the Discord](https://discord.gg/f2u7nzRwuk) if you're stuck and need help and/or you want to stay in the loop about updates/changes.
 
 ## New to Python? Check out these great tutorials to get started:
 
-- https://www.learnpython.org/
-- https://www.w3schools.com/python/
-- The Python Wiki also has a list of great tutorials to learn here: https://wiki.python.org/moin/BeginnersGuide/Programmers
+- [https://www.learnpython.org/](https://www.learnpython.org/)
+- [https://www.w3schools.com/python/](https://www.w3schools.com/python/)
+- The [Python Wiki](https://wiki.python.org/moin/BeginnersGuide/Programmers) also has a list of great tutorials to learn.
 
 ## For Developers
 
