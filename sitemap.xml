@@ -49,11 +49,19 @@
          <lastmod>2024-12-17</lastmod>
     </url>
     <url>
+         <loc>https://pyspigot-docs.magicmq.dev/misc/events/</loc>
+         <lastmod>2024-12-17</lastmod>
+    </url>
+    <url>
          <loc>https://pyspigot-docs.magicmq.dev/misc/license/</loc>
          <lastmod>2024-12-17</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/misc/plannedfeatures/</loc>
+         <lastmod>2024-12-17</lastmod>
+    </url>
+    <url>
+         <loc>https://pyspigot-docs.magicmq.dev/misc/types/</loc>
          <lastmod>2024-12-17</lastmod>
     </url>
     <url>
@@ -70,6 +78,10 @@
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/pyspigot/quickstart/</loc>
+         <lastmod>2024-12-17</lastmod>
+    </url>
+    <url>
+         <loc>https://pyspigot-docs.magicmq.dev/scripts/customevents/</loc>
          <lastmod>2024-12-17</lastmod>
     </url>
     <url>
