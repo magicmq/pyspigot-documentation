@@ -32,7 +32,7 @@ test.py: # (1)!
   file-logging-enabled: true
 test2.py: # (2)!
   enabled: true
-  depend: ['test.py']
+  load-priority: 10
 ```
 
 1.  The options defined under this section apply to the script `test.py`.
@@ -109,7 +109,7 @@ test.py:
 
 ### `min-logging-level`
 
-Specify the minimum logging level that should be logged to the script's log file and the console for the script. Options can be found on the [JavaDocs](https://docs.oracle.com/javase/8/docs/api/java/util/logging/Level.html).
+Specify the minimum logging level that should be logged to the script's log file and the console for the script. Options can be found on the [JavaDocs](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html).
 
 ``` yaml linenums="1"
 test.py:
