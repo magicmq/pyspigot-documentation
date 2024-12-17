@@ -129,10 +129,10 @@ nav:
     - Using the Managers in your Script: managers/usage.md
     - Available Managers:
       - Script Manager: managers/scripts.md
-      - Command Manager: managers/commands.md
-      - Config Manager: managers/configuration.md
       - Listener Manager: managers/eventlisteners.md
+      - Command Manager: managers/commands.md
       - Task Manager: managers/tasks.md
+      - Config Manager: managers/configuration.md
       - Database Manager: managers/databases.md
       - Redis Manager: managers/redis.md
     - Optional Managers:

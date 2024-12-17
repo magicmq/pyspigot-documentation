@@ -2,18 +2,18 @@
 
 PySpigot provides a variety of managers to more easily work with parts of the Bukkit/Spigot API as well as other plugins, databases, and more. For instructions on importing these into your script, see below. The current managers built into PySpigot include:
 
-- The [ScriptManager](scripts.md), for loading and unloading scripts from within another script.
-- The [ListenerManager](eventlisteners.md), for registering event listeners.
-- The [CommandManager](commands.md), for registering and working with commands.
-- The [TaskManager](tasks.md), for registering a variety of repeating, delayed, and asynchronous tasks.
-- The [ConfigManager](configuration.md), for working with configuration files.
-- The [DatabaseManager](databases.md), to connect to and interact with SQL-type and Mongo databases.
-- The [RedisManager](redis.md), to connect to and interact with a Redis server instance.
+- The [Script Manager](scripts.md), for loading and unloading scripts from within another script.
+- The [Listener Manager](eventlisteners.md), for registering event listeners.
+- The [Command Manager](commands.md), for registering and working with commands.
+- The [Task Manager](tasks.md), for registering a variety of repeating, delayed, and asynchronous tasks.
+- The [Config Manager](configuration.md), for working with configuration files.
+- The [Database Manager](databases.md), to connect to and interact with SQL-type and Mongo databases.
+- The [Redis Manager](redis.md), to connect to and interact with a Redis server instance.
 
 Also included in PySpigot are two *optional* managers, which are available to use if the plugin they depend on is running on the server:
 
-- The [ProtocolManager](protocollib.md), to work with ProtocolLib.
-- The [PlaceholderManager](placeholders.md), to work with PlaceholderAPI.
+- The [ProtocolLib Manager](protocollib.md), to work with ProtocolLib.
+- The [Placeholder Manager](placeholders.md), to work with PlaceholderAPI.
 
 Managers must be imported into your script inn order for you to access them. The following table summarizes how to access managers, but read the sections below for more detail on how to import them:
 
@@ -24,10 +24,10 @@ Managers must be imported into your script inn order for you to access them. The
 | Command Manager     | `pyspigot.command_manager()`     | `PySpigot.command`          | `from dev.magicmq.pyspigot.manager.command import CommandManager`         |
 | Task Manager        | `pyspigot.task_manager()`        | `PySpigot.scheduler`        | `from dev.magicmq.pyspigot.manager.task import TaskManager`               |
 | Config Manager      | `pyspigot.config_manager()`      | `PySpigot.config`           | `from dev.magicmq.pyspigot.manager.config import ConfigManager`           |
-| Protocol Manager    | `pyspigot.protocol_manager()`    | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager`       |
-| Placeholder Manager | `pyspigot.placeholder_manager()` | `PySpigot.placeholder`      | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
 | Database Manager    | `pyspigot.database_manager()`    | `PySpigot.database`         | `from dev.nagicmq.pyspigot.manager.database import DatabaseManager`       |
 | Redis Manager       | `pyspigot.redis_manager()`       | `PySpigot.redis`            | `from dev.magicmq.pyspigot.manager.redis import RedisManager`             |
+| Protocol Manager    | `pyspigot.protocol_manager()`    | `PySpigot.protocol`         | `from dev.magicmq.pyspigot.manager.protocol import ProtocolManager`       |
+| Placeholder Manager | `pyspigot.placeholder_manager()` | `PySpigot.placeholder`      | `from dev.magicmq.pyspigot.manager.placeholder import PlaceholderManager` |
 
 ???+ warning
 
