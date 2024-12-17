@@ -52,7 +52,7 @@ Loads and runs a script. Takes the name of the script only, even if the script r
 
 ## LoadLibrary Command
 
-Loads a Java library that you would like to use in a script. See [External Libraries](docs/scripts/externallibraries.md) for more information.
+Loads a Java library that you would like to use in a script. See [External Libraries](../scripts/externallibraries.md) for more information.
 
 - Syntax: `/pyspigot loadlibrary <filename>`
 - Aliases: `loadlib`

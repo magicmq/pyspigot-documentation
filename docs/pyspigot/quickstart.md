@@ -1,6 +1,6 @@
 # Quick Start Guide
 
-Here is a very brief guide for creating your very first PySpigot script. If you don't know Python, that's okay! There are many great online tutorials to learn. See the [Helpful Resources](externalresources.md) page for some good Python tutorials.
+Here is a very brief guide for creating your very first PySpigot script. If you don't know Python, that's okay! There are many great online tutorials to learn. See the [Helpful Resources](../scripts/externalresources.md) page for some good Python tutorials.
 
 ## Download and Load PySpigot
 
@@ -20,30 +20,35 @@ All scripts are located in the `scripts` folder within PySpigot's main plugin fo
 
 Create a Python script file here and name it whatever you would like. The file name serves as the name for that script, which will be used to load and unload the script later.
 
-!> PySpigot will only load and run script files that end in `.py`. You can easily disable a script without deleting it by changing the file extension (for example, by adding `.disabled`) to the end of the file.
+???+ tip
+
+    PySpigot will only load and run script files that end in `.py`. You can easily disable a script without deleting it by changing the file extension (for example, by adding `.disabled` to the end of the file).
 
 ### Write The Script
 
 Using the text editor of your choice, open the script file you just created, and write some code:
 
-```python
-from org.bukkit import Bukkit
+``` py linenums="1"
+from org.bukkit import Bukkit # (1)!
 
-Bukkit.broadcastMessage('Hello world!')
+Bukkit.broadcastMessage('Hello world!') # (2)!
 ```
 
-On line 1, we import the Bukkit class from the Bukkit Java API. This is a very useful class that will likely be used in many of your scripts.
+1.  Here, we import the [`Bukkit`](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Bukkit.html) class from the Bukkit/Spigot API so that we can reference (use) it later in our script.
+2.  Here, we use a function from the `Bukkit` class called `broadcastMessage`. This function broadcasts a message (string) to all players on the server in the server chat.
 
-On line 3, we call the `broadcastMessage` method/function, which broadcasts a message to all online players.
+Save the file, and start your server.
 
 ### Run the Script
 
-Save the file, and start your server. If you did everything correctly, your script should automatically load on server start. This is expected; PySpigot will automatically load and run all scripts in the `scripts` folder when the plugin loads, including any scripts within subfolders.
+If you did everything correctly, your script should automatically load on server start. This is expected; PySpigot will automatically load and run all scripts in the `scripts` folder when the plugin loads, including any scripts within subfolders.
 
 Alternatively, if the server is already running and the PySpigot plugin is loaded and enabled, you can load and run your script with `/pyspigot load <scriptname>`. Make sure the name includes the extension (.py)! If the script is located in a subfolder, you don't need to specify the entire path. You only need to specify the script file name.
+
+If you did everything correctly, you should see the message "Hello world!" in the chat when the script loads.
 
 ## Next Steps
 
 Check out the rest of the documentation for more advanced scripting.
 
-If you find yourself stuck and need help, join PySpigot's Discord server if you haven't already: https://discord.gg/f2u7nzRwuk
+If you find yourself stuck and need help, [join PySpigot's Discord server](https://discord.gg/f2u7nzRwuk) if you haven't already.

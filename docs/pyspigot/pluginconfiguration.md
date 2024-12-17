@@ -6,7 +6,7 @@ The following page provides information on all configuration values that can be 
 
 Specifies whether PySpigot will collect metrics data and submit this data to bStats. Set to `false` to disable collection of metrics data. You may also disable bStats server-wide in the bStats config file under `/plugins/bStats`.
 
-```yaml
+``` yaml linenums="1"
 metrics-enabled: true
 ```
 
@@ -14,9 +14,9 @@ Default: `true`
 
 ## `script-load-delay`
 
-The delay for loading scripts (in ticks) after the server finishes loading. There are 20 server ticks in one real-world second. Set to `-1` to disable a load delay and load scripts immediately.
+The delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 game ticks (or 1 real-world second) after the server finishes loading to load scripts. Set to `-1` to disable a load delay and load scripts immediately.
 
-```yaml
+``` yaml linenums="1"
 script-load-delay: 20
 ```
 
@@ -26,7 +26,7 @@ Default: `20`
 
 List of relocation rules for external Java libraries in the `java-libs` folder. This feature is useful to relocate class names of an external Java library if a different version of the library is already present and in use by another plugin on the server. Format as `<pattern>|<relocated pattern>`.
 
-```yaml
+``` yaml linenums="1"
 library-relocations:
   - 'org.apache.commons|relocated.org.apache.commons'
 ```
@@ -37,7 +37,7 @@ Default: None (empty list)
 
 The Date/time format that should be used to timestamp log messages when printing them to a script's log file. The timestamp should be in an appropriate [SimpleDateFormat](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/text/SimpleDateFormat.html).
 
-```yaml
+``` yaml linenums="1"
 log-timestamp-format: 'MMM dd yyyy HH:mm:ss'
 ```
 
@@ -47,7 +47,7 @@ Default: `MMM dd yyyy HH:mm:ss`
 
 Specifies whether or not messages should be printed to console when a script is loaded, unloaded, and reloaded.
 
-```yaml
+``` yaml linenums="1"
 script-action-logging: true
 ```
 
@@ -57,7 +57,7 @@ Default: `true`
 
 Specifies whether all redis events should be logged to a script's logger, or if only crucial events should be logged. Crucial events include reconnect attempts and reconnect failures. If set to `false`, only these crucial events will be logged.
 
-```yaml
+``` yaml linenums="1"
 verbose-redis-logging: true
 ```
 
@@ -67,7 +67,7 @@ Default: `true`
 
 Specifies whether a script should be automatically unloaded if a plugin it depends on is unloaded. This value only applies to scripts that have plugin dependencies listed in the `script_options.yml` file. This feature is especially useful to ensure that when a script depends on a plugin, its shutdown tasks complete successfully if one or more of the plugins it depends on is/are disabled.
 
-```yaml
+``` yaml linenums="1"
 script-unload-on-plugin-disable: true
 ```
 
@@ -75,13 +75,13 @@ Default: `true`
 
 ## `script-option-defaults`
 
-The script option defaults are default [script options](docs/scripts/scriptoptions.md) that can be specified. The options defined in this section serve as fallback falues that should be used in the case that a script has one or more script options that aren't defined in the `script_options.yml` file.
+The script option defaults are default [script options](../scripts/scriptoptions.md) that can be specified. The options defined in this section serve as fallback falues that should be used in the case that a script has one or more script options that aren't defined in the `script_options.yml` file.
 
 ### `enabled`
 
 Used to enable or disable a script. To disable a script, set this value to `false`.
 
-```yaml
+``` yaml linenums="1"
 script-option-defaults:
   enabled: true
 ```
@@ -92,7 +92,7 @@ Default: `true`
 
 Specifies an integer load priority for the script. Scripts are loaded in order from highest to lowest load priority. In other words, scripts that have a higher load priority are loaded earlier, and scripts with a lower load priority are loaded later. If multiple scripts have the same load priority, they are loaded in alphabetical order. To list a dependency, use the full name of the script (including `.py`).
 
-```yaml
+``` yaml linenums="1"
 script-option-defaults:
   load-priority: 1
 ```
@@ -107,7 +107,7 @@ Specifies a list of plugins that the script depends on. The script will not load
 
     If you are working with ProtocolLib or PlaceholderAPI in your script, you **do not** need to specify either of them here. PySpigot has built-in support for these two plugins, and the dependency management is handled automatically.
 
-```yaml
+``` yaml linenums="1"
 script-option-defaults:
   plugin-depend:
     - 'Citizens'
@@ -119,7 +119,7 @@ Default: None (empty list)
 
 Specifies if script file logging should be enabled. If this option is `true`, a script log file will be generated for the script, and any error messages (and print messages sent to the script's logger) will be logged to this file. If set to `false`, no messages will be logged to file, but messages will still be printed to the server console.
 
-```yaml
+``` yaml linenums="1"
 script-option-defaults:
   file-logging-enabled: true
 ```
@@ -130,7 +130,7 @@ Default: `true`
 
 Specifies the minimum logging level that should be logged to the script's log file and the console for the script. Options can be found on the [JavaDocs](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html).
 
-```yaml
+``` yaml linenums="1"
 script-option-defaults:
   min-logging-level: 'INFO'
 ```
@@ -146,7 +146,7 @@ Specify a default value that permissions should have, if they do not have a `def
 - `true`: All players will have the permission (I.E. it is a default permission).
 - `false`: No players will have the permission (I.E. it is *not* a default permission). 
 
-```yaml
+``` yaml linenums="1"
 script-option-defaults:
   permission-default: 'op'
 ```
@@ -168,7 +168,7 @@ The configuration values in the `default-options` section are more advanced opti
 
 Specifies if full stack traces should always be printed to the server console. Normally, if a Java exception occurs, a condensed version of the Java exception along with a Python traceback are printed, but if this parameter is set to `true`, a full Java stack trace will be printed in addition to a Python traceback.
 
-```yaml
+``` yaml linenums="1"
 debug-options:
   print-stack-traces: false
 ```
@@ -179,7 +179,7 @@ Default: `false`
 
 Specifies whether the plugin should show messages in console and on join (to players with the permission `pyspigot.admin`) when a newer version of PySpigot is available to download on spigotmc.org. If set to `false`, no update messages will be shown, even if a newer version of the plugin is available.
 
-```yaml
+``` yaml linenums="1"
 debug-options:
   show-update-messages: true
 ```
@@ -194,7 +194,7 @@ Specifies whether the `pyspigot.py` library file should be automatically updated
 
     It is recommended to keep this feature enabled in the event a plugin update comes with an updated `pyspigot.py` file, so that the latest changes, additions, and fixes to this library are automatically usable.
 
-```yaml
+``` yaml linenums="1"
 debug-options:
   auto-pyspigot-lib-update-enabled: true
 ```
@@ -205,7 +205,7 @@ Default: `true`
 
 The following example configuration contains default values for all parameters.
 
-```yaml
+``` yaml linenums="1"
 # If false, will disable collection of metrics information by bStats for PySpigot. You may also disable bStats server-wide in the bStats config.yml under /plugins/bStats.
 metrics-enabled: true
 # The delay for loading scripts (in ticks) after the server finishes loading.

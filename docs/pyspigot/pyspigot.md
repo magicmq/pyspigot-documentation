@@ -23,6 +23,42 @@ When I began this project, I looked at using several libraries, Py4J included. I
 
 Thus, for the foreseeable future, PySpigot will continue to utilize Jython.
 
+## The PySpigot Plugin Folder
+
+The PySpigot plugin folder is the central repository where scripts, config files, libraries, and data are stored. It has the following structure:
+
+``` py
+plugins/
+├─ PySpigot/ # (1)!
+│  ├─ configs/ # (2)!
+|  |  ├─ test.yml
+|  |  └─ ...
+│  ├─ java-libs/ # (3)!
+|  |  ├─ lib-example.jar
+|  |  └─ ...
+|  ├─ logs/ # (4)!
+|  |  ├─ test.log
+|  |  └─ ...
+|  ├─ python-libs/ # (5)!
+|  |  ├─ lib-example.py
+|  |  └─ ...
+|  ├─ scripts/ # (6)!
+|  |  ├─ test.py
+|  |  └─ ...
+|  ├─ config.yml # (7)!
+|  └─ script_options.yml # (8)!
+└─ ...
+```
+
+1.  The main plugin folder.
+2.  The `configs` folder is where script config files and other data files (json, etc.) are stored, by default. The `configs` folder may contain subfolders for more optimal organization of a script's config and other data files.
+3.  The `java-libs` folder is where external Java libraries should be placed. All JAR files in this folder are automatically loaded when the plugin loads.
+4.  The `logs` folder is where script log files are stored. A script's log file will have the same name as the script (except it will end in `.log` instead of `.py`).
+5.  The `python-libs` folder is where external Python modules should be placed. Any external Python modules (that end in `.py`) will be automatically accessible (able to be imported) from scripts.
+6.  The `scripts` folder is where all PySpigot scripts live. The `scripts` folder may contain subfolders for more optimal organization of scripts.
+7.  This is the main `config.yml` file for PySpigot. For more detailed information on the config, see the [configuration page](pluginconfiguration.md) on the documentation.
+8.  This is the `script_options.yml` file. This is where script options for all scripts should be placed. For more detailed information on script options, see the [script options page](../scripts/scriptoptions.md) on the documentation.
+
 ## Metrics
 
 PySpigot uses [bStats](https://bstats.org/) to collect anonymous usage data for PySpigot. I use these data to inform me about PySpigot's users, including which country they are from (so that I can offer support in popular non-English languages) as well as what Minecraft and Java versions are most popular with users. bStats also collects some other useful data, including server software (Spigot, Paper, Purpur, etc.), plugin version, and number of scripts loaded. Sensitive or identifying information is not collected.

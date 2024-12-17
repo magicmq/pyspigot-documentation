@@ -1,6 +1,17 @@
-# PySpigot
+---
+title: Home
+---
+<center>
+# **PySpigot**
+</center>
 
 > A Python scripting engine for your Minecraft server.
+
+<center>
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/magicmq/pyspigot?label=Release&style=plastic)](https://github.com/magicmq/pyspigot/releases)
+[![Latest snapshot](https://img.shields.io/badge/dynamic/xml?label=Latest%20snapshot&style=plastic&query=%2F%2Fmetadata%2Fversioning%2Fversions%2Fversion%5Blast()%5D&url=https%3A%2F%2Frepo.magicmq.dev%2Frepository%2Fmaven-snapshots%2Fdev%2Fmagicmq%2Fpyspigot%2Fmaven-metadata.xml)](https://repo.magicmq.dev/#browse/browse:maven-snapshots:dev%2Fmagicmq%2Fpyspigot)
+[![Develop GitHub commits since latest stable release (by SemVer)](https://img.shields.io/github/commits-since/magicmq/pyspigot/latest/master?label=Commits%20since%20last%20release&style=plastic)](https://github.com/magicmq/pyspigot)
+</center>
 
 ## What is PySpigot?
 
@@ -10,13 +21,13 @@ PySpigot is a Spigot/Bukkit plugin that acts as a Python scripting engine that r
 
 <div class="grid cards" markdown>
 
--   :octicons-stopwatch-24:{ .lg .middle } __Write Scripts Quickly, in Python__
+-   :material-clock-fast:{ .lg .middle } __Write Scripts Quickly, in Python__
 
     ---
 
     PySpigot scripts can do all the same things that a plugin can do. However, PySpigot scripts can be written in a fraction of the time it takes to write a full plugin.
 
-    PySpigot is also great for people who have Python experience but no Java experience - no Java experience is required!
+    PySpigot is also great for people who know Python, but not Java - no Java experience is required!
 
 -   :octicons-smiley-24:{ .lg .middle } __Easy to Use__
 
@@ -24,7 +35,7 @@ PySpigot is a Spigot/Bukkit plugin that acts as a Python scripting engine that r
 
     PySpigot's features are designed with ease of use in mind. It is easy to use for simple tasks, but you can also create really complex scripts. The possibilities are endless!
 
--   :octicons-cpu-24:{ .lg .middle } __Direct Access to the Bukkit/Spigot API__
+-   :octicons-cpu-24:{ .lg .middle } __Unrestricted Bukkit API Access__
 
     ---
 
@@ -69,6 +80,12 @@ PySpigot is a Spigot/Bukkit plugin that acts as a Python scripting engine that r
 
     PySpigot also has built-in support for PlaceholderAPI, making it easy to register placeholder expansions.
 
+-   :material-scale-balance:{ .lg .middle } __Open Source, Apache 2.0 License__
+
+    ---
+
+    PySpigot's source is fully available on [GitHub](https://github.com/magicmq/PySpigot), and it's licensed under the [Apache 2.0 license](misc/license.md).
+
 -   :octicons-star-fill-24:{ .lg .middle } __And More!__
 
     ---
@@ -81,11 +98,11 @@ PySpigot is a Spigot/Bukkit plugin that acts as a Python scripting engine that r
 
 ## Examples
 
-Check out any of the [examples](/docs/scripts/examples.md) to see some examples of PySpigot scripts.
+Check out any of the [examples](scripts/examples.md) to see some examples of PySpigot scripts.
 
 ## Getting Started
 
-See the [Quick Start Guide](/docs/pyspigot/quickstart.md) for a brief tutorial. Check out the rest of the documentation for more advanced usage.
+See the [Quick Start Guide](pyspigot/quickstart.md) for a brief tutorial. Check out the rest of the documentation for more advanced usage.
 
 ## Discord
 
@@ -99,4 +116,4 @@ If you would like to opt out of this feature, set `metrics-enabled` to `false` i
 
 ## Licensing Information
 
-PySpigot is licensed using the Apache 2.0 license. Please check out the [License Info](/docs/misc/license.md) page for more information.
+PySpigot is licensed using the Apache 2.0 license. Please check out the [License Info](misc/license.md) page for more information.

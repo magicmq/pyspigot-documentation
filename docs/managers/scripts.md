@@ -1,84 +1,118 @@
 # Script Manager
 
-The script manager is, for lack of a better word, the brains of PySpigot. It contains the code that loads, runs, and unloads scripts. It also acts as a manager that oversees script commands, listeners, and tasks, among other things. Under normal circumstances, you shouldn't need to interact with the script manager, as all of this is done automatically in the background. However, the script manager is available to you to access from your script if you need to use it to load/run or unload a script from within another script.
+The script manager serves as the de facto core of PySpigot, handling the loading, running, and unloading of scripts. It also oversees interactions between scripts and all the other managers within PySpigot. Typically, you won't need to interact directly with the script manager, as most operations are performed by the script manager automatically. However, if needed, you can access the script manager from within your script to load, run, or unload scripts programmatically.
 
-See the [General Information](writingscripts#pyspigot39s-managers) page for instructions on how to import the script manager into your script.
+For instructions on importing the script manager into your script, visit the [General Information](usage.md) page.
 
-# Script Manager Usage
+???+ warning
 
-Using the script manager to load/run and unload scripts is relatively simple. There are three functions available to do this:
+	Use *extreme* caution when loading/unloading scripts through other scripts. This is a powerful but potentially destructive feature that can lead to unexpected behavior and errors.
+
+## Script Manager Usage
+
+Using the script manager to load, run and unload scripts is relatively simple. There are three functions available to perform these operations:
 
 - `script.loadScript(name)`: Loads a script with the given name. Returns a `RunResult` which represents the outcome of loading the script. See the below section for more information on `RunResult`.
 - `script.loadScript(path)`: Loads a script with the given file path. Returns a `RunResult` which represents the outcome of loading the script. See the below section for more information on `RunResult`.
 - `script.unloadScript(name)`: Unloads a script with he given name. This function will return `True` if the script unloaded successfully, or `False` if the script did not unload successfully. Unsuccessful unloads are usually accompanied by an error message printed to the console and to the script's log file (if file logging is enabled for the script).
 
-!> *Never* unload a script from within itself. This *will* lead to unexpected behavior and errors.
+In addition, the script manager contains server other useful functions:
 
-## Run Results
+- `script.isScriptRunning(name)`: Check if a script is running with the given name. Returns `True` or `False` accordingly.
+- `script.getScriptPath(name)`: Gets the absolute path to a script with the given name. Useful if subfolders are being utilized within the `scripts` folder.
+- `script.getScript(name)`: Get a running script. Returns a `Script` object if a running script was found with the given name, otherwise returns `None`. See the [Script Object](#the-script-object) section below for more information on the Script object.
+- `script.getLoadedScripts()`: Returns a `Set` of all loaded/running scripts (as `Script` objects).
+- `script.getLoadedScriptNames()`: Returns a `Set` of all loaded/running script names (as `str`s).
+- `script.getAllScriptPaths()`: Returns a `Set`, sorted alphabetically, of all script paths (taking into account subfolders) within the `scripts` folder. 
+- `script.getAllScriptNames()`: Returns a `Set`, sorted alphabetically, containing the names of all scripts within the `scripts` foler (taking into account subfolders).
 
-A `RunResult` represents the outcome of running a script. There are four possible outcomes:
+???+ danger 
 
-- `RunResult.SUCCESS`: Running the script was successful, and it is currently running. You can safely assume that if this is the RunResult, then the script is running without errors.
-- `RunResult.FAIL_DISABLED`: Running the script failed, because the script is disabled in its options (in `script_options.yml`).
-- `RunResult.FAIL_PLUGIN_DEPENDENCY`: Running the script failed, because it depends on one or more *plugins* that are not running.
-- `RunResult.FAIL_ERROR`: Running the script failed, because there was an error when it ran. This error will be printed to the server console as well as the script's log file (if file logging is enabled for the script).
-- `RunResult.FAIL_DUPLICATE`: Running the script failed, because there was a script already running with the same name.
-- `RunResult.FAIL_SCRIPT_NOT_FOUND`: Running the script failre, because a script was not found with the given name.
+	***Never*** unload a script from within itself! This *will* lead to unexpected behavior and errors.
 
-The `RunResult` class is accessed from `dev.magicmq.pyspigot.manager.script.RunResult`. 
+### Run Result
 
-# Code Examples
+The `RunResult` is a value that represents the outcome of loading a script. Both of the `loadScript` functions return a `RunResult` representing the outcome of the load operation. There are four possible outcomes:
+
+| RunResult                | Description                                                                                                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SUCCESS`                | The script loaded and ran successfully. The script is currently running.                                                                                      |
+| `FAIL_DISABLED`          | Running the script failed because the script is disabled as per its script options (in `script_options.yml` or elsewhere)                                     |
+| `FAIL_PLUGIN_DEPENDENCY` | Running the script failed because it depends on one or more plugins that are not running on the server.                                                       |
+| `FAIL_ERROR`             | Running the script failed because there was an error when it ran. The error will be printed to the server console (and to the script's log file, if enabled). |
+| `FAIL_DUPLICATE`         | Running the script failed because there is a script already running with the same name.                                                                       |
+| `FAIL_SCRIPT_NOT_FOUND`  | Running the script failed because a script was not found in the `scripts` folder with the given name.                                                         |
+
+The `RunResult` class is accessed by importing `dev.magicmq.pyspigot.manager.script.RunResult`.
+
+### The Script Object
+
+The `Script` object is the in-memory representation of a running script. It holds several key values related to a script, including its name, log file, options, and underlying Jython interpreter object. These can be accessed with the following functions:
+
+- `getFile()`: Returns the `File` pertaining to the script.
+- `getPath()`: Returns the absolute path of the script.
+- `getName()`: Returns the name of the script.
+- `getSimpleName()`: Returns the name of the script, without the extension (`.py`) at the end.
+- `getOptions()`: Returns a `ScriptOptions` object representing the script's options. See the [JavaDocs](https://javadocs.magicmq.dev/pyspigot/dev/magicmq/pyspigot/manager/script/ScriptOptions.html) for a list of functions available in `ScriptOptions`.
+- `getInterpreter()`: Returns the script's underlying Jython interpreter object (`PythonInterpreter`).
+- `getLogger()`: Returns the script's `ScriptLogger` object.
+- `getLogFileName()`: Returns the script's log file name. This function always returns a file name for the script, even if file logging is disabled in its options.
+- `getUptime()`: Returns the script's uptime in milliseconds.
+
+???+ warning
+
+	Again, exercise *extreme caution* when interacting with this portion of PySpigot, particularly the underlying Jython interpreter. Unexpected behavior can occur.
+
+## Code Examples
 
 Let's look at some code that loads, runs and unloads a script:
 
-## Loading and Running a Script
+### Loading and Running a Script
 
-```python
-import pyspigot as ps
-from dev.magicmq.pyspigot.manager.script import RunResult
+``` py linenums="1"
+import pyspigot as ps # (1)!
+from dev.magicmq.pyspigot.manager.script import RunResult # (2)!
 
-run_result = ps.script.loadScript('script.py')
+run_result = ps.script.loadScript('script.py') # (3)!
 
-if (run_result == RunResult.SUCCESS):
+if (run_result == RunResult.SUCCESS): # (4)!
 	print('The script is running!')
-elif (run_result == RunResult.FAIL_ERROR):
+elif (run_result == RunResult.FAIL_ERROR): # (5)!
 	print('The script did not load due to an error!')
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the script manager (`script`).
+1. Here, we import PySpigot as `ps` to utilize the script manager (`script`).
 
-On line 2, we import `RunResult` to utilize it later to determine the outcome of loading the script.
+2. Here, we import `RunResult` to utilize it later to determine the outcome of loading the script.
 
-On line 4, we load the script with the name `script.py`. We assign the returned value to `loaded_script`, we assign the outcome of loading the script (`RunResult`) to `run_result`.
+3. Here, we load the script with the name `script.py`, and we assign the outcome of loading the script (the `RunResult`) to `run_result`.
 
-On line 6, we check if the outcome of loading the script was `RunResult.FAIL_ERROR` (which means the script did not load due to an error) and print a message to the console if this was the case.
+4. Here, we check if the outcome of loading the script was `RunResult.SUCCESS` (which means the script loaded successfully and is currently running) and print a message to the console if this was the case.
 
-On line 8, we check if the outcome of loading the script was `RunResult.SUCCESS` (which means the script loaded successfully and is currently running) and print a message to the console if this was the case.
+5. Here, we check if the outcome of loading the script was `RunResult.FAIL_ERROR` (which means the script did not load due to an error) and print a message to the console if this was the case.
 
-## Unloading a Script
+### Unloading a Script
 
-```python
-import pyspigot as ps
+``` py linenums="1"
+import pyspigot as ps # (1)!
 
-unload_result = ps.script.unloadScript('script.py')
+unload_result = ps.script.unloadScript('script.py') # (2)!
 
-if (unload_result == True):
+if (unload_result == True): # (3)!
 	print('The script unloaded successfully without errors!')
 ```
 
-On line 1, we import PySpigot as `ps` to utilize the script manager (`script`).
+1. Here, we import PySpigot as `ps` to utilize the script manager (`script`).
 
-On line 3, we unload the script with the name `script.py`. We assign the returned value (`True` or `False`, depending on outcome) to `unload_result`.
+2. Here, we unload the script with the name `script.py`. We assign the returned value (`True` or `False`, depending on outcome) to `unload_result`.
 
-On line 5, we check if the outcome of unloading the script was `True` (which means the script unloaded successfully without errors), and enter the if statement if so.
+3. Here, we check if the outcome of unloading the script was `True` (which means the script unloaded successfully without errors), and print a message to the console if this was the case.
 
-!> Use *extreme* caution when loading/unloading scripts through other scripts. This is a powerful but potentially destructive feature that can lead to unexpected behavior and errors.
-
-## To summarize: {docsify-ignore}
+## Summary
 
 - Use the script manager to load/run and unload a script from within another script.
 - You must use both `loadScript` and `runScript` to load and run a script, as loading and running are two separate operations.
 - `loadScript` returns a script object that should be passed to `runScript`. It will return `None` if the script did not load successfully.
 - `runScript` returns a `RunResult` which can be used to determine the outcome of running the script.
 - `unloadScript` returns `True` or `False`, `True` if the script unloaded successfully, or `False` if it did not.
-- *Never* attempt to unload a script from within itself. This will lead to bugs/errors.
+- ***Never*** attempt to unload a script from within itself. This will lead to bugs/errors.
