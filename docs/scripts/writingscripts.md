@@ -82,15 +82,18 @@ There is one config option related to loading scripts:
 
 ## Start and Stop Functions
 
-There are two special functions you may include in your PySpigot scripts: `start` and `stop`. Both take no parameters.
+There are two special functions you may include in your PySpigot scripts: `start` and `stop`.
 
-If a `start` function is defined in your script, it will be called by PySpigot when the script starts.
+The `start` function is called automatically by PySpigot when your script loads. Likewise, the `stop` function is called automatically by PySpigot when your script unloads. If your script is unloaded as a result of an error, the `stop` function is *not* called.
 
-If a `stop` function is defined in your script, it will be called by PySpigot when your script is stopped/unloaded.
+The `start` and `stop` functions can accept either zero or one parameter:
+
+- If you define one parameter, PySpigot will pass the [Script Object](../managers/scripts.md#the-script-object) to the function. This object is the representation of the loaded script at runtime. This allows you to obtain information about the script, as well as other key functions, including logging, the script file, and more within the `start` and/or `stop` function.
+- If you define zero parameters, PySpigot will not pass any arguments to the function.
 
 ???+ notice
 
-    Both `start` and `stop` are optional, you do not need to define them in your script if they are not needed.
+    The `start` and `stop` functions are optional. You do not need to define them in your script if they are not needed.
 
 ## The `pyspigot.py` Helper Module
 
