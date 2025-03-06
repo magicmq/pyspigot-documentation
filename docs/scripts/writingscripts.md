@@ -16,7 +16,7 @@ There are a few basic things to keep in mind when writing PySpigot scripts:
 
 ## A Note About Jython
 
-Under the hood, PySpigot utilizes Jython, a Java implementation of Python. The PySpigot jar file is quite large in comparison to other Spigot plugins because Jython (as well as its dependencies) are bundled into PySpigot.
+Under the hood, PySpigot utilizes Jython, a Java implementation of Python. The PySpigot jar file is quite large in comparison to other Bukkit plugins because Jython (as well as its dependencies) are bundled into PySpigot.
 
 Jython is written such that scripts are compiled and interpreted entirely in Java. This means that scripts have native access to the entire Java class path at runtime, making it very easy to work with the Spigot API and other aspects of the server. Consider the following example:
 
@@ -33,6 +33,8 @@ for player in online_players:
 ```
 
 As you can see from the above code block, working with Java classes/objects is intuitive. Should you have any trouble interfacing with Java, Jython has fairly well-written documentation you can check out [here](https://jython.readthedocs.io/en/latest/).
+
+By default, Jython internals are initialized on server startup (when PySpigot is loaded). This can result in a momentary hang during startup when PySpigot is loading. This also results in some memory overhead, even if no scripts are loaded. To disable this feature, and instead delay initialization of Jython until script loading, set `init-on-startup` to `false` in the `jython-options` section of the [PySpigot config file](../pyspigot/pluginconfiguration.md#init-on-startup).
 
 Currently, the latest version of Jython implements Python 2. Thus, for now, PySpigot scripts are written in Python 2. While some may see this as a drawback, Python 2 is usually sufficient for the vast majority of use cases of PySpigot, and I have not yet found any case where a Python 3 feature was required for script functionality. The developers of Jython intend on implementing Python 3 in a future release of Jython, but the expected timeframe of this update is unclear. Work is ongoing on the [Jython GitHub repository](https://github.com/jython/jython).
 
