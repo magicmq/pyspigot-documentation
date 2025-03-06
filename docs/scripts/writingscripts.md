@@ -92,17 +92,17 @@ If a `stop` function is defined in your script, it will be called by PySpigot wh
 
     Both `start` and `stop` are optional, you do not need to define them in your script if they are not needed.
 
-## The pyspigot Helper Module
+## The `pyspigot.py` Helper Module
 
-As of version 0.5.0, PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is automatically placed into the `python-libs` folder on plugin load.
+PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is accessible via a simple import:
 
-PySpigot includes an automated system to automatically update the `pyspigot.py` helper module when changes are detected. This feature can be disabled if desired by setting the `auto-pyspigot-lib-update-enabled` option under `debug-options` in the config.yml file to `false`.
+```py
+import pyspigot as ps
 
-[Click here](https://github.com/magicmq/pyspigot/blob/master/src/main/resources/python-libs/pyspigot.py) to view the source code of the `pyspigot.py` module.
+...
+```
 
-???+ warning
-
-    It is recommended that you leave automatic updating of the `pyspigot.py` helper module enabled to ensure that any changes, additions, and fixes are always reflected on your end.
+For more information, see the [PySpigot Helper Module](helpermodule.md) page.
 
 ## Global Variables
 

@@ -39,7 +39,7 @@ To utilize these managers, they must be imported into your script. This can be d
 
 ### Import managers via the `pyspigot.py` helper library
 
-As of version 0.5.0, PySpigot ships with a `pyspigot.py` helper module, which is automatically placed into the `python-libs` folder when the plugin is initialized. This module contains several functions to allow for access to all managers.
+PySpigot ships with a `pyspigot.py` helper module, which is included in the PySpigot JAR file. This module contains several helper functions that makes it easier to access all the managers.
 
 ``` py linenums="1"
 import pyspigot as ps
@@ -70,6 +70,8 @@ listener.<function>
 command.<function>
 ...
 ```
+
+For more information and documentation on the `pyspigot.py` helper module, see the [PySpigot Helper Module](../scripts/helpermodule.md) page.
 
 ### Import all managers at once using the PySpigot class
 

@@ -186,21 +186,6 @@ debug-options:
 
 Default: `true`
 
-### `auto-pyspigot-lib-update-enabled`
-
-Specifies whether the `pyspigot.py` library file should be automatically updated if a newer version is detected that comes bundled with the pyspigot JAR file. The update replaces the older version with the most recent version. If set to `false`, the pyspigot.py file will *not* be automatically replaced with the most recent version.
-
-???+ tip
-
-    It is recommended to keep this feature enabled in the event a plugin update comes with an updated `pyspigot.py` file, so that the latest changes, additions, and fixes to this library are automatically usable.
-
-``` yaml linenums="1"
-debug-options:
-  auto-pyspigot-lib-update-enabled: true
-```
-
-Default: `true`
-
 ## Example Configuration
 
 The following example configuration contains default values for all parameters.

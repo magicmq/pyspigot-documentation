@@ -121,6 +121,8 @@ nav:
   - Writing Scripts:
     - General Information: scripts/writingscripts.md
     - Script Options: scripts/scriptoptions.md
+    - Helper Modules:
+      - PySpigot Helper Module: scripts/helpermodule.md
     - Global Variables: scripts/globalvariables.md
     - External Libraries: scripts/externallibraries.md
     - Custom Events: scripts/customevents.md
