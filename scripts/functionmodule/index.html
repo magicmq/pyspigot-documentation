@@ -12,13 +12,13 @@
         <meta name="author" content="magicmq">
       
       
-        <link rel="canonical" href="https://pyspigot-docs.magicmq.dev/scripts/globalvariables/">
+        <link rel="canonical" href="https://pyspigot-docs.magicmq.dev/scripts/functionmodule/">
       
       
-        <link rel="prev" href="../functionmodule/">
+        <link rel="prev" href="../helpermodule/">
       
       
-        <link rel="next" href="../externallibraries/">
+        <link rel="next" href="../globalvariables/">
       
       
       <link rel="icon" href="../../assets/images/favicon.ico">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Global Variables - PySpigot Documentation</title>
+        <title>Function Helper Module - PySpigot Documentation</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#global-variables" class="md-skip">
+        <a href="#the-functionpy-helper-module" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Global Variables
+              Function Helper Module
             
           </span>
         </div>
@@ -873,6 +873,8 @@
                 
   
   
+    
+  
   
   
     
@@ -887,11 +889,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="">
@@ -906,7 +908,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             Helper Modules
@@ -939,36 +941,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../functionmodule/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Function Helper Module
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -985,7 +957,7 @@
           
   
   <span class="md-ellipsis">
-    Global Variables
+    Function Helper Module
     
   </span>
   
@@ -997,7 +969,7 @@
         
   
   <span class="md-ellipsis">
-    Global Variables
+    Function Helper Module
     
   </span>
   
@@ -1020,189 +992,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#accessing-the-global-variables-system" class="md-nav__link">
+  <a href="#code" class="md-nav__link">
     <span class="md-ellipsis">
-      Accessing the Global Variables System
+      Code
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Accessing the Global Variables System">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#via-the-pyspgigot-helper-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via the pyspgigot helper module
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#via-the-pyspigot-class" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via the PySpigot class
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#via-a-direct-import" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via a direct import
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#usage-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#advanced-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Usage
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#avoiding-memory-leaks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Avoiding Memory Leaks
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#available-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Available Functions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Available Functions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#setkey-value" class="md-nav__link">
-    <span class="md-ellipsis">
-      set(key, value)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setkey-value-override" class="md-nav__link">
-    <span class="md-ellipsis">
-      set(key, value, override)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#removekey" class="md-nav__link">
-    <span class="md-ellipsis">
-      remove(key)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getkey" class="md-nav__link">
-    <span class="md-ellipsis">
-      get(key)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getkeys" class="md-nav__link">
-    <span class="md-ellipsis">
-      getKeys()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getvalues" class="md-nav__link">
-    <span class="md-ellipsis">
-      getValues()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gethashmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      getHashMap()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#containskey" class="md-nav__link">
-    <span class="md-ellipsis">
-      contains(key)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#containsvaluevalue" class="md-nav__link">
-    <span class="md-ellipsis">
-      containsValue(value)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#purge" class="md-nav__link">
-    <span class="md-ellipsis">
-      purge()
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
+      Usage Example
     </span>
   </a>
   
@@ -1212,6 +1013,36 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../globalvariables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Global Variables
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1912,189 +1743,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#accessing-the-global-variables-system" class="md-nav__link">
+  <a href="#code" class="md-nav__link">
     <span class="md-ellipsis">
-      Accessing the Global Variables System
+      Code
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Accessing the Global Variables System">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#via-the-pyspgigot-helper-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via the pyspgigot helper module
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#via-the-pyspigot-class" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via the PySpigot class
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#via-a-direct-import" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via a direct import
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
+  <a href="#usage-example" class="md-nav__link">
     <span class="md-ellipsis">
-      Usage
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#advanced-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Usage
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#avoiding-memory-leaks" class="md-nav__link">
-    <span class="md-ellipsis">
-      Avoiding Memory Leaks
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#available-functions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Available Functions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Available Functions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#setkey-value" class="md-nav__link">
-    <span class="md-ellipsis">
-      set(key, value)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setkey-value-override" class="md-nav__link">
-    <span class="md-ellipsis">
-      set(key, value, override)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#removekey" class="md-nav__link">
-    <span class="md-ellipsis">
-      remove(key)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getkey" class="md-nav__link">
-    <span class="md-ellipsis">
-      get(key)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getkeys" class="md-nav__link">
-    <span class="md-ellipsis">
-      getKeys()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#getvalues" class="md-nav__link">
-    <span class="md-ellipsis">
-      getValues()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gethashmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      getHashMap()
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#containskey" class="md-nav__link">
-    <span class="md-ellipsis">
-      contains(key)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#containsvaluevalue" class="md-nav__link">
-    <span class="md-ellipsis">
-      containsValue(value)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#purge" class="md-nav__link">
-    <span class="md-ellipsis">
-      purge()
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
+      Usage Example
     </span>
   </a>
   
@@ -2119,219 +1779,328 @@
   
 
 
-<h1 id="global-variables">Global Variables<a class="headerlink" href="#global-variables" title="Permanent link">&para;</a></h1>
-<p>PySpigot contains a global variable system that is available to scripts at runtime. On the Java side, this system relies on a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html"><code>HashMap</code></a>, which is a data structure that stores data in key:value pairs, much like a dict in Python. The intention of this system is to allow for shared variables across scripts. This feature might be useful if you are writing a system of scripts that rely on information from other scripts in order to function correctly.</p>
-<p>Changes to variables inserted into this global set are automatically visible to all scripts. There is no need to re-insert a variable into the global set of variables if its value changes.</p>
-<h2 id="accessing-the-global-variables-system">Accessing the Global Variables System<a class="headerlink" href="#accessing-the-global-variables-system" title="Permanent link">&para;</a></h2>
-<p>PySpigot's global variables system is accessed just like any of PySpigot's managers. There are three ways to access it:</p>
-<h3 id="via-the-pyspgigot-helper-module">Via the pyspgigot helper module<a class="headerlink" href="#via-the-pyspgigot-helper-module" title="Permanent link">&para;</a></h3>
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_variables</span><span class="p">()</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="n">global_vars</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
+<h1 id="the-functionpy-helper-module">The <code>function.py</code> Helper Module<a class="headerlink" href="#the-functionpy-helper-module" title="Permanent link">&para;</a></h1>
+<p>For convenience, PySpigot includes a helper module called <code>function.py</code>. This module wraps several <a href="https://www.geeksforgeeks.org/functional-interfaces-java/">functional interfaces</a> contained within the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/package-summary.html"><code>java.util.function</code> package</a> into a Python-friendly format.</p>
+<p>This module makes it significantly easier to work with Java's functional interfaces when Java APIs/libraries utilize them. For example, <a href="https://www.spigotmc.org/resources/nbt-api.7939/">NBT-API</a> makes heavy use of functional interfaces, and the <code>function.py</code> helper module makes it much less cumbersome. See the <a href="#usage-example">usage example section</a> for an example of how to use this module with NBT-API.</p>
+<h2 id="code">Code<a class="headerlink" href="#code" title="Permanent link">&para;</a></h2>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-0-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-0-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-0-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-0-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-0-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-0-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-0-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-0-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-0-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-0-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-0-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-0-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-0-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-0-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-0-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-0-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-0-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-0-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-0-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-0-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-0-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-0-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-0-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-0-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-0-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-0-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-0-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-0-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-0-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-0-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-0-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-0-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-0-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-0-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-0-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-0-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-0-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-0-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-0-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-0-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-0-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-0-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-0-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-0-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-0-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-0-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-0-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-0-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-0-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-0-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-0-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-0-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-0-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-0-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-0-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-0-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-0-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-0-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-0-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-0-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-0-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-0-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-0-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-0-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-0-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-0-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-0-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-0-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-0-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-0-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-0-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-0-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-0-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-0-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-0-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-0-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-0-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-0-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-0-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-0-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-0-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-0-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-0-100">100</a></span>
+<span class="normal"><a href="#__codelineno-0-101">101</a></span>
+<span class="normal"><a href="#__codelineno-0-102">102</a></span>
+<span class="normal"><a href="#__codelineno-0-103">103</a></span>
+<span class="normal"><a href="#__codelineno-0-104">104</a></span>
+<span class="normal"><a href="#__codelineno-0-105">105</a></span>
+<span class="normal"><a href="#__codelineno-0-106">106</a></span>
+<span class="normal"><a href="#__codelineno-0-107">107</a></span>
+<span class="normal"><a href="#__codelineno-0-108">108</a></span>
+<span class="normal"><a href="#__codelineno-0-109">109</a></span>
+<span class="normal"><a href="#__codelineno-0-110">110</a></span>
+<span class="normal"><a href="#__codelineno-0-111">111</a></span>
+<span class="normal"><a href="#__codelineno-0-112">112</a></span>
+<span class="normal"><a href="#__codelineno-0-113">113</a></span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span>
+<span class="normal"><a href="#__codelineno-0-116">116</a></span>
+<span class="normal"><a href="#__codelineno-0-117">117</a></span>
+<span class="normal"><a href="#__codelineno-0-118">118</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="sd">This is a helper module that wraps a variety of functional interfaces in the java.util.function package, for easier use in Python.</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="sd">This module should be particularly useful when working with some libraries that make use of functional interfaces (such as NBT-API).</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.BiConsumer</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.BiFunction</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.BiPredicate</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.Consumer</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.Function</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.Predicate</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.Supplier</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">Represents an operation that accepts two input arguments and returns no result. This is the two-arity specialization of Consumer. Unlike most other functional interfaces, BiConsumer is expected to operate via side-effects.</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="k">class</span><span class="w"> </span><span class="nc">BiConsumer</span><span class="p">(</span><span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">BiConsumer</span><span class="p">):</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    Initialize a new BiConsumer.</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    Arguments:</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        function (callable): A function that accepts two arguments and returns nothing.</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">accept</span> <span class="o">=</span> <span class="n">function</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">Represents a function that accepts two arguments and produces a result. This is the two-arity specialization of Function. </span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="k">class</span><span class="w"> </span><span class="nc">BiFunction</span><span class="p">(</span><span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">BiFunction</span><span class="p">):</span>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33"></a>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    Initializes a new BiFunction.</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36"></a>
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Arguments:</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        function (callable): A function that accepts two arguments and returns a value.</span>
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">apply</span> <span class="o">=</span> <span class="n">function</span>
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42"></a>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43"></a>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">Represents a predicate (boolean-valued function) of two arguments. This is the two-arity specialization of Predicate. </span>
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="k">class</span><span class="w"> </span><span class="nc">BiPredicate</span><span class="p">(</span><span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">BiPredicate</span><span class="p">):</span>
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48"></a>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    Initializes a new BiPredicate.</span>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51"></a>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    Arguments:</span>
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        function (callable): A function that accepts two arguments and returns either True or False.</span>
+</span><span id="__span-0-54"><a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-55"><a id="__codelineno-0-55" name="__codelineno-0-55"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+</span><span id="__span-0-56"><a id="__codelineno-0-56" name="__codelineno-0-56"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">function</span>
+</span><span id="__span-0-57"><a id="__codelineno-0-57" name="__codelineno-0-57"></a>
+</span><span id="__span-0-58"><a id="__codelineno-0-58" name="__codelineno-0-58"></a>
+</span><span id="__span-0-59"><a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-60"><a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">Represents an operation that accepts a single input argument and returns no result. Unlike most other functional interfaces, Consumer is expected to operate via side-effects.</span>
+</span><span id="__span-0-61"><a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-62"><a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="k">class</span><span class="w"> </span><span class="nc">Consumer</span><span class="p">(</span><span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">Consumer</span><span class="p">):</span>
+</span><span id="__span-0-63"><a id="__codelineno-0-63" name="__codelineno-0-63"></a>
+</span><span id="__span-0-64"><a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-65"><a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    Initializes a new Consumer.</span>
+</span><span id="__span-0-66"><a id="__codelineno-0-66" name="__codelineno-0-66"></a>
+</span><span id="__span-0-67"><a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    Arguments:</span>
+</span><span id="__span-0-68"><a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        function (callable): A function that accepts one argument and returns nothing.</span>
+</span><span id="__span-0-69"><a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-70"><a id="__codelineno-0-70" name="__codelineno-0-70"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+</span><span id="__span-0-71"><a id="__codelineno-0-71" name="__codelineno-0-71"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">accept</span> <span class="o">=</span> <span class="n">function</span>
+</span><span id="__span-0-72"><a id="__codelineno-0-72" name="__codelineno-0-72"></a>
+</span><span id="__span-0-73"><a id="__codelineno-0-73" name="__codelineno-0-73"></a>
+</span><span id="__span-0-74"><a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-75"><a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">Represents a function that accepts one argument and produces a result.</span>
+</span><span id="__span-0-76"><a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-77"><a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="k">class</span><span class="w"> </span><span class="nc">Function</span><span class="p">(</span><span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">Function</span><span class="p">):</span>
+</span><span id="__span-0-78"><a id="__codelineno-0-78" name="__codelineno-0-78"></a>
+</span><span id="__span-0-79"><a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-80"><a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    Initializes a new Function.</span>
+</span><span id="__span-0-81"><a id="__codelineno-0-81" name="__codelineno-0-81"></a>
+</span><span id="__span-0-82"><a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    Arguments:</span>
+</span><span id="__span-0-83"><a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        function (callable): A function that accepts one argument and returns a value.</span>
+</span><span id="__span-0-84"><a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-85"><a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+</span><span id="__span-0-86"><a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">apply</span> <span class="o">=</span> <span class="n">function</span>
+</span><span id="__span-0-87"><a id="__codelineno-0-87" name="__codelineno-0-87"></a>
+</span><span id="__span-0-88"><a id="__codelineno-0-88" name="__codelineno-0-88"></a>
+</span><span id="__span-0-89"><a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-90"><a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">Represents a predicate (boolean-valued function) of one argument.</span>
+</span><span id="__span-0-91"><a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-92"><a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="k">class</span><span class="w"> </span><span class="nc">Predicate</span><span class="p">(</span><span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">Predicate</span><span class="p">):</span>
+</span><span id="__span-0-93"><a id="__codelineno-0-93" name="__codelineno-0-93"></a>
+</span><span id="__span-0-94"><a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-95"><a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    Initializes a new Predicate.</span>
+</span><span id="__span-0-96"><a id="__codelineno-0-96" name="__codelineno-0-96"></a>
+</span><span id="__span-0-97"><a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    Arguments:</span>
+</span><span id="__span-0-98"><a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        function (callable): A function that accepts one argument and returns either True or False.</span>
+</span><span id="__span-0-99"><a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-100"><a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+</span><span id="__span-0-101"><a id="__codelineno-0-101" name="__codelineno-0-101"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">test</span> <span class="o">=</span> <span class="n">function</span>
+</span><span id="__span-0-102"><a id="__codelineno-0-102" name="__codelineno-0-102"></a>
+</span><span id="__span-0-103"><a id="__codelineno-0-103" name="__codelineno-0-103"></a>
+</span><span id="__span-0-104"><a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-105"><a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">Represents a supplier of results.</span>
+</span><span id="__span-0-106"><a id="__codelineno-0-106" name="__codelineno-0-106"></a>
+</span><span id="__span-0-107"><a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">There is no requirement that a new or distinct result be returned each time the supplier is invoked.</span>
+</span><span id="__span-0-108"><a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-109"><a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="k">class</span><span class="w"> </span><span class="nc">Supplier</span><span class="p">(</span><span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">Supplier</span><span class="p">):</span>
+</span><span id="__span-0-110"><a id="__codelineno-0-110" name="__codelineno-0-110"></a>
+</span><span id="__span-0-111"><a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="__span-0-112"><a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">    Initializes a new Supplier.</span>
+</span><span id="__span-0-113"><a id="__codelineno-0-113" name="__codelineno-0-113"></a>
+</span><span id="__span-0-114"><a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="sd">    Arguments:</span>
+</span><span id="__span-0-115"><a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">        function (callable): A function that accepts no arguments and returns a value.</span>
+</span><span id="__span-0-116"><a id="__codelineno-0-116" name="__codelineno-0-116"></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="__span-0-117"><a id="__codelineno-0-117" name="__codelineno-0-117"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+</span><span id="__span-0-118"><a id="__codelineno-0-118" name="__codelineno-0-118"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">get</span> <span class="o">=</span> <span class="n">function</span>
 </span></code></pre></div></td></tr></table></div>
-<p>The pyspigot helper module also defines a couple common aliases for convenience. Both <code>ps.global_vars</code> and <code>ps.gv</code> work. For example:</p>
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">ps</span><span class="o">.</span><span class="n">global_vars</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">ps</span><span class="o">.</span><span class="n">gv</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
-</span></code></pre></div></td></tr></table></div>
-<h3 id="via-the-pyspigot-class">Via the PySpigot class<a class="headerlink" href="#via-the-pyspigot-class" title="Permanent link">&para;</a></h3>
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dev.magicmq.pyspigot</span><span class="w"> </span><span class="kn">import</span> <span class="n">PySpigot</span> <span class="k">as</span> <span class="n">ps</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_vars</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="n">global_vars</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
-</span></code></pre></div></td></tr></table></div>
-<h3 id="via-a-direct-import">Via a direct import<a class="headerlink" href="#via-a-direct-import" title="Permanent link">&para;</a></h3>
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dev.magicmq.pyspigot.manager.script</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalVariables</span> <span class="k">as</span> <span class="n">global_vars</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
-</span></code></pre></div></td></tr></table></div>
-<details class="warning" open="open">
-<summary>Warning</summary>
-<p>If you access the global variables system via a direct import, you must call <code>get()</code>!</p>
-</details>
-<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<p>Basic usage of the global variables system would involve calling the <code>set</code>, <code>get</code>, and <code>remove</code> functions. See below for more detailed descriptions of these functions. Here is a short example:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Script A</label><label for="__tabbed_1_2">Script B</label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span>
-<span class="normal"><a href="#__codelineno-4-5">5</a></span>
-<span class="normal"><a href="#__codelineno-4-6">6</a></span>
-<span class="normal"><a href="#__codelineno-4-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_variables</span><span class="p">()</span><span class="c1"># (1)!</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="n">test</span> <span class="o">=</span> <span class="s1">&#39;Global variable&#39;</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span><span class="c1"># (2)!</span>
+<h2 id="usage-example">Usage Example<a class="headerlink" href="#usage-example" title="Permanent link">&para;</a></h2>
+<p>The following code utlizes NBT-API to set a custom NBT string to an item using a command, and then fetches the custom NBT string when the player interacts with the item in their hand.</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">function</span><span class="w"> </span><span class="kn">import</span> <span class="n">Function</span> <span class="c1"># (1)!</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">de.tr7zw.nbtapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">NBT</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.bukkit.event.player</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlayerInteractEvent</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">interact_event</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>    <span class="n">item</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">getItem</span><span class="p">()</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>    <span class="k">if</span> <span class="n">item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>        <span class="k">def</span><span class="w"> </span><span class="nf">nbt_get</span><span class="p">(</span><span class="n">nbt</span><span class="p">):</span> <span class="c1"># (2)!</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>            <span class="k">return</span> <span class="n">nbt</span><span class="o">.</span><span class="n">getString</span><span class="p">(</span><span class="s2">&quot;Test_String&quot;</span><span class="p">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>        <span class="n">nbt_get_function</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">nbt_get</span><span class="p">)</span> <span class="c1"># (3)!</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>        <span class="n">nbt_data</span> <span class="o">=</span> <span class="n">NBT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">nbt_get_function</span><span class="p">)</span> <span class="c1"># (4)!</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">nbt_data</span><span class="p">)</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="n">ps</span><span class="o">.</span><span class="n">listener_manager</span><span class="p">()</span><span class="o">.</span><span class="n">registerListener</span><span class="p">(</span><span class="n">interact_event</span><span class="p">,</span> <span class="n">PlayerInteractEvent</span><span class="p">)</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a><span class="k">def</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a>    <span class="n">item</span> <span class="o">=</span> <span class="n">sender</span><span class="o">.</span><span class="n">getItemInHand</span><span class="p">()</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a>    <span class="n">to_set</span> <span class="o">=</span> <span class="s1">&#39;This is a test string&#39;</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">set_function</span><span class="p">(</span><span class="n">nbt</span><span class="p">):</span> <span class="c1"># (5)!</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23"></a>        <span class="n">nbt</span><span class="o">.</span><span class="n">setString</span><span class="p">(</span><span class="s2">&quot;Test_String&quot;</span><span class="p">,</span> <span class="n">to_set</span><span class="p">)</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24"></a>    <span class="n">set_function</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">set_function</span><span class="p">)</span> <span class="c1"># (6)!</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25"></a>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26"></a>    <span class="n">NBT</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">set_function</span><span class="p">)</span> <span class="c1"># (7)!</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="n">ps</span><span class="o">.</span><span class="n">command_manager</span><span class="p">()</span><span class="o">.</span><span class="n">registerCommand</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="s1">&#39;additemnbt&#39;</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
 <ol>
-<li>On this line, the global variables system is fetched from the <code>pyspigot</code> helper module.</li>
-<li>On this line, a new value is set into the global variables system with the key "test", and the value of the variable <code>test</code> ("Global variable")</li>
-</ol>
-</div>
-<div class="tabbed-block">
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span>
-<span class="normal"><a href="#__codelineno-5-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_variables</span><span class="p">()</span><span class="c1"># (1)!</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="n">test</span> <span class="o">=</span> <span class="n">global_vars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span><span class="c1"># (2)!</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span><span class="c1"># (3)!</span>
-</span></code></pre></div></td></tr></table></div>
-<ol>
-<li>On this line, the global variables system is fetched from the <code>pyspigot</code> helper module.</li>
-<li>On this line, the value assigned to the key "test" is obtained. This was set earlier in Script A.</li>
-<li>Once finished obtaining the variable, it is removed with the <code>remove</code> function, passing the key that should be removed. Removing the variable once finished using it is crucial to prevent memory leaks. See the <a href="#avoiding-memory-leaks">Avoiding Memory Leaks</a> section below for more information.</li>
-</ol>
-</div>
-</div>
-</div>
-<p>In the above code, we set the variable <code>test</code> in the global variables system in script A. Then, we retrieve and print the value of <code>test</code> from script B, and remove the variable after we retrieve it.</p>
-<details class="warning" open="open">
-<summary>Warning</summary>
-<p>Keys/Names are unique. If a new value is inserted into the set of global values with the same key as an existing value, then the old value will be overridden and inevitably lost.</p>
-</details>
-<details class="notice">
-<summary>Notice</summary>
-<p>There is no need to set the variable to the global variables system again if its value changes. Once a global variable is set in the global variables system, its value is updated automatically.</p>
-</details>
-<h3 id="advanced-usage">Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permanent link">&para;</a></h3>
-<p>The global variables system contains a function called <code>getHashMap()</code>, which returns the underlying Java HashMap where variables are stored. You can use this function to get the underlying HashMap in order to access more advanced functions. For a complete list of available functions within the Java HashMap class, see the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html">JavaDocs for HashMap</a>.</p>
-<h3 id="avoiding-memory-leaks">Avoiding Memory Leaks<a class="headerlink" href="#avoiding-memory-leaks" title="Permanent link">&para;</a></h3>
-<p>The global variables system is not smart. It will keep variables stored <em>indefinitely</em>, unless if they are overritten or intentionally deleted. The system will not remove variables unless it is explicitly told to do so. Consider the following example:</p>
-<ul>
-<li>Script A sets a variable to the global variables system for script B to use.</li>
-<li>Script B retrieves the variable and uses it.</li>
-<li>Script B is stopped or otherwise finishes using the variable.</li>
-<li>Script A continues going about its business.</li>
-</ul>
-<p>In the above example, the global variable still exists in the global variables system, because neither script A nor script B cleared the variable from the system. In this case, the variable is leaky: it still exists and can be read, but it's not being used anymore. In programming, this is called a <a href="https://en.wikipedia.org/wiki/Memory_leak">memory leak</a>, and it is frowned upon because it leads to unnecessary use of memory. It's also preventable.</p>
-<p>Returning to the above example: because script B is the script using the data, script A has no way of knowing when script B has seen that data. Therefore, it is script B's responsibility to remove the variable from the global variables system when it is finished retrieving it. You can see this is done in the above code once the <code>test</code> variable is printed</p>
-<p>In general, when you're working with the global variables system, you should ensure that somewhere in your code, old variables are removed when they're no longer neeeded.</p>
-<h2 id="available-functions">Available Functions<a class="headerlink" href="#available-functions" title="Permanent link">&para;</a></h2>
-<p>The following is a list of available functions in the global variables system:</p>
-<h3 id="setkey-value"><code>set(key, value)</code><a class="headerlink" href="#setkey-value" title="Permanent link">&para;</a></h3>
-<p>Insert a new value into the global set of variables with the given key (name). This function will always override an existing variable with the same key.</p>
-<ul>
-<li><strong>Parameters:</strong><ul>
-<li>key: The key of the global variable to set</li>
-<li>value: The value of the variable to set</li>
-</ul>
+<li>
+<p>Here, we make use of the functional interface <code>Function</code>. Most of NBT-API uses this functional interface.</p>
 </li>
-<li><strong>Returns:</strong> The value that was previously set with the given key, or <code>None</code> if there was none</li>
-</ul>
-<details class="warning" open="open">
-<summary>Warning</summary>
-<p>The <code>set(key, value)</code> function will override an existing value with the same key!</p>
-</details>
-<h3 id="setkey-value-override"><code>set(key, value, override)</code><a class="headerlink" href="#setkey-value-override" title="Permanent link">&para;</a></h3>
-<p>Insert a new value into the global set of variables with the given key (name), with the option to override an existing value.</p>
-<ul>
-<li><strong>Parameters:</strong><ul>
-<li>key: The key of the global variable to set</li>
-<li>value: The value of the variable to set</li>
-<li>override: Pass <code>True</code> if an existing variable with the given key should be overridden. Pass <code>False</code> if an existing variable with the same key should <em>not</em> be overridden</li>
-</ul>
+<li>
+<p>Here, we define a function that is essentially passed to NBT-API. NBT-API then calls this function, passing the NBT data for the corresponding item as an argument. Then, we fetch our desired NBT data inside the function and return it from the function.</p>
 </li>
-<li><strong>Returns:</strong> The value that was previously set with the given key, or <code>None</code> if there was none</li>
-</ul>
-<h3 id="removekey"><code>remove(key)</code><a class="headerlink" href="#removekey" title="Permanent link">&para;</a></h3>
-<p>Remove a global variable with the given key (name).</p>
-<ul>
-<li><strong>Parameters:</strong><ul>
-<li>key: The key of the global variable to remove</li>
-</ul>
+<li>
+<p>Here, we initialize a new <code>Function</code>, passing our previously defined <code>nbt_get</code> function as an argument.</p>
 </li>
-<li><strong>Returns:</strong> The value of the variable that was removed, or <code>None</code> if there was no global variable that was removed</li>
-</ul>
-<h3 id="getkey"><code>get(key)</code><a class="headerlink" href="#getkey" title="Permanent link">&para;</a></h3>
-<p>Get a global variable with the given key (name).</p>
-<ul>
-<li><strong>Parameters:</strong><ul>
-<li>key: The key of the global variable to get</li>
-</ul>
+<li>
+<p>Here, we call the NBT-API, passing the item we want to get data from as well as the <code>Function</code> instance we created earlier. We then assign the returned value (the data we fetched).</p>
 </li>
-<li><strong>Returns:</strong> The variable with the given key, or <code>None</code> if no values were found under the given key</li>
-</ul>
-<h3 id="getkeys"><code>getKeys()</code><a class="headerlink" href="#getkeys" title="Permanent link">&para;</a></h3>
-<p>Get a list of all global variable keys (names) that are currently set.</p>
-<ul>
-<li><strong>Returns:</strong> An immutable<sup id="fnref2:1"><a class="footnote-ref" href="#fn:1">1</a></sup> set of the keys of all global variables currently stored. Will return an empty set if there are no global variables that are set</li>
-</ul>
-<h3 id="getvalues"><code>getValues()</code><a class="headerlink" href="#getvalues" title="Permanent link">&para;</a></h3>
-<p>Get a list of all global variable values that are currently set.</p>
-<ul>
-<li><strong>Returns:</strong> An immutable<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> set of the values of all currently stored global variables. Will return an empty set if there are no global variables</li>
-</ul>
-<h3 id="gethashmap"><code>getHashMap()</code><a class="headerlink" href="#gethashmap" title="Permanent link">&para;</a></h3>
-<p>Get the underlying Java HashMap data structure that stores all global variables.</p>
-<ul>
-<li><strong>Returns:</strong> The underlying HashMap, which is mutable<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
-</ul>
-<h3 id="containskey"><code>contains(key)</code><a class="headerlink" href="#containskey" title="Permanent link">&para;</a></h3>
-<p>Check if a global variable is currently stored with the given key (name).</p>
-<ul>
-<li><strong>Returns:</strong> <code>True</code> if there is a global variable with the given key, <code>False</code> if there is not</li>
-</ul>
-<h3 id="containsvaluevalue"><code>containsValue(value)</code><a class="headerlink" href="#containsvaluevalue" title="Permanent link">&para;</a></h3>
-<p>Check if a global variable currently exists with the given value.</p>
-<ul>
-<li><strong>Returns:</strong> <code>True</code> if there is a global variable with the given value, <code>False</code> if there is not</li>
-</ul>
-<h3 id="purge"><code>purge()</code><a class="headerlink" href="#purge" title="Permanent link">&para;</a></h3>
-<p>Clear all variables from the global variables system. Acts as a hard "reset" to the system.</p>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<ul>
-<li>The global variables system allows for cross-script sharing of variables.</li>
-<li>The global variables system is accessed just like any of PySpigot's managers.</li>
-<li>Basic usage involves the <code>set</code>, <code>get</code>, and <code>remove</code> functions.</li>
-<li>The keys/names of global variables are unique. If a new variable is inserted with the same key as an existing variable, the old value will be lost.</li>
-<li>The values of variables stored in the global variables system are updated automatically, and changes are automatically visible to scripts accessing them without needing to call the <code>set</code> function over again.</li>
-<li>Global variables should be removed when scripts finish using them in order to avoid memory leaks.</li>
-<li>The global variables system uses a Java HashMap, and this underlying HashMap can be accessed with the <code>getHashMap</code> function.</li>
-</ul>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>Immutable in this context means that any changes made to the set/list that is returned are not reflected in the global variables system. In other words, the set/list is not backed by the global variables HashMap.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li>
+<p>In a similar way as before, we define another function that is essentially passed to NBT-API. NBT-API calls this function, passing the NBT data for the corresponding item. Then, we <em>set</em> the NBT data this time inside of the function. We don't return anything, since we are setting data, not getting.</p>
 </li>
-<li id="fn:2">
-<p>Mutable in this context means that any changes made to the HashMap that is returned will be reflected in the global variables system.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<li>
+<p>Here, we initialize another new <code>Function</code>, passing our previously defined <code>set_function</code> function as an argument.</p>
+</li>
+<li>
+<p>Finally, we call the NBT-API to modify the NBT data of the item, passing the item whose NBT data we want to set as well as the <code>Function</code> instance created earlier. The <code>NBT.modify</code> function doesn't return anything since it modifies values.</p>
 </li>
 </ol>
-</div>
+<p>This is a relatively simple example. If you are having difficulties with more complex code, feel free to ask for help on the PySpigot Discord.</p>
 
 
 
@@ -2354,7 +2123,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 17, 2024 04:36:19"><span class="timeago" datetime="2024-12-17T04:36:19+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 17, 2024 04:36:19">2024-12-17</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 6, 2025 19:18:42"><span class="timeago" datetime="2025-03-06T19:18:42+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 6, 2025 19:18:42">2025-03-06</span>
   </span>
 
     
@@ -2364,7 +2133,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 24, 2023 08:43:31"><span class="timeago" datetime="2023-12-24T08:43:31+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 24, 2023 08:43:31">2023-12-24</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 6, 2025 19:18:42"><span class="timeago" datetime="2025-03-06T19:18:42+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 6, 2025 19:18:42">2025-03-06</span>
   </span>
 
     
@@ -2401,7 +2170,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../functionmodule/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Function Helper Module">
+          <a href="../helpermodule/" class="md-footer__link md-footer__link--prev" aria-label="Previous: PySpigot Helper Module">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2411,20 +2180,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Function Helper Module
+                PySpigot Helper Module
               </div>
             </div>
           </a>
         
         
           
-          <a href="../externallibraries/" class="md-footer__link md-footer__link--next" aria-label="Next: External Libraries">
+          <a href="../globalvariables/" class="md-footer__link md-footer__link--next" aria-label="Next: Global Variables">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                External Libraries
+                Global Variables
               </div>
             </div>
             <div class="md-footer__button md-icon">
