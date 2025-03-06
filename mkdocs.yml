@@ -5,7 +5,7 @@ site_url: https://pyspigot-docs.magicmq.dev
 repo_name: PySpigot
 repo_url: https://github.com/magicmq/pyspigot
 
-copyright: Copyright &copy; 2024 <a href="https://github.com/magicmq" target="a_blank" rel"noopener">magicmq</a>
+copyright: Copyright &copy; 2025 <a href="https://github.com/magicmq" target="a_blank" rel"noopener">magicmq</a>
 
 theme:
   name: material
