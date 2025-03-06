@@ -12,7 +12,7 @@ For instructions on importing the placeholder manager into your script, visit th
 
 All placeholders created by scripts will follow this general format: `%script:<scriptname>_<placeholder>%`, where `<scriptname>` is the name of your script (without .py), and `<placeholder>` is the specific placeholder, which you will handle yourself in a placeholder "replacer" function. See the code example below for details.
 
-Relational placeholders can also be registered with the placeholder manager, and they follow the general format `%script:<scriptname>_rel_<placeholder>%`, where `<scriptname>` is the name of your script (without .py), and `<placeholder>` is the specific placeholder, which you will handle yourself in the relational placeholder "replacer" function. See the code example below for details.
+Relational placeholders can also be registered with the placeholder manager, and they follow the general format `%rel_script:<scriptname>_<placeholder>%`, where `<scriptname>` is the name of your script (without .py), and `<placeholder>` is the specific placeholder, which you will handle yourself in the relational placeholder "replacer" function. See the code example below for details.
 
 There are several functions available from the placeholder manager for registering/unregistering placeholders:
 
@@ -105,7 +105,7 @@ placeholder = ps.placeholder.registerPlaceholder(None, replace_relational) # (5)
 
 5. Here, we register our placeholder expansion with the `registerPlaceholder` function, passing the replacer function we defined earlier. We also assign the returned value of `registerPlaceholder` to `placeholder`. This is a `ScriptPlaceholder` object, which represents the placeholder expansion that was registered. This can be used to unregister the placeholder expansion if you would like to do so later. We also pass `None` for the first argument of this function, as the first argument accepts a function to replace regular placeholders, which we are not doing in this example.
 
-If the name of the script is `test.py`, the placeholder in the above example would be `%script:test_rel_player_distance%`.
+If the name of the script is `test.py`, the placeholder in the above example would be `%rel_script:test_player_distance%`.
 
 ???+ tip
 
@@ -128,7 +128,7 @@ As you can see in the above example, you need not register a new placeholder exp
 ## Summary
 
 - Placeholders defined by scripts follow the format `%script:<scriptname>_<placeholder>%`.
-- Relational placeholders follow the format `%script:<scriptname>_rel_<placeholder>%`.
+- Relational placeholders follow the format `%rel_script:<scriptname>_<placeholder>%`.
 - Regular placeholder replacer functions should take two parameters, `offline_player` and `placeholder`. You can name them whatever you like. It will be called when the placeholder is used. `offline_player` is the player associated with the placeholder, if there is one. `placeholder` is the specific placeholder that was used.
 - Relational placeholder replacer functions should take three parameters, `player_one`, `player_two`, and `placeholder`. You can name them whatever you like. It will be called when the placeholder is used. `player_one` and `player_two` are the two players associated with the relational placeholder. `placeholder` is the specific placeholder that was used.
 - Register your placeholder with PySpigot's placeholder manager using `registerPlaceholder(placeholder_function, relational_placeholder_function)` or `registerPlaceholder(placeholder_function, relational_placeholder_function, author, version)`.
