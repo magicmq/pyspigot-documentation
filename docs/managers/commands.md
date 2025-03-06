@@ -14,11 +14,15 @@ The command manager makes several functions available to you to register and unr
 
 - `registerCommand(command_function, name)`: The most basic way to register a command.
 - `registerCommand(command_function, tab_function, name)`
+- `registerCommand(command_function, name, permission)`
+- `registerCommand(command_function, tab_function, name, permission)`
+- `registerCommand(command_function, name, aliases, permission)`
+- `registerCommand(command_function, tab_function, name, aliases, permission)`
 - `registerCommand(command_function, name, description, usage)`
 - `registerCommand(command_function, tab_function, name, description, usage)`
 - `registerCommand(command_function, name, description, usage, aliases)`
 - `registerCommand(command_function, tab_function, name, description, usage, aliases)`
-- `registerCommand(command_function, tab_function, name, description, usage, aliases, permission, permission_message)`: The most comprehensive way to register a command.
+- `registerCommand(command_function, tab_function, name, description, usage, aliases, permission)`: The most comprehensive way to register a command.
 - `unregisterCommand(name)`: Allows you to unregister a command from your script using its name.
 - `unregisterCommand(command)`: Allows you to unregister a command from your script. Accepts the `ScriptCommand` object returned from any of the `registerCommand` functions.
 
@@ -45,7 +49,6 @@ The arguments of the above functions are described below:
 - `usage`: A message printed to the person executing the command if the usage is incorrect. This is controlled programatically by returning either `True` or `False` from the command function.
 - `aliases`: A list of aliases for the command.
 - `permission`: A permission node required to execute the command.
-- `permission_message`: A message to display if the command sender does not have permission to execute the command.
 
 ## Code Example
 

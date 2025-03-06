@@ -5,7 +5,7 @@ site_url: https://pyspigot-docs.magicmq.dev
 repo_name: PySpigot
 repo_url: https://github.com/magicmq/pyspigot
 
-copyright: Copyright &copy; 2024 <a href="https://github.com/magicmq" target="a_blank" rel"noopener">magicmq</a>
+copyright: Copyright &copy; 2025 <a href="https://github.com/magicmq" target="a_blank" rel"noopener">magicmq</a>
 
 theme:
   name: material
@@ -121,6 +121,9 @@ nav:
   - Writing Scripts:
     - General Information: scripts/writingscripts.md
     - Script Options: scripts/scriptoptions.md
+    - Helper Modules:
+      - PySpigot Helper Module: scripts/helpermodule.md
+      - Function Helper Module: scripts/functionmodule.md
     - Global Variables: scripts/globalvariables.md
     - External Libraries: scripts/externallibraries.md
     - Custom Events: scripts/customevents.md

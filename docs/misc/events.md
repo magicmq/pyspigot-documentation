@@ -19,7 +19,7 @@ This event is called when an exception (either a Java or a Python exception) occ
 This event has four methods available to use:
 
 - `event.getScript()`: Get the script that threw the exception.
-- `event.getException()`: Returns a [`PyException`](https://www.javadoc.io/static/org.python/jython-standalone/2.7.4/org/python/core/PyException.html) object representing the exception that was thrown.
+- `event.getException()`: Returns a [`PyException`](https://javadoc.io/doc/org.python/jython/latest/org/python/core/PyException.html) object representing the exception that was thrown.
 - `event.doReportException()`: Returns `true` if the exception should be logged to console and the script's log file, false if otherwise
 - `event.setReportException(boolean reportException)`: Set if the exception should be logged to console and the script's log file.
 

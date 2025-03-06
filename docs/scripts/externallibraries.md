@@ -6,9 +6,14 @@ Of course, a more advanced usage of this functionality might include writing you
 
 ## General Information
 
-PySpigot will create two folders (if they don't already exist) called `python-libs` and `java-libs` when it loads, where external libraries should be placed.
+PySpigot will create two folders (if they don't already exist) called `python-libs` and `java-libs` when it loads, where external libraries should be placed. This should be self-explanatory, but to clarify, external Python modules go in the `python-libs` folder, and external Java libraries go in the `java-libs` folder.
 
-PySpigot automatically places a helper module called `pyspigot.py` into the `python-libs` folder on plugin load. For more information on this helper library, see the [Writing Scripts](writingscripts.md#the-pyspigot-helper-module) page.
+PySpigot also ships with two helper modules:
+
+- The `pyspigot.py` helper module, which makes it easier to access PySpigot's managers from your script.
+- The `function.py` helper module, which wraps several functional interfaces in the `java.util.function` package, to make it easier to work with libraries that utilize functional interfaces (such as NBT-API).
+
+Both of these modules are bundled into the PySpigot JAR file, and are accessible via a simple import.
 
 ## External Python Libraries
 

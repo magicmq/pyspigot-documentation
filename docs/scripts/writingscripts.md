@@ -16,7 +16,7 @@ There are a few basic things to keep in mind when writing PySpigot scripts:
 
 ## A Note About Jython
 
-Under the hood, PySpigot utilizes Jython, a Java implementation of Python. The PySpigot jar file is quite large in comparison to other Spigot plugins because Jython (as well as its dependencies) are bundled into PySpigot.
+Under the hood, PySpigot utilizes Jython, a Java implementation of Python. The PySpigot jar file is quite large in comparison to other Bukkit plugins because Jython (as well as its dependencies) are bundled into PySpigot.
 
 Jython is written such that scripts are compiled and interpreted entirely in Java. This means that scripts have native access to the entire Java class path at runtime, making it very easy to work with the Spigot API and other aspects of the server. Consider the following example:
 
@@ -33,6 +33,8 @@ for player in online_players:
 ```
 
 As you can see from the above code block, working with Java classes/objects is intuitive. Should you have any trouble interfacing with Java, Jython has fairly well-written documentation you can check out [here](https://jython.readthedocs.io/en/latest/).
+
+By default, Jython internals are initialized on server startup (when PySpigot is loaded). This can result in a momentary hang during startup when PySpigot is loading. This also results in some memory overhead, even if no scripts are loaded. To disable this feature, and instead delay initialization of Jython until script loading, set `init-on-startup` to `false` in the `jython-options` section of the [PySpigot config file](../pyspigot/pluginconfiguration.md#init-on-startup).
 
 Currently, the latest version of Jython implements Python 2. Thus, for now, PySpigot scripts are written in Python 2. While some may see this as a drawback, Python 2 is usually sufficient for the vast majority of use cases of PySpigot, and I have not yet found any case where a Python 3 feature was required for script functionality. The developers of Jython intend on implementing Python 3 in a future release of Jython, but the expected timeframe of this update is unclear. Work is ongoing on the [Jython GitHub repository](https://github.com/jython/jython).
 
@@ -82,27 +84,30 @@ There is one config option related to loading scripts:
 
 ## Start and Stop Functions
 
-There are two special functions you may include in your PySpigot scripts: `start` and `stop`. Both take no parameters.
+There are two special functions you may include in your PySpigot scripts: `start` and `stop`.
 
-If a `start` function is defined in your script, it will be called by PySpigot when the script starts.
+The `start` function is called automatically by PySpigot when your script loads. Likewise, the `stop` function is called automatically by PySpigot when your script unloads. If your script is unloaded as a result of an error, the `stop` function is *not* called.
 
-If a `stop` function is defined in your script, it will be called by PySpigot when your script is stopped/unloaded.
+The `start` and `stop` functions can accept either zero or one parameter:
+
+- If you define one parameter, PySpigot will pass the [Script Object](../managers/scripts.md#the-script-object) to the function. This object is the representation of the loaded script at runtime. This allows you to obtain information about the script, as well as other key functions, including logging, the script file, and more within the `start` and/or `stop` function.
+- If you define zero parameters, PySpigot will not pass any arguments to the function.
 
 ???+ notice
 
-    Both `start` and `stop` are optional, you do not need to define them in your script if they are not needed.
+    The `start` and `stop` functions are optional. You do not need to define them in your script if they are not needed.
 
-## The pyspigot Helper Module
+## The `pyspigot.py` Helper Module
 
-As of version 0.5.0, PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is automatically placed into the `python-libs` folder on plugin load.
+PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is accessible via a simple import:
 
-PySpigot includes an automated system to automatically update the `pyspigot.py` helper module when changes are detected. This feature can be disabled if desired by setting the `auto-pyspigot-lib-update-enabled` option under `debug-options` in the config.yml file to `false`.
+```py
+import pyspigot as ps
 
-[Click here](https://github.com/magicmq/pyspigot/blob/master/src/main/resources/python-libs/pyspigot.py) to view the source code of the `pyspigot.py` module.
+...
+```
 
-???+ warning
-
-    It is recommended that you leave automatic updating of the `pyspigot.py` helper module enabled to ensure that any changes, additions, and fixes are always reflected on your end.
+For more information, see the [PySpigot Helper Module](helpermodule.md) page.
 
 ## Global Variables
 

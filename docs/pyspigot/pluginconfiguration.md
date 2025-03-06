@@ -73,6 +73,47 @@ script-unload-on-plugin-disable: true
 
 Default: `true`
 
+## `jython-options`
+
+This section allows you to specify options that pertain to Jython.
+
+### `init-on-startup`
+
+Specifies whether or not Jython should be initialized on plugin load. If this is set to `true`, script load times can be reduced by initializing Jython earlier (during server startup) rather than just prior to loading the first script.
+
+``` yaml linenums="1"
+jython-options:
+  init-on-startup: true
+```
+
+Default: `true`
+
+### `properties`
+
+A list of properties that should be passed to Jython when it is initialized. By default, the `python.cachedir.skip` property is passed with a value of `true`. Unless you know what you are doing, this option should be left as-is, as under normal circumstances, embedded Jython should not utilize a cache directory.
+
+See [this page](https://www.jython.org/registry.html) for a more detailed explanation as well as the [RegistryKey class](https://github.com/jython/jython/blob/master/src/org/python/core/RegistryKey.java) in the Jython source code for a complete list of Jython properties.
+
+``` yaml linenums="1"
+jython-options:
+  properties:
+    - 'python.cachedir.skip=true'
+```
+
+Default: List containing `python.cachedir.skip=true`
+
+### `args`
+
+A list of arguments that should be passed to Jython when it is initialized. This is equivalent to the `sys.argv` list in regular Python.
+
+``` yaml linenums="1"
+jython-options:
+  args:
+    - 'test_argument'
+```
+
+Default: None (empty list)
+
 ## `script-option-defaults`
 
 The script option defaults are default [script options](../scripts/scriptoptions.md) that can be specified. The options defined in this section serve as fallback falues that should be used in the case that a script has one or more script options that aren't defined in the `script_options.yml` file.
@@ -186,21 +227,6 @@ debug-options:
 
 Default: `true`
 
-### `auto-pyspigot-lib-update-enabled`
-
-Specifies whether the `pyspigot.py` library file should be automatically updated if a newer version is detected that comes bundled with the pyspigot JAR file. The update replaces the older version with the most recent version. If set to `false`, the pyspigot.py file will *not* be automatically replaced with the most recent version.
-
-???+ tip
-
-    It is recommended to keep this feature enabled in the event a plugin update comes with an updated `pyspigot.py` file, so that the latest changes, additions, and fixes to this library are automatically usable.
-
-``` yaml linenums="1"
-debug-options:
-  auto-pyspigot-lib-update-enabled: true
-```
-
-Default: `true`
-
 ## Example Configuration
 
 The following example configuration contains default values for all parameters.
@@ -220,6 +246,16 @@ script-action-logging: true
 verbose-redis-logging: true
 # If true, scripts will be automatically unloaded if a plugin the script depends on is unloaded. This is especially useful to ensure script shutdown tasks that require a depending plugin complete successfully (prior to the plugin being unloaded).
 script-unload-on-plugin-disable: true
+# Options that pertain to Jython. Changing options in this section requires a server restart.
+jython-options:
+  # If true, the Jython runtime will be initialized during plugin load/server start. If false, the Jython runtime will not be initialized until the first script is loaded.
+  init-on-startup: true
+  # A list of system properties that will be passed to Jython. For a complete list, see https://javadoc.io/doc/org.python/jython-standalone/latest/org/python/core/RegistryKey.html
+  properties:
+    - 'python.cachedir.skip=true'
+  # A list of args to pass to Jython when initialized. Equivalent to sys.argv in Python.
+  args:
+    - ''
 # Default values for script options. If one or more options are not defined in the script_options.yml for the script, then PySpigot will fall back to these values.
 script-option-defaults:
   # Whether the script is enabled
@@ -240,8 +276,4 @@ debug-options:
   print-stack-traces: false
   # If true, the plugin will show messages in console and on join (to players with the permission pyspigot.admin) when a newer version of PySpigot is available to download on spigotmc.org.
   show-update-messages: true
-  # If false, the pyspigot.py file will *not* be automatically replaced with the most recent version (from the pyspigot JAR) on server start if a change is detected. It is recommended to keep this enabled in the event a plugin update comes with an updated pyspigot.py file.
-  auto-pyspigot-lib-update-enabled: true
-messages:
-  plugin-prefix: '&8[&6PySpigot&8] &r'
 ```
