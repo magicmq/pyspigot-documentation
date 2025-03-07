@@ -111,7 +111,7 @@ The global variables system is not smart. It will keep variables stored *indefin
 
 In the above example, the global variable still exists in the global variables system, because neither script A nor script B cleared the variable from the system. In this case, the variable is leaky: it still exists and can be read, but it's not being used anymore. In programming, this is called a [memory leak](https://en.wikipedia.org/wiki/Memory_leak), and it is frowned upon because it leads to unnecessary use of memory. It's also preventable.
 
-Returning to the above example: because script B is the script using the data, script A has no way of knowing when script B has seen that data. Therefore, it is script B's responsibility to remove the variable from the global variables system when it is finished retrieving it. You can see this is done in the above code once the `test` variable is printed
+Returning to the above example: because script B is the script using the data, script A has no way of knowing when script B has seen that data. Therefore, it is script B's responsibility to remove the variable from the global variables system when it is finished retrieving it. You can see this is done in the above code once the `test` variable is printed.
 
 In general, when you're working with the global variables system, you should ensure that somewhere in your code, old variables are removed when they're no longer neeeded.
 
