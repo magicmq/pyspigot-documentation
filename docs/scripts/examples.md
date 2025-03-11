@@ -1,6 +1,6 @@
 # Example Scripts
 
-Below is a curated list of example scripts that perform various functions. You are free to use any code from any of these examples.
+Below is a curated list of example scripts that perform various functions. You are free to use any code from any of these examples. In addition to the examples below, there are additional code snippets and code examples available on [the PySpigot Discord](https://discord.gg/f2u7nzRwuk).
 
 - [`clearinventory.py`](https://github.com/magicmq/pyspigot/blob/master/examples/clearinventory.py): Registers a command that clears the player's inventory.
 - [`communitychest.py`](https://github.com/magicmq/pyspigot/blob/master/examples/communitychest.py): Adds a community chest command that opens an inventory where players can place items to share with the rest of the server.
