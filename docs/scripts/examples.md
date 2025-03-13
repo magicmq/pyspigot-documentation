@@ -11,6 +11,8 @@ Below is a curated list of example scripts that perform various functions. You a
 - [`ping.py`](https://github.com/magicmq/pyspigot/blob/master/examples/ping.py): Adds an audible ping when a player's name is mentioned in chat; ping is also toggleable via command.
 - [`protocollib.py`](https://github.com/magicmq/pyspigot/blob/master/examples/protocollib.py): A script that utilizes a ProtocolLib chat packet listener to prevent players from sending chat messages unless if they have permission.
 - [`placeholder.py`](https://github.com/magicmq/pyspigot/blob/master/examples/placeholder.py): A very brief script that demonstrates how to register a placeholder with PlaceholderAPI.
+- [`teleport.py`](https://github.com/magicmq/pyspigot/blob/master/examples/teleport/teleport.py): Creates a clickable GUI inventory, accessible via `/teleportgui`, for teleporting to different locations.
+    - There is a configuration file that accompanies this script; it can be found [here](https://github.com/magicmq/pyspigot/blob/master/examples/teleport/teleport.yml).
 - [`swearfilter.py`](https://github.com/magicmq/PySpigot/blob/master/examples/swearfilter.py): Creates a chat listener that filters swear words out of chat messages and replaces them with asterisks (\*).
 
 ???+ info
