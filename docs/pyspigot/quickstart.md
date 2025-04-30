@@ -16,13 +16,13 @@ In this brief tutorial, we will create a very simple script that broadcasts a me
 
 ### Create Script File
 
-All scripts are located in the `scripts` folder within PySpigot's main plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders.
+All single-file scripts should be placed in the `scripts` folder within PySpigot's main plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders and across projects (I.E. a script and a project can't share the same name).
 
-Create a Python script file here and name it whatever you would like. The file name serves as the name for that script, which will be used to load and unload the script later.
+Create a Python script file in the `scripts` folder, and name it whatever you would like. Make sure it ends in `.py`. The file name serves as the name for that script, which will be used to load and unload the script later.
 
 ???+ tip
 
-    PySpigot will only load and run script files that end in `.py`. You can easily disable a script without deleting it by changing the file extension (for example, by adding `.disabled` to the end of the file).
+    PySpigot will only load and run script files that end in `.py`. You can easily disable a script without deleting it by changing the file extension (for example, by adding `.disabled` to the end of the file). You can also disable a script in its [script options](../scripts/scriptoptions.md)
 
 ### Write The Script
 
@@ -41,9 +41,9 @@ Save the file, and start your server.
 
 ### Run the Script
 
-If you did everything correctly, your script should automatically load on server start. This is expected; PySpigot will automatically load and run all scripts in the `scripts` folder when the plugin loads, including any scripts within subfolders.
+If you did everything correctly, the script should automatically load on server start. This is expected; PySpigot will automatically load and run all scripts in the `scripts` folder when the plugin loads, including any scripts within subfolders.
 
-Alternatively, if the server is already running and the PySpigot plugin is loaded and enabled, you can load and run your script with `/pyspigot load <scriptname>`. Make sure the name includes the extension (.py)! If the script is located in a subfolder, you don't need to specify the entire path. You only need to specify the script file name.
+Alternatively, if the server is already running and the PySpigot plugin is loaded and enabled, you can load and run the script with `/pyspigot load <scriptname>`. Make sure the name includes the extension (`.py`)! If the script is located in a subfolder, you don't need to specify the entire path. You only need to specify the script file name.
 
 If you did everything correctly, you should see the message "Hello world!" in the chat when the script loads.
 

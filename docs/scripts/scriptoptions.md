@@ -72,7 +72,7 @@ test.py:
 
 ### `load-priority`
 
-Specify an integer load priority for the script. Scripts are loaded in order from highest to lowest load priority. In other words, scripts that have a higher load priority are loaded earlier, and scripts with a lower load priority are loaded later. If multiple scripts have the same load priority, they are loaded in alphabetical order. To list a dependency, use the full name of the script (including `.py`).
+Specify an integer load priority for the script. Scripts and projects are loaded in order from highest to lowest load priority. In other words, scripts/projects that have a higher load priority are loaded earlier, and scripts/projects with a lower load priority are loaded later. If multiple scripts and projects have the same load priority, they are loaded in alphabetical order.
 
 ``` yaml linenums="1"
 test.py:
@@ -98,7 +98,7 @@ test.py:
 
 ### `file-logging-enabled`
 
-Specify if script file logging should be enabled for the script. If this option is `true`, a script log file will be generated for the script, and any error messages (and print messages sent to the script's logger) will be logged to this file. If this option is `false`, no messages will be logged to file, but messages will still be printed to the server console.
+Specify if script file logging should be enabled for the script. If this option is `true`, a script log file will be generated, and any error messages (and print messages sent to the script's logger) will be logged to this file. If this option is `false`, no messages will be logged to a log file, but messages will still be printed to the server console.
 
 ``` yaml linenums="1"
 test.py:
@@ -109,7 +109,7 @@ test.py:
 
 ### `min-logging-level`
 
-Specify the minimum logging level that should be logged to the script's log file and the console for the script. Options can be found on the [JavaDocs](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html).
+Specify the minimum logging level that should be logged to the script's log file and the console. Options can be found on the [JavaDocs](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html).
 
 ``` yaml linenums="1"
 test.py:

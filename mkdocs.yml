@@ -109,26 +109,38 @@ nav:
       - Plugin Commands: pyspigot/plugincommands.md
       - Plugin Configuration: pyspigot/pluginconfiguration.md
     - Getting Started:
-      - Quick Start Guide: pyspigot/quickstart.md
+      - Quick Start Guide (Single-File Script): pyspigot/quickstart.md
+      - Quick Start Guide (Project): pyspigot/quickstartproject.md
     - Helpful Links:
       - Example Scripts: scripts/examples.md
       - PySpigot on SpigotMC: https://www.spigotmc.org/resources/pyspigot.111006/
       - Discord Server: https://discord.gg/f2u7nzRwuk
-      - Bugs and Issues: https://github.com/magicmq/pyspigot/issues/new/choose
-      - Feature Requests: https://github.com/magicmq/pyspigot/issues/new/choose
+      - Report Bugs/Issues: https://github.com/magicmq/pyspigot/issues/new/choose
+      - Request New Features: https://github.com/magicmq/pyspigot/issues/new/choose
       - PySpigot JavaDocs: https://javadocs.magicmq.dev/pyspigot/
 
   - Writing Scripts:
     - General Information: scripts/writingscripts.md
     - Script Options: scripts/scriptoptions.md
-    - Helper Modules:
-      - PySpigot Helper Module: scripts/helpermodule.md
-      - Function Helper Module: scripts/functionmodule.md
     - Global Variables: scripts/globalvariables.md
     - External Libraries: scripts/externallibraries.md
     - Custom Events: scripts/customevents.md
-    - Helpful Resources: scripts/externalresources.md
-    - Example Scripts: scripts/examples.md
+    - Helpful Resources:
+      - Example Scripts: scripts/examples.md
+      - External Resources: scripts/externalresources.md
+    - Helper Modules:
+      - PySpigot Helper Module: scripts/helpermodule.md
+      - Function Helper Module: scripts/functionmodule.md
+
+  - Writing Projects:
+    - General Information: projects/writingprojects.md
+    - Project Options: projects/projectoptions.md
+    - Helpful Resources:
+      - Example Scripts: scripts/examples.md
+      - External Resources: scripts/externalresources.md
+    - Helper Modules:
+      - PySpigot Helper Module: scripts/helpermodule.md
+      - Function Helper Module: scripts/functionmodule.md
 
   - Managers:
     - Using the Managers in your Script: managers/usage.md
@@ -145,6 +157,7 @@ nav:
       - Placeholder Manager: managers/placeholders.md
 
   - Miscellaneous:
+    - Autocomplete/Code Suggestions: misc/autocomplete.md
     - Planned Features: misc/plannedfeatures.md
     - Licensing Info: misc/license.md
     - For Java Developers:

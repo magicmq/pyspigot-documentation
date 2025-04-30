@@ -8,11 +8,17 @@ There are a few basic things to keep in mind when writing PySpigot scripts:
 - PySpigot officially supports Spigot and Paper on Minecraft versions 1.16 and newer.
 - Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
-- Scripts are placed in the `scripts` folder under the PySpigot plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders.
+- Scripts are placed in the `scripts` folder under the PySpigot plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders and projects.
+- Projects are placed in the `projects` folder under the PySpigot plugin folder. 
 - Avoid using the variable names `global` and `logger`. These variable names are assigned automatically at runtime. More information on these below.
-- Scripts are functionally isolated from one another. With the exception of the `global` variable (see the [Global Variables](#global-variables) section below), nothing is shared across scripts.
-- To make use of any of the managers that PySpigot provides (such as registering listeners, tasks, etc.), they must be imported into your script. See the section below on Making Use of PySpigot's Managersfor details.
+- Scripts and projects are functionally isolated from one another. With the exception of the `global` variable (see the [Global Variables](#global-variables) section below), nothing is shared across scripts or projects.
+- To make use of any of the managers that PySpigot provides (such as registering listeners, tasks, etc.), they must be imported into your script. See the [managers](../managers/usage.md) page for more details.
 - If you are utilizing the API of any plugin other than ProtocolLib or PlaceholderAPI, make sure you specify the plugin as a dependency in the `script_options.yml` file. See the [Script Options](scriptoptions.md#plugin-depend) page for more info.
+
+
+???+ notice
+
+    This page covers core fundamentals for writing both single-file scripts and multi-file projects. However, writing multi-file projects carries some key differences to be aware of. For more information, see the [writing projects](../projects/writingprojects.md) page.
 
 ## A Note About Jython
 
@@ -56,7 +62,7 @@ PySpigot scripts are placed in the `scripts` folder, which can be found in PySpi
 
 ???+ warning
 
-    Script names must be unique, as their names are used to identify them at runtime. This caveat also applies if you are using subfolders within the `scripts` folder. For example, `scripts/folder1/test.py` and `scripts/folder2/test.py` will conflict, but `scripts/folder1/test.py` and `scripts/folder2/test2.py` will not.
+    Script names must be unique across other script names *and* project names, as their names are used to identify them at runtime. This caveat also applies if you are using subfolders within the `scripts` folder. For example, `scripts/folder1/test.py` and `scripts/folder2/test.py` will conflict, but `scripts/folder1/test.py` and `scripts/folder2/test2.py` will not.
 
 ## Script Options
 
@@ -74,19 +80,45 @@ Script permissions are defined in the `script_options.yml` file. For more inform
 
 ## Script Loading
 
-PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by load priority, as defined in the `script_options.yml` file. Scripts that don't list any load priority will inherit the default load priority specified in the `config.yml`. Scripts that have the same load priority are loaded in alphabetical order.
+PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by load priority, as defined in the `script_options.yml` file. Scripts that don't specify a load priority will inherit the default load priority specified in the `script-option-defaults` section of the `config.yml`. Scripts that have the same load priority are loaded in alphabetical order.
 
 Scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load. If you make changes to a script during runtime, you must reload it for changes to take effect. Reload scripts with `/pyspigot reload <scriptname>`.
 
 There is one config option related to loading scripts:
 
-- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts.
+- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts and projects. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts and projects.
+
+???+ notice
+
+    Scripts and projects are interlaced when loading. In other words, they are loaded together. This means that the load priorities of scripts and projects are compared simultaneously, and a project with a higher load priority would load earlier than a script with a lower load priority, and vice versa.
+
+## Script Unloading
+
+Scripts can be manually unloaded using `/pyspigot unload <scriptname>`. Running `/pyspigot reload` will also unload a script first before loading it again (if it was running beforehand).
+
+### Unloading A Script from Within Itself
+
+Unloading a script from within itself is done in the same way as it is in regular Python, via usage of the `sys.exit` function:
+
+``` py
+import sys
+
+sys.exit(0)
+```
+
+Internally, calling `sys.exit` raises a `SystemExit` exception. PySpigot catches this exception and performs its standard unloading tasks to unload the script that raised the exception.
+
+If you want to unload your script with a signal that an error occured, pass `1` to `sys.exit`. Doing so will prevent the script's `stop` function from being called on unload.
+
+???+ warning
+
+    *Do not* use the script manager to unload a script from within itself! This will lead to unexpected bugs/issues.
 
 ## Start and Stop Functions
 
 There are two special functions you may include in your PySpigot scripts: `start` and `stop`.
 
-The `start` function is called automatically by PySpigot when your script loads. Likewise, the `stop` function is called automatically by PySpigot when your script unloads. If your script is unloaded as a result of an error, the `stop` function is *not* called.
+The `start` function is called automatically by PySpigot when your script loads. Likewise, the `stop` function is called automatically by PySpigot when your script unloads. If your script is unloaded as a result of an error, the `stop` function is *not* called. This error condition also includes unloading a script via `sys.exit` with an exit code of `1`.
 
 The `start` and `stop` functions can accept either zero or one parameter:
 
@@ -101,7 +133,7 @@ The `start` and `stop` functions can accept either zero or one parameter:
 
 PySpigot ships with a helper module called `pyspigot.py` that contains various useful functions to access PySpigot's manager classes. This module is accessible via a simple import:
 
-```py
+``` py
 import pyspigot as ps
 
 ...
@@ -117,9 +149,11 @@ See the [Global Variables](globalvariables.md) page for detailed information on 
 
 ## Script Errors and Exceptions
 
-Scripts can generate errors/exceptions. PySpigot will attempt to handle these to prevent other parts of your script from breaking. If a script happens to generate an unhandled error/exception when it is loaded, the script will be automatically unloaded to prevent further issues. If an unhandled error/exception occurs somewhere else at a later point in time, such as while calling an event listener or command function, the script will remain loaded, but subsequent code within the function will not be executed. In any case, errors/exceptions will be logged to the console and to the respective script's log file (if the script has file logging enabled per its script options).
+Scripts can generate errors/exceptions. PySpigot handles all exceptions generated by scripts, in order to: 1) log the exception to console and the script's logger, and 2) to terminate the script's execution if the exception was fatal.
 
+If a script happens to generate an unhandled error/exception when it is loaded, the script will be automatically unloaded to prevent further issues. If an unhandled error/exception occurs somewhere else at a later point in time, such as during execution of an event listener or command executor, the script will remain loaded, but subsequent code within the function will not be executed (unless if, of course, the exception is surrounded with a `try`/`except` block).
 
+In any case, errors/exceptions will be logged to the console and to the respective script's log file (if the script has file logging enabled per its script options).
 
 ???+ notice
 
@@ -129,19 +163,23 @@ There are two types of errors that a script can produce:
 
 ### Python Errors
 
-These are exceptions intrinsic to your script's Python code. These exceptions will generate a log entry with a Python traceback indicating the script file and line that caused the exception. Because these exceptions originate in Python code, they should be fairly easy to debug. They will look like this:
+These exceptions occur when there is an error/exception raised from **within the script's own code**. Because these exceptions originate in Python code, debugging them is fairly straightforward. A traceback will be shown along with the error that was raised. Here is an example of what a Python error would look like:
 
 ![An example of what a Python exception looks like in the server console.](../assets/images/python_exception.png)
 
-The boxed text is the Python traceback.
-
 ### Java Exceptions
 
-These exceptions occur when a script calls Java code and the exception occurs somewhere within the Java code (but not from within the script). These exceptions will also generate a log entry with a Python traceback indicating the script file and line that caused the exception. These can be trickier to debug because the cause of the exception may not be immediately apparent. The script log/console should give you an idea of what went wrong. They will look like this:
+These exceptions occur when a script calls Java code and the exception occurs somewhere in the **Java code that was called** (but not from within the script itself). These exceptions will also generate a log entry with a Python traceback indicating the script file and line that caused the exception. Here is an example of what a Java exception would look like:
 
 ![An example of what a Java exception looks like in the server console.](../assets/images/java_exception.png)
 
-You might notice that these look very similar to Python exceptions. The only difference is that there will be an accompanying Java exception (`java.lang.<exception>`) along with a brief message about why the exception occurred.
+These look similar to Python exceptions, however, in addition to a Python traceback, there will be an accompanying Java exception and stack trace. The message that accompanies the Java exception (boxed in red in the above image) typically provides additional details about why the exception occurred. For example, the message accompanying the above exception states that the command "test" has already been registered (I.E. the script attempted to register the same command twice).
+
+PySpigot routinely throws these types of exceptions (in the form of a `ScriptRuntimeException`) for erroneous/non-permitted operations that scripts attempt to perform, such as registering two different listeners for the same event, or registering two commands with the same name. A `ScriptRuntimeException` could also be thrown if some unhandled exception occurs in PySpigot's internals, such as an exception that occurred when registering an event listener with Bukkit.
+
+???+ note
+
+    Java exceptions may also have a *cause*, which essentially means the execption was thrown as a cause of another exception. If there is a cause, the cause would also be included in the error message (along with a message and stack trace).
 
 ### Handling Exceptions
 

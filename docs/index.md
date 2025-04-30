@@ -29,6 +29,12 @@ PySpigot is a Spigot/Bukkit plugin that acts as a Python scripting engine that r
 
     PySpigot is also great for people who know Python, but not Java - no Java experience is required!
 
+-   :octicons-project-roadmap-24:{ .lg .middle } __Write Multi-Module Projects__
+
+    ---
+
+    PySpigot fully supports writing multi-module projects. These function similarly to multi-module Python projects and offer more ideal code organization and structuring.
+
 -   :octicons-smiley-24:{ .lg .middle } __Easy to Use__
 
     ---
