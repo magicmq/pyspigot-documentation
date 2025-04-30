@@ -1,17 +1,18 @@
 ---
 title: Home
 ---
-<center>
+
+<div style="text-align: center;" markdown>
 # **PySpigot**
-</center>
+</div>
 
 > A Python scripting engine for your Minecraft server.
 
-<center>
+<div style="text-align: center;" markdown>
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/magicmq/pyspigot?label=Release&style=plastic)](https://github.com/magicmq/pyspigot/releases)
 [![Latest snapshot](https://img.shields.io/badge/dynamic/xml?label=Latest%20snapshot&style=plastic&query=%2F%2Fmetadata%2Fversioning%2Fversions%2Fversion%5Blast()%5D&url=https%3A%2F%2Frepo.magicmq.dev%2Frepository%2Fmaven-snapshots%2Fdev%2Fmagicmq%2Fpyspigot%2Fmaven-metadata.xml)](https://repo.magicmq.dev/#browse/browse:maven-snapshots:dev%2Fmagicmq%2Fpyspigot)
 [![Develop GitHub commits since latest stable release (by SemVer)](https://img.shields.io/github/commits-since/magicmq/pyspigot/latest/master?label=Commits%20since%20last%20release&style=plastic)](https://github.com/magicmq/pyspigot)
-</center>
+</div>
 
 ## What is PySpigot?
 
