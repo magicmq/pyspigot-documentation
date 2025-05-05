@@ -39,14 +39,20 @@ plugins/
 |  ├─ logs/ # (4)!
 |  |  ├─ test.log
 |  |  └─ ...
-|  ├─ python-libs/ # (5)!
+|  ├─ projects/ # (5)!
+|  |  ├─ test_project
+|  |  |  ├─ main.py # (6)!
+|  |  |  ├─ project.yml # (7)!
+|  |  |  └─ ...
+|  |  └─ ...
+|  ├─ python-libs/ # (8)!
 |  |  ├─ lib-example.py
 |  |  └─ ...
-|  ├─ scripts/ # (6)!
+|  ├─ scripts/ # (9)!
 |  |  ├─ test.py
 |  |  └─ ...
-|  ├─ config.yml # (7)!
-|  └─ script_options.yml # (8)!
+|  ├─ config.yml # (10)!
+|  └─ script_options.yml # (11)!
 └─ ...
 ```
 
@@ -54,10 +60,13 @@ plugins/
 2.  The `configs` folder is where script config files and other data files (json, etc.) are stored, by default. The `configs` folder may contain subfolders for more optimal organization of a script's config and other data files.
 3.  The `java-libs` folder is where external Java libraries should be placed. All JAR files in this folder are automatically loaded when the plugin loads.
 4.  The `logs` folder is where script log files are stored. A script's log file will have the same name as the script (except it will end in `.log` instead of `.py`).
-5.  The `python-libs` folder is where external Python modules should be placed. Any external Python modules (that end in `.py`) will be automatically accessible (able to be imported) from scripts.
-6.  The `scripts` folder is where all PySpigot scripts live. The `scripts` folder may contain subfolders for more optimal organization of scripts.
-7.  This is the main `config.yml` file for PySpigot. For more detailed information on the config, see the [configuration page](pluginconfiguration.md) on the documentation.
-8.  This is the `script_options.yml` file. This is where script options for all scripts should be placed. For more detailed information on script options, see the [script options page](../scripts/scriptoptions.md) on the documentation.
+5.  The `project` folder is where multi-file script projects should be placed. Each folder in this folder corresponds to a different project.
+6.  Each project should have a main module. The name of the main module is configurable in the `project.yml` file for the project. If not defined in the `project.yml`, or the `project.yml` doesn't exist, then the default value (`main.py`) is used.
+7.  The `project.yml` file is how script options and the project's main module are configured.
+8.  The `python-libs` folder is where external Python modules should be placed. Any external Python modules (that end in `.py`) will be automatically accessible (able to be imported) from scripts.
+9.  The `scripts` folder is where all single-file PySpigot scripts live. The `scripts` folder may contain subfolders for more optimal organization of scripts.
+10.  This is the main `config.yml` file for PySpigot. For more detailed information on the config, see the [configuration page](pluginconfiguration.md) on the documentation.
+11.  This is the `script_options.yml` file. This is where script options for all scripts should be placed. For more detailed information on script options, see the [script options page](../scripts/scriptoptions.md) on the documentation.
 
 ## Metrics
 
