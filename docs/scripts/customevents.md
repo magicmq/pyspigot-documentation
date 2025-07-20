@@ -12,11 +12,13 @@ The following describes how to use this custom event.
 
 ### Importing the Custom Event
 
-The `CustomEvent` class is accessible via `dev.magicmq.pyspigot.event.custom.CustomEvent`:
+When running PySpigot on Spigot/Paper, the `CustomEvent` class is accessible via `dev.magicmq.pyspigot.bukkit.event.custom.CustomEvent`:
 
 ``` py linenums="1"
-from dev.magicmq.pyspigot.event.custom import CustomEvent
+from dev.magicmq.pyspigot.bukkit.event.custom import CustomEvent
 ```
+
+On the BungeeCord platform, it is accessible via `dev.magicmq.pyspigot.bungee.event.custom.CustomEvent`.
 
 ### Creating the Custom Event
 
