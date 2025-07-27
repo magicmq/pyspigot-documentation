@@ -47,7 +47,7 @@ The messaging manager provides three functions that can be used to send plugin m
 - `sendRawMessage(player, channel, payload)`: This is equivalent to `sendMessage`, except that the payload should be passed as a raw array of bytes.
     - `player`: The player to use when sending the message.
     - `channel`: The channel to send the message on.
-    - `*payload`: Any number of arguments which are send as the message payload. Allowed payload types include the Java types `String`, `Integer`, `Short`, `Byte`, `Boolean`, and `byte[]` (a byte array).
+    - `payload`: The payload, formatted as a raw byte array.
 
 #### Sending a player to another server on the proxy
 
