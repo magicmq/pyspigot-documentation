@@ -12,13 +12,13 @@
         <meta name="author" content="magicmq">
       
       
-        <link rel="canonical" href="https://pyspigot-docs.magicmq.dev/managers/databases/">
+        <link rel="canonical" href="https://pyspigot-docs.magicmq.dev/managers/messaging/">
       
       
-        <link rel="prev" href="../configuration/">
+        <link rel="prev" href="../redis/">
       
       
-        <link rel="next" href="../redis/">
+        <link rel="next" href="../protocollib/">
       
       
       <link rel="icon" href="../../assets/images/favicon.ico">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Database Manager - PySpigot Documentation</title>
+        <title>Plugin Message Manager - PySpigot Documentation</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#database-manager" class="md-skip">
+        <a href="#plugin-messaging" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Database Manager
+              Plugin Message Manager
             
           </span>
         </div>
@@ -1739,32 +1739,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Database Manager
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../databases/" class="md-nav__link">
         
   
   
@@ -1775,146 +1753,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#sql" class="md-nav__link">
-    <span class="md-ellipsis">
-      SQL
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="SQL">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#database-manager-usage-for-sql-databases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Manager Usage for SQL Databases
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-hikariconfig" class="md-nav__link">
-    <span class="md-ellipsis">
-      The HikariConfig
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-sqldatabase-object" class="md-nav__link">
-    <span class="md-ellipsis">
-      The SqlDatabase Object
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-example-for-sql-databases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Code Example for SQL Databases
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-example-for-sql-databases-asynchronous" class="md-nav__link">
-    <span class="md-ellipsis">
-      Code Example for SQL Databases, Asynchronous
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mongodb" class="md-nav__link">
-    <span class="md-ellipsis">
-      MongoDB
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="MongoDB">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#database-manager-usage-for-mongodb" class="md-nav__link">
-    <span class="md-ellipsis">
-      Database Manager Usage for MongoDB
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-mongoclientsettings" class="md-nav__link">
-    <span class="md-ellipsis">
-      The MongoClientSettings
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-mongodatabase-object" class="md-nav__link">
-    <span class="md-ellipsis">
-      The MongoDatabase Object
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-example-for-mongodb" class="md-nav__link">
-    <span class="md-ellipsis">
-      Code Example for MongoDB
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1947,10 +1785,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../messaging/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Plugin Message Manager
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1961,6 +1821,149 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#general-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      General Description
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="General Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-bungeecord-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      The BungeeCord Channel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messaging-manager-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messaging Manager Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Messaging Manager Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sending-plugin-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sending Plugin Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sending Plugin Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sending-a-player-to-another-server-on-the-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sending a player to another server on the proxy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-forward-message-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Forward Message Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-a-message-to-a-custom-channel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sending a message to a custom channel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receiving-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiving Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Receiving Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#receiving-a-player-count-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiving a player count message
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receiving-a-forward-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiving a "Forward" message
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2347,55 +2350,19 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#sql" class="md-nav__link">
+  <a href="#general-description" class="md-nav__link">
     <span class="md-ellipsis">
-      SQL
+      General Description
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="SQL">
+    <nav class="md-nav" aria-label="General Description">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#database-manager-usage-for-sql-databases" class="md-nav__link">
+  <a href="#the-bungeecord-channel" class="md-nav__link">
     <span class="md-ellipsis">
-      Database Manager Usage for SQL Databases
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-hikariconfig" class="md-nav__link">
-    <span class="md-ellipsis">
-      The HikariConfig
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-sqldatabase-object" class="md-nav__link">
-    <span class="md-ellipsis">
-      The SqlDatabase Object
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-example-for-sql-databases" class="md-nav__link">
-    <span class="md-ellipsis">
-      Code Example for SQL Databases
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-example-for-sql-databases-asynchronous" class="md-nav__link">
-    <span class="md-ellipsis">
-      Code Example for SQL Databases, Asynchronous
+      The BungeeCord Channel
     </span>
   </a>
   
@@ -2407,48 +2374,87 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mongodb" class="md-nav__link">
+  <a href="#messaging-manager-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      MongoDB
+      Messaging Manager Usage
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="MongoDB">
+    <nav class="md-nav" aria-label="Messaging Manager Usage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#database-manager-usage-for-mongodb" class="md-nav__link">
+  <a href="#sending-plugin-messages" class="md-nav__link">
     <span class="md-ellipsis">
-      Database Manager Usage for MongoDB
+      Sending Plugin Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sending Plugin Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sending-a-player-to-another-server-on-the-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sending a player to another server on the proxy
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-mongoclientsettings" class="md-nav__link">
+  <a href="#the-forward-message-type" class="md-nav__link">
     <span class="md-ellipsis">
-      The MongoClientSettings
+      The Forward Message Type
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-mongodatabase-object" class="md-nav__link">
+  <a href="#sending-a-message-to-a-custom-channel" class="md-nav__link">
     <span class="md-ellipsis">
-      The MongoDatabase Object
+      Sending a message to a custom channel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receiving-messages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiving Messages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Receiving Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#receiving-a-player-count-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiving a player count message
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-example-for-mongodb" class="md-nav__link">
+  <a href="#receiving-a-forward-message" class="md-nav__link">
     <span class="md-ellipsis">
-      Code Example for MongoDB
+      Receiving a "Forward" message
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2485,63 +2491,262 @@
   
 
 
-<h1 id="database-manager">Database Manager<a class="headerlink" href="#database-manager" title="Permanent link">&para;</a></h1>
-<p>PySpigot includes a database manager that allows you to connect to and interact with SQL database types (including MySQL, MariaDB, PostgreSQL, and more) as well as MongoDB. Under the hood, PySpigot utilizes <a href="https://github.com/brettwooldridge/HikariCP">HikariCP</a> for interfacing with SQL-type database servers, and the <a href="https://www.mongodb.com/docs/drivers/java-drivers/">MongoDB Java Driver</a> for interfacing with MongoDB database servers.</p>
-<p>For instructions on importing the database manager into your script, visit the <a href="../usage/">General Information</a> page.</p>
-<details class="info" open="open">
-<summary>Info</summary>
-<p>This is not a comprehensive guide to working with SQL or MongoDB. Please seek out the appropriate tutorials/information if you're unsure how to use SQL or MongoDB.</p>
+<h1 id="plugin-messaging">Plugin Messaging<a class="headerlink" href="#plugin-messaging" title="Permanent link">&para;</a></h1>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>This manager is available on the Bukkit/Paper version of PySpigot only.</p>
 </details>
-<h2 id="sql">SQL<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h2>
-<p>The database manager allows you to connect to and interact with SQL-type databases. </p>
-<h3 id="database-manager-usage-for-sql-databases">Database Manager Usage for SQL Databases<a class="headerlink" href="#database-manager-usage-for-sql-databases" title="Permanent link">&para;</a></h3>
-<p>There are several functions available for you to use in the database manager for interacting with SQL databases. They are:</p>
+<p>Plugin messaging is a powerful way for plugins to communicate with clients. Additionally, when the Minecraft server is running behind a proxy such as BungeeCord or Velocity, plugin messaging can also be used to communicate directly with the proxy server.</p>
+<p>PySpigot includes a plugin messaging manager that makes it easier for scripts and projects to send plugin messages and register plugin message listeners.</p>
+<p>For instructions on importing the messaging manager into your script, visit the <a href="../usage/">General Information</a> page.</p>
+<h2 id="general-description">General Description<a class="headerlink" href="#general-description" title="Permanent link">&para;</a></h2>
+<p>Originally, plugin messaging was implemented so that server-sided plugins could send any kind of data to client-sided mods. Before, such messages would have needed to implement custom packets, but the problem with this is that the Minecraft client would get disconnected from servers using those custom packets with an incomprehensible error message, because the client would be unable to read that packet. To fix this issue, Mojang introduced the "Custom Plugin Message Packets".</p>
+<p>The anatomy of a Plugin Message Packet is as such:</p>
+<ol>
+<li>The name of the "channel" (also named "tag" in BungeeCord) the plugin message transits through</li>
+<li>The size of the plugin message</li>
+<li>The actual data/payload of the message</li>
+</ol>
+<p>Note that the messaging manager handles all of this under the hood, and all that is needed from the user end to send a mesasge is the player to send the plugin message to, the channel, and the message payload.</p>
+<h3 id="the-bungeecord-channel">The BungeeCord Channel<a class="headerlink" href="#the-bungeecord-channel" title="Permanent link">&para;</a></h3>
+<p>BungeeCord exposes a special plugin channel to the backend/Bukkit servers called "BungeeCord". Within the BungeeCord channel, there are several message types that can be leveraged to perform actions or fetch data about a particular server, or even send custom data. For a complete list of message types and what they do, see <a href="https://docs.papermc.io/paper/dev/plugin-messaging/#plugin-message-types">this table</a>.</p>
+<p>The messaging manager includes a special function called <code>sendBungeeMessage</code> for sending messages on the BungeeCord channel. See the section below on <a href="#sending-plugin-messages">sending plugin messages</a>.</p>
+<h2 id="messaging-manager-usage">Messaging Manager Usage<a class="headerlink" href="#messaging-manager-usage" title="Permanent link">&para;</a></h2>
+<p>The messaging manager can be used to both send and listen to (receive) plugin messages:</p>
+<h3 id="sending-plugin-messages">Sending Plugin Messages<a class="headerlink" href="#sending-plugin-messages" title="Permanent link">&para;</a></h3>
+<p>The messaging manager provides three functions that can be used to send plugin messages:</p>
 <ul>
-<li><code>newHikariConfig()</code>: Returns a new HikariConfig object for convenience.</li>
-<li><code>connectSql(host, port, database, username, password)</code>: Connects to a remote SQL database with the given host, port, database name, username, and password.</li>
-<li><code>connectSql(host, port, database, username, password, hikariConfig)</code>: Connects to a remote SQL database with the given host, port, database name, username, password, using the provided HikariConfig.</li>
-<li><code>connectSql(uri)</code>: Connects to a remote SQL database with the given connection string (see below for details on connection strings).</li>
-<li><code>connectSql(uri, hikariConfig)</code>: Connects to a remote SQL database with the given connection string (see below for details on connection strings), using the provided HikariConfig.</li>
-<li><code>connectSql(hikariConfig)</code>: Connects to a remote SQL database with the given HikariConfig.</li>
-<li><code>disconnect(database)</code>: Disconnect and close an open connection to a database. Accepts the SqlDatabase object returned by <code>connectSql</code>.</li>
+<li><code>sendBungeeMessage(player, message_type, *payload)</code>: Used to send traditional messages on the "BungeeCord" channel, such as a message to send a player to another server, or a message to retrieve the player count of another server.<ul>
+<li><code>player</code>: The player to use when sending the message. Note that at least one player must be online in order to send a plugin message.</li>
+<li><code>message_type</code>: The type of message to send. For a complete list, see <a href="https://docs.papermc.io/paper/dev/plugin-messaging/#plugin-message-types">this table</a>.</li>
+<li><code>*payload</code>: Any number of arguments which are send as the message payload. Typically, this is a server name or player name (or both) and depends on the message type.</li>
 </ul>
-<p>All of the <code>connectSql</code> functions above accomplish the same task: they will initialize a new connection to a remote database and return an <code>SQLDatabase</code> object, which can then be used to select and update tables within the database. Which <code>connectSql</code> function you use will depend on your specific use case. Of all of the above, <code>connectSql(host, port, database, username, password)</code> is the most basic, and if you're just getting started, you should probably use this one.</p>
-<p>The database manager also allows you to specify a <a href="https://learn.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver16">connection string/URI/URL</a>, if you want finer control over the connection parameters and settings. You may also specify options in the connection string. The <code>connectSql</code> functions that accept <code>uri</code> are functions that accept a connection string.</p>
-<details class="tip" open="open">
-<summary>Tip</summary>
-<p>If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of a statement, there is no guarantee that execution of the statement will occur.</p>
+</li>
+<li><code>sendMessage(player, channel, *payload)</code>: Used to send a plugin message to any channel.<ul>
+<li><code>player</code>: The player to use when sending the message.</li>
+<li><code>channel</code>: The channel to send the message on.</li>
+<li><code>*payload</code>: Any number of arguments which are send as the message payload. Allowed payload types include the Java types <code>String</code>, <code>Integer</code>, <code>Short</code>, <code>Byte</code>, <code>Boolean</code>, and <code>byte[]</code> (a byte array).</li>
+</ul>
+</li>
+<li><code>sendRawMessage(player, channel, payload)</code>: This is equivalent to <code>sendMessage</code>, except that the payload should be passed as a raw array of bytes.<ul>
+<li><code>player</code>: The player to use when sending the message.</li>
+<li><code>channel</code>: The channel to send the message on.</li>
+<li><code>payload</code>: The payload, formatted as a raw byte array.</li>
+</ul>
+</li>
+</ul>
+<h4 id="sending-a-player-to-another-server-on-the-proxy">Sending a player to another server on the proxy<a class="headerlink" href="#sending-a-player-to-another-server-on-the-proxy" title="Permanent link">&para;</a></h4>
+<p>The following example demonstrates how to use the message manager to send a player to another server on the proxy, using the "BungeeCord" channel:</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span>
+<span class="normal"><a href="#__codelineno-0-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span> <span class="c1"># (1)!</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.bukkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bukkit</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="n">messaging</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">message_manager</span><span class="p">()</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="n">player</span> <span class="o">=</span> <span class="n">Bukkit</span><span class="o">.</span><span class="n">getPlayer</span><span class="p">(</span><span class="s1">&#39;Player&#39;</span><span class="p">)</span> <span class="c1"># (2)!</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="n">messaging</span><span class="o">.</span><span class="n">sendBungeeMessage</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s1">&#39;Connect&#39;</span><span class="p">,</span> <span class="s1">&#39;lobby&#39;</span><span class="p">)</span> <span class="c1"># (3)!</span>
+</span></code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>Here, we import PySpigot as <code>ps</code> to access the messaging manager (<code>message_manager()</code>).</p>
+</li>
+<li>
+<p>Here, we arbitrarily get a player by the name "Player". Note that this is purely arbitrary, you could get a player via any means (such as if a player triggers an event).</p>
+</li>
+<li>
+<p>Here, we send a plugin message using the player. We specify a message type of "Connect" (the message type which connects the player to another server) and then specify the server name as the payload ("lobby" in this case).</p>
+</li>
+</ol>
+<h4 id="the-forward-message-type">The Forward Message Type<a class="headerlink" href="#the-forward-message-type" title="Permanent link">&para;</a></h4>
+<p>The "BungeeCord" channel includes a special message type called "Forward" that allows you to send a custom message to other servers on the proxy. The "Forward" message type is thus very useful when something happens on one server and the information should be shared with all other servers. For example, if a player is banned on one server, you may want to transmit this information to all servers on the proxy so that the player can be banned on those servers as well.</p>
+<details class="warning" open="open">
+<summary>Warning</summary>
+<p>All message types, including the "Forward" message type, require a player to be online on <strong>both</strong> the sending <strong>and</strong> receiving servers. Consider using alternative messaging systems (such as redis) if dispatch and receipt of the information is critical.</p>
 </details>
-<h3 id="the-hikariconfig">The HikariConfig<a class="headerlink" href="#the-hikariconfig" title="Permanent link">&para;</a></h3>
-<p>The HikariConfig is a configuration object that allows greater control over the SQL connection. For example, it allows you to set a minimum idle time, pool size, idle timeout time, and more. For detailed information on the HikariConfig, see the <a href="https://www.javadoc.io/doc/com.zaxxer/HikariCP/latest/com.zaxxer.hikari/com/zaxxer/hikari/HikariConfig.html">HikariCP JavaDocs</a>.</p>
-<p>You may also use a HikariConfig object <em>alone</em> to establish a connection (via the <code>connectSql(hikariConfig)</code> function). The HikariConfig object allows you to directly specify a host, port, database, username, and password within the object. This is probably the simplest way to establish a new connection with a remote database.</p>
-<p>A <code>newHikariConfig()</code> function is provided in the database manager for convenience. It returns a new HikariConfig with default options that you may modify. Once you modify the options to your liking, you may then pass your HikariConfig to one of the <code>connectSql</code> functions.</p>
-<h3 id="the-sqldatabase-object">The SqlDatabase Object<a class="headerlink" href="#the-sqldatabase-object" title="Permanent link">&para;</a></h3>
-<p>Once we call any of the above <code>connectSql</code> functions, a connection is established. If the connection is established successfully, then an <code>SqlDatabase</code> object is returned. The SqlDatabase object contains the functions used to interact directly with the database:</p>
+<p>The following example demonstrates how to use the "Forward" message type to communicate to another server that a player was banned:</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span> <span class="c1"># (1)!</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.bukkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bukkit</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">messaging</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">message_manager</span><span class="p">()</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="n">player</span> <span class="o">=</span> <span class="n">Bukkit</span><span class="o">.</span><span class="n">getPlayer</span><span class="p">(</span><span class="s1">&#39;Player&#39;</span><span class="p">)</span> <span class="c1"># (2)!</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="n">banned_player</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># (3)!</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="n">messaging</span><span class="o">.</span><span class="n">sendBungeeMessage</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s1">&#39;Forward&#39;</span><span class="p">,</span> <span class="s1">&#39;ALL&#39;</span><span class="p">,</span> <span class="s1">&#39;InternalChannel&#39;</span><span class="p">,</span> <span class="n">banned_player</span><span class="o">.</span><span class="n">getUniqueId</span><span class="p">()</span><span class="o">.</span><span class="n">toString</span><span class="p">())</span> <span class="c1"># (4)!</span>
+</span></code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>Here, we import PySpigot as <code>ps</code> to access the messaging manager (<code>message_manager()</code>).</p>
+</li>
+<li>
+<p>Here, we arbitrarily get a player by the name "Player". Note that in this example, it need not be the same player that was banned. This player is simply being used to send the plugin message. It could be any online player.</p>
+</li>
+<li>
+<p>Here, we fetch the player that was banned. </p>
+</li>
+<li>
+<p>There's a lot happening on this line: First, we use <code>player</code> to send the plugin message. Next, we specify "Forward" as the message type. Next, this message type requires we specify the server to send the message to, as well as an "internal channel". <code>ALL</code> denotes that we want the message to be sent to ALL servers (but you could also specify a specific server name here). We use <code>InternalChannel</code> for the channel name, but any name would do. Finally, we send the actual payload, which is the banned player's UUID, converted to a String with <code>toString()</code>.</p>
+</li>
+</ol>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>The "Forward" message type allows for sending any type and amount of payload to the internal channel. For example, any of the following would work:</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">messaging</span><span class="o">.</span><span class="n">sendBungeeMessage</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s1">&#39;Forward&#39;</span><span class="p">,</span> <span class="s1">&#39;ALL&#39;</span><span class="p">,</span> <span class="s1">&#39;InternalChannel&#39;</span><span class="p">,</span> <span class="s1">&#39;Message 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Message 2&#39;</span><span class="p">)</span> <span class="c1"># Payload is &quot;Message 1&quot; and &quot;Message 2&quot;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">messaging</span><span class="o">.</span><span class="n">sendBungeeMessage</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s1">&#39;Forward&#39;</span><span class="p">,</span> <span class="s1">&#39;ALL&#39;</span><span class="p">,</span> <span class="s1">&#39;InternalChannel&#39;</span><span class="p">,</span> <span class="s1">&#39;PySpigot is an awesome plugin&#39;</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span> <span class="c1"># Payload is &quot;PySpigot is an awesome plugin&quot; and &quot;42&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">messaging</span><span class="o">.</span><span class="n">sendBungeeMessage</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s1">&#39;Forward&#39;</span><span class="p">,</span> <span class="s1">&#39;ALL&#39;</span><span class="p">,</span> <span class="s1">&#39;InternalChannel&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span> <span class="c1"># Payload is &quot;2&quot;, &quot;4&quot;, &quot;8&quot;, &quot;16&quot;, and &quot;32&quot;</span>
+</span></code></pre></div>
+</details>
+<h4 id="sending-a-message-to-a-custom-channel">Sending a message to a custom channel<a class="headerlink" href="#sending-a-message-to-a-custom-channel" title="Permanent link">&para;</a></h4>
+<p>The following example demonstrates how to send a message to a custom channel:</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span>
+<span class="normal"><a href="#__codelineno-3-8">8</a></span>
+<span class="normal"><a href="#__codelineno-3-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span> <span class="c1"># (1)!</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.bukkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bukkit</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">messaging</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">message_manager</span><span class="p">()</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="n">player</span> <span class="o">=</span> <span class="n">Bukkit</span><span class="o">.</span><span class="n">getPlayer</span><span class="p">(</span><span class="s1">&#39;Player&#39;</span><span class="p">)</span> <span class="c1"># (2)!</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="n">messaging</span><span class="o">.</span><span class="n">sendMessage</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s1">&#39;custom_channel&#39;</span><span class="p">,</span> <span class="s1">&#39;Payload&#39;</span><span class="p">)</span> <span class="c1"># (3)!</span>
+</span></code></pre></div></td></tr></table></div>
+<ol>
+<li>
+<p>Here, we import PySpigot as <code>ps</code> to access the messaging manager (<code>message_manager()</code>).</p>
+</li>
+<li>
+<p>Here, we fetch an online player to send the message. Again, this is entirely arbitrary, any online player could be used.</p>
+</li>
+<li>
+<p>Finally, we send the message containing the payload "Payload" to the channel with the name "custom_channel".</p>
+</li>
+</ol>
+<h3 id="receiving-messages">Receiving Messages<a class="headerlink" href="#receiving-messages" title="Permanent link">&para;</a></h3>
+<p>When sending messages that respond with something meaningful, we also need a plugin message listener to listen for incoming plugin messages. The messaging manager provides several functions for registering and unregistering plugin message listeners:</p>
 <ul>
-<li><code>getHikariDataSource()</code>: Returns the underlying HikariDataSource connection object.</li>
-<li><code>select(sql)</code>: Executes a select statement on the database with the provided <code>sql</code>. Returns a Map (essentially the same as a python dict), with keys that represent column names and values that represent column data (a list of objects).</li>
-<li><code>select(sql, values)</code>: Executes a select statement on the database with the provided <code>sql</code>, with <code>values</code> (a list of objects) that will be replaced in the <code>sql</code> statement. Returns a Map (essentially the same as a python dict), with keys that represent column names and values that represent column data (a list of objects).</li>
-<li><code>update(sql)</code>: Executes an update statement on the database with the provided <code>sql</code>. Returns an int that signals the number of rows affected by the update.</li>
-<li><code>update(sql, values)</code>: Executes an update statement on the database, with <code>values</code> (a list of objects) that will be replaced in the <code>sql</code> statement. Returns an int that signals the number of rows affected by the update.</li>
+<li><code>registerListener(function, channel)</code>: Registers a plugin message listener to listen on the given channel. When a message is received, the function is called.<ul>
+<li><code>function</code>: The function that should be called when a message is received on the channel. This function should accept three arguments: <code>channel</code>, the channel the message was received on, <code>player</code>, the source of the message, and <code>message</code>: the message payload itself.</li>
+<li><code>channel</code>: The channel to listen on</li>
+<li>Returns a <code>ScriptPluginMessageListener</code> object, which represents a registered plugin message listener. Can be used later to unregister the listener if desired.</li>
 </ul>
-<p><code>sql</code> in the above functions is simply an SQL statement. For example:
-<div class="language-sql highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_table</span><span class="p">;</span>
-</span></code></pre></div></td></tr></table></div></p>
-<p>We can also define values that will be automatically inserted into the SQL statement. For example, we can define an SQL statement like the following:
-<div class="language-sql highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">?</span><span class="p">;</span>
+</li>
+<li><code>unregisterListener(listener)</code>: Unregisters a previously registered plugin message listener.<ul>
+<li><code>listener</code>: The listener to unregister</li>
+</ul>
+</li>
+<li><code>unregisterListeners(script)</code>: Unregister all plugin message listeners belonging to a script.<ul>
+<li><code>script</code>: The script whose plugin message listeners should be unregistered</li>
+</ul>
+</li>
+</ul>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>When a script/project is stopped, all its plugin message listeners are automatically unregistered. You do not need to unregister them yourself.</p>
+</details>
+<h4 id="receiving-a-player-count-message">Receiving a player count message<a class="headerlink" href="#receiving-a-player-count-message" title="Permanent link">&para;</a></h4>
+<p>Suppose a plugin message was sent with the type "PlayerCount", a message type which can be used to fetch the player count of another server on the proxy: <code>sendBungeeMessage(player 'PlayerCount', 'server1')</code>. We expect to receive a reply stating the number of players on the server "server1".</p>
+<p>The following example demonstrates how to handle and parse the response:</p>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span> <span class="c1"># (1)!</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">com.google.common.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">ByteStreams</span> <span class="c1"># (2)!</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.bukkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bukkit</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="n">messaging</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">message_manager</span><span class="p">()</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">message_received</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span> <span class="c1"># (3)!</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>    <span class="nb">input</span> <span class="o">=</span> <span class="n">ByteStreams</span><span class="o">.</span><span class="n">newDataInput</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="c1"># (4)!</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a>    <span class="n">subchannel</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">readUTF</span><span class="p">()</span> <span class="c1"># (5)!</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a>    <span class="k">if</span> <span class="n">subchannel</span> <span class="o">==</span> <span class="s1">&#39;PlayerCount&#39;</span><span class="p">:</span> <span class="c1"># (6)!</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a>        <span class="n">server</span> <span class="o">=</span> <span class="ow">in</span><span class="o">.</span><span class="n">readUTF</span><span class="p">()</span> <span class="c1"># (7)!</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a>        <span class="n">player_count</span> <span class="o">=</span> <span class="ow">in</span><span class="o">.</span><span class="n">readInt</span><span class="p">()</span> <span class="c1"># (8)!</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The player count of server &#39;</span> <span class="o">+</span> <span class="n">server</span> <span class="o">+</span> <span class="s1">&#39; is &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">player_count</span><span class="p">))</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="n">listener</span> <span class="o">=</span> <span class="n">messaging</span><span class="o">.</span><span class="n">registerListener</span><span class="p">(</span><span class="n">message_received</span><span class="p">,</span> <span class="s1">&#39;BungeeCord&#39;</span><span class="p">)</span> <span class="c1"># (9)!</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="n">player</span> <span class="o">=</span> <span class="n">Bukkit</span><span class="o">.</span><span class="n">getPlayer</span><span class="p">(</span><span class="s1">&#39;Player&#39;</span><span class="p">)</span> <span class="c1"># (10)!</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="n">messaging</span><span class="o">.</span><span class="n">sendBungeeMessage</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="s1">&#39;PlayerCount&#39;</span><span class="p">,</span> <span class="s1">&#39;lobby&#39;</span><span class="p">)</span> <span class="c1"># (11)!</span>
 </span></code></pre></div></td></tr></table></div>
-This statement is called a <strong>parameterized query</strong>, because it contains question marks (<code>?</code>). Question marks in the SQL statement act as <em>placeholders</em>, or, values that will be inserted later. This is where the <code>values</code> parameter comes into play: question marks are replaced with the values that are passed in <code>values</code>. For example, if we call
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">sql</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM test_table WHERE id = ?;&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">])</span>
-</span></code></pre></div></td></tr></table></div>
-then the <em>actual</em> SQL statement sent to the server will be
-<div class="language-sql highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_table</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
-</span></code></pre></div></td></tr></table></div>
-because the question mark was replaced with the value <code>10</code> we passed in <code>values</code>. This also works if we want to pass multiple values in <code>values</code>:
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">sql</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;INSERT INTO test_table (id, val) VALUES (?, ?);&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-</span></code></pre></div></td></tr></table></div>
-The above statement effectively becomes <code>INSERT INTO test_table (id, val) VALUES (11, 1);</code>. Note that the ordering of objects in <code>values</code> is important as it determines the order in which the placeholders are replaced in the SQL statement. The first question mark is replaced with the object at position zero, the second question mark is replaced with the object at position one, and so on.</p>
-<h3 id="code-example-for-sql-databases">Code Example for SQL Databases<a class="headerlink" href="#code-example-for-sql-databases" title="Permanent link">&para;</a></h3>
-<p>The following code connects to and performs some simple operations on a remote SQL database. The table being interacted with is named <code>test_table</code> and has columns <code>id</code> (auto-increment, not null, unique) and <code>value</code> (not null):</p>
+<ol>
+<li>
+<p>Here, we import PySpigot as <code>ps</code> to access the messaging manager (<code>message_manager()</code>).</p>
+</li>
+<li>
+<p>Here, we import the Java class <code>ByteStreams</code>, for use when reading the received message.</p>
+</li>
+<li>
+<p>Here we declare a new function that accepts a channel, player, and message. This function serves as the listener function and is called when a message is received. <code>channel</code> represents the channel the message was received on. <code>player</code> is the player the message was sent through. <code>message</code> is a byte array representing the actual payload of the message.</p>
+</li>
+<li>
+<p>Since the message payload is a raw byte array, we need to use the <code>ByteStreams</code> class to decode it. Here, we create a new data input to read the message.</p>
+</li>
+<li>
+<p>Here, we read the first part of the message, which is the subchannel of the message, the same thing as the message type.</p>
+</li>
+<li>
+<p>We are interested in receiving a message regarding the player count, so we check if the subchannel is "PlayerCount".</p>
+</li>
+<li>
+<p>Next, we read the server whose player count we are fetching. This is a string, so we call <code>in.readUTF()</code>.</p>
+</li>
+<li>
+<p>Finally, we read the actual player count of the server. This is an int, so we call <code>in.readInt()</code>.</p>
+</li>
+<li>
+<p>Here, we register a new plugin message listener, passing the listener function we defined earlier, as well as the channel we want to listen on, "BungeeCord" in this case.</p>
+</li>
+<li>
+<p>Here, we fetch an online player to send the message. Again, this is entirely arbitrary, any online player could be used.</p>
+</li>
+<li>
+<p>Here, we send a plugin message using the player. We specify a message type of "PlayerCount" (the message type which fetches the player count of a particular server) and then specify the server name as the payload ("lobby" in this case).</p>
+</li>
+</ol>
+<h4 id="receiving-a-forward-message">Receiving a "Forward" message<a class="headerlink" href="#receiving-a-forward-message" title="Permanent link">&para;</a></h4>
+<p>Suppose we sent a plugin message of the "Forward" type, and we want to receive this message on another server. We sent the message with the following: <code>sendBungeeMessage(player, 'Forward', 'ALL', 'InternalChannel', banned_player.getUniqueId().toString())</code>.</p>
+<p>The following example demonstrates how to handle and parse the response:</p>
 <div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
@@ -2557,181 +2762,80 @@ The above statement effectively becomes <code>INSERT INTO test_table (id, val) V
 <span class="normal"><a href="#__codelineno-5-13">13</a></span>
 <span class="normal"><a href="#__codelineno-5-14">14</a></span>
 <span class="normal"><a href="#__codelineno-5-15">15</a></span>
-<span class="normal"><a href="#__codelineno-5-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span> <span class="c1"># (1)!</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="n">db_manager</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">database_manager</span><span class="p">()</span> <span class="c1"># (2)!</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="n">sql</span> <span class="o">=</span> <span class="n">db_manager</span><span class="o">.</span><span class="n">connectSql</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;3306&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="c1"># (3)!</span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span> <span class="c1"># (1)!</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">com.google.common.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">ByteStreams</span> <span class="c1"># (2)!</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">java.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataInputStream</span> <span class="c1"># (3)!</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">java.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">ByteArrayInputStream</span> <span class="c1"># (4)!</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">org.bukkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Bukkit</span>
 </span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="n">data</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM test_table ORDER BY val DESC;&#39;</span><span class="p">)</span> <span class="c1"># (4)!</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="n">messaging</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">message_manager</span><span class="p">()</span>
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">col_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span> <span class="c1"># (5)!</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">col_data</span><span class="p">)</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="n">rows_affected</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;INSERT INTO test_table (id, val) VALUES (?, ?)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="c1"># (6)!</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Rows affected: </span><span class="si">{</span><span class="n">rows_affected</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># (7)!</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a><span class="n">db_manager</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span> <span class="c1"># (8)!</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">message_received</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">player</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span> <span class="c1"># (5)!</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>    <span class="nb">input</span> <span class="o">=</span> <span class="n">ByteStreams</span><span class="o">.</span><span class="n">newDataInput</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="c1"># (6)!</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>    <span class="n">subchannel</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">readUTF</span><span class="p">()</span> <span class="c1"># (7)!</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a>    <span class="k">if</span> <span class="n">subchannel</span> <span class="o">==</span> <span class="s1">&#39;InternalChannel&#39;</span><span class="p">:</span> <span class="c1"># (8)!</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a>        <span class="n">length</span> <span class="o">=</span> <span class="ow">in</span><span class="o">.</span><span class="n">readShort</span><span class="p">()</span> <span class="c1"># (9)!</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a>        <span class="n">msg_bytes</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="c1"># (10)!</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a>        <span class="ow">in</span><span class="o">.</span><span class="n">readFully</span><span class="p">(</span><span class="n">msg_bytes</span><span class="p">)</span> <span class="c1"># (11)!</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a>        <span class="n">msg_in</span> <span class="o">=</span> <span class="n">DataInputStream</span><span class="p">(</span><span class="n">ByteArrayInputStream</span><span class="p">(</span><span class="n">msg_bytes</span><span class="p">))</span> <span class="c1"># (12)!</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">msg_in</span><span class="o">.</span><span class="n">readUTF</span><span class="p">()</span>  <span class="c1"># (13)!</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Message received: &#39;</span> <span class="o">+</span> <span class="n">message</span><span class="p">)</span>
 </span></code></pre></div></td></tr></table></div>
 <ol>
 <li>
-<p>Here, we import PySpigot as <code>ps</code> to utilize the database manager.</p>
+<p>Here, we import PySpigot as <code>ps</code> to access the messaging manager (<code>message_manager()</code>).</p>
 </li>
 <li>
-<p>Here, we get the database manager from <code>ps</code> and set it to <code>db_manager</code>.</p>
+<p>Here, we import the Java class <code>ByteStreams</code>, for use when reading the received message.</p>
 </li>
 <li>
-<p>Here, we establish a new connection with <code>connectSql</code> and assign the returned object to <code>sql</code>. This variable is what we will subsequently use to interact with the database.</p>
+<p>Here, we import the Java class <code>DataInputStream</code>, for use when reading the received message.</p>
 </li>
 <li>
-<p>Here, we select all data from <code>test_table</code> and order it by the column <code>val</code>, descending, and assign the selected data to the <code>data</code> variable.</p>
+<p>Here, we import the Java class <code>ByteArrayInputStream</code>, for use when reading the received message.</p>
 </li>
 <li>
-<p>Here, we loop through all of the data and print the column name along with the data corresponding to that column.</p>
+<p>Here we declare a new function that accepts a channel, player, and message. This function serves as the listener function and is called when a message is received. <code>channel</code> represents the channel the message was received on. <code>player</code> is the player the message was sent through. <code>message</code> is a byte array representing the actual payload of the message.</p>
 </li>
 <li>
-<p>Here, we execute an update on <code>test_table</code> by inserting a new row with values 11 for <code>id</code> and 1 for <code>val</code>, and assign the result (number of rows affected) to the variable <code>rows_affected</code>.</p>
+<p>Since the message payload is a raw byte array, we need to use the <code>ByteStreams</code> class to decode it. Here, we create a new data input to read the message.</p>
 </li>
 <li>
-<p>Here, we print the number of rows affected.</p>
+<p>Here, we read the first part of the message, which is the subchannel of the message, which is the internal channel specified when sending the message.</p>
 </li>
 <li>
-<p>Here, we close the database connection by calling the <code>disconnect</code> function from the database manager and passing our database object we got earlier when we connected with <code>connectSql</code>.</p>
+<p>We are interested in receiving the message on our specific internal channel only, so we check if the subchannel is "InternalChannel".</p>
+</li>
+<li>
+<p>Next, we read the length of the inner message payload.</p>
+</li>
+<li>
+<p>Next, we create a new empty byte array, with a length corresponding to the length of the inner message payload we fetched on the previous line.</p>
+</li>
+<li>
+<p>Here, we read the actual content of the inner payload into the empty byte array we created earlier.</p>
+</li>
+<li>
+<p>Next, we initialize a new input stream to translate the inner message payload from a raw byte array to human-readable text.</p>
+</li>
+<li>
+<p>Finally, we read the string value of the inner message payload, which should be the UUID of the player, as specified earlier.</p>
 </li>
 </ol>
-<details class="warning" open="open">
-<summary>Warning</summary>
-<p>It's important to keep in mind that interacting with any remote database is an <em>I/O operation</em>. If we run this code on the main server thread (I.E., not in an asynchronous task), then the server <em>will hang</em> and be unresponsive until the interaction with the remove server completes. For laggy and/or high-latency connections, this can cause significant amounts of server lag. To avoid lag, it is best practice to wrap all <em>I/O operations</em> in an asynchronous task. See the section below for an example.</p>
-</details>
-<h3 id="code-example-for-sql-databases-asynchronous">Code Example for SQL Databases, Asynchronous<a class="headerlink" href="#code-example-for-sql-databases-asynchronous" title="Permanent link">&para;</a></h3>
-<p>The following code takes the above code example but wraps the interaction with the database in an asynchronous task. Of note, the connection to the database (<code>connectSql</code> function on line 6) is still synchronous, but we want this to remain synchronous because a failed connection affects the rest of the script's execution, and the script should terminate if the connection failes (I.E. an error is thrown).</p>
-<p>The code below makes use of the task manager's callback task, which runs a task asychronously, then calls back to the main server thread when the asychronous task finishes via another user-defined function.</p>
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span>
-<span class="normal"><a href="#__codelineno-6-11">11</a></span>
-<span class="normal"><a href="#__codelineno-6-12">12</a></span>
-<span class="normal"><a href="#__codelineno-6-13">13</a></span>
-<span class="normal"><a href="#__codelineno-6-14">14</a></span>
-<span class="normal"><a href="#__codelineno-6-15">15</a></span>
-<span class="normal"><a href="#__codelineno-6-16">16</a></span>
-<span class="normal"><a href="#__codelineno-6-17">17</a></span>
-<span class="normal"><a href="#__codelineno-6-18">18</a></span>
-<span class="normal"><a href="#__codelineno-6-19">19</a></span>
-<span class="normal"><a href="#__codelineno-6-20">20</a></span>
-<span class="normal"><a href="#__codelineno-6-21">21</a></span>
-<span class="normal"><a href="#__codelineno-6-22">22</a></span>
-<span class="normal"><a href="#__codelineno-6-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="n">task_manager</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">task_manager</span><span class="p">()</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="n">db_manager</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">database_manager</span><span class="p">()</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="n">sql</span> <span class="o">=</span> <span class="n">db_manager</span><span class="o">.</span><span class="n">connectSql</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;3306&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">select_data</span><span class="p">():</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM test_table ORDER BY val DESC;&#39;</span><span class="p">)</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10"></a>    <span class="k">return</span> <span class="n">data</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11"></a>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">sync_callback</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13"></a>    <span class="k">for</span> <span class="n">column</span><span class="p">,</span> <span class="n">col_data</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15"></a>        <span class="nb">print</span><span class="p">(</span><span class="n">col_data</span><span class="p">)</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16"></a>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="n">task_manager</span><span class="o">.</span><span class="n">runSyncCallbackTask</span><span class="p">(</span><span class="n">select_data</span><span class="p">,</span> <span class="n">sync_callback</span><span class="p">)</span>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18"></a>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">():</span>
-</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20"></a>    <span class="n">rows_affected</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s1">&#39;INSERT INTO test_table (id, val) VALUES (?, ?)&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21"></a>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Rows affected: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rows_affected</span><span class="p">))</span>
-</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22"></a>
-</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23"></a><span class="n">task_manager</span><span class="o">.</span><span class="n">runTaskAsync</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>
-</span></code></pre></div></td></tr></table></div>
-<h2 id="mongodb">MongoDB<a class="headerlink" href="#mongodb" title="Permanent link">&para;</a></h2>
-<p>The database manager allows you to connect to and interact with Mongo databases (MongoDB).</p>
-<h3 id="database-manager-usage-for-mongodb">Database Manager Usage for MongoDB<a class="headerlink" href="#database-manager-usage-for-mongodb" title="Permanent link">&para;</a></h3>
-<p>There are several functions available for you to use in the database manager for interacting with MongoDB. They are:</p>
-<ul>
-<li><code>newMongoClientSettings()</code>: Returns a new MongoClientSettings builder for convenience.</li>
-<li><code>connectMongo(host, port, username, password)</code>: Connects to a remote MongoDB server with the given host, port, username, and password.</li>
-<li><code>connectMongo(host, port, username, password, clientSettings)</code>: Connects to a remote MongoDB server with the given host, port, username, and password, using the given MongoClientSettings.</li>
-<li><code>connectMongo(uri)</code>: Connects to a remote MongoDB server with the given connection string.</li>
-<li><code>connectMongo(uri, clientSettings)</code>: Connects to a remote MongoDB server with the given connection string, using the given MongoClientSettings.</li>
-<li><code>connectMongo(clientSettings)</code>: Connects to a remote MongoDB server with the given MongoClientSettings.</li>
-<li><code>disconnect(database)</code>: Disconnect and close an open connection to a database. Accepts the MongoDatabase object returned by <code>connectMongo</code>.</li>
-</ul>
-<p>The database manager allows you to specify a <a href="https://learn.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url?view=sql-server-ver16">connection string/URI/URL</a>, if you want finer control over the connection parameters and settings. You may also specify options in the connection string. The <code>connectMongo</code> functions that accept <code>uri</code> are functions that accept a connection string.</p>
-<p>These function very similar to the functions for initializing a connection to an SQL database. The only real difference is that instead of a HikariConfig, we can use a MongoCLientSettings to specify connection settings.</p>
-<details class="tip" open="open">
-<summary>Tip</summary>
-<p>If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of an operation, there is no guarantee that execution of the opteration will occur.</p>
-</details>
-<h3 id="the-mongoclientsettings">The MongoClientSettings<a class="headerlink" href="#the-mongoclientsettings" title="Permanent link">&para;</a></h3>
-<p>The MongoClientSettings is a configuration object that allows greater control over the MongoDB connection. For example, it allows you to set connection pool settings, connection string, encryption settings, read preference, write preference, etc. For detailed information on the MongoClientSettings, see the <a href="https://www.mongodb.com/docs/drivers/java/sync/current/fundamentals/connection/mongoclientsettings/">MongoDB documentation</a>.</p>
-<p>You may also use a MongoClientSettings object <em>alone</em> to establish a connection (via the <code>connectMongo(clientSettings)</code> function). The MongoClientSettings builder object allows you to directly specify a connection string or host, port, database, username, and password within the object. This is probably the simplest way to establish a new connection with a remote database.</p>
-<p>A <code>newMongoClientSettings()</code> function is provided in the database manager for convenience. It returns a new MongoClientSettings builder with default options that you may modify. Once you modify the options to your liking, you may then call <code>build()</code> on the object and pass the result to one of the <code>connectMongo</code> functions.</p>
-<details class="warning" open="open">
-<summary>Warning</summary>
-<p>Once you finish setting the options you'd like to set for the MongoClientSettings, you must call <code>build()</code> to build the settings into a readable object prior to passing it to one of the <code>connectMongo</code> functions.</p>
-</details>
-<h3 id="the-mongodatabase-object">The MongoDatabase Object<a class="headerlink" href="#the-mongodatabase-object" title="Permanent link">&para;</a></h3>
-<p>Once we call any of the above <code>connectMongo</code> functions, a connection is established. If the connection is established successfully, then a <code>MongoDatabase</code> object is returned. The MongoDatabase object contains the functions used to interact directly with the database.</p>
-<p>There are too many functions in the MongoDatabase object to list them all here. For a complete list, see the <a href="https://javadocs.magicmq.dev/pyspigot/dev/magicmq/pyspigot/manager/database/mongo/MongoDatabase.html">PySpigot JavaDocs</a>.</p>
-<p>Additionally, the <a href="https://www.mongodb.com/docs/drivers/java/sync/current/usage-examples/">MongoDB documentation</a> contains detailed documentation and example code. I highly recommend you check it out for information on how to work with the MongoDatabase object, since many of the functions I have defined in MongoDatabase are simply passthroughs to the underlying MongoDB library.</p>
-<details class="tip" open="open">
-<summary>Tip</summary>
-<p>If you're finished using a database connection, it is good practice to close it. If you have any open database connections when your script is stopped or terminated, then these open connections will be closed automatically. If a database is closed either during or pending execution of an operation, there is no guarantee that execution of the operation will occur.</p>
-</details>
-<h3 id="code-example-for-mongodb">Code Example for MongoDB<a class="headerlink" href="#code-example-for-mongodb" title="Permanent link">&para;</a></h3>
-<p>The following code established a connection to a remote MongoDB server, creates a collection, inserts a document, and then retrieves the document that was created.</p>
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-7-10">10</a></span>
-<span class="normal"><a href="#__codelineno-7-11">11</a></span>
-<span class="normal"><a href="#__codelineno-7-12">12</a></span>
-<span class="normal"><a href="#__codelineno-7-13">13</a></span>
-<span class="normal"><a href="#__codelineno-7-14">14</a></span>
-<span class="normal"><a href="#__codelineno-7-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="n">db_manager</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">database_manager</span><span class="p">()</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="n">mongo</span> <span class="o">=</span> <span class="n">db_manager</span><span class="o">.</span><span class="n">connectMongo</span><span class="p">(</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="s1">&#39;27017&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">mongo</span><span class="o">.</span><span class="n">doesCollectionExist</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;test_collection&#39;</span><span class="p">)):</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>    <span class="n">mongo</span><span class="o">.</span><span class="n">createCollection</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;test_collection&#39;</span><span class="p">)</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="n">mongo</span><span class="o">.</span><span class="n">insertDocument</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;test_collection&#39;</span><span class="p">,</span> <span class="n">mongo</span><span class="o">.</span><span class="n">createDocument</span><span class="p">(</span><span class="s1">&#39;test_key&#39;</span><span class="p">,</span> <span class="s1">&#39;test_value&#39;</span><span class="p">))</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a><span class="n">documents</span> <span class="o">=</span> <span class="n">mongo</span><span class="o">.</span><span class="n">getDocuments</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;test_collection&#39;</span><span class="p">)</span>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">documents</span><span class="p">:</span>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
-</span></code></pre></div></td></tr></table></div>
-<details class="warning" open="open">
-<summary>Warning</summary>
-<p>The above code is run sycnchronously. As outlined above, it is best to interact with an external database server in an asychronous context to avoid server lag.</p>
-</details>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The DatabaseManager allows you to connect to and interact with SQL-type and Mongo databases.</li>
-<li>Use the <code>connectSql</code> functions (along with the provided arguments, based on your specific situation) to connect to an SQL database.</li>
-<li>Use the <code>connectMongo</code> functions (along with the provided arguments, based on your specific situation) to connect to a Mongo database.</li>
-<li>When connecting to a database, a database object (either <code>SqlDatabase</code> or <code>MongoDatabase</code>) is returned by the connect function, which is then used to interact with the database.</li>
-<li>Interacting with a database is an <em>I/O operation</em>, and these interactions should be done in an asynchronous context, such as within a scheduled asynchronous task or within a callback task.</li>
-<li>Database connections are closed automatically when a script is stopped. At any other time, if you are finished using a database, it should be closed by calling the database manager <code>disconnect</code> function. The <code>disconnect</code> function takes the database object that was procured when connecting to the database.</li>
+<li>The plugin message manager can be used to send and receive plugin messages.</li>
+<li>To send standard BungeeCord plugin messages, use the <code>sendBungeeMessage(player, message_type, *payload)</code> function.</li>
+<li>For a complete list of BungeeCord plugin messages that can be sent/received, see <a href="https://docs.papermc.io/paper/dev/plugin-messaging/">this page</a>.</li>
+<li>To send messages on a custom channel, use the <code>sendMessage(player, channel, *payload)</code> function.</li>
+<li>To receive messages, create a listener function and register the listener with the <code>unregisterListener(listener)</code> function.</li>
+<li>Plugin message listeners are automatically unregistered when a script is stopped.</li>
 </ul>
 
 
@@ -2755,7 +2859,7 @@ The above statement effectively becomes <code>INSERT INTO test_table (id, val) V
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 17, 2024 04:36:19 UTC"><span class="timeago" datetime="2024-12-17T04:36:19+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 17, 2024 04:36:19 UTC">2024-12-17</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="July 27, 2025 18:29:31 UTC"><span class="timeago" datetime="2025-07-27T18:29:31+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 27, 2025 18:29:31 UTC">2025-07-27</span>
   </span>
 
     
@@ -2765,7 +2869,7 @@ The above statement effectively becomes <code>INSERT INTO test_table (id, val) V
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 14, 2024 21:17:36 UTC"><span class="timeago" datetime="2024-06-14T21:17:36+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 14, 2024 21:17:36 UTC">2024-06-14</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="July 27, 2025 18:17:53 UTC"><span class="timeago" datetime="2025-07-27T18:17:53+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 27, 2025 18:17:53 UTC">2025-07-27</span>
   </span>
 
     
@@ -2802,7 +2906,7 @@ The above statement effectively becomes <code>INSERT INTO test_table (id, val) V
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../configuration/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Config Manager">
+          <a href="../redis/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Redis Manager">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2812,20 +2916,20 @@ The above statement effectively becomes <code>INSERT INTO test_table (id, val) V
                 Previous
               </span>
               <div class="md-ellipsis">
-                Config Manager
+                Redis Manager
               </div>
             </div>
           </a>
         
         
           
-          <a href="../redis/" class="md-footer__link md-footer__link--next" aria-label="Next: Redis Manager">
+          <a href="../protocollib/" class="md-footer__link md-footer__link--next" aria-label="Next: ProtocolLib Manager">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Redis Manager
+                ProtocolLib Manager
               </div>
             </div>
             <div class="md-footer__button md-icon">
