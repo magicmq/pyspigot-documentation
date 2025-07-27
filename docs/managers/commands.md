@@ -85,6 +85,12 @@ All commands must be registered with PySpigot's command manager to work. Command
 - The first argument accepts the function that should be called when the command is executed.
 - The second argument is the name of the command, a `str`.
 
+???+ note:
+
+    Command functions *must* return either `True` or `False`. Likewise, tab completion functions *must* return a list. If there are no tab complete suggestions to offer, return an empty list (`[]`).
+
+    If a command/tab completion function does not return the correct type (or returns nothing at all), a warning message will be printed to the server console, but the command or tab completion will still complete successfully.
+
 ### Unregistering a Command
 
 Continuing the above code example:

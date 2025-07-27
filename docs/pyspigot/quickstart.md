@@ -6,7 +6,10 @@ Here is a very brief guide for creating your very first PySpigot script. If you 
 
 PySpigot is officially supported on Spigot and Paper and on Minecraft versions 1.16 and newer. I cannot guarantee that PySpigot will work outside of these conditions, but some users report success on other server softwares and/or older MC versions.
 
-PySpigot is built with Java 17 as of version 0.6.0. This means that for version 0.6.0 and later, PySpigot requires Java 17 or above.
+Note that more recent versions of PySpigot work only on versions of Java:
+- Prior to version 0.6.0, Java 12+ is required.
+- From version 0.6.0 to version 0.9.0, Java 17+ is required.
+- From version 0.9.1 onwards, Java 21+ is required.
 
 Download the latest version of PySpigot from [GitHub](https://github.com/magicmq/pyspigot) or from [Spigot](https://www.spigotmc.org/resources/pyspigot.111006/). Drop the downloaded Jar file into your plugins folder and start your server.
 

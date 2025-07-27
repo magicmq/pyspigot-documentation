@@ -4,7 +4,7 @@ This tutorial provides an overview of PySpigot only, and does not cover in detai
 
 There are a few basic things to keep in mind when writing PySpigot scripts:
 
-- PySpigot requires Java 17 or above.
+- As of version 0.9.1, PySpigot requires Java 21 or above.
 - PySpigot officially supports Spigot and Paper on Minecraft versions 1.16 and newer.
 - Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.

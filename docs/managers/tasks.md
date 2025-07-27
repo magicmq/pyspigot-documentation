@@ -20,9 +20,9 @@ There are several functions in the task manager available for you to use in your
 - `scheduleAsyncRepeatingTask(function, delay, interval, functionArgs)`: Run an asynchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run. Also takes any number of arguments that should be passed to the function when the task runs.
 - `runSyncCallbackTask(function, callback, functionArgs)`: Schedules an asynchronous task with a synchronous callback. Takes the function to call for the asynchronous portion, and another function to call for the synchronous portion. Also takes any number of arguments that should be passed to the function (asynchronous portion) when the task runs.
 - `runSyncCallbackTaskLater(function, callback, delay, functionArgs)`: Schedules an asynchronous task with a synchronous callback to run at some point in the future after the specified delay. Takes the function to call for the asynchronous portion, another function to call for the synchronous portion, and the delay to wait (in ticks) before running the task. Also takes any number of arguments that should be passed to the function (asynchronous portion) when the task runs.
-- `stopTask(id)`: Stop/Cancel a task. Takes the id of the task to stop.
+- `stopTask(task)`: Stop/Cancel a task. Takes the task object of the task to stop.
 
-Any time a task is scheduled, a task id (`int`) is returned. This can be used to cancel the task later if desired.
+Any time a task is scheduled, a `Task` object is returned. This can be used to cancel the task later, if desired. Tasks can be stopped either via the `stopTask` function, as outlined above, or via the Task object itself, by calling `task.cancel()`.
 
 In the above functions, `functionArgs` is an optional argument. If the function to call does not accept any arguments, you do not need to specify any.
 
@@ -42,14 +42,14 @@ a_string = 'Test'
 def run_task(arg): # (2)!
     #Do something...
 
-task_id = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100, a_string) # (3)!
+task = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100, a_string) # (3)!
 ```
 
 1. Here, we import PySpigot as `ps` to utilize the task manager (`scheduler`).
 
 2. Here, we define a function called `run_task` that takes one argument.
 
-3. Here, we register our task as a synchronous repeating task with the task manager, passing the `run_task` function, our desired delay (0 ticks), our desired interval (100 ticks), and the variable we want to pass to the task function each time the task is ran (the `a_string` variable we defined earlier on line 3). We then assign the returned value to `task_id`, an `int` that is the ID of the task that was registered. This ID can be used to cancel/stop the task later.
+3. Here, we register our task as a synchronous repeating task with the task manager, passing the `run_task` function, our desired delay (0 ticks), our desired interval (100 ticks), and the variable we want to pass to the task function each time the task is ran (the `a_string` variable we defined earlier on line 3). We then assign the returned value, a `Task` object, to the `task` variable. We can use this to cancel the task later.
 
 Like listeners, all tasks must be registered and run with PySpigot's task manager. There are many different ways to start tasks depending on if we want the task to be synchronous, ascynchronous, and/or repeating, but here we want our task to be synchronous and repeating, so we use `scheduleRepeatingTask(function, delay, interval, functionArgs)`, which in this case takes four arguments:
 
@@ -71,7 +71,7 @@ another_string = 'Test 2'
 def run_task(arg, arg2):
     #Do something...
 
-task_id = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100, a_string, another_string)
+task = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100, a_string, another_string)
 ```
 
 This example is very similar to the first, except that we define another string (`another_string`) and pass it (along with `a_string`) to the task manager when we register the task on line 8. These two strings are then passed, in order, to `run_task` when it is called by the task.
@@ -98,7 +98,7 @@ def sync_task(data):
     print('Synchronous!')
     print(data)
 
-ps.scheduler.runSyncCallbackTask(async_task, sync_task)
+task = ps.scheduler.runSyncCallbackTask(async_task, sync_task)
 ```
 
 The following conosle output is observed:
@@ -115,8 +115,59 @@ There are a few things to note regarding this example:
 - **Second**, the asynchronous task happens *first*, and the synchronous task will not begin execution until the asynchronous task *finishes*.
 - **Third**, any data returned from the asynchrounous portion of the task (such as the return statement on line 6 of the above example) is passed as a function argument to the synchronous portion of the task (`sync_task` above takes the argument `data`). This allows for synchronous processing of whatever data was retrieved in the asynchronous portion of the task.
 
+## Stopping a Task
+
+There are two ways tasks can be stopped/cancelled:
+
+1. By calling the `cancel()` function on the task object itself.
+2. By calling the `stopTask` function of the task manager, and passing the task object to stop.
+
+Here is an example using the `cancel()` function on the task:
+
+``` py linenums="1"
+import pyspigot as ps
+
+def run_task():
+    print('This is a repeating task.')
+
+task = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100) # (1)!
+
+# Some time passes...
+
+task.cancel() # (2)!
+```
+
+1. When the task is scheduled, we assign the returned task object so we can use it later to cancel the task.
+
+2. The task is stopped/cancelled by calling `cancel` on the task object that was created/assigned earlier.
+
+Here is an example using the `stopTask` function of the task manager:
+
+``` py linenums="1"
+import pyspigot as ps
+
+def run_task():
+    print('This is a repeating task.')
+
+task = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100) # (1)!
+
+# Some time passes...
+
+ps.scheduler.stopTask(task) # (2)!
+```
+
+1. When the task is scheduled, we assign the returned task object so we can use it later to cancel the task.
+
+2. The task is stopped/cancelled by calling the `stopTask` function of the task manager, passing the task object that was created earlier.
+
+???+ note
+
+    When a script is stopped, any tasks belonging to that script are stopped/cancelled automatically. You do not need to cancel them yourself.
+
 ## Summary
 
 - Like listeners, tasks are defined as functions in your script. Task can take any number of arguments, including zero.
 - Tasks can pass arguments on to the function they call. Specify these arguments when you register your task with the task manager.
 - All tasks must be registered with PySpigot's task manager. For example, to schedule and run a synchronous repeating task, use `scheduler.scheduleRepeatingTask(function, delay, interval, functionArgs)`.
+- Scheduling any type of task returns a `Task` object, which can be used to cancel the task later, if desired.
+- When a script is stopped, any tasks belonging to that script are stopped/cancelled automatically.

@@ -152,6 +152,7 @@ nav:
       - Config Manager: managers/configuration.md
       - Database Manager: managers/databases.md
       - Redis Manager: managers/redis.md
+      - Plugin Message Manager: managers/messaging.md
     - Optional Managers:
       - ProtocolLib Manager: managers/protocollib.md
       - Placeholder Manager: managers/placeholders.md
