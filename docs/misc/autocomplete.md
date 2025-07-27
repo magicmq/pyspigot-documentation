@@ -140,8 +140,8 @@ As stated previously, translated sources have been bundled into Python packages 
 
     Some examples:
 
-    - If your server runs Bukkit and PySpigot version 0.9.0, install `pyspigot-sources-bukkit==0.9.0`.
-    - If your server runs BungeeCord and PySpigot version 0.9.0, install `pyspigot-sources-bungee==0.9.0`.
+    - If your server runs Bukkit and PySpigot version 0.9.1, install `pyspigot-sources-bukkit==0.9.1`.
+    - If your server runs BungeeCord and PySpigot version 0.9.1, install `pyspigot-sources-bungee==0.9.1`.
 
 **After you've figured out what packages you need to install, follow these steps:**
 
@@ -156,7 +156,7 @@ As stated previously, translated sources have been bundled into Python packages 
 2. Install each package:
     ```
     pip install pyspigot-spigot-sources==1.21.4
-    pip install pyspigot-sources-bukkit==0.9.0
+    pip install pyspigot-sources-bukkit==0.9.1
     ```
     *Note: These will differ depending on your server software, Minecraft version, and PySpigot version! See the above section if you aren't sure what to install.*
 3. Verify all packages were installed correctly:
