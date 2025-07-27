@@ -40,7 +40,7 @@ Although this should work with any IDE, this example uses [Visual Studio Code (V
 
 ### Prerequisites
 
-- Ensure **Python 3** is installed on your system, and that you are running **Python 3.6 or higher**. Although PySpigot only supports Python 2, Python 3 is required for this portion of the project. You can check by running:
+- Ensure **Python 3** is installed on your system, and that you are running **Python 3.9 or higher**. Although PySpigot only supports Python 2, Python 3 is required for this portion of the project. You can check by running:
     ```
     python --version
     ```
@@ -140,8 +140,8 @@ As stated previously, translated sources have been bundled into Python packages 
 
     Some examples:
 
-    - If your server runs Bukkit and PySpigot version 0.8.0, install `pyspigot-sources-bukkit==0.8.0`.
-    - If your server runs BungeeCord and PySpigot version 0.8.0, install `pyspigot-sources-bungee==0.8.0`.
+    - If your server runs Bukkit and PySpigot version 0.9.1, install `pyspigot-sources-bukkit==0.9.1`.
+    - If your server runs BungeeCord and PySpigot version 0.9.1, install `pyspigot-sources-bungee==0.9.1`.
 
 **After you've figured out what packages you need to install, follow these steps:**
 
@@ -155,8 +155,8 @@ As stated previously, translated sources have been bundled into Python packages 
         Verify the output includes the location where you just installed the virtual environment.
 2. Install each package:
     ```
-    pip install mc-paper-sources==1.21.4
-    pip install ps-bukkit-sources==0.8.0
+    pip install pyspigot-spigot-sources==1.21.4
+    pip install pyspigot-sources-bukkit==0.9.1
     ```
     *Note: These will differ depending on your server software, Minecraft version, and PySpigot version! See the above section if you aren't sure what to install.*
 3. Verify all packages were installed correctly:
