@@ -45,8 +45,8 @@ A `newHikariConfig()` function is provided in the database manager for convenien
 Once we call any of the above `connectSql` functions, a connection is established. If the connection is established successfully, then an `SqlDatabase` object is returned. The SqlDatabase object contains the functions used to interact directly with the database:
 
 - `getHikariDataSource()`: Returns the underlying HikariDataSource connection object.
-- `select(sql)`: Executes a select statement on the database with the provided `sql`. Returns a Map (essentially the same as a python dict), with keys that represent column names and values that represent column data (a list of objects).
-- `select(sql, values)`: Executes a select statement on the database with the provided `sql`, with `values` (a list of objects) that will be replaced in the `sql` statement. Returns a Map (essentially the same as a python dict), with keys that represent column names and values that represent column data (a list of objects).
+- `select(sql)`: Executes a select statement on the database with the provided `sql`. Returns a List of Java Maps (Maps are essentially the same as a python dict), with each element in the list representing a row in the result data from the select statement.
+- `select(sql, values)`: Executes a select statement on the database with the provided `sql`, with `values` (a list of objects) that will be replaced in the `sql` statement. Returns a List of Java Maps (Maps are essentially the same as a python dict), with each element in the list representing a row in the result data from the select statement.
 - `update(sql)`: Executes an update statement on the database with the provided `sql`. Returns an int that signals the number of rows affected by the update.
 - `update(sql, values)`: Executes an update statement on the database, with `values` (a list of objects) that will be replaced in the `sql` statement. Returns an int that signals the number of rows affected by the update.
 
@@ -86,9 +86,8 @@ sql = db_manager.connectSql('localhost', '3306', 'test', 'root', '') # (3)!
 
 data = sql.select('SELECT * FROM test_table ORDER BY val DESC;') # (4)!
 
-for column, col_data in data.items(): # (5)!
-    print(column)
-    print(col_data)
+for row in data: # (5)!
+    print(row)
 
 rows_affected = sql.update('INSERT INTO test_table (id, val) VALUES (?, ?)', [11, 1]) # (6)!
 print(f'Rows affected: {rows_affected}') # (7)!
@@ -104,7 +103,7 @@ db_manager.disconnect(sql) # (8)!
 
 4. Here, we select all data from `test_table` and order it by the column `val`, descending, and assign the selected data to the `data` variable.
 
-5. Here, we loop through all of the data and print the column name along with the data corresponding to that column.
+5. Here, we loop through all of the rows in the returned data and print each row to console.
 
 6. Here, we execute an update on `test_table` by inserting a new row with values 11 for `id` and 1 for `val`, and assign the result (number of rows affected) to the variable `rows_affected`.
 
@@ -135,9 +134,8 @@ def select_data():
     return data
 
 def sync_callback(data):
-    for column, col_data in data.items():
-        print(column)
-        print(col_data)
+    for row in data:
+        print(row)
 
 task_manager.runSyncCallbackTask(select_data, sync_callback)
 
@@ -147,6 +145,79 @@ def update():
 
 task_manager.runTaskAsync(update)
 ```
+
+## SQLite
+
+The database manager also includes support for connecting to SQLite databases, either as a file or as an in-memory database.
+
+???+ warning
+
+    Usage of SQLite requires the SQLite JDBC driver. This external library **is not** bundled into PySpigot, so you may need to download it yourself. See the section immediately below this warning for more information.
+
+### SQLite JDBC Driver
+
+Usage of SQLite requires that the [SQLite JDBC Driver](https://github.com/xerial/sqlite-jdbc) be present at runtime. Unlike most other third-party libraries that PySpigot uses (such as [hikaricp](https://github.com/brettwooldridge/HikariCP)), the SQLite JDBC driver **is not** bundled with PySpigot. This library is not included in PySpigot because it is quite large, and it is a fairly niche use-case (I.E. most users won't be using it).
+
+Some server environments, including Spigot and its forks (Paper, Purpur, etc.), ship with the SQLite JDBC driver included, however, some do not. If your server environment already includes the driver, SQLite should work out of the box. If it does not, you will see the following error message if you attempt to connect to an SQLite database:
+
+```
+ERROR: SQLite JDBC driver not found. This library is not bundled with PySpigot; you will need to manually download it for SQLite support.
+                
+Download the JAR file from https://github.com/xerial/sqlite-jdbc/releases, place it in the java-libs folder, and restart the server.
+```
+
+If you see this error message, you will need to download the SQLite JDBC driver yourself:
+
+1. Download the latest version of the SQLite JDBC driver from [this page](https://github.com/xerial/sqlite-jdbc/releases). The file to download is `sqlite-jdbc-{VERSION}.jar`, where `{VERSION}` is the latest release version.
+2. Place the downloaded JAR file in the `java-libs` folder within the PySpigot plugin folder.
+3. Restart your server.
+
+### Database Manager Usage for SQLite Databases
+
+There are several functions available for you to use in the database manager for interacting with SQLite databases. They are:
+
+- `connectSQLite(file_path)`: Connects to an SQLite database at the given file path. This path should be relative to the root directory of the Minecraft/proxy server.
+- `connectSQLite()`: Connects to an SQLite database in memory.
+
+All of the `connectSQLite` functions above accomplish the same task: they will initialize a new connection to an SQLite database and return an `SQLiteDatabase` object. The `SQLiteDatabase` object is the interface through which selections and updates are made.
+
+### Code Example for SQLite Databases
+
+The following code connects to and performs some simple operations on a local SQLite database. The table being interacted with is named `test_table` and has columns `id` (auto-increment, not null, unique) and `value` (not null):
+
+``` py linenums="1"
+import pyspigot as ps # (1)!
+
+db_manager = ps.database_manager() # (2)!
+
+sqlite = db_manager.connectSQLite('plugins/PySpigot/configs/sqlite_database.db') # (3)!
+
+data = sqlite.select('SELECT * FROM test_table ORDER BY val DESC;') # (4)!
+
+for row in data: # (5)!
+    print(row)
+
+rows_affected = sqlite.update('INSERT INTO test_table (id, val) VALUES (?, ?)', [11, 1]) # (6)!
+print(f'Rows affected: {rows_affected}') # (7)!
+
+db_manager.disconnect(sqlite) # (8)!
+```
+
+1. Here, we import PySpigot as `ps` to utilize the database manager.
+
+2. Here, we get the database manager from `ps` and set it to `db_manager`.
+
+3. Here, we establish a new connection with `connectSql` and assign the returned object to `sqlite`. This variable is what we will subsequently use to interact with the database.
+
+4. Here, we select all data from `test_table` and order it by the column `val`, descending, and assign the selected data to the `data` variable.
+
+5. Here, we loop through all of the rows in the returned data and print each row to console.
+
+6. Here, we execute an update on `test_table` by inserting a new row with values 11 for `id` and 1 for `val`, and assign the result (number of rows affected) to the variable `rows_affected`.
+
+7. Here, we print the number of rows affected.
+
+8. Here, we close the database connection by calling the `disconnect` function from the database manager and passing our database object we got earlier when we connected with `connectSql`.
 
 ## MongoDB
 
