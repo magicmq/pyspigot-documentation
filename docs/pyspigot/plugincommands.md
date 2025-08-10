@@ -12,13 +12,19 @@ PySpigot has several commands available to use, mostly for loading, unloading, a
 
 ## Base Command
 
-The base command for PySpigot is `/pyspigot`. Running this command will print a list of available commands (as long as the user that typed the command has the permission `pyspigot.command.listcmds`).
+The base command for PySpigot is `/pyspigot`.
 
 - Syntax: `/pyspigot <argument>`
 - Aliases: `ps`
-- Permission: `pyspigot.command.listcmds`
+- Permission: `pyspigot.command.use`
+
+If the user has the permission `pyspigot.command.listcmds`, running this command without any arguments will print a list of available commands.
 
 All commands that follow are subcommands of the base command.
+
+???+ note
+
+    The permission `pyspigot.command.use` is the base permission for the `/pyspigot` command. Users **must** have this permission to use any of the subcommands listed below.
 
 ## Help Command
 
