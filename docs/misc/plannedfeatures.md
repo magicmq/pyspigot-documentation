@@ -3,11 +3,16 @@
 PySpigot is an evolving project. I have several features planned for future releases. This is a non-comprehensive list of features I plan on adding in the future:
 
 - [ ] Support for autocompletion in IDE/text editor when writing scripts
-- [ ] Support for calling PySpigot methods from scripts with \*args and \*kwargs (both non-keyword and keyword arguments)
-- [ ] Script loading delay on a per-script basis
-- [ ] Support for scripts on Waterfall and Velocity proxy server
+- [ ] Use decorators to register listeners, commands, schedule tasks, etc.
+- [ ] Add a Discord manager for easier Discord integration
 - [ ] Add more example scripts
+- [ ] Split documentation into multiple branches for specific documentation on Bukkit, BungeeCord, and Velocity
+- [ ] Support for calling PySpigot methods from scripts with \*args and \*kwargs (both non-keyword and keyword arguments)
+- [x] SQLite support
+- [x] Support for scripts on Waterfall and Velocity proxy server
+- [x] Add plugin messaging manager to send/receive plugin messages
 - [x] Support for multi-file projects
+- [x] Add custom script events
 - [x] Add example script that demonstrates how to create a GUI menu
 - [x] Support for scripts on BungeeCord proxy server
 - [x] Support for MySQL, Postgres, MonogDB, redis, and other databases
