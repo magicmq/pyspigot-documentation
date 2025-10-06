@@ -169,7 +169,7 @@ redis = ps.redis_manager() # (3)!
 pub_sub_client = redis.openRedisClient(ClientType.PUB_SUB, 'localhost', '6379', None) # (4)!
 
 def message_received(channel, message): # (5)!
-    print(f'Received message on channel \'{channel}\': {message}')
+    print('Received message on channel \'' + channel + '\': ' + message)
 
 listener = pub_sub_client.registerAsyncListener(message_received, 'test_channel') # (6)!
 
