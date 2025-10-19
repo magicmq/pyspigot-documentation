@@ -2,138 +2,138 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/commands/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/configuration/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/databases/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/eventlisteners/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/messaging/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/placeholders/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/protocollib/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/redis/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/scripts/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/tasks/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/managers/usage/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/misc/api/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/misc/autocomplete/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/misc/events/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/misc/license/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/misc/plannedfeatures/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/misc/types/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/projects/projectoptions/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/projects/writingprojects/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/pyspigot/plugincommands/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/pyspigot/pluginconfiguration/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/pyspigot/pyspigot/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/pyspigot/quickstart/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/pyspigot/quickstartproject/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/customevents/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/examples/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/externallibraries/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/externalresources/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/functionmodule/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/globalvariables/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/helpermodule/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/scriptoptions/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
     <url>
          <loc>https://pyspigot-docs.magicmq.dev/scripts/writingscripts/</loc>
-         <lastmod>2025-10-06</lastmod>
+         <lastmod>2025-10-19</lastmod>
     </url>
 </urlset>
