@@ -125,16 +125,9 @@ nav:
     - Global Variables: scripts/globalvariables.md
     - External Libraries: scripts/externallibraries.md
     - Custom Events: scripts/customevents.md
-    - Helpful Resources:
-      - Example Scripts: scripts/examples.md
-      - External Resources: scripts/externalresources.md
-    - Helper Modules:
-      - PySpigot Helper Module: scripts/helpermodule.md
-      - Function Helper Module: scripts/functionmodule.md
-
-  - Writing Projects:
-    - General Information: projects/writingprojects.md
-    - Project Options: projects/projectoptions.md
+    - Writing Projects:
+      - General Information: projects/writingprojects.md
+      - Project Options: projects/projectoptions.md
     - Helpful Resources:
       - Example Scripts: scripts/examples.md
       - External Resources: scripts/externalresources.md
