@@ -2242,11 +2242,11 @@
 <li>The first argument accepts the function that should be called when the command is executed.</li>
 <li>The second argument is the name of the command, a <code>str</code>.</li>
 </ul>
-<p>???+ note:</p>
-<div class="language-text highlight"><pre><span></span><code>Command functions *must* return either `True` or `False`. Likewise, tab completion functions *must* return a list. If there are no tab complete suggestions to offer, return an empty list (`[]`).
-
-If a command/tab completion function does not return the correct type (or returns nothing at all), a warning message will be printed to the server console, but the command or tab completion will still complete successfully.
-</code></pre></div>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>Command functions <em>must</em> return either <code>True</code> or <code>False</code>. Likewise, tab completion functions <em>must</em> return a list. If there are no tab complete suggestions to offer, return an empty list (<code>[]</code>).</p>
+<p>If a command/tab completion function does not return the correct type (or returns nothing at all), a warning message will be printed to the server console, but the command or tab completion will still complete successfully.</p>
+</details>
 <h3 id="unregistering-a-command">Unregistering a Command<a class="headerlink" href="#unregistering-a-command" title="Permanent link">&para;</a></h3>
 <p>Continuing the above code example:</p>
 <div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">ps</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">unregisterCommand</span><span class="p">(</span><span class="n">registered_command</span><span class="p">)</span> <span class="c1"># (1)!</span>
@@ -2286,7 +2286,7 @@ If a command/tab completion function does not return the correct type (or return
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="July 27, 2025 18:17:53 UTC"><span class="timeago" datetime="2025-07-27T18:17:53+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="July 27, 2025 18:17:53 UTC">2025-07-27</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="October 25, 2025 18:18:52 UTC"><span class="timeago" datetime="2025-10-25T18:18:52+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="October 25, 2025 18:18:52 UTC">2025-10-25</span>
   </span>
 
     
