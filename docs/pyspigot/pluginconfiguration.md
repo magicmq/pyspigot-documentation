@@ -190,6 +190,10 @@ Default: `INFO`
 
 ### `permissions`
 
+???+ warning
+
+    Script/project permissions are **not** supported on Velocity and BungeeCord. This section of the configuration has **no effect** on those platforms.
+
 Specify a list of permissions that the script/project uses. This is useful for scripts or projects that want to restrict access to certain features. This section is defined in the [exact same way](https://docs.papermc.io/paper/dev/plugin-yml#permissions) that permissions are defined in the `plugin.yml` file for a Bukkit plugin. See usage code example below for how to define permissions, defaults, and child permissions.
 
 ``` yaml linenums="1"
@@ -220,6 +224,10 @@ Default: None (no permissions defined)
 
 ### `permission-default`
 
+???+ warning
+
+    Script/project permissions are **not** supported on Velocity and BungeeCord. This section of the configuration has **no effect** on those platforms.
+
 Specify a default value that permissions should have, if they do not have a `default` value defined. The allowed values for `permission-default` are `op`, `not op`, `true`, and `false`:
 
 - `op`: Only server operators will have the permission node by default.
@@ -237,17 +245,6 @@ Default: `op`
 ## `debug-options`
 
 The configuration values in the `default-options` section are more advanced options that should only be changed if you encounter issues or would like to disable recommended features.
-
-### `print-stack-traces`
-
-Specifies if full stack traces should always be printed to the server console. Normally, if a Java exception occurs, a condensed version of the Java exception along with a Python traceback are printed, but if this parameter is set to `true`, a full Java stack trace will be printed in addition to a Python traceback.
-
-``` yaml linenums="1"
-debug-options:
-  print-stack-traces: false
-```
-
-Default: `false`
 
 ### `show-update-messages`
 
@@ -329,8 +326,6 @@ script-option-defaults:
   permission-default: 'op'
 # Advanced debug options for scripts
 debug-options:
-  # If true, will print stack traces for all script-related exceptions to the server console
-  print-stack-traces: false
   # If true, the plugin will show messages in console and on join (to players with the permission pyspigot.admin) when a newer version of PySpigot is available to download on spigotmc.org.
   show-update-messages: true
   # The logging level for Jython internals. Can be useful to set this to FINE or ALL for debugging purposes. Note: the server's root logger will also need to be configured to accept debug messages for Jython's debug messages to show.

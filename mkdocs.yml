@@ -89,6 +89,9 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.tabbed:
       alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
   - admonition
   - abbr
   - attr_list

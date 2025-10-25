@@ -120,6 +120,10 @@ test.py:
 
 ### `permissions`
 
+???+ warning
+
+    Script permissions are **not** supported on Velocity and BungeeCord. This section of the script options configuration has **no effect** on those platforms.
+
 Specify a list of permissions that the script uses. This is useful for scripts that want to restrict access to certain features. This section is defined in the [exact same way](https://docs.papermc.io/paper/dev/plugin-yml#permissions) that permissions are defined in the `plugin.yml` file for a Bukkit plugin. See usage code example below for how to define permissions, defaults, and child permissions.
 
 ``` yaml linenums="1"
@@ -149,6 +153,10 @@ test.py:
 **Default:** None (no permissions defined)
 
 ### `permission-default`
+
+???+ warning
+
+    Script are **not** supported on Velocity and BungeeCord. This section of the script options configuration has **no effect** on those platforms.
 
 Specify a default value that permissions should have, if they do not have a `default` value defined.
 

@@ -10,29 +10,33 @@ Writing a PySpigot project is nearly identical to writing a multi-module Python 
 
 Like single-file scripts, PySpigot projects are designed to be *self-contained*. This means that each project is treated as a single "bundle", and all Python modules within the project's folder are *isolated* from files in another. Like single-file scripts, however, projects can interact with one another in various ways.
 
-PySpigot projects are placed in the `projects` folder, which can be found in PySpigot's main plugin folder. Each project must be a folder, single-file projects are not allowed (as this would be a single-file script, which should be placed in the `scripts` folder instead). All folders within the `projects` folder are considered projects, and will be loaded automatically on server start/plugin load.
+PySpigot projects are placed in the `projects` folder, which can be found in PySpigot's main plugin folder. Each project must be a folder; single-file projects are not allowed (as this would be a single-file script, which should be placed in the `scripts` folder instead). All folders within the `projects` folder are considered projects, and will be loaded automatically on server start/plugin load, unless if they are marked as disabled.
 
 ???+ warning
 
-    Project names must be unique across other project names *and* single-file script names, as their names are used to identify them at runtime. For example, PySpigot could not load and run a project named `test_project` and a script named `test_project.py` simultaneously.
+    Project names must be unique across other project names *and* single-file script names, as their names are used to identify them at runtime. For example, a project named `test_project` and a script named `test_project.py` are not compatible.
 
 ## Project Options
 
 There are a variety of options that can be set for each project, including its main module, whether or not it is enabled, load priority, and logging options.
 
-Project options are specified within the project's `project.yml` file, which is placed into the project's main directory. For example, if I had a project named `test_project`, I would place its `project.yml` file at `/plugins/PySpigot/projects/test_project/project.yml`.
+Project options are specified within the project's `project.yml` file, which is placed into the project's main directory. For example, a project named `test_project` would have its `project.yml` file at `/plugins/PySpigot/projects/test_project/project.yml`.
 
-The most notable project option to be aware of is `main`, which specifies the main module of the project. PySpigot uses this to determine which module to execute when the project is loaded. If this value isn't specified in a project's `project.yml` file, or the project doesn't have a `project.yml` file at all, then the default value under the `script-options-default` section of the main `config.yml` is used, (`main.py` by default).
+The most notable project option to be aware of is `main`, which specifies the main module of the project. PySpigot uses this value to determine which module to execute when the project is loaded. If this value isn't specified in a project's `project.yml` file, or the project doesn't have a `project.yml` file at all, then the default value under the `script-options-defaults` section of the main `config.yml` is used, (`main.py` by default).
 
 All other project options are identical to the regular script options used for single-file scripts. For more information on project options, see the [project options page](projectoptions.md).
 
 ???+ notice
 
-    Defining project options for a project is *optional*; projects will function normally without them, provided that the main module of the project matches the default value for this project option.
+    Defining project options for a project is *optional*; projects will function normally without explicitly defining them (or creating a `project.yml` file at all), provided a module exists with the same name as the default `main` option in the `config.yml` (`main.py` by default).
 
 ### Project Permissions
 
-PySpigot allows projects to define a list of permissions that they use. This is useful if a project want to restrict access to certain features. Permissions are initialized and loaded just prior to parsing and executing the main module of the project, and are removed just after a project is stopped.
+???+ warning
+
+    Project permissions are not supported on Velocity and BungeeCord, so configuring project permissions on these platforms has **no effect**.
+
+**On the Bukkit platform only**, PySpigot allows projects to define a list of permissions that they use. This is useful if a project want to restrict access to certain features. Permissions are initialized and loaded just prior to parsing and executing the main module of the project, and are removed just after a project is stopped.
 
 Project permissions are defined in the `project.yml` file of the project. For more information on how to define permissions, see the [documentation for project options](projectoptions.md#permissions).
 
@@ -40,23 +44,39 @@ Project permissions are defined in the `project.yml` file of the project. For mo
 
 PySpigot loads and runs all projects in the projects folder automatically on plugin load or server start. Project load order is determined by load priority, as defined in the project's `project.yml` file. Projects that don't specify a load priority will inherit the default load priority specified in the `script-option-defaults` section of the `config.yml`. Projects that have the same load priority are loaded in alphabetical order.
 
-Projects can also be manually loaded using `/pyspigot load <projectname>` if you want to load/enable a project after server start/plugin load. If you make changes to a project's files during runtime, you must reload it for changes to take effect. Reload projects with `/pyspigot reload <projectname>`.
+Projects can also be manually loaded using the load command:
+
+- On Bukkit: `/pyspigot load <projectname>`
+- On Velocity: `/pyvelocity load <projectname>`
+- On BungeeCord: `/pybungee load <projectname>`
+
+ If you make changes to a project during runtime, the project must be reloaded for changes to take effect. Reload scripts with the reload command:
+
+- On Bukkit: `/pyspigot reload <projectname>`
+- On Velocity: `/pyvelocity reload <projectname>`
+- On BungeeCord: `/pybungee reload <projectname>`
 
 There is one config option related to loading projects:
 
-- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts and projects. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts and projects.
+- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts and projects. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts and projects. To disable the load delay, set this value to `0` or `-1`.
 
 ???+ notice
 
-    Scripts and projects are interlaced when loading. In other words, they are loaded together. This means that the load priorities of scripts and projects are compared simultaneously, and a project with a higher load priority would load earlier than a script with a lower load priority, and vice versa.
+    Scripts and projects are interlaced when loading. In other words, they are loaded together. This means that the load priorities of scripts and projects are compared simultaneously. A project with a higher load priority would load earlier than a script with a lower load priority, and vice versa.
 
 ## Project Unloading
 
-Projects can be manually unloaded using `/pyspigot unload <projectname>`. Running `/pyspigot reload` will also unload a project first before loading it again (if it was running beforehand).
+Projects can be manually unloaded using the unload command:
+
+- On Bukkit: `/pyspigot unload <projectname>`
+- On Velocity: `/pyvelocity unload <projectname>`
+- On BungeeCord: `/pybungee unload <projectname>`
+
+Additionally, running the reload command (`/pyspigot reload <projectname>` on Bukkit) will unload a project first before loading it again (if it was running beforehand).
 
 ### Unloading A Project from Within Itself
 
-Unloading a project from within itself is done in the same way as it is in regular Python, via usage of the `sys.exit` function:
+Unloading a project from within itself can be accomplished in the same way a running script would be terminated in a regular Python environment, via usage of the `sys.exit` function:
 
 ```py
 import sys
@@ -98,7 +118,7 @@ See the [Global Variables](../scripts/globalvariables.md) page for detailed info
 
 ## Project Errors and Exceptions
 
-Errors and exceptions in projects function in the same way as they do for single-file scripts, except that for exceptions that occur in a module other than the main module of the project, the traceback will include the full call stack (with the last line being the module that caused/raised/threw the exception).
+Errors and exceptions in projects function in the same way as they do for single-file scripts, except that for exceptions that occur in a module other than the main module of the project, the traceback will include the full call stack. The last line will be module that most directly caused/raised/threw the exception.
 
 For defailed information, see the [section on script errors and exceptions for single-file scripts](../scripts/writingscripts.md/#script-errors-and-exceptions).
 

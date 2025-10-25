@@ -8,10 +8,13 @@
 
 Here are some excellent resources you should check out for help with writing PySpigot scripts:
 
-- [Spigot/Bukkit JavaDocs](https://hub.spigotmc.org/javadocs/spigot/index.html?overview-summary.html)
-- [Java API Specification](https://docs.oracle.com/en/java/javase/11/docs/api/index.html)
-- [Jython](https://jython.org/)
-- [Jython Documentation](https://jython.readthedocs.io/en/latest/)
+- JavaDocs:
+	- [Spigot/Bukkit JavaDocs](https://hub.spigotmc.org/javadocs/spigot/index.html?overview-summary.html)
+	- [Velocity JavaDocs](https://jd.papermc.io/velocity/3.4.0/index.html)
+	- [BungeeCord JavaDocs](https://javadoc.io/doc/net.md-5/bungeecord-api/latest/index.html)
+	- [Java API Specification](https://docs.oracle.com/en/java/javase/21/docs/api/index.html)
+	- [Jython Documentation](https://jython.readthedocs.io/en/latest/)
+- [Jython Website](https://jython.org/)
 - There are several publicly-available online Python syntax checkers, here are a few:
 	- [pythonchecker.com](https://www.pythonchecker.com/)
 	- [extendclass.com](https://extendsclass.com/python-tester.html)

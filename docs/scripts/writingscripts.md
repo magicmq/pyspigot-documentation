@@ -1,11 +1,11 @@
 # Writing Scripts
 
-This tutorial provides an overview of PySpigot only, and does not cover in detail the Bukkit/Spigot API or writing Python code. Any questions concerning Python syntax or writing Python code in general should be redirected to the appropriate forum, as this tutorial will not provide an intoroduction to writing basic Python code. 
+This tutorial provides an overview of PySpigot only, and does not cover in detail the underlying API or writing Python code in general. Any questions concerning Python syntax or writing Python code in general should be redirected to the appropriate forum, as this tutorial will not provide an intoroduction to writing basic Python code. 
 
 There are a few basic things to keep in mind when writing PySpigot scripts:
 
 - As of version 0.9.1, PySpigot requires Java 21 or above.
-- PySpigot officially supports Spigot and Paper on Minecraft versions 1.16 and newer.
+- PySpigot officially supports Spigot and Paper on Minecraft version 1.16 and newer, Velocity version 3.0.0 and newer, and BungeeCord versions corresponding to Minecraft versions 1.16 and newer.
 - Under the hood, PySpigot utilizes Jython, a Java implementation of Python. Currently, Jython implements Python 2 only, so Python 2 syntax should be used when writing PySpigot scripts.
 - Scripts must be written in Python syntax and script files should in `.py`. Files that do not end in .py will not be loaded.
 - Scripts are placed in the `scripts` folder under the PySpigot plugin folder. PySpigot allows for creation of subfolders within the scripts folder for organizational purposes, but script names must be unique across all subfolders and projects.
@@ -15,16 +15,15 @@ There are a few basic things to keep in mind when writing PySpigot scripts:
 - To make use of any of the managers that PySpigot provides (such as registering listeners, tasks, etc.), they must be imported into your script. See the [managers](../managers/usage.md) page for more details.
 - If you are utilizing the API of any plugin other than ProtocolLib or PlaceholderAPI, make sure you specify the plugin as a dependency in the `script_options.yml` file. See the [Script Options](scriptoptions.md#plugin-depend) page for more info.
 
-
 ???+ notice
 
     This page covers core fundamentals for writing both single-file scripts and multi-file projects. However, writing multi-file projects carries some key differences to be aware of. For more information, see the [writing projects](../projects/writingprojects.md) page.
 
 ## A Note About Jython
 
-Under the hood, PySpigot utilizes Jython, a Java implementation of Python. The PySpigot jar file is quite large in comparison to other Bukkit plugins because Jython (as well as its dependencies) are bundled into PySpigot.
+Under the hood, PySpigot utilizes Jython, a Java implementation of Python. The PySpigot jar file is quite large in comparison to other Bukkit/Velocity/bungeeCord plugins because Jython (as well as its dependencies) are bundled into the PySpigot JAR file.
 
-Jython is written such that scripts are compiled and interpreted entirely in Java. This means that scripts have native access to the entire Java class path at runtime, making it very easy to work with the Spigot API and other aspects of the server. Consider the following example:
+Jython is written such that scripts are compiled and interpreted entirely in Java. This means that scripts have native access to the entire Java class path at runtime, making it very easy to work with the underlying platform API and other aspects of the server. Consider the following example (on the Bukkit platform):
 
 ``` py linenums="1"
 from org.bukkit import Bukkit
@@ -74,7 +73,11 @@ There are a variety of options that can be set for each script, including whethe
 
 ### Script Permissions
 
-PySpigot allows scripts to define a list of permissions that it uses. This is useful if scripts want to restrict access to certain features. Script permissions are initialized and loaded just prior to parsing and executing the script's code, and are removed just after a script is stopped.
+???+ warning
+
+    Script permissions are not supported on Velocity and BungeeCord, so configuring script permissions on these platforms has **no effect**.
+
+**On the Bukkit platform only**, PySpigot allows scripts to define a list of permissions that it uses. This is useful if scripts want to restrict access to certain features. Script permissions are initialized and loaded just prior to parsing and executing the script's code, and are removed just after a script is stopped.
 
 Script permissions are defined in the `script_options.yml` file. For more information on how to define permissions, see the [documentation for script options](scriptoptions.md#permissions).
 
@@ -82,23 +85,39 @@ Script permissions are defined in the `script_options.yml` file. For more inform
 
 PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by load priority, as defined in the `script_options.yml` file. Scripts that don't specify a load priority will inherit the default load priority specified in the `script-option-defaults` section of the `config.yml`. Scripts that have the same load priority are loaded in alphabetical order.
 
-Scripts can also be manually loaded using `/pyspigot load <scriptname>` if you want to load/enable a script after server start/plugin load. If you make changes to a script during runtime, you must reload it for changes to take effect. Reload scripts with `/pyspigot reload <scriptname>`.
+Scripts can also be manually loaded using the load command:
+
+- On Bukkit: `/pyspigot load <scriptname>`
+- On Velocity: `/pyvelocity load <scriptname>`
+- On BungeeCord: `/pybungee load <scriptname>`
+
+ If you make changes to a script during runtime, the script must be reloaded for changes to take effect. Reload scripts with the reload command:
+
+- On Bukkit: `/pyspigot reload <scriptname>`
+- On Velocity: `/pyvelocity reload <scriptname>`
+- On BungeeCord: `/pybungee reload <scriptname>`
 
 There is one config option related to loading scripts:
 
-- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts and projects. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts and projects.
+- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts and projects. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts and projects. To disable the load delay, set this value to `0` or `-1`.
 
 ???+ notice
 
-    Scripts and projects are interlaced when loading. In other words, they are loaded together. This means that the load priorities of scripts and projects are compared simultaneously, and a project with a higher load priority would load earlier than a script with a lower load priority, and vice versa.
+    Scripts and projects are interlaced when loading. In other words, they are loaded together. This means that the load priorities of scripts and projects are compared simultaneously. A project with a higher load priority would load earlier than a script with a lower load priority, and vice versa.
 
 ## Script Unloading
 
-Scripts can be manually unloaded using `/pyspigot unload <scriptname>`. Running `/pyspigot reload` will also unload a script first before loading it again (if it was running beforehand).
+Scripts can be manually unloaded using the unload command:
+
+- On Bukkit: `/pyspigot unload <scriptname>`
+- On Velocity: `/pyvelocity unload <scriptname>`
+- On BungeeCord: `/pybungee unload <scriptname>`
+
+Additionally, running the reload command (`/pyspigot reload <scriptname>` on Bukkit) will unload a script first before loading it again (if it was running beforehand).
 
 ### Unloading A Script from Within Itself
 
-Unloading a script from within itself is done in the same way as it is in regular Python, via usage of the `sys.exit` function:
+Unloading a script from within itself can be accomplished in the same way a running script would be terminated in a regular Python environment, via usage of the `sys.exit` function:
 
 ``` py
 import sys
@@ -157,7 +176,7 @@ In any case, errors/exceptions will be logged to the console and to the respecti
 
 ???+ notice
 
-    Because PySpigot is an active project in youth stages of development, you may encounter exceptions that are caused by a bug within PySpigot itself. If something goes wrong with your script, and your debuging efforts have been futile, please [submit an issue on Github](https://github.com/magicmq/PySpigot/issues) or [join the Discord](https://discord.gg/f2u7nzRwuk) to ask for help.
+    Because PySpigot is an active project in early stages of development, you may encounter exceptions that are caused by a bug within PySpigot itself. If something goes wrong with your script, and your debuging efforts have been futile, please [submit an issue on Github](https://github.com/magicmq/PySpigot/issues) or [join the Discord](https://discord.gg/f2u7nzRwuk) to ask for help.
 
 There are two types of errors that a script can produce:
 
@@ -175,54 +194,87 @@ These exceptions occur when a script calls Java code and the exception occurs so
 
 These look similar to Python exceptions, however, in addition to a Python traceback, there will be an accompanying Java exception and stack trace. The message that accompanies the Java exception (boxed in red in the above image) typically provides additional details about why the exception occurred. For example, the message accompanying the above exception states that the command "test" has already been registered (I.E. the script attempted to register the same command twice).
 
-PySpigot routinely throws these types of exceptions (in the form of a `ScriptRuntimeException`) for erroneous/non-permitted operations that scripts attempt to perform, such as registering two different listeners for the same event, or registering two commands with the same name. A `ScriptRuntimeException` could also be thrown if some unhandled exception occurs in PySpigot's internals, such as an exception that occurred when registering an event listener with Bukkit.
+PySpigot routinely throws these types of exceptions (in the form of a `ScriptRuntimeException`) for erroneous/non-permitted operations that scripts attempt to perform, such as registering two different listeners for the same event, or registering two commands with the same name. A `ScriptRuntimeException` could also be thrown if some unhandled exception occurs in PySpigot's internals, such as an exception that occurred when registering an event listener with the platform's API.
 
 ???+ note
 
-    Java exceptions may also have a *cause*, which essentially means the execption was thrown as a cause of another exception. If there is a cause, the cause would also be included in the error message (along with a message and stack trace).
+    Java exceptions may also have a *cause*, which essentially means the execption was thrown because of another exception (thrown earlier). If there is a cause, the cause would also be included in the error message (along with a message and stack trace).
 
 ### Handling Exceptions
 
-You may use Python's `try:` and `except:` syntax in order to handle exceptions yourself. For example:
+You may use Python's `try` and `except` syntax in order to catch both Python and Java exceptions yourself. For example, to catch a Java exception:
 
 ``` py linenums="1"
 import pyspigot as ps
-from java.lang import RuntimeException # (1)!
+from dev.magicmq.pyspigot.exception import ScriptRuntimeException # (1)!
 
-def command():
+def command(sender, label, args):
     return True
 
 try:
   ps.command.registerCommand(command, 'testcommand')
-except RuntimeException as e: # (2)!
+except ScriptRuntimeException as e: # (2)!
   print("The command /testcommand is already registered.")
 ```
 
 1.  Import the appropriate Java exception for use in a `try` `except` block later.
 2.  Except the Java `RuntimeException` in the same way that a Python error would be excepted.
 
+Python exceptions, such as `TypeError`, `ValueError`, and `IndexError`, can be caught as well, using the same `try` and `except` syntax.
+
 ## Script Logging
 
-Like scripts themselves, a script's logger is self-contained. Each script has its own logger, which is a subclass of [java.util.logging.Logger](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html). PySpigot creates a new logger for each running script. A script's logger is automatically assigned to its global namespace under the variable name `logger`. To access your script's logger, use the `logger` variable. For example:
+Like scripts themselves, a script's logger is self-contained. Each script has its own logger, which is an instance of [dev.magicmq.pyspigot.util.logging.ScriptLogger](https://javadocs.magicmq.dev/pyspigot/dev/magicmq/pyspigot/util/logging/ScriptLogger.html). PySpigot creates a new logger for each running script. A script's logger is automatically assigned to its global namespace under the variable name `logger`, for easy access within the script. To access your script's logger, simply use the `logger` variable. For example:
 
-``` py linenums="1"
-import pyspigot as ps
-from java.util.logging import Level
+=== "Bukkit"
 
-def task():
-    print('Task executed')
+    ``` py linenums="1"
+    import pyspigot as ps
 
-task_id = ps.scheduler.runTaskLater(task, 500)
+    def task():
+        print('Task executed')
 
-logger.log(Level.INFO, f'Registered a new task with the ID {task_id}') # (1)!
-```
+    task = ps.scheduler.runTaskLater(task, 100) # (1)!
 
-1.  The `logger` varaible can be utilized immediately without assigning it first, since the script's logger is automatically assigned to the `logger` variable when the script is started.
+    logger.info('Registered a new task: ' + str(task)) # (2)!
+    ```
 
-When accessing your script's logger, you can use any of the functions listed [here](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Logger.html). PySpigot adds two additional functions for convenience:
+    1.  The default time unit is server ticks (1 second = 20 ticks) when registering tasks on the Bukkit platform.
+    2.  The `logger` varaible can be utilized immediately without assigning it first. It is automatically assigned internally when the script is started.
 
-- `logger.print(message)`: Useful for quickly adding debug messages to your script
-- `logger.debug(message)`: Under the hood, functions the same as `logger.print`
+=== "Velocity"
+
+    ``` py linenums="1"
+    import pyspigot as ps
+
+    def task():
+        print('Task executed')
+
+    task = ps.scheduler.runTaskLaterAsync(task, 5000) # (1)!
+
+    logger.info('Registered a new task: ' + str(task)) # (2)!
+    ```
+
+    1.  The default time unit is milliseconds (1 second = 1000 ms) when registering tasks on the Velocity platform. Additionally, synchronous tasks are not supported on Velocity, which is why `runTaskLaterAsync` is used here.
+    2.  The `logger` varaible can be utilized immediately without assigning it first. It is automatically assigned internally when the script is started.
+
+=== "BungeeCord"
+
+    ``` py linenums="1"
+    import pyspigot as ps
+
+    def task():
+        print('Task executed')
+
+    task = ps.scheduler.runTaskLaterAsync(task, 5000) # (1)!
+
+    logger.info('Registered a new task: ' + str(task)) # (2)!
+    ```
+
+    1.  The default time unit is milliseconds (1 second = 1000 ms) when registering tasks on the BungeeCord platform. Additionally, synchronous tasks are not supported on BungeeCord, which is why `runTaskLaterAsync` is used here.
+    2.  The `logger` varaible can be utilized immediately without assigning it first. It is automatically assigned internally when the script is started.
+
+When accessing your script's logger, you can use any of the functions listed [here](https://javadocs.magicmq.dev/pyspigot/dev/magicmq/pyspigot/util/logging/ScriptLogger.html).
 
 ???+ notice
 
@@ -230,21 +282,23 @@ When accessing your script's logger, you can use any of the functions listed [he
     
     `[STDOUT]` is also attached to print messages to indicate that the message was printed to `STDOUT`.
 
+    `[STDERR]` is attached to any error messages, to indicate that the message was printed to `STDERR`.
+
 ### Script Log Files
 
 As stated previously, each script has its own log file. Script log files can be found in the `logs` folder within the PySpigot plugin folder. All messages related to a script will be logged in its respective log file. If you would like to disable file logging for a script, set the [`file-logging-enabled` script option](scriptoptions.md/#file-logging-enabled) to `false`.
 
-The script logger also logs messages with an attached level. These levels are the [Java logging levels](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html). In short, the levels represent the acuity/severity of the log message. The three most common logging levels you will see are `INFO`, `WARNING`, and `SEVERE`:
+The script logger also logs messages with an attached level. These levels are [Java logging levels](https://docs.oracle.com/en/java/javase/21/docs/api/java.logging/java/util/logging/Level.html). In short, the levels represent the acuity/severity of the log message. The three most common logging levels you will see are `INFO`, `WARNING`, and `SEVERE`:
 
 - `INFO`: This level demarcates the message as an informational message.
 - `WARNING`: This level demarcates the log message as a potential problem, but no immediate action is required.
 - `SEVERE`: This level demarcates the log message as a serious failure, exception, or error, that requires prompt action.
 
-Each script logger has a default minimum level at which log messages are logged. By default, this value is set to `INFO`. With a minimum level set at `INFO`, messages at the `INFO` level and higher (`WARNING`, `SEVERE`) are logged, but messages lower than the `INFO` level (`CONFIG`, `FINE`, `FINER`, `FINEST`) are not logged.
+Each script logger has a default minimum level at which log messages are logged. By default, this value is set to `INFO`. With a minimum level set at `INFO`, messages at the `INFO` level and higher (`WARNING`, `SEVERE`) are logged, but messages with lower status than the `INFO` level (`CONFIG`, `FINE`, `FINER`, `FINEST`) are discarded (not logged).
 
 You may change the minimum logging level for a script by setting the [`min-logging-level` script option](scriptoptions.md/#min-logging-level).
 
-A formatted time stamp is also printed in each log message with the exact time that the message was logged, in the local machine's time zone. If you would like to use a different time stamp format, edit the [`log-timestamp-format` value in the `config.yml`](../pyspigot/pluginconfiguration.md/#log-timestamp-format).
+A formatted time stamp is also printed in each log message with the exact time that the message was logged, in the local machine's time zone. If you would like to customize the timestamp format, edit the [`log-timestamp-format` value in the `config.yml`](../pyspigot/pluginconfiguration.md/#log-timestamp-format). The format should follow the pattern outlined [here](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/format/DateTimeFormatter.html).
 
 ## Non-ASCII Characters in Script Files
 
@@ -264,22 +318,76 @@ Of course, you can replace `utf-8` with whatever character encoding standard you
 
 Python 2 includes a `unicode` type, which supports all UTF-8 characters (symbols, non-Latin alphabets, etc.). You can specify that you want to use the `unicode` type for the string (and not `str`) by adding a preceding `u`. For example:
 
-``` py linenums="1"
-#coding: utf-8
+=== "Bukkit"
 
-from org.bukkit import Bukkit
+    ``` py linenums="1"
+    #coding: utf-8
 
-Bukkit.broadcastMessage(u'Привет, мир!') # (1)!
-```
+    from org.bukkit import Bukkit
 
-1.  Notice that a `u` directly preceeds the string. This denotes that the string should be treated a special `unicode` string, not a simple `str`.
+    Bukkit.broadcastMessage(u'Привет, мир!') # (1)!
+    ```
+
+    1.  Notice that a `u` directly preceeds the string. This denotes that the string should be treated a special `unicode` string, not a simple `str`.
+
+=== "Velocity"
+
+    ``` py linenums="1"
+    #coding: utf-8
+
+    from dev.magicmq.pyspigot.velocity import PyVelocity
+    from net.kyori.adventure.text import Component
+
+    proxy = PyVelocity.get().getProxy()
+
+    proxy.sendMessage(Component.text(u'Привет, мир!')) # (1)!
+    ```
+
+    1.  Notice that a `u` directly preceeds the string. This denotes that the string should be treated a special `unicode` string, not a simple `str`.
+
+=== "BungeeCord"
+
+    ``` py linenums="1"
+    #coding: utf-8
+
+    from net.md_5.bungee.api import ProxyServer
+
+    proxy = ProxyServer.getInstance()
+
+    proxy.broadcast(u'Привет, мир!') # (1)!
+    ```
+
+    1.  Notice that a `u` directly preceeds the string. This denotes that the string should be treated a special `unicode` string, not a simple `str`.
 
 ### Workaround 2
 
 You can use also use the hex codes of the unicode characters you want to write. You will still need to denote that the string is a unicode string by adding a preceding `u`, but you don't need to add an encoding declaration at the top of your script file since you aren't actually writing any non-ASCII characters in the file. For example:
 
-``` py linenums="1"
-from org.bukkit import Bukkit
+=== "Bukkit"
 
-Bukkit.broadcastMessage(u'\u041f\u0440\u0438\u0432\u0435\u0442, \u043c\u0438\u0440!')
-```
+    ``` py linenums="1"
+    from org.bukkit import Bukkit
+
+    Bukkit.broadcastMessage(u'\u041f\u0440\u0438\u0432\u0435\u0442, \u043c\u0438\u0440!')
+    ```
+
+=== "Velocity"
+
+    ``` py linenums="1"
+    from dev.magicmq.pyspigot.velocity import PyVelocity
+    from net.kyori.adventure.text import Component
+
+    proxy = PyVelocity.get().getProxy()
+
+    proxy.sendMessage(Component.text(u'\u041f\u0440\u0438\u0432\u0435\u0442, \u043c\u0438\u0440!'))
+    ```
+
+=== "BungeeCord"
+
+    ``` py linenums="1"
+    from net.md_5.bungee.api import ProxyServer
+
+    proxy = ProxyServer.getInstance()
+
+    proxy.broadcast(u'\u041f\u0440\u0438\u0432\u0435\u0442, \u043c\u0438\u0440!')
+    ```

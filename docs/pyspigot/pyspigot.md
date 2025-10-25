@@ -12,7 +12,7 @@ The real magic of Jython is that, because it runs within the same environment th
 
 The major drawback of Jython is that it currently only supports Python 2. Work towards a Python 3 implementation is currently ongoing over at [Jython's GitHub repository](https://github.com/jython/jython).
 
-Regarding different avenues, other Python-Java interop projects support Python 3. One such example is [Py4J](https://www.py4j.org/), which is more akin to a "network bridge" between the Python and Java runtimes rather than a true Python implementation. Although it supports Python 3, Py4J would be incredibly difficult to implement as a scripting engine for Bukkit, as it relies heavily on time-consuming I/O operations and Callbacks, which would make the Minecraft server quite unstable. Additionally, Py4J would require a CPython installation (regular Python) on the same machine, a rather difficult requirement to fulfill when working within a containerized Minecraft instance (such as Pterodactyl, shared hosting providers, etc.).
+Regarding different avenues, other Python-Java interop projects support Python 3. One such example is [Py4J](https://www.py4j.org/), which is more akin to a "network bridge" between the Python and Java runtimes rather than a true Python implementation. Although it supports Python 3, Py4J would be incredibly difficult to implement as a scripting engine for the Bukkit/BungeeCord/Velocity environment, as it relies heavily on time-consuming I/O operations and Callbacks, which would make the Minecraft server quite unstable. Additionally, Py4J would require a CPython installation (regular Python) on the same machine, a rather difficult requirement to fulfill when working within a containerized Minecraft instance (such as Pterodactyl, shared hosting providers, etc.).
 
 When I began this project, I looked at using several libraries, Py4J included. I came to the conclusion that, although Jython only supports Python 2, it has several key advantages over other libraries in this specific use case, including:
 
@@ -34,45 +34,47 @@ plugins/
 |  |  ├─ test.yml
 |  |  └─ ...
 │  ├─ java-libs/ # (3)!
+|  |  ├─ internal/ # (4)!
 |  |  ├─ lib-example.jar
 |  |  └─ ...
-|  ├─ logs/ # (4)!
+|  ├─ logs/ # (5)!
 |  |  ├─ test.log
 |  |  └─ ...
-|  ├─ projects/ # (5)!
+|  ├─ projects/ # (6)!
 |  |  ├─ test_project
-|  |  |  ├─ main.py # (6)!
-|  |  |  ├─ project.yml # (7)!
+|  |  |  ├─ main.py # (7)!
+|  |  |  ├─ project.yml # (8)!
 |  |  |  └─ ...
 |  |  └─ ...
-|  ├─ python-libs/ # (8)!
+|  ├─ python-libs/ # (9)!
 |  |  ├─ lib-example.py
 |  |  └─ ...
-|  ├─ scripts/ # (9)!
+|  ├─ scripts/ # (10)!
 |  |  ├─ test.py
 |  |  └─ ...
-|  ├─ config.yml # (10)!
-|  └─ script_options.yml # (11)!
+|  ├─ config.yml # (11)!
+|  └─ script_options.yml # (12)!
 └─ ...
 ```
 
 1.  The main plugin folder.
 2.  The `configs` folder is where script config files and other data files (json, etc.) are stored, by default. The `configs` folder may contain subfolders for more optimal organization of a script's config and other data files.
 3.  The `java-libs` folder is where external Java libraries should be placed. All JAR files in this folder are automatically loaded when the plugin loads.
-4.  The `logs` folder is where script log files are stored. A script's log file will have the same name as the script (except it will end in `.log` instead of `.py`).
-5.  The `projects` folder is where multi-file script projects should be placed. Each folder in this folder corresponds to a different project.
-6.  Each project should have a main module. The name of the main module is configurable in the `project.yml` file for the project. If not defined in the `project.yml`, or the `project.yml` doesn't exist, then the default value (`main.py`) is used.
-7.  The `project.yml` file is where script options and the project's main module are configured.
-8.  The `python-libs` folder is where external Python modules should be placed. Any external Python modules (that end in `.py`) will be automatically accessible (able to be imported) from scripts.
-9.  The `scripts` folder is where all single-file PySpigot scripts live. The `scripts` folder may contain subfolders for more optimal organization of scripts.
-10.  This is the main `config.yml` file for PySpigot. For more detailed information on the config, see the [configuration page](pluginconfiguration.md) on the documentation.
-11.  This is the `script_options.yml` file. This is where script options for all scripts should be placed. For more detailed information on script options, see the [script options page](../scripts/scriptoptions.md) on the documentation.
+4.  The `internal` folder within the `java-libs` folder contains internal runtime dependencies that PySpigot requires. These dependencies are automatically downloaded and placed into this folder when PySpigot runs for the first time.
+5.  The `logs` folder is where script log files are stored. A script's log file will have the same name as the script (except it will end in `.log` instead of `.py`).
+6.  The `projects` folder is where multi-file script projects should be placed. Each folder in this folder corresponds to a different project.
+7.  Each project should have a main module. The name of the main module is configurable in the `project.yml` file for the project. If not defined in the `project.yml`, or the `project.yml` doesn't exist, then the default value (`main.py`) is used.
+8.  The `project.yml` file is where script options and the project's main module are configured.
+9.  The `python-libs` folder is where external Python modules should be placed. Any external Python modules (that end in `.py`) will be automatically accessible (able to be imported) from scripts.
+10.  The `scripts` folder is where all single-file PySpigot scripts live. The `scripts` folder may contain subfolders for more optimal organization of scripts.
+11.  This is the main `config.yml` file for PySpigot. For more detailed information on the config, see the [configuration page](pluginconfiguration.md) on the documentation.
+12.  This is the `script_options.yml` file. This is where script options for all scripts should be placed. For more detailed information on script options, see the [script options page](../scripts/scriptoptions.md) on the documentation.
 
 ## Metrics
 
-PySpigot uses [bStats](https://bstats.org/) to collect anonymous usage data for PySpigot. I use these data to inform me about PySpigot's users, including which country they are from (so that I can offer support in popular non-English languages) as well as what Minecraft and Java versions are most popular with users. bStats also collects some other useful data, including server software (Spigot, Paper, Purpur, etc.), plugin version, and number of scripts loaded. Sensitive or identifying information is not collected.
+PySpigot uses [bStats](https://bstats.org/) to collect anonymous usage data for PySpigot. I use these data to inform me about PySpigot's usage, including which Minecraft versions and Java versions are most popular. bStats also collects some other useful data, including server software (Spigot, Paper, Purpur, BungeeCord, Velocity, etc.), plugin version, and number of scripts loaded. Sensitive or privileged information is not collected.
 
-If you would like to opt out of this feature, set `metrics-enabled` to `false` in PySpigot's config file. Alternatively, you can disable bStats server-wide by setting `enabled` to `false` in /plugins/bStats/config.yml.
+If you would like to opt out of this feature, set `metrics-enabled` to `false` in PySpigot's config file. Alternatively, you can disable bStats server-wide by setting `enabled` to `false` in `/plugins/bStats/config.yml`.
 
 ## Updates
 
@@ -82,6 +84,8 @@ When PySpigot is updated to a newer version, this update will be pushed to Spigo
 - In chat when you log into your server. This message is only displayed to players with the permission `pyspigot.admin`.
 
 To disable these update messages, set `show-update-messages` to `false` in the config.yml.
+
+PySpigot will display a console message whenever a `SNAPSHOT` build is in use. `SNAPSHOT` builds represent development versions of PySpigot and should be considered **experimental**, **untested**, and potentially **unstable*. These builds may contain incomplete features or breaking changes. It is strongly recommended to avoid using `SNAPSHOT` builds in production environments. Use them only for testing or development purposes.
 
 ???+ tip
 
@@ -99,16 +103,57 @@ PySpigot does not include any security safeguards outside of required permission
 
 ### Permissions
 
-| Permission                      | Description                                                                                           |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `pyspigot.admin`                | If a plugin update is available, users with this permission will be shown an update message on login. |
-| `pyspigot.command.listcmds`     | Grants permission to list all possible subcommands of `/pyspigot`.                                    |
-| `pyspigot.command.help`         | Grants permission to use the `/pyspigot help` command.                                                |
-| `pyspigot.command.info`         | Grants permission to use the `/pyspigot info` command.                                                |
-| `pyspigot.command.listscripts`  | Grants permission to use the `/pyspigot listscripts` command.                                         |
-| `pyspigot.command.load`         | Grants permission to use the `/pyspigot load` command.                                                |
-| `pyspigot.command.loadlibrary`  | Grants permission to use the `/pyspigot loadlibrary` command.                                         |
-| `pyspigot.command.reloadall`    | Grants permission to use the `/pyspigot reloadall` command.                                           |
-| `pyspigot.command.reload`       | Grants permission to use the `/pyspigot reload` command.                                              |
-| `pyspigot.command.reloadconfig` | Grants permission to use the `/pyspigot reloadconfig` command.                                        |
-| `pyspigot.command.unload`       | Grants permission to use the `/pyspigot unload` command.                                              |
+???+ note
+
+    The base command of PySpigot differs depending on the platform. On Bukkit, the base command is `/pyspigot`, on BungeeCord, the base command is `/pybungee`, and on Velocity, the base command is `/pyvelocity`. Although the base commands differ, the permission nodes are kept the same across platforms (I.E. they start `pyspigot.` on all platforms). This was done to streamline permissions on proxy-wide permissions systems.
+
+=== "Bukkit"
+
+    | Permission                      | Description                                                                                           |
+    | ------------------------------- | ----------------------------------------------------------------------------------------------------- |
+    | `pyspigot.admin`                | If a plugin update is available, users with this permission will be shown an update message on login. |
+    | `pyspigot.command.use`          | Grants permission to use the `/pyspigot` base command.                                                |
+    | `pyspigot.command.listcmds`     | Grants permission to list all possible subcommands of `/pyspigot`.                                    |
+    | `pyspigot.command.help`         | Grants permission to use the `/pyspigot help` command.                                                |
+    | `pyspigot.command.info`         | Grants permission to use the `/pyspigot info` command.                                                |
+    | `pyspigot.command.listscripts`  | Grants permission to use the `/pyspigot listscripts` command.                                         |
+    | `pyspigot.command.load`         | Grants permission to use the `/pyspigot load` command.                                                |
+    | `pyspigot.command.loadlibrary`  | Grants permission to use the `/pyspigot loadlibrary` command.                                         |
+    | `pyspigot.command.reloadall`    | Grants permission to use the `/pyspigot reloadall` command.                                           |
+    | `pyspigot.command.reload`       | Grants permission to use the `/pyspigot reload` command.                                              |
+    | `pyspigot.command.reloadconfig` | Grants permission to use the `/pyspigot reloadconfig` command.                                        |
+    | `pyspigot.command.unload`       | Grants permission to use the `/pyspigot unload` command.                                              |
+
+=== "Velocity"
+
+    | Permission                      | Description                                                                                           |
+    | ------------------------------- | ----------------------------------------------------------------------------------------------------- |
+    | `pyspigot.admin`                | If a plugin update is available, users with this permission will be shown an update message on login. |
+    | `pyspigot.command.use`          | Grants permission to use the `/pyvelocity` base command.                                              |
+    | `pyspigot.command.listcmds`     | Grants permission to list all possible subcommands of `/pyvelocity`.                                  |
+    | `pyspigot.command.help`         | Grants permission to use the `/pyvelocity help` command.                                              |
+    | `pyspigot.command.info`         | Grants permission to use the `/pyvelocity info` command.                                              |
+    | `pyspigot.command.listscripts`  | Grants permission to use the `/pyvelocity listscripts` command.                                       |
+    | `pyspigot.command.load`         | Grants permission to use the `/pyvelocity load` command.                                              |
+    | `pyspigot.command.loadlibrary`  | Grants permission to use the `/pyvelocity loadlibrary` command.                                       |
+    | `pyspigot.command.reloadall`    | Grants permission to use the `/pyvelocity reloadall` command.                                         |
+    | `pyspigot.command.reload`       | Grants permission to use the `/pyvelocity reload` command.                                            |
+    | `pyspigot.command.reloadconfig` | Grants permission to use the `/pyvelocity reloadconfig` command.                                      |
+    | `pyspigot.command.unload`       | Grants permission to use the `/pyvelocity unload` command.                                            |
+
+=== "BungeeCord"
+
+    | Permission                      | Description                                                                                           |
+    | ------------------------------- | ----------------------------------------------------------------------------------------------------- |
+    | `pyspigot.admin`                | If a plugin update is available, users with this permission will be shown an update message on login. |
+    | `pyspigot.command.use`          | Grants permission to use the `/pybungee` base command.                                                |
+    | `pyspigot.command.listcmds`     | Grants permission to list all possible subcommands of `/pybungee`.                                    |
+    | `pyspigot.command.help`         | Grants permission to use the `/pybungee help` command.                                                |
+    | `pyspigot.command.info`         | Grants permission to use the `/pybungee info` command.                                                |
+    | `pyspigot.command.listscripts`  | Grants permission to use the `/pybungee listscripts` command.                                         |
+    | `pyspigot.command.load`         | Grants permission to use the `/pybungee load` command.                                                |
+    | `pyspigot.command.loadlibrary`  | Grants permission to use the `/pybungee loadlibrary` command.                                         |
+    | `pyspigot.command.reloadall`    | Grants permission to use the `/pybungee reloadall` command.                                           |
+    | `pyspigot.command.reload`       | Grants permission to use the `/pybungee reload` command.                                              |
+    | `pyspigot.command.reloadconfig` | Grants permission to use the `/pybungee reloadconfig` command.                                        |
+    | `pyspigot.command.unload`       | Grants permission to use the `/pybungee unload` command.                                              |
