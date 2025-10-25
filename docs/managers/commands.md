@@ -85,7 +85,7 @@ All commands must be registered with PySpigot's command manager to work. Command
 - The first argument accepts the function that should be called when the command is executed.
 - The second argument is the name of the command, a `str`.
 
-???+ note:
+???+ note
 
     Command functions *must* return either `True` or `False`. Likewise, tab completion functions *must* return a list. If there are no tab complete suggestions to offer, return an empty list (`[]`).
 
