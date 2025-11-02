@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
     
     
       
@@ -996,15 +996,6 @@
   <a href="#via-the-pyspgigot-helper-module" class="md-nav__link">
     <span class="md-ellipsis">
       Via the pyspgigot helper module
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#via-the-pyspigot-class" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via the PySpigot class
     </span>
   </a>
   
@@ -2223,15 +2214,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#via-the-pyspigot-class" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via the PySpigot class
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#via-a-direct-import" class="md-nav__link">
     <span class="md-ellipsis">
       Via a direct import
@@ -2415,7 +2397,7 @@
 <p>PySpigot contains a global variable system that is available to scripts at runtime. On the Java side, this system relies on a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html"><code>HashMap</code></a>, which is a data structure that stores data in key:value pairs, much like a dict in Python. The intention of this system is to allow for shared variables across scripts. This feature might be useful if you are writing a system of scripts that rely on information from other scripts in order to function correctly.</p>
 <p>Changes to variables inserted into this global set are automatically visible to all scripts. There is no need to re-insert a variable into the global set of variables if its value changes.</p>
 <h2 id="accessing-the-global-variables-system">Accessing the Global Variables System<a class="headerlink" href="#accessing-the-global-variables-system" title="Permanent link">&para;</a></h2>
-<p>PySpigot's global variables system is accessed just like any of PySpigot's managers. There are three ways to access it:</p>
+<p>PySpigot's global variables system is accessed just like any of PySpigot's managers. There are two ways to access it:</p>
 <h3 id="via-the-pyspgigot-helper-module">Via the pyspgigot helper module<a class="headerlink" href="#via-the-pyspgigot-helper-module" title="Permanent link">&para;</a></h3>
 <div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
@@ -2436,23 +2418,12 @@
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">ps</span><span class="o">.</span><span class="n">global_vars</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">ps</span><span class="o">.</span><span class="n">gv</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
 </span></code></pre></div></td></tr></table></div>
-<h3 id="via-the-pyspigot-class">Via the PySpigot class<a class="headerlink" href="#via-the-pyspigot-class" title="Permanent link">&para;</a></h3>
+<h3 id="via-a-direct-import">Via a direct import<a class="headerlink" href="#via-a-direct-import" title="Permanent link">&para;</a></h3>
 <div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dev.magicmq.pyspigot</span><span class="w"> </span><span class="kn">import</span> <span class="n">PySpigot</span> <span class="k">as</span> <span class="n">ps</span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dev.magicmq.pyspigot.manager.script</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalVariables</span> <span class="k">as</span> <span class="n">global_vars</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_vars</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="n">global_vars</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
-</span></code></pre></div></td></tr></table></div>
-<h3 id="via-a-direct-import">Via a direct import<a class="headerlink" href="#via-a-direct-import" title="Permanent link">&para;</a></h3>
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dev.magicmq.pyspigot.manager.script</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlobalVariables</span> <span class="k">as</span> <span class="n">global_vars</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.&lt;</span><span class="n">function</span><span class="o">&gt;</span>
 </span></code></pre></div></td></tr></table></div>
 <details class="warning" open="open">
 <summary>Warning</summary>
@@ -2463,19 +2434,19 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Script A</label><label for="__tabbed_1_2">Script B</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span>
-<span class="normal"><a href="#__codelineno-4-5">5</a></span>
-<span class="normal"><a href="#__codelineno-4-6">6</a></span>
-<span class="normal"><a href="#__codelineno-4-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_variables</span><span class="p">()</span><span class="c1"># (1)!</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="n">test</span> <span class="o">=</span> <span class="s1">&#39;Global variable&#39;</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span><span class="c1"># (2)!</span>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_variables</span><span class="p">()</span><span class="c1"># (1)!</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">test</span> <span class="o">=</span> <span class="s1">&#39;Global variable&#39;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span><span class="c1"># (2)!</span>
 </span></code></pre></div></td></tr></table></div>
 <ol>
 <li>On this line, the global variables system is fetched from the <code>pyspigot</code> helper module.</li>
@@ -2483,23 +2454,23 @@
 </ol>
 </div>
 <div class="tabbed-block">
-<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span>
-<span class="normal"><a href="#__codelineno-5-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_variables</span><span class="p">()</span><span class="c1"># (1)!</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="n">test</span> <span class="o">=</span> <span class="n">global_vars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span><span class="c1"># (2)!</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span><span class="c1"># (3)!</span>
+<div class="language-py highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">8</a></span>
+<span class="normal"><a href="#__codelineno-4-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pyspigot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="n">global_vars</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">global_variables</span><span class="p">()</span><span class="c1"># (1)!</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="n">test</span> <span class="o">=</span> <span class="n">global_vars</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span><span class="c1"># (2)!</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="n">global_vars</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span><span class="c1"># (3)!</span>
 </span></code></pre></div></td></tr></table></div>
 <ol>
 <li>On this line, the global variables system is fetched from the <code>pyspigot</code> helper module.</li>
@@ -2646,7 +2617,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="March 7, 2025 04:28:57 UTC"><span class="timeago" datetime="2025-03-07T04:28:57+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="March 7, 2025 04:28:57 UTC">2025-03-07</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="November 2, 2025 05:02:15 UTC"><span class="timeago" datetime="2025-11-02T05:02:15+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="November 2, 2025 05:02:15 UTC">2025-11-02</span>
   </span>
 
     
