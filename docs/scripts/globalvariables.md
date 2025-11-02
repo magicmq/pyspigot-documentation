@@ -6,7 +6,7 @@ Changes to variables inserted into this global set are automatically visible to 
 
 ## Accessing the Global Variables System
 
-PySpigot's global variables system is accessed just like any of PySpigot's managers. There are three ways to access it:
+PySpigot's global variables system is accessed just like any of PySpigot's managers. There are two ways to access it:
 
 ### Via the pyspgigot helper module
 
@@ -25,16 +25,6 @@ import pyspigot as ps
 
 ps.global_vars.<function>
 ps.gv.<function>
-```
-
-### Via the PySpigot class
-
-``` py linenums="1"
-from dev.magicmq.pyspigot import PySpigot as ps
-
-global_vars = ps.global_vars
-
-global_vars.<function>
 ```
 
 ### Via a direct import
