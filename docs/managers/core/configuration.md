@@ -2,7 +2,7 @@
 
 With PySpigot, scripts can load, access, and save to configuration files. All configuration files that scripts access using the config manager are automatically stored in the `config` folder located within PySpigot's plugin folder.
 
-For instructions on importing the configuration manager into your script, visit the [General Information](usage.md) page.
+For instructions on importing the configuration manager into your script, visit the [General Information](../usage.md) page.
 
 ???+ info
 

@@ -33,7 +33,7 @@ Suppose there is a certain piece of code that you use frequently, across multipl
 
 ## External Java Libraries
 
-Under normal circumstances, a Java library would be "shaded" into a Bukkit/Spigot plugin (with the end result sometimes called a "fat" Jar or "Uber" Jar) so that the plugin has access to the dependency at runtime. We obviously can't do this with scripts.
+Under normal circumstances, a Java library would be "shaded" into a Bukkit/BungeeCord/Velocity plugin (with the end result sometimes called a "fat" Jar or "Uber" Jar) so that the plugin has access to the dependency at runtime. We obviously can't do this with scripts.
 
 Instead, we can take advantage of Jython's capabilities. As stated before elsewhere in the documentation, Jython provides access to all loaded Java classes at runtime. Therefore, a collection of Java classes (the library) can be manually loaded into the classpath at runtime, which in turn gives scripts access to those classes. PySpigot's LibraryManager provides this functionality.
 

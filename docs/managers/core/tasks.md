@@ -2,7 +2,7 @@
 
 Through PySpigot, scripts can interact with Bukkit's task scheduler and schedule/run synchronous and asynchronous tasks. These allow you to run code at later times, at intervals, repeating, and on a thread other than the main server thread. The task manager also has built-in support for asynchronous tasks with synchronous callbacks.
 
-For instructions on importing the task manager into your script, visit the [General Information](usage.md) page.
+For instructions on importing the task manager into your script, visit the [General Information](../usage.md) page.
 
 ???+ info
 

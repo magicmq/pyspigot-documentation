@@ -2,7 +2,7 @@
 
 PySpigot includes a database manager that allows you to connect to and interact with SQL database types (including MySQL, MariaDB, PostgreSQL, and more) as well as MongoDB. Under the hood, PySpigot utilizes [HikariCP](https://github.com/brettwooldridge/HikariCP) for interfacing with SQL-type database servers, and the [MongoDB Java Driver](https://www.mongodb.com/docs/drivers/java-drivers/) for interfacing with MongoDB database servers.
 
-For instructions on importing the database manager into your script, visit the [General Information](usage.md) page.
+For instructions on importing the database manager into your script, visit the [General Information](../usage.md) page.
 
 ???+ info
 

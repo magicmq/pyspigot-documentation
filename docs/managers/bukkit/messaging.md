@@ -8,7 +8,7 @@ Plugin messaging is a powerful way for plugins to communicate with clients. Addi
 
 PySpigot includes a plugin messaging manager that makes it easier for scripts and projects to send plugin messages and register plugin message listeners.
 
-For instructions on importing the messaging manager into your script, visit the [General Information](usage.md) page.
+For instructions on importing the messaging manager into your script, visit the [General Information](../usage.md) page.
 
 ## General Description
 

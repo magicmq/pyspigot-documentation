@@ -6,7 +6,7 @@
 
 PySpigot includes a manager that interfaces with ProtocolLib if you would like to work with packets in your script.
 
-For instructions on importing the placeholder manager into your script, visit the [General Information](usage.md) page.
+For instructions on importing the placeholder manager into your script, visit the [General Information](../usage.md) page.
 
 ## Protocol Manager Usage
 

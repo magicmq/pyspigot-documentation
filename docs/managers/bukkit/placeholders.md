@@ -6,7 +6,7 @@
 
 PySpigot includes a manager that interfaces with PlaceholderAPI if you would like to register placeholder expansions in your script.
 
-For instructions on importing the placeholder manager into your script, visit the [General Information](usage.md) page.
+For instructions on importing the placeholder manager into your script, visit the [General Information](../usage.md) page.
 
 ## Placeholder Manager Usage
 

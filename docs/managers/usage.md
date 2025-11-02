@@ -1,22 +1,32 @@
 # PySpigot's Managers
 
-PySpigot provides a variety of managers to more easily work with parts of the Bukkit/Spigot API as well as other plugins, databases, and more. For instructions on importing these into your script, see below. The current managers built into PySpigot include:
+PySpigot provides a variety of managers to more easily work with parts of the Bukkit, Velocity, and BungeeCord APIs, as well as other plugins, databases, and more. For instructions on importing these into your script, see below.
 
-- The [Script Manager](scripts.md), for loading and unloading scripts from within another script.
-- The [Listener Manager](eventlisteners.md), for registering event listeners.
-- The [Command Manager](commands.md), for registering and working with commands.
-- The [Task Manager](tasks.md), for registering a variety of repeating, delayed, and asynchronous tasks.
-- The [Config Manager](configuration.md), for working with configuration files.
-- The [Database Manager](databases.md), to connect to and interact with SQL-type and Mongo databases.
-- The [Redis Manager](redis.md), to connect to and interact with a Redis server instance.
-- The [Plugin Messaging Manager](messaging.md), to send and receive [plugin messages](https://docs.papermc.io/paper/dev/plugin-messaging/).
+## Available Managers
 
-Also included in PySpigot are two *optional* managers, which are available to use if the plugin they depend on is running on the server:
+The core managers of PySpigot are available on every platform and include the following:
 
-- The [ProtocolLib Manager](protocollib.md), to work with ProtocolLib.
-- The [Placeholder Manager](placeholders.md), to work with PlaceholderAPI.
+- The [Script Manager](core/scripts.md), for loading, unloading, and otherwise managing scripts from within another script.
+- The [Listener Manager](core/eventlisteners.md), for registering event listeners.
+- The [Command Manager](core/commands.md), for registering and working with commands.
+- The [Task Manager](core/tasks.md), for registering tasks with a platform's scheduler service.
+- The [Config Manager](core/configuration.md), for working with configuration files.
+- The [Database Manager](core/databases.md), to connect to and interact with SQL-type and Mongo databases.
+- The [Redis Manager](core/redis.md), to connect to and interact with a Redis server instance.
 
-Managers must be imported into your script inn order for you to access them. The following table summarizes how to access managers, but read the sections below for more detail on how to import them:
+The Bukkit platform has some additional managers:
+
+- The [Plugin Messaging Manager](bukkit/messaging.md), to send and receive [plugin messages](https://docs.papermc.io/paper/dev/plugin-messaging/).
+- The [ProtocolLib Manager](bukkit/protocollib.md), to work with ProtocolLib. This manager is optional, meaning it won't work unless if ProtocolLib is running on the server.
+- The [Placeholder Manager](bukkit/placeholders.md), to work with PlaceholderAPI. This manager is optional, meaning it won't work unless if PlaceholderAPI is running on the server.
+
+The BungeeCord platform has one additional manager:
+
+- The [Protocolize Manager](bungee/protocolize.md), to work with Protocolize. This manager is optional, meaning it won't work unless if Protocolize is running on the server.
+
+## Import Overview
+
+Managers must be imported into your script in order for you to access them. The following table summarizes how to access managers, but read the sections below for more detail on how to import them:
 
 | Manager                  | Access Via Helper Module         | Standalone Import                                                                  |
 | ------------------------ | -------------------------------- | ---------------------------------------------------------------------------------- |
@@ -27,13 +37,12 @@ Managers must be imported into your script inn order for you to access them. The
 | Config Manager           | `pyspigot.config_manager()`      | `from dev.magicmq.pyspigot.manager.config import ConfigManager`                    |
 | Database Manager         | `pyspigot.database_manager()`    | `from dev.nagicmq.pyspigot.manager.database import DatabaseManager`                |
 | Redis Manager            | `pyspigot.redis_manager()`       | `from dev.magicmq.pyspigot.manager.redis import RedisManager`                      |
-| Protocol Manager         | `pyspigot.protocol_manager()`    | `from dev.magicmq.pyspigot.bukkit.manager.protocol import ProtocolManager`         |
-| Placeholder Manager      | `pyspigot.placeholder_manager()` | `from dev.magicmq.pyspigot.bukkit.manager.placeholder import PlaceholderManager`   |
 | Plugin Messaging Manager | `pyspigot.messaging_manager()`   | `from dev.magicmq.pyspigot.bukkit.manager.messaging import PluginMessagingManager` |
+| ProtocolLib Manager^*^   | `pyspigot.protocol_manager()`    | `from dev.magicmq.pyspigot.bukkit.manager.protocol import ProtocolManager`         |
+| Placeholder Manager^*^   | `pyspigot.placeholder_manager()` | `from dev.magicmq.pyspigot.bukkit.manager.placeholder import PlaceholderManager`   |
+| Protocolize Manager^*^   | `pyspigot.protocol_manager()`    | `from dev.magicmq.pyspigot.bungee.manager.protocol import ProtocolManager`         |
 
-???+ warning
-
-    The Protocol Manager and Placeholder Manager are *optional* managers. These managers should only be accessed if the ProtocolLib and/or PlaceholderAPI plugins are loaded and enabled.
+\* Denotes an *optional* manager, meaning it will not work unless if the plugin it interfaces with is running on the server.
 
 ## Using PySpigot's Managers
 
@@ -51,12 +60,16 @@ ps.listener_manager().<function>
 ps.command_manager().<function>
 ps.task_manager().<function>
 ps.config_manager().<function>
-ps.protocol_manager().<function>
-ps.placeholder_manager().<function>
 ps.database_manager().<function>
 ps.redis_manager().<function>
-ps.messaging_manager().<function>
+ps.messaging_manager().<function> # (1)!
+ps.protocol_manager().<function> # (2)!
+ps.placeholder_manager().<function> # (3)!
 ```
+
+1.  Available on the Bukkit platform only.
+2.  Available on the Bukkit platform only.
+3.  Available on the Bukkit platform only.
 
 In the above code, the PySpigot library is imported as `ps`. Then, functions within the library are called to get each manager. Of course, you can also assign the needed managers to a variable for ease of use in multiple locations within your code, like so:
 
@@ -86,7 +99,7 @@ from dev.magicmq.pyspigot.manager.listener import ListenerManager as listener
 from dev.magicmq.pyspigot.manager.command import CommandManager as command
 from dev.magicmq.pyspigot.manager.task import TaskManager as scheduler
 from dev.magicmq.pyspigot.manager.config import ConfigManager as config
-from dev.magicmq.pyspigot.manager.protocol import ProtocolManager as protocol
+...
 
 script.get().<function>
 listener.get().<function>

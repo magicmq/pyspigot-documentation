@@ -70,7 +70,7 @@ Using the text editor of your choice, open the `listener.py` module, and add som
     3. Next, we define a function that serves as the actual listener for the event. When the event fires, this function will be called. An `AsyncPlayerChatEvent` object will be passed to the event containing data related to the event that occurred.
     4. On this line, we print to console the chat message that was sent.
     5. Here, we create a function that we can call from the main module of the project to register the event listener.
-    6. Here register our event with PySpigot's [listener manager](../managers/eventlisteners.md), passing the function we defined earlier, as well as the event we want to listen to.
+    6. Here register our event with PySpigot's [listener manager](../managers/core/eventlisteners.md), passing the function we defined earlier, as well as the event we want to listen to.
 
 === "Velocity"
 
@@ -90,7 +90,7 @@ Using the text editor of your choice, open the `listener.py` module, and add som
     3. Next, we define a function that serves as the actual listener for the event. When the event fires, this function will be called. A `PlayerChatEvent` object will be passed to the event containing data related to the event that occurred.
     4. On this line, we print to console the chat message that was sent.
     5. Here, we create a function that we can call from the main module of the project to register the event listener.
-    6. Here register our event with PySpigot's [listener manager](../managers/eventlisteners.md), passing the function we defined earlier, as well as the event we want to listen to.
+    6. Here register our event with PySpigot's [listener manager](../managers/core/eventlisteners.md), passing the function we defined earlier, as well as the event we want to listen to.
 
 === "BungeeCord"
 
@@ -110,7 +110,7 @@ Using the text editor of your choice, open the `listener.py` module, and add som
     3. Next, we define a function that serves as the actual listener for the event. When the event fires, this function will be called. A `ChatEvent` object will be passed to the event containing data related to the event that occurred.
     4. On this line, we print to console the chat message that was sent.
     5. Here, we create a function that we can call from the main module of the project to register the event listener.
-    6. Here register our event with PySpigot's [listener manager](../managers/eventlisteners.md), passing the function we defined earlier, as well as the event we want to listen to.
+    6. Here register our event with PySpigot's [listener manager](../managers/core/eventlisteners.md), passing the function we defined earlier, as well as the event we want to listen to.
 
 Save the file and exit.
 

@@ -2,7 +2,7 @@
 
 PySpigot allows you to define, register, and unregister commands from within scripts. These commands function in the same way as any plugin-defined command would in-game.
 
-For instructions on importing the command manager into your script, visit the [General Information](usage.md) page.
+For instructions on importing the command manager into your script, visit the [General Information](../usage.md) page.
 
 ???+ info
 
@@ -103,7 +103,7 @@ ps.command.unregisterCommand(registered_command) # (1)!
 
 ???+ tip
 
-    For more functional examples of commands, check out some of the [example scripts](../scripts/examples.md).
+    For more functional examples of commands, check out some of the [example scripts](../../scripts/examples.md).
 
 ## Summary
 

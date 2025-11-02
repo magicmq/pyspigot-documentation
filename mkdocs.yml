@@ -67,6 +67,7 @@ extra_css:
   - stylesheets/extra.css
 
 markdown_extensions:
+  - pymdownx.caret
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.highlight:
@@ -147,18 +148,20 @@ nav:
 
   - Managers:
     - Using the Managers in your Script: managers/usage.md
-    - Available Managers:
-      - Script Manager: managers/scripts.md
-      - Listener Manager: managers/eventlisteners.md
-      - Command Manager: managers/commands.md
-      - Task Manager: managers/tasks.md
-      - Config Manager: managers/configuration.md
-      - Database Manager: managers/databases.md
-      - Redis Manager: managers/redis.md
-      - Plugin Message Manager: managers/messaging.md
-    - Optional Managers:
-      - ProtocolLib Manager: managers/protocollib.md
-      - Placeholder Manager: managers/placeholders.md
+    - Core Managers:
+      - Script Manager: managers/core/scripts.md
+      - Listener Manager: managers/core/eventlisteners.md
+      - Command Manager: managers/core/commands.md
+      - Task Manager: managers/core/tasks.md
+      - Config Manager: managers/core/configuration.md
+      - Database Manager: managers/core/databases.md
+      - Redis Manager: managers/core/redis.md
+    - Bukkit Managers:
+      - Plugin Message Manager: managers/bukkit/messaging.md
+      - ProtocolLib Manager: managers/bukkit/protocollib.md
+      - Placeholder Manager: managers/bukkit/placeholders.md
+    - BungeeCord Managers:
+      - Protocolize Manager: managers/bungee/protocolize.md
 
   - Miscellaneous:
     - Autocomplete/Code Suggestions: misc/autocomplete.md
