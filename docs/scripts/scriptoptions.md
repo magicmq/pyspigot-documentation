@@ -81,6 +81,32 @@ test.py:
 
 **Default:** 1
 
+#### Load Priority Example
+
+Because load priority is somewhat difficult to understand conceptually, here is an example of the behavior:
+
+| Script/Project Name | Load Priority |
+| ------------------- | ------------- |
+| script.py           | 1             |
+| test.py             | 5             |
+| util.py             | 99            |
+| economy.py          | 100           |
+| player.py           | Not set       |
+| Punisher (project)  | Not set       |
+| Chat (project)      | 5             |
+| other.py            | 10            |
+
+PySpigot would load the above scripts/projects in the following order:
+
+1. economy.py *(Loads first)*
+2. util.py
+3. other.py
+4. Chat
+5. test.py
+6. player.py
+7. Punisher
+8. script.py *(Loads last)*
+
 ### `plugin-depend`
 
 Specify a list of plugins that this script requires to load. The script will not load if any of the plugin dependencies are not loaded and running on the server. Additionally, when a plugin is unloaded/disabled, any scripts that depend on that plugin as specified under this option are automatically unloaded (if the `script-unload-on-plugin-disable` option in the `config.yml` is set to `true`).
