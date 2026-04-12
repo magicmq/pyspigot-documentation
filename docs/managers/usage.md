@@ -11,7 +11,7 @@ The core managers of PySpigot are available on every platform and include the fo
 - The [Command Manager](core/commands.md), for registering and working with commands.
 - The [Task Manager](core/tasks.md), for registering tasks with a platform's scheduler service.
 - The [Config Manager](core/configuration.md), for working with configuration files.
-- The [Database Manager](core/databases.md), to connect to and interact with SQL-type and Mongo databases.
+- The [Database Manager](core/databases/index.md), to connect to and interact with SQL-type and Mongo databases.
 - The [Redis Manager](core/redis.md), to connect to and interact with a Redis server instance.
 
 The Bukkit platform has some additional managers:

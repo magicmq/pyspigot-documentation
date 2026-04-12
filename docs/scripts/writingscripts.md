@@ -141,7 +141,7 @@ The `start` function is called automatically by PySpigot when your script loads.
 
 The `start` and `stop` functions can accept either zero or one parameter:
 
-- If you define one parameter, PySpigot will pass the [Script Object](../managers/scripts.md#the-script-object) to the function. This object is the representation of the loaded script at runtime. This allows you to obtain information about the script, as well as other key functions, including logging, the script file, and more within the `start` and/or `stop` function.
+- If you define one parameter, PySpigot will pass the [Script Object](../managers/core/scripts.md#the-script-object) to the function. This object is the representation of the loaded script at runtime. This allows you to obtain information about the script, as well as other key functions, including logging, the script file, and more within the `start` and/or `stop` function.
 - If you define zero parameters, PySpigot will not pass any arguments to the function.
 
 ???+ notice

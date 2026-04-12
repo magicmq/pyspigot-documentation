@@ -112,6 +112,7 @@ nav:
       - About PySpigot: pyspigot/pyspigot.md
       - Plugin Commands: pyspigot/plugincommands.md
       - Plugin Configuration: pyspigot/pluginconfiguration.md
+      - Internal Denepdency Management: pyspigot/dependencies.md
     - Getting Started:
       - Quick Start Guide (Single-File Script): pyspigot/quickstart.md
       - Quick Start Guide (Project): pyspigot/quickstartproject.md
@@ -154,8 +155,12 @@ nav:
       - Command Manager: managers/core/commands.md
       - Task Manager: managers/core/tasks.md
       - Config Manager: managers/core/configuration.md
-      - Database Manager: managers/core/databases.md
       - Redis Manager: managers/core/redis.md
+      - Database Manager:
+        - Overview: managers/core/databases/index.md
+        - MySQL: managers/core/databases/mysql.md
+        - SQLite: managers/core/databases/sqlite.md
+        - MongoDB: managers/core/databases/mongodb.md
     - Bukkit Managers:
       - Plugin Message Manager: managers/bukkit/messaging.md
       - ProtocolLib Manager: managers/bukkit/protocollib.md
