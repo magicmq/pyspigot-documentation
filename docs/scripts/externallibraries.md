@@ -8,6 +8,10 @@ Of course, a more advanced usage of this functionality might include writing you
 
 PySpigot will create two folders (if they don't already exist) called `python-libs` and `java-libs` when it loads, where external libraries should be placed. This should be self-explanatory, but to clarify, external Python modules go in the `python-libs` folder, and external Java libraries go in the `java-libs` folder.
 
+???+ warning
+
+    Inside the `java-libs` folder, you will find a subfolder named `internal`. This folder is used by PySpigot's [internal dependency management system](../pyspigot/dependencies.md) and is managed entirely by PySpigot itself. **Do not place your own libraries inside `internal`, and do not modify or delete any files within it.**
+
 PySpigot also ships with two helper modules:
 
 - The `pyspigot.py` helper module, which makes it easier to access PySpigot's managers from your script.

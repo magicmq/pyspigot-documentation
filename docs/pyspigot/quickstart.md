@@ -18,6 +18,10 @@ I cannot guarantee that PySpigot will work outside of these conditions, but some
 
 Download the latest version of PySpigot for your platform from [GitHub](https://github.com/magicmq/pyspigot) or from [Spigot](https://www.spigotmc.org/resources/pyspigot.111006/). Drop the downloaded Jar file into your plugins folder and start your server.
 
+???+ note
+
+    The first time PySpigot loads, it will automatically download several internal dependencies from the internet. An **active internet connection is required** for the first startup. Once downloaded, dependencies are cached locally and no internet connection is needed for subsequent starts (unless a PySpigot update requires new or updated dependencies, in which case those are downloaded automatically). See the [Internal Dependency Management](dependencies.md) page for more information.
+
 ## Creating Your First Script
 
 In this brief tutorial, we will create a very simple script that broadcasts a message to online players.

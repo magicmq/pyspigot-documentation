@@ -113,7 +113,7 @@ See the [Quick Start Guide](pyspigot/quickstart.md) for a brief tutorial. Check 
 
 ## Discord
 
-PySpigot has an official Discord server with help channels, bug reporting, and more. It's a growing community, with several active users. If you're looking for help or want to chat about PySpigot, [Join the Discord server here.](https://discord.gg/f2u7nzRwuk).
+PySpigot has an official Discord server with help channels, bug reporting, and more. It's a growing community, with several active users. If you're looking for help or want to chat about PySpigot, [Join the Discord server here](https://discord.gg/f2u7nzRwuk).
 
 ## Metrics
 
