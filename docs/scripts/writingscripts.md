@@ -57,7 +57,7 @@ If you want to use a standard Python module in your script, try importing it. If
 
 All PySpigot scripts are designed to be *self-contained*, single files. This means that each script will, at most, consist of one file only. Additionally, scripts are *isolated* from one another, meaning they do not share variables, functions, or scope. Scripts are capable of interacting with one another in various ways (more detail on this below), but think of each .py file in the `scipts` folder as an individual entity, executed in its own environment.
 
-PySpigot scripts are placed in the `scripts` folder, which can be found in PySpigot's main plugin folder. Creation of subfolders within the `scripts` folder for organizational purposes is supported. PySpigot will attempt to load any file in the `scripts` folder (including in subfolders) that ends in the `.py` extension. Any files in the `scripts` folder that do not end in `.py` will not be loaded.
+PySpigot scripts are placed in the `scripts` folder, which can be found in PySpigot's main plugin folder. Creation of subfolders within the `scripts` folder for organizational purposes is supported. PySpigot will attempt to load any file in the `scripts` folder (including in subfolders) that ends in the `.py` extension. Any files in the `scripts` folder that do not end in `.py` will not be loaded. All scripts are loaded automatically on server start/plugin load, except those whose `auto-load` and/or `enabled` option is set to `false`.
 
 ???+ warning
 
@@ -83,7 +83,7 @@ Script permissions are defined in the `script_options.yml` file. For more inform
 
 ## Script Loading
 
-PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start. Script load order is determined by load priority, as defined in the `script_options.yml` file. Scripts that don't specify a load priority will inherit the default load priority specified in the `script-option-defaults` section of the `config.yml`. Scripts that have the same load priority are loaded in alphabetical order.
+PySpigot loads and runs all scripts in the scripts folder (including scripts within subfolders) automatically on plugin load or server start, unless if the script is marked as disabled, or its `auto-load` option is set to `false`. Script load order is determined by load priority, as defined in the `script_options.yml` file. Scripts that don't specify a load priority will inherit the default load priority specified in the `script-option-defaults` section of the `config.yml`. Scripts that have the same load priority are loaded in alphabetical order.
 
 Scripts can also be manually loaded using the load command:
 

@@ -139,6 +139,17 @@ script-option-defaults:
 
 Default: `true`
 
+### `auto-load`
+
+Specify whether a script or project should be automatically loaded on server start or plugin reload. If this is set to `false`, the script/project will not be loaded automatically, but it can still be loaded manually (as long as `enabled` is set to `true`).
+
+``` yaml linenums="1"
+script-option-defaults:
+  auto-load: true
+```
+
+Default: `true`
+
 ### `load-priority`
 
 Specifies an integer load priority for the script or project. Scripts and projects are loaded in order from highest to lowest load priority. In other words, scripts/projects that have a higher load priority are loaded earlier, and scripts/projects with a lower load priority are loaded later. If multiple scripts/projects have the same load priority, they are loaded in alphabetical order.
@@ -314,6 +325,8 @@ script-option-defaults:
   main: 'main.py'
   # Whether the script is enabled
   enabled: true
+  # Whether the script should be automatically loaded on server start, plugin enable, or plugin reload.
+  auto-load: true
   # An integer load priority for the script
   load-priority: 1
   # A list of plugins the script depends on

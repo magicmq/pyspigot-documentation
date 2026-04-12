@@ -34,7 +34,7 @@ Create a folder within the `projects` folder, and name it whatever you would lik
 
 ???+ tip
 
-    PySpigot will attempt to load all folders within the `projects` folder (as separate projects). You can disable a project by setting `enabled: false` in its [project options](../projects/projectoptions.md).
+    PySpigot will attempt to load all folders within the `projects` folder (as separate projects). You can disable a project by setting `enabled: false` in its [project options](../projects/projectoptions.md). If you want to prevent a project from automatically loading at server start but leave it enabled, you can do that too! Just set `auto-load` to `false` in its project options.
 
 ### Create a `project.yml`
 
@@ -179,7 +179,7 @@ Using the text editor of your choice, open the `main.py` module, and add some co
 
 ### Running The Project
 
-If you did everything correctly, the project should automatically load on server start. This is expected; PySpigot will automatically load and run all scripts and projects in the `scripts` and `projects` folders when the plugin loads.
+If you did everything correctly, the project should automatically load on server start. This is normal behavior- PySpigot will automatically load and run all scripts and projects in the `scripts` and `projects` folders when the plugin loads (except if a script/project is disabled or has `auto-load` set to `false`).
 
 Alternatively, if the server is already running and the PySpigot plugin is loaded and enabled, you can load and run the project with the load command:
 

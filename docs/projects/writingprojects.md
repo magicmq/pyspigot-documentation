@@ -10,7 +10,7 @@ Writing a PySpigot project is nearly identical to writing a multi-module Python 
 
 Like single-file scripts, PySpigot projects are designed to be *self-contained*. This means that each project is treated as a single "bundle", and all Python modules within the project's folder are *isolated* from files in another. Like single-file scripts, however, projects can interact with one another in various ways.
 
-PySpigot projects are placed in the `projects` folder, which can be found in PySpigot's main plugin folder. Each project must be a folder; single-file projects are not allowed (as this would be a single-file script, which should be placed in the `scripts` folder instead). All folders within the `projects` folder are considered projects, and will be loaded automatically on server start/plugin load, unless if they are marked as disabled.
+PySpigot projects are placed in the `projects` folder, which can be found in PySpigot's main plugin folder. Each project must be a folder; single-file projects are not allowed (as this would be a single-file script, which should be placed in the `scripts` folder instead). All folders within the `projects` folder are considered projects. All projects are loaded automatically on server start/plugin load, except those whose `auto-load` and/or `enabled` option is set to `false`.
 
 ???+ warning
 
@@ -42,7 +42,7 @@ Project permissions are defined in the `project.yml` file of the project. For mo
 
 ## Project Loading
 
-PySpigot loads and runs all projects in the projects folder automatically on plugin load or server start. Project load order is determined by load priority, as defined in the project's `project.yml` file. Projects that don't specify a load priority will inherit the default load priority specified in the `script-option-defaults` section of the `config.yml`. Projects that have the same load priority are loaded in alphabetical order.
+PySpigot loads and runs all projects in the projects folder automatically on plugin load or server start, unless if a project is marked as disabled, or its `auto-load` option is set to `false`. Project load order is determined by load priority, as defined in the project's `project.yml` file. Projects that don't specify a load priority will inherit the default load priority specified in the `script-option-defaults` section of the `config.yml`. Projects that have the same load priority are loaded in alphabetical order.
 
 Projects can also be manually loaded using the load command:
 

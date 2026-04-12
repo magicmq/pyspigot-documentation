@@ -61,6 +61,16 @@ enabled: true
 
 **Default:** `true`
 
+### `auto-load`
+
+Specify whether a project should be automatically loaded on server start or plugin reload. If this is set to `false`, the project will not be loaded automatically, but it can still be loaded manually (as long as `enabled` is set to `true`).
+
+``` yaml linenums="1"
+auto-load: true
+```
+
+**Default:** `true`
+
 ### `load-priority`
 
 Specify an integer load priority for the project. Scripts and projects are loaded in order from highest to lowest load priority. In other words, scripts/projects that have a higher load priority are loaded earlier, and scripts/projects with a lower load priority are loaded later. If multiple scripts and projects have the same load priority, they are loaded in alphabetical order.

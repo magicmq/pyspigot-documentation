@@ -34,7 +34,7 @@ Create a Python script file in the `scripts` folder, and name it whatever you wo
 
 ???+ tip
 
-    PySpigot will only load and run script files that end in `.py`. You can easily disable a script without deleting it by changing the file extension (for example, by adding `.disabled` to the end of the file). You can also disable a script in its [script options](../scripts/scriptoptions.md).
+    PySpigot will only load and run script files that end in `.py`. You can easily disable a script without deleting it by changing the file extension (for example, by adding `.disabled` to the end of the file). You can also disable a script in its [script options](../scripts/scriptoptions.md). If you want to prevent a script from automatically loading at server start but leave it enabled, you can do that too! Just set `auto-load` to `false` in its script options.
 
 ### Write The Script
 
@@ -87,7 +87,7 @@ Save the file, and start your server.
 
 ### Run the Script
 
-If you did everything correctly, the script should load automatically on server start. This is normal behavior- PySpigot will automatically load and run all scripts in the `scripts` folder when the plugin loads, including any scripts within subfolders.
+If you did everything correctly, the script should load automatically on server start. This is normal behavior- PySpigot will automatically load and run all scripts in the `scripts` folder when the plugin loads, including any scripts within subfolders (except if a script/project is disabled or has `auto-load` set to `false`).
 
 Alternatively, if the server is already running and the PySpigot plugin is loaded and enabled on your platform, you can load and run the script with the load command:
 
