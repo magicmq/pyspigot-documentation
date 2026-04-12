@@ -11,14 +11,14 @@ In PySpigot's main plugin folder, you'll find a file titled `script_options.yml`
 If you would like to specify options for a script, do it like so:
 
 ``` yaml linenums="1"
-test.py: # (1)!
+test: # (1)!
   enabled: true
   file-logging-enabled: true
 ```
 
 1.  All options defined under this section apply to the script `test.py` only.
 
-Each section in the `script_options.yml` file should be the name of a script. The name must *exactly* match the script's name, (including `.py`), or the options won't be parsed for that script.
+Each section in the `script_options.yml` file should be the name of a script. The name must *exactly* match the script's name, or the options won't be parsed for that script. The file extension (`.py`) is not required, but you may include it if you wish.
 
 All options within the section apply to the script by which the section is named. In the above example, the options `enabled` and `file-logging-enabled` apply to the script `test.py`.
 
@@ -27,10 +27,10 @@ All options within the section apply to the script by which the section is named
 If you would like to define options for multiple scripts, do it like so:
 
 ``` yaml linenums="1"
-test.py: # (1)!
+test: # (1)!
   enabled: true
   file-logging-enabled: true
-test2.py: # (2)!
+test2: # (2)!
   enabled: true
   load-priority: 10
 ```
@@ -38,11 +38,11 @@ test2.py: # (2)!
 1.  The options defined under this section apply to the script `test.py`.
 2.  The options defined under this section apply to the script `test2.py`.
 
-As you can see, in the above example, we define a new section titled `test2.py`, and all options within this section will apply to the `test2.py` script. All options within the `test.py` script still apply only to the script `test.py`.
+As you can see, in the above example, we define a new section titled `test2`, and all options within this section will apply to the `test2.py` script. All options within the `test` section still apply only to the script `test.py`.
 
 ## Defaults
 
-Specifying script options for each script is not a requirement. PySpigot relies on fallbacks as well as default values for script options in the event that they aren't defined in the `script_options.yml` file for the script that is being loaded. The following diagram illustrates the process by which PySpigot searches for script options when a script loads.
+Specifying script options for each script is not a requirement. PySpigot relies on fallbacks as well as default values for script options in the event that they aren't defined in the `script_options.yml` file for a particular script. The following diagram illustrates the process by which PySpigot searches for script options when a script loads:
 
 ``` mermaid
 graph LR
@@ -64,7 +64,7 @@ PySpigot performs this process for **each script option** individually.
 Specify whether a script is enabled or disabled. To disable a script, set this value to `false`.
 
 ``` yaml linenums="1"
-test.py:
+test:
   enabled: true
 ```
 
@@ -75,7 +75,7 @@ test.py:
 Specify whether a script should be automatically loaded on server start or plugin reload. If this is set to `false`, the script will not be loaded automatically, but it can still be loaded manually (as long as `enabled` is set to `true`).
 
 ``` yaml linenums="1"
-test.py:
+test:
   auto-load: true
 ```
 
@@ -86,7 +86,7 @@ test.py:
 Specify an integer load priority for the script. Scripts and projects are loaded in order from highest to lowest load priority. In other words, scripts/projects that have a higher load priority are loaded earlier, and scripts/projects with a lower load priority are loaded later. If multiple scripts and projects have the same load priority, they are loaded in alphabetical order.
 
 ``` yaml linenums="1"
-test.py:
+test:
   load-priority: 1
 ```
 
@@ -97,7 +97,7 @@ test.py:
 Specify a list of plugins that this script requires to load. The script will not load if any of the plugin dependencies are not loaded and running on the server. Additionally, when a plugin is unloaded/disabled, any scripts that depend on that plugin as specified under this option are automatically unloaded (if the `script-unload-on-plugin-disable` option in the `config.yml` is set to `true`).
 
 ``` yaml linenums="1"
-test.py:
+test:
   plugin-depend: ['Citizens', 'Vault']
 ```
 
@@ -112,7 +112,7 @@ test.py:
 Specify if script file logging should be enabled for the script. If this option is `true`, a script log file will be generated, and any error messages (and print messages sent to the script's logger) will be logged to this file. If this option is `false`, no messages will be logged to a log file, but messages will still be printed to the server console.
 
 ``` yaml linenums="1"
-test.py:
+test:
   file-logging-enabled: true
 ```
 
@@ -123,7 +123,7 @@ test.py:
 Specify the minimum logging level that should be logged to the script's log file and the console. Options can be found on the [JavaDocs](https://docs.oracle.com/en/java/javase/11/docs/api/java.logging/java/util/logging/Level.html).
 
 ``` yaml linenums="1"
-test.py:
+test:
   min-log-level: 'INFO'
 ```
 
@@ -138,7 +138,7 @@ test.py:
 Specify a list of permissions that the script uses. This is useful for scripts that want to restrict access to certain features. This section is defined in the [exact same way](https://docs.papermc.io/paper/dev/plugin-yml#permissions) that permissions are defined in the `plugin.yml` file for a Bukkit plugin. See usage code example below for how to define permissions, defaults, and child permissions.
 
 ``` yaml linenums="1"
-test.py:
+test:
   permissions:
     permission.node.*:
       description: 'This is a permission node'
@@ -172,7 +172,7 @@ test.py:
 Specify a default value that permissions should have, if they do not have a `default` value defined.
 
 ``` yaml linenums="1"
-test.py:
+test:
   permission-default: true
 ```
 
