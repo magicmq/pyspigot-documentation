@@ -135,7 +135,7 @@ nav:
       - External Resources: scripts/externalresources.md
     - Helper Modules:
       - PySpigot Helper Module: scripts/helpermodule.md
-      - Function Helper Module: scripts/functionmodule.md
+      - Functional Decorators Module: scripts/functionmodule.md
 
   - Writing Projects:
     - General Information: projects/writingprojects.md
@@ -145,7 +145,7 @@ nav:
       - External Resources: scripts/externalresources.md
     - Helper Modules:
       - PySpigot Helper Module: scripts/helpermodule.md
-      - Function Helper Module: scripts/functionmodule.md
+      - Functional Decorators Module: scripts/functionmodule.md
 
   - Managers:
     - Using the Managers in your Script: managers/usage.md
