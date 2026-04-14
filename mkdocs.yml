@@ -156,6 +156,7 @@ nav:
       - Task Manager: managers/core/tasks.md
       - Config Manager: managers/core/configuration.md
       - Redis Manager: managers/core/redis.md
+      - Packet Events Manager: managers/core/packetevents.md
       - Database Manager:
         - Overview: managers/core/databases/index.md
         - MySQL: managers/core/databases/mysql.md
