@@ -1,107 +1,208 @@
 # Defining Tasks
 
-Through PySpigot, scripts can interact with Bukkit's task scheduler and schedule/run synchronous and asynchronous tasks. These allow you to run code at later times, at intervals, repeating, and on a thread other than the main server thread. The task manager also has built-in support for asynchronous tasks with synchronous callbacks.
+Through PySpigot, scripts can schedule and run tasks using the platform's task scheduler. Tasks allow you to run code at a later time, at a fixed interval, and/or on a thread other than the main server thread. The task manager also has built-in support for asynchronous tasks with synchronous callbacks (on Bukkit).
 
 For instructions on importing the task manager into your script, visit the [General Information](../usage.md) page.
 
 ???+ info
 
-    This is not a comprehensive guide to scheduling tasks. For a more complete guide to tasks and scheduler programming, see Bukkit's tutorial on using the scheduler [here](https://bukkit.fandom.com/wiki/Scheduler_Programming). Note that much of this information pertains to writing plugins in Java, but the general ideas are nevertheless helpful to understand.
-
-## Task Manager Usage
-
-There are several functions in the task manager available for you to use in your script:
-
-- `runTask(function, functionArgs)`: Run a synchronous task as soon as possible. Takes the function to call when the task runs. Also takes any number of arguments that should be passed to the function when the task runs.
-- `runTaskAsync(function, functionArgs)`: Run an asychronous task (a task on a thread other than the main server thread). Takes the function to call when the task runs. Also takes any number of arguments that should be passed to the function when the task runs.
-- `runTaskLater(function, delay, functionArgs)`: Run a synchronous task at some point in the future after the specified delay. Takes the function to call when the task runs and the delay to wait (in ticks) before running the task. Also takes any number of arguments that should be passed to the function when the task runs.
-- `runTaskLaterAsync(function, delay, functionArgs)`: Run an asynchronous task at some point in the future after the specified delay. Takes the function to call when the task runs and the delay to wait (in ticks) before running the task. Also takes any number of arguments that should be passed to the function when the task runs.
-- `scheduleRepeatingTask(function, delay, interval, functionArgs)`: Run a synchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run. Also takes any number of arguments that should be passed to the function when the task runs.
-- `scheduleAsyncRepeatingTask(function, delay, interval, functionArgs)`: Run an asynchronous repeating task that repeats every specified interval. Takes the function to call each time the task runs, the delay to wait (in ticks) before running the task, and the interval (in ticks) at which the task should be run. Also takes any number of arguments that should be passed to the function when the task runs.
-- `runSyncCallbackTask(function, callback, functionArgs)`: Schedules an asynchronous task with a synchronous callback. Takes the function to call for the asynchronous portion, and another function to call for the synchronous portion. Also takes any number of arguments that should be passed to the function (asynchronous portion) when the task runs.
-- `runSyncCallbackTaskLater(function, callback, delay, functionArgs)`: Schedules an asynchronous task with a synchronous callback to run at some point in the future after the specified delay. Takes the function to call for the asynchronous portion, another function to call for the synchronous portion, and the delay to wait (in ticks) before running the task. Also takes any number of arguments that should be passed to the function (asynchronous portion) when the task runs.
-- `stopTask(task)`: Stop/Cancel a task. Takes the task object of the task to stop.
-
-Any time a task is scheduled, a `Task` object is returned. This can be used to cancel the task later, if desired. Tasks can be stopped either via the `stopTask` function, as outlined above, or via the Task object itself, by calling `task.cancel()`.
-
-In the above functions, `functionArgs` is an optional argument. If the function to call does not accept any arguments, you do not need to specify any.
+    This is not a comprehensive guide to scheduling tasks. For a more complete guide to scheduler programming, see Bukkit's tutorial on using the scheduler [here](https://bukkit.fandom.com/wiki/Scheduler_Programming). Note that much of this information pertains to writing plugins in Java, but the general ideas are nevertheless helpful to understand.
 
 ???+ note
 
     20 ticks of in-game time is one real-world second (in a server without TPS lag). Therefore, one tick is equal to 1/20 of a second.
 
-## Basic Code Example
+    On BungeeCord and Velocity, ticks do not apply. Delays and intervals on these platforms can optionally be specified using a Java [`TimeUnit`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/TimeUnit.html).
 
-Let's take a look at the following code that defines and starts a synchronous repeating task:
+## Task Decorators
+
+PySpigot ships with a `decorators/task.py` helper module that provides Python **decorators** for scheduling tasks. Using the decorators is the recommended way to schedule tasks, as it is cleaner and more Pythonic than calling the task manager directly.
+
+### Importing
+
+=== "Bukkit"
+
+    ``` py
+    from decorators.task import task           # synchronous task
+    from decorators.task import async_task     # asynchronous task
+    from decorators.task import sync_callback_task  # (1)!
+    ```
+
+    1. Only needed for asynchronous tasks with a synchronous callback. See [`@sync_callback_task`](#sync_callback_task-bukkit-only) below.
+
+=== "Velocity"
+
+    ``` py
+    from decorators.task import async_task
+    ```
+
+=== "BungeeCord"
+
+    ``` py
+    from decorators.task import async_task
+    ```
+
+### Scheduling Rules
+
+The `@task` and `@async_task` decorators follow a simple set of rules to determine how the task is scheduled, based on the `delay` and `interval` parameters:
+
+| `delay` | `interval` | Behavior |
+|---|---|---|
+| `0` | `0` | Runs immediately (once). |
+| `> 0` | `0` | Runs once after the specified delay. |
+| `0` | `> 0` | Repeats at the specified interval, starting immediately. |
+| `> 0` | `> 0` | Repeats at the specified interval, starting after the initial delay. |
+
+### `@task` (Bukkit only)
+
+The `@task` decorator schedules a **synchronous** task. Synchronous tasks run on the main server thread.
 
 ``` py linenums="1"
-import pyspigot as ps # (1)!
+from decorators.task import task
 
-a_string = 'Test'
-
-def run_task(arg): # (2)!
-    #Do something...
-
-task = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100, a_string) # (3)!
+@task() # (1)!
+def my_task():
+    print('Running immediately on the main thread!')
 ```
 
-1. Here, we import PySpigot as `ps` to utilize the task manager (`scheduler`).
+1. `@task()` with no arguments runs the task once, immediately.
 
-2. Here, we define a function called `run_task` that takes one argument.
-
-3. Here, we register our task as a synchronous repeating task with the task manager, passing the `run_task` function, our desired delay (0 ticks), our desired interval (100 ticks), and the variable we want to pass to the task function each time the task is ran (the `a_string` variable we defined earlier on line 3). We then assign the returned value, a `Task` object, to the `task` variable. We can use this to cancel the task later.
-
-Like listeners, all tasks must be registered and run with PySpigot's task manager. There are many different ways to start tasks depending on if we want the task to be synchronous, ascynchronous, and/or repeating, but here we want our task to be synchronous and repeating, so we use `scheduleRepeatingTask(function, delay, interval, functionArgs)`, which in this case takes four arguments:
-
-- The first argument accepts the function that should be called when the task runs (either once or repeatedly at a fixed interval).
-- The second argument is the delay (in ticks) that the scheduler should wait before starting the task when it is registered.
-- The third argument is the interval (in ticks) that the task should be run.
-- The final arguments (fourth only in this case) are used to specify the arguments that should be passed to the function.
-
-### Passing Multiple Arguments to a Task's Function
-
-If we wanted `run_task` in the above example to take two arguments instead of one, we would modify the code like so:
+Delayed and repeating examples:
 
 ``` py linenums="1"
-import pyspigot as ps
+from decorators.task import task
 
-a_string = 'Test'
-another_string = 'Test 2'
+@task(delay=40) # (1)!
+def delayed_task():
+    print('Runs after 2 seconds.')
 
-def run_task(arg, arg2):
-    #Do something...
+@task(interval=20) # (2)!
+def repeating_task():
+    print('Runs every second.')
 
-task = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100, a_string, another_string)
+@task(delay=20, interval=20) # (3)!
+def delayed_repeating_task():
+    print('Runs every second, starting after 1 second.')
 ```
 
-This example is very similar to the first, except that we define another string (`another_string`) and pass it (along with `a_string`) to the task manager when we register the task on line 8. These two strings are then passed, in order, to `run_task` when it is called by the task.
+1. Runs once, 40 ticks (2 seconds) after the script loads.
+2. Runs every 20 ticks (1 second), starting immediately.
+3. Runs every 20 ticks (1 second), starting after an initial 20-tick delay.
 
-As you can see, all arguments to be passed are added at the end of the function that registers the task, in the appropriate order that they should be passed.
+### `@async_task`
 
-## Callback Tasks
+The `@async_task` decorator schedules an **asynchronous** task. Asynchronous tasks run on a thread other than the main server thread.
 
-The task manager also includes a callback task, which is a special task that runs asynchronously, then runs another synchronous task upon completion of the asynchronous task. This task type is quite useful in situations where you want to do work asynchronously, and then process the result of that work in a sychronous context. For example, consider a situation where a server has an SQL database that stores player data. When a player joins, the data should be fetched from the database asynchronously to avoid server lag, but it can't be applied to the player asynchronously, since all interaction with Bukkit and the server should be done synchronously. Therefore, a synchronous callback is useful in this situation to bring the data that was obtained from the database back to the main server thread for further processing and to apply it to the player.
+???+ warning
 
-### Callback Task Example
+    On Bukkit, never interact with the Bukkit API from an asynchronous task. Bukkit API calls must happen on the main server thread. Use a [sync callback task](#sync_callback_task-bukkit-only) if you need to bring asynchronous results back to the main thread.
 
-The following is a simple example of how to use a callback task:
+=== "Bukkit"
+
+    The Bukkit `@async_task` decorator accepts `delay` and `interval` (in ticks) only:
+
+    ``` py linenums="1"
+    from decorators.task import async_task
+
+    @async_task() # (1)!
+    def my_async_task():
+        print('Running asynchronously!')
+
+    @async_task(delay=40) # (2)!
+    def delayed_async_task():
+        print('Runs asynchronously after 2 seconds.')
+
+    @async_task(interval=20) # (3)!
+    def repeating_async_task():
+        print('Runs asynchronously every second.')
+    ```
+
+    1. Runs once, immediately, on a separate thread.
+    2. Runs once asynchronously after a 40-tick delay.
+    3. Repeats asynchronously every 20 ticks.
+
+=== "Velocity"
+
+    On Velocity, `@async_task` supports optional `TimeUnit` parameters for the delay and interval:
+
+    - `delay` — how long to wait before first execution. Defaults to `0`.
+    - `delay_time_unit` — the [`TimeUnit`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/TimeUnit.html) for `delay`. If omitted, ticks are used.
+    - `interval` — how long to wait between executions. Defaults to `0`.
+    - `interval_time_unit` — the [`TimeUnit`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/TimeUnit.html) for `interval`. If omitted, ticks are used.
+    - `time_unit` — a convenience parameter that sets both `delay_time_unit` and `interval_time_unit` at once.
+
+    ``` py linenums="1"
+    from decorators.task import async_task
+    from java.util.concurrent import TimeUnit
+
+    @async_task(delay=5, time_unit=TimeUnit.SECONDS) # (1)!
+    def delayed_async_task():
+        print('Runs asynchronously after 5 seconds.')
+
+    @async_task(delay=2, delay_time_unit=TimeUnit.SECONDS, interval=30, interval_time_unit=TimeUnit.SECONDS) # (2)!
+    def repeating_async_task():
+        print('Repeats every 30 seconds, starting after 2 seconds.')
+    ```
+
+    1. Runs once, 5 seconds after the script loads. `time_unit` sets both delay and interval time units in one step.
+    2. Repeats every 30 seconds, starting after an initial 2-second delay. Delay and interval have independent `TimeUnit` values.
+
+=== "BungeeCord"
+
+    On BungeeCord, `@async_task` supports an optional `time_unit` parameter that applies to both `delay` and `interval`:
+
+    - `delay` — how long to wait before first execution. Defaults to `0`.
+    - `interval` — how long to wait between executions. Defaults to `0`.
+    - `time_unit` — the [`TimeUnit`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/TimeUnit.html) for both `delay` and `interval`. If omitted, ticks are used.
+
+    ``` py linenums="1"
+    from decorators.task import async_task
+    from java.util.concurrent import TimeUnit
+
+    @async_task(delay=5, time_unit=TimeUnit.SECONDS) # (1)!
+    def delayed_async_task():
+        print('Runs asynchronously after 5 seconds.')
+
+    @async_task(delay=2, interval=30, time_unit=TimeUnit.SECONDS) # (2)!
+    def repeating_async_task():
+        print('Repeats every 30 seconds, starting after 2 seconds.')
+    ```
+
+    1. Runs once, 5 seconds after the script loads.
+    2. Repeats every 30 seconds, starting after an initial 2-second delay. The same `time_unit` applies to both.
+
+### `@sync_callback_task` (Bukkit only)
+
+The `@sync_callback_task` decorator schedules an **asynchronous** task with a **synchronous callback**. The async portion runs first on a background thread; when it finishes, the callback runs synchronously on the main server thread. Any value *returned* from the async function is automatically passed as an argument to the callback.
+
+This is useful when you need to perform I/O work (such as a database query) asynchronously to avoid server lag, and then apply the result back on the main thread.
+
+Attach the callback by applying the decorated function's `.callback` attribute as a decorator to the synchronous callback function:
 
 ``` py linenums="1"
-import pyspigot as ps
+from decorators.task import sync_callback_task
 
-def async_task():
+@sync_callback_task() # (1)!
+def fetch_data():
     print('Asynchronous!')
     data = 'some data'
-    return data
+    return data # (2)!
 
-def sync_task(data):
+@fetch_data.callback # (3)!
+def apply_data(data): # (4)!
     print('Synchronous!')
     print(data)
-
-task = ps.scheduler.runSyncCallbackTask(async_task, sync_task)
 ```
 
-The following conosle output is observed:
+1. `@sync_callback_task()` schedules `fetch_data` to run asynchronously. An optional `delay` (in ticks) parameter can be passed to delay the start.
+
+2. Any value returned from the async function is automatically forwarded as an argument to the callback.
+
+3. `@fetch_data.callback` registers `apply_data` as the synchronous callback. It is called after `fetch_data` completes.
+
+4. `apply_data` receives the return value of `fetch_data` as its argument.
+
+The following console output is observed when this code runs:
 
 ```
 [STDOUT] Asynchronous!
@@ -109,65 +210,141 @@ The following conosle output is observed:
 [STDOUT] some data
 ```
 
-There are a few things to note regarding this example:
+### Passing Arguments to the Task Function
 
-- **First**, there are separate functions defined for the asynchronous and synchronous portions of the callback task.
-- **Second**, the asynchronous task happens *first*, and the synchronous task will not begin execution until the asynchronous task *finishes*.
-- **Third**, any data returned from the asynchrounous portion of the task (such as the return statement on line 6 of the above example) is passed as a function argument to the synchronous portion of the task (`sync_task` above takes the argument `data`). This allows for synchronous processing of whatever data was retrieved in the asynchronous portion of the task.
+Extra positional arguments passed to any decorator are forwarded to the task function each time it executes:
 
-## Stopping a Task
+=== "Bukkit"
 
-There are two ways tasks can be stopped/cancelled:
+    ``` py linenums="1"
+    from decorators.task import task
 
-1. By calling the `cancel()` function on the task object itself.
-2. By calling the `stopTask` function of the task manager, and passing the task object to stop.
+    message = 'Hello!'
+    count = 42
 
-Here is an example using the `cancel()` function on the task:
+    @task(0, 20, message, count) # (1)!
+    def my_task(msg, n):
+        print(msg, n)
+    ```
+
+    1. The third and subsequent arguments (`message`, `count`) are passed through to `my_task` on every execution.
+
+=== "Velocity"
+
+    ``` py linenums="1"
+    from decorators.task import async_task
+
+    message = 'Hello!'
+
+    @async_task(0, None, 20, None, None, message) # (1)!
+    def my_task(msg):
+        print(msg)
+    ```
+
+    1. On Velocity, the signature is `async_task(delay, delay_time_unit, interval, interval_time_unit, time_unit, *args)`. Extra positional arguments follow after the time unit parameters.
+
+=== "BungeeCord"
+
+    ``` py linenums="1"
+    from decorators.task import async_task
+
+    message = 'Hello!'
+
+    @async_task(0, 20, None, message) # (1)!
+    def my_task(msg):
+        print(msg)
+    ```
+
+    1. On BungeeCord, the signature is `async_task(delay, interval, time_unit, *args)`. Extra positional arguments follow after `time_unit`.
+
+### Cancelling a Task
+
+When a function is decorated with any task decorator, two attributes are attached to it:
+
+- `.scheduled_task` — the `Task` object representing the scheduled task.
+- `.cancel()` — a convenience method that cancels the task.
 
 ``` py linenums="1"
-import pyspigot as ps
-
-def run_task():
-    print('This is a repeating task.')
-
-task = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100) # (1)!
-
-# Some time passes...
-
-task.cancel() # (2)!
+my_task.cancel() # (1)!
 ```
 
-1. When the task is scheduled, we assign the returned task object so we can use it later to cancel the task.
-
-2. The task is stopped/cancelled by calling `cancel` on the task object that was created/assigned earlier.
-
-Here is an example using the `stopTask` function of the task manager:
-
-``` py linenums="1"
-import pyspigot as ps
-
-def run_task():
-    print('This is a repeating task.')
-
-task = ps.scheduler.scheduleRepeatingTask(run_task, 0, 100) # (1)!
-
-# Some time passes...
-
-ps.scheduler.stopTask(task) # (2)!
-```
-
-1. When the task is scheduled, we assign the returned task object so we can use it later to cancel the task.
-
-2. The task is stopped/cancelled by calling the `stopTask` function of the task manager, passing the task object that was created earlier.
+1. Cancels `my_task`. After this call, the task will no longer execute.
 
 ???+ note
 
     When a script is stopped, any tasks belonging to that script are stopped/cancelled automatically. You do not need to cancel them yourself.
 
+## Task Manager Usage
+
+If you prefer to schedule tasks manually without using the decorators, the task manager functions are available as an alternative:
+
+=== "Bukkit"
+
+    - `runTask(function, functionArgs)`: Run a synchronous task as soon as possible.
+    - `runTaskAsync(function, functionArgs)`: Run an asynchronous task as soon as possible.
+    - `runTaskLater(function, delay, functionArgs)`: Run a synchronous task after the specified delay (in ticks).
+    - `runTaskLaterAsync(function, delay, functionArgs)`: Run an asynchronous task after the specified delay (in ticks).
+    - `scheduleRepeatingTask(function, delay, interval, functionArgs)`: Run a synchronous repeating task.
+    - `scheduleAsyncRepeatingTask(function, delay, interval, functionArgs)`: Run an asynchronous repeating task.
+    - `runSyncCallbackTask(function, callback, functionArgs)`: Schedule an asynchronous task with a synchronous callback.
+    - `runSyncCallbackTaskLater(function, callback, delay, functionArgs)`: Schedule an asynchronous task with a synchronous callback, starting after a delay.
+    - `stopTask(task)`: Stop/cancel a task. Takes the `Task` object returned when the task was scheduled.
+
+    In the above functions, `functionArgs` is optional — if the function takes no arguments, it can be omitted.
+
+=== "Velocity"
+
+    Velocity does not support synchronous tasks. Only asynchronous scheduling functions are available:
+
+    - `runTaskAsync(function, functionArgs)`: Run an asynchronous task as soon as possible.
+    - `runTaskLaterAsync(function, delay, functionArgs)`: Run an asynchronous task after the specified delay (in ticks).
+    - `runTaskLaterAsync(function, delay, timeUnit, functionArgs)`: Run an asynchronous task after the specified delay, using a [`TimeUnit`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/TimeUnit.html).
+    - `scheduleAsyncRepeatingTask(function, delay, interval, functionArgs)`: Run an asynchronous repeating task (delay and interval in ticks).
+    - `scheduleAsyncRepeatingTask(function, delay, delayTimeUnit, interval, intervalTimeUnit, functionArgs)`: Run an asynchronous repeating task with independent time units for delay and interval.
+    - `stopTask(task)`: Stop/cancel a task. Takes the `Task` object returned when the task was scheduled.
+
+=== "BungeeCord"
+
+    BungeeCord does not support synchronous tasks. Only asynchronous scheduling functions are available:
+
+    - `runTaskAsync(function, functionArgs)`: Run an asynchronous task as soon as possible.
+    - `runTaskLaterAsync(function, delay, functionArgs)`: Run an asynchronous task after the specified delay (in ticks).
+    - `runTaskLaterAsync(function, delay, timeUnit, functionArgs)`: Run an asynchronous task after the specified delay, using a [`TimeUnit`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/TimeUnit.html).
+    - `scheduleAsyncRepeatingTask(function, delay, interval, functionArgs)`: Run an asynchronous repeating task (delay and interval in ticks).
+    - `scheduleAsyncRepeatingTask(function, delay, interval, timeUnit, functionArgs)`: Run an asynchronous repeating task with a shared [`TimeUnit`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/TimeUnit.html) for both delay and interval.
+    - `stopTask(task)`: Stop/cancel a task. Takes the `Task` object returned when the task was scheduled.
+
+Any time a task is scheduled using the task manager functions, a `Task` object is returned. This can be used to cancel the task later either by calling `task.cancel()` on the `Task` object, or by passing it to `stopTask(task)`.
+
+### Code Example
+
+``` py linenums="1"
+import pyspigot as ps
+
+a_string = 'Test'
+
+def run_task(arg): # (1)!
+    print(arg)
+
+task = ps.task_manager().scheduleRepeatingTask(run_task, 0, 100, a_string) # (2)!
+
+# Some time passes...
+
+task.cancel() # (3)!
+```
+
+1. Define the task function. It accepts one argument, which will be the value of `a_string`.
+
+2. Schedule a synchronous repeating task with a 0-tick initial delay and 100-tick interval. The `a_string` variable is passed through as an argument to `run_task` each time it executes.
+
+3. Cancel the task by calling `cancel()` on the returned `Task` object. Alternatively, `ps.task_manager().stopTask(task)` has the same effect.
+
 ## Summary
 
-- Like listeners, tasks are defined as functions in your script. Task can take any number of arguments, including zero.
-- Tasks can pass arguments on to the function they call. Specify these arguments when you register your task with the task manager.
-- All tasks must be registered with PySpigot's task manager. For example, to schedule and run a synchronous repeating task, use `scheduler.scheduleRepeatingTask(function, delay, interval, functionArgs)`.
-- Scheduling any type of task returns a `Task` object, which can be used to cancel the task later, if desired.
-- When a script is stopped, any tasks belonging to that script are stopped/cancelled automatically.
+- Tasks are defined as functions in your script. Task functions can take any number of arguments, including zero.
+- The recommended way to schedule tasks is via the `@task`, `@async_task`, or `@sync_callback_task` decorators from `decorators/task.py`.
+- Decorator scheduling rules: no delay/interval → runs once immediately; `delay > 0` → delayed single run; `interval > 0` → repeating task.
+- On BungeeCord and Velocity, only asynchronous tasks are supported. Delays and intervals can be specified using a Java `TimeUnit` instead of ticks.
+- Decorated task functions gain a `.scheduled_task` attribute (the `Task` object) and a `.cancel()` method.
+- Alternatively, tasks can be scheduled manually via the task manager functions such as `scheduleRepeatingTask(function, delay, interval)`.
+- When a script stops, all of its tasks are cancelled automatically.
