@@ -16,6 +16,11 @@ For instructions on importing the task manager into your script, visit the [Gene
 
 ## Task Decorators
 
+<span class="mdx-badge">
+  <span class="mdx-badge__icon">:material-tag-outline:</span>
+  <span class="mdx-badge__text">0.10.0</span>
+</span>
+
 PySpigot ships with a `decorators/task.py` helper module that provides Python **decorators** for scheduling tasks. Using the decorators is the recommended way to schedule tasks, as it is cleaner and more Pythonic than calling the task manager directly.
 
 ### Importing
@@ -229,6 +234,10 @@ Extra positional arguments passed to any decorator are forwarded to the task fun
 
     1. The third and subsequent arguments (`message`, `count`) are passed through to `my_task` on every execution.
 
+    ```
+    [STDOUT] Hello! 42
+    ```
+
 === "Velocity"
 
     ``` py linenums="1"
@@ -243,6 +252,10 @@ Extra positional arguments passed to any decorator are forwarded to the task fun
 
     1. On Velocity, the signature is `async_task(delay, delay_time_unit, interval, interval_time_unit, time_unit, *args)`. Extra positional arguments follow after the time unit parameters.
 
+    ```
+    [STDOUT] Hello!
+    ```
+
 === "BungeeCord"
 
     ``` py linenums="1"
@@ -256,6 +269,10 @@ Extra positional arguments passed to any decorator are forwarded to the task fun
     ```
 
     1. On BungeeCord, the signature is `async_task(delay, interval, time_unit, *args)`. Extra positional arguments follow after `time_unit`.
+
+    ```
+    [STDOUT] Hello!
+    ```
 
 ### Cancelling a Task
 
