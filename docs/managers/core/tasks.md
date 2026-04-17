@@ -16,11 +16,6 @@ For instructions on importing the task manager into your script, visit the [Gene
 
 ## Task Decorators
 
-<span class="mdx-badge">
-  <span class="mdx-badge__icon">:material-tag-outline:</span>
-  <span class="mdx-badge__text">0.10.0</span>
-</span>
-
 PySpigot ships with a `decorators/task.py` helper module that provides Python **decorators** for scheduling tasks. Using the decorators is the recommended way to schedule tasks, as it is cleaner and more Pythonic than calling the task manager directly.
 
 ### Importing
