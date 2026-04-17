@@ -12,6 +12,74 @@ PySpigot includes a manager that interfaces with [PacketEvents](https://github.c
 
 For instructions on importing the packet events manager into your script, visit the [General Information](../usage.md) page.
 
+## The `packet_listener` Decorator
+
+PySpigot ships with a `decorators/packet_events.py` helper module that provides a Python **decorator** for registering packet listeners. Using the decorator is the recommended way to register packet listeners, as it is cleaner and more Pythonic than calling the packet events manager directly.
+
+???+ warning
+
+    The `decorators/packet_events` module checks whether PacketEvents is available **at import time**. Importing from this module on a server where PacketEvents is not installed will immediately raise a `ScriptRuntimeException`. Only import this module if you know PacketEvents is present.
+
+### Importing
+
+``` py
+from decorators.packet_events import packet_listener
+```
+
+### Basic Usage
+
+Apply `@packet_listener(PacketType)` to a function to register it as a listener for that packet type. Since PacketEvents is cross-platform, the syntax is the same regardless of platform:
+
+``` py linenums="1"
+from decorators.packet_events import packet_listener
+from com.github.retrooper.packetevents.protocol.packettype import PacketType # (1)!
+from com.github.retrooper.packetevents.wrapper.play.client import WrapperPlayClientChatMessage
+
+@packet_listener(PacketType.Play.Client.CHAT_MESSAGE) # (2)!
+def chat_packet(event): # (3)!
+    wrapper = WrapperPlayClientChatMessage(event)
+    message = wrapper.getMessage()
+    print(f'Player sent a chat! Their message was: {message}')
+```
+
+1. The packet type class must be imported before it is passed to the decorator.
+
+2. Applying `@packet_listener(PacketType.Play.Client.CHAT_MESSAGE)` registers `chat_packet` as a listener for that packet type. The listener direction (receive vs. send) is determined automatically from the packet type — see [Packet Types](#packet-types) below.
+
+3. The function receives the packet event as its only parameter — a `PacketReceiveEvent` for `*.Client` packet types, or a `PacketSendEvent` for `*.Server` packet types.
+
+### Optional Parameters
+
+- `packet_type` *(required)* — the packet type to listen for.
+- `priority` — the listener priority. Defaults to `PacketListenerPriority.NORMAL`. See [Listener Priority](#listener-priority) below.
+
+``` py linenums="1"
+from decorators.packet_events import packet_listener
+from com.github.retrooper.packetevents.protocol.packettype import PacketType
+from com.github.retrooper.packetevents.event import PacketListenerPriority
+
+@packet_listener(PacketType.Play.Client.CHAT_MESSAGE, priority=PacketListenerPriority.HIGH)
+def chat_packet(event):
+    ...
+```
+
+### Unregistering a Listener
+
+When a function is decorated with `@packet_listener`, two attributes are attached to it:
+
+- `.registered_listener` — the `ScriptPacketListener` object representing the registered listener.
+- `.unregister()` — a convenience method that unregisters the listener.
+
+``` py linenums="1"
+chat_packet.unregister() # (1)!
+```
+
+1. Unregisters the `chat_packet` listener. After this call, the function will no longer be called when the packet is intercepted.
+
+???+ tip
+
+    You **do not** need to unregister your packet listeners when your script is stopped/unloaded. PySpigot will handle this for you.
+
 ## Packet Events Manager Usage
 
 The following functions are available from the packet events manager:
@@ -30,6 +98,8 @@ The following functions are available from the packet events manager:
 ???+ note
 
     Each script may only register one packet listener per packet type. Attempting to register a second listener for the same packet type within the same script will throw a `ScriptRuntimeException`.
+
+If you prefer to register packet listeners manually without using the decorator, the functions above are available as an alternative.
 
 ## Packet Types
 
@@ -196,6 +266,8 @@ ps.packet_events.unregisterPacketListener(packet_listener) # (1)!
     - Packet types under `*.Client` (e.g., `PacketType.Play.Client.*`) produce a `PacketReceiveEvent`.
     - Packet types under `*.Server` (e.g., `PacketType.Play.Server.*`) produce a `PacketSendEvent`.
 - Each script may only register **one** packet listener per packet type.
-- All packet listeners must be registered with PySpigot's packet events manager using `registerPacketListener(function, type)`.
-- When registering a packet listener, the register functions return a `ScriptPacketListener`, which can be used to unregister the listener.
+- The recommended way to register a packet listener is via the `@packet_listener(PacketType)` decorator from `decorators/packet_events.py`.
+- Decorated functions gain a `.registered_listener` attribute (the `ScriptPacketListener`) and an `.unregister()` method for easy cleanup.
+- Alternatively, packet listeners can be registered manually via the packet events manager using `registerPacketListener(function, type)`.
 - To read or write packet data, use PacketEvents' typed wrapper classes (e.g., `WrapperPlayClientChatMessage`), which are located under `com.github.retrooper.packetevents.wrapper.*`.
+- You **do not** need to unregister packet listeners when your script stops — PySpigot handles cleanup automatically.

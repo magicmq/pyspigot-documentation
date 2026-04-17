@@ -136,7 +136,49 @@ messaging.sendMessage(player, 'custom_channel', 'Payload') # (3)!
 
 ### Receiving Messages
 
-When sending messages that respond with something meaningful, we also need a plugin message listener to listen for incoming plugin messages. The messaging manager provides several functions for registering and unregistering plugin message listeners:
+When sending messages that respond with something meaningful, we also need a plugin message listener to listen for incoming plugin messages.
+
+#### The `plugin_message_listener` Decorator
+
+PySpigot ships with a `decorators/plugin_message_listener.py` helper module that provides a Python **decorator** for registering plugin message listeners. Using the decorator is the recommended way to register listeners.
+
+**Importing:**
+
+``` py
+from decorators.plugin_message_listener import plugin_message_listener
+```
+
+Apply `@plugin_message_listener(channel)` to a function to register it as a listener on the given channel:
+
+``` py linenums="1"
+from decorators.plugin_message_listener import plugin_message_listener
+
+@plugin_message_listener('BungeeCord') # (1)!
+def message_received(channel, player, message): # (2)!
+    # Handle the incoming message...
+    pass
+```
+
+1. Registers `message_received` as a listener on the `BungeeCord` channel. No separate call to the messaging manager is needed.
+
+2. Listener functions must accept three arguments: `channel` (the channel the message was received on), `player` (the player the message was sent through), and `message` (the raw byte array payload).
+
+When decorated, the function gains two attributes:
+
+- `.registered_listener` — the `ScriptPluginMessageListener` representing the registered listener.
+- `.unregister()` — a convenience method that unregisters the listener.
+
+``` py
+message_received.unregister()
+```
+
+???+ note
+
+    When a script/project is stopped, all its plugin message listeners are automatically unregistered. You do not need to unregister them yourself.
+
+#### Messaging Manager Functions
+
+If you prefer to register listeners manually without using the decorator, the messaging manager provides the following functions:
 
 - `registerListener(function, channel)`: Registers a plugin message listener to listen on the given channel. When a message is received, the function is called.
     - `function`: The function that should be called when a message is received on the channel. This function should accept three arguments: `channel`, the channel the message was received on, `player`, the source of the message, and `message`: the message payload itself.
@@ -147,10 +189,6 @@ When sending messages that respond with something meaningful, we also need a plu
 - `unregisterListeners(script)`: Unregister all plugin message listeners belonging to a script.
     - `script`: The script whose plugin message listeners should be unregistered
 
-???+ note
-
-    When a script/project is stopped, all its plugin message listeners are automatically unregistered. You do not need to unregister them yourself.
-
 #### Receiving a player count message
 
 Suppose a plugin message was sent with the type "PlayerCount", a message type which can be used to fetch the player count of another server on the proxy: `sendBungeeMessage(player 'PlayerCount', 'server1')`. We expect to receive a reply stating the number of players on the server "server1".
@@ -159,47 +197,49 @@ The following example demonstrates how to handle and parse the response:
 
 ```py linenums="1"
 import pyspigot as ps # (1)!
-from com.google.common.io import ByteStreams # (2)!
+from decorators.plugin_message_listener import plugin_message_listener # (2)!
+from com.google.common.io import ByteStreams # (3)!
 from org.bukkit import Bukkit
 
 messaging = ps.message_manager()
 
-def message_received(channel, player, message): # (3)!
-    input = ByteStreams.newDataInput(message) # (4)!
+@plugin_message_listener('BungeeCord') # (4)!
+def message_received(channel, player, message): # (5)!
+    input = ByteStreams.newDataInput(message) # (6)!
 
-    subchannel = input.readUTF() # (5)!
-    if subchannel == 'PlayerCount': # (6)!
-        server = in.readUTF() # (7)!
-        player_count = in.readInt() # (8)!
+    subchannel = input.readUTF() # (7)!
+    if subchannel == 'PlayerCount': # (8)!
+        server = input.readUTF() # (9)!
+        player_count = input.readInt() # (10)!
         print('The player count of server ' + server + ' is ' + str(player_count))
 
-listener = messaging.registerListener(message_received, 'BungeeCord') # (9)!
-
-player = Bukkit.getPlayer('Player') # (10)!
-messaging.sendBungeeMessage(player, 'PlayerCount', 'lobby') # (11)!
+player = Bukkit.getPlayer('Player') # (11)!
+messaging.sendBungeeMessage(player, 'PlayerCount', 'lobby') # (12)!
 ```
 
-1. Here, we import PySpigot as `ps` to access the messaging manager (`message_manager()`).
+1. Here, we import PySpigot as `ps` to access the messaging manager.
 
-2. Here, we import the Java class `ByteStreams`, for use when reading the received message.
+2. Here, we import the `plugin_message_listener` decorator.
 
-3. Here we declare a new function that accepts a channel, player, and message. This function serves as the listener function and is called when a message is received. `channel` represents the channel the message was received on. `player` is the player the message was sent through. `message` is a byte array representing the actual payload of the message.
+3. Here, we import the Java class `ByteStreams`, for use when reading the received message.
 
-4. Since the message payload is a raw byte array, we need to use the `ByteStreams` class to decode it. Here, we create a new data input to read the message.
+4. Here, `@plugin_message_listener('BungeeCord')` registers `message_received` as a listener on the `BungeeCord` channel.
 
-5. Here, we read the first part of the message, which is the subchannel of the message, the same thing as the message type.
+5. Here we declare the listener function. `channel` is the channel the message was received on, `player` is the player the message was sent through, and `message` is the raw byte array payload.
 
-6. We are interested in receiving a message regarding the player count, so we check if the subchannel is "PlayerCount".
+6. Since the message payload is a raw byte array, we use the `ByteStreams` class to decode it. Here, we create a new data input to read the message.
 
-7. Next, we read the server whose player count we are fetching. This is a string, so we call `in.readUTF()`.
+7. Here, we read the first part of the message — the subchannel, which corresponds to the message type.
 
-8. Finally, we read the actual player count of the server. This is an int, so we call `in.readInt()`.
+8. We are interested in receiving a message regarding the player count, so we check if the subchannel is "PlayerCount".
 
-9. Here, we register a new plugin message listener, passing the listener function we defined earlier, as well as the channel we want to listen on, "BungeeCord" in this case.
+9. Next, we read the server name whose player count we are fetching.
 
-9. Here, we fetch an online player to send the message. Again, this is entirely arbitrary, any online player could be used.
+10. Finally, we read the actual player count of the server.
 
-10. Here, we send a plugin message using the player. We specify a message type of "PlayerCount" (the message type which fetches the player count of a particular server) and then specify the server name as the payload ("lobby" in this case).
+11. Here, we fetch an online player to send the message. This is entirely arbitrary — any online player could be used.
+
+12. Here, we send a plugin message using the player. We specify a message type of "PlayerCount" and specify the server name as the payload ("lobby" in this case).
 
 #### Receiving a "Forward" message
 
@@ -209,52 +249,57 @@ The following example demonstrates how to handle and parse the response:
 
 ```py linenums="1"
 import pyspigot as ps # (1)!
-from com.google.common.io import ByteStreams # (2)!
-from java.io import DataInputStream # (3)!
-from java.io import ByteArrayInputStream # (4)!
-from org.bukkit import Bukkit
+from decorators.plugin_message_listener import plugin_message_listener # (2)!
+from com.google.common.io import ByteStreams # (3)!
+from java.io import DataInputStream # (4)!
+from java.io import ByteArrayInputStream # (5)!
 
 messaging = ps.message_manager()
 
-def message_received(channel, player, message): # (5)!
-    input = ByteStreams.newDataInput(message) # (6)!
+@plugin_message_listener('BungeeCord') # (6)!
+def message_received(channel, player, message): # (7)!
+    input = ByteStreams.newDataInput(message) # (8)!
 
-    subchannel = input.readUTF() # (7)!
-    if subchannel == 'InternalChannel': # (8)!
-        length = in.readShort() # (9)!
-        msg_bytes = bytearray(length) # (10)!
-        in.readFully(msg_bytes) # (11)!
+    subchannel = input.readUTF() # (9)!
+    if subchannel == 'InternalChannel': # (10)!
+        length = input.readShort() # (11)!
+        msg_bytes = bytearray(length) # (12)!
+        input.readFully(msg_bytes) # (13)!
 
-        msg_in = DataInputStream(ByteArrayInputStream(msg_bytes)) # (12)!
-        message = msg_in.readUTF()  # (13)!
-        print('Message received: ' + message)
+        msg_in = DataInputStream(ByteArrayInputStream(msg_bytes)) # (14)!
+        received = msg_in.readUTF() # (15)!
+        print('Message received: ' + received)
 ```
 
-1. Here, we import PySpigot as `ps` to access the messaging manager (`message_manager()`).
+1. Here, we import PySpigot as `ps` to access the messaging manager.
 
-2. Here, we import the Java class `ByteStreams`, for use when reading the received message.
+2. Here, we import the `plugin_message_listener` decorator.
 
-3. Here, we import the Java class `DataInputStream`, for use when reading the received message.
+3. Here, we import the Java class `ByteStreams`, for use when reading the received message.
 
-4. Here, we import the Java class `ByteArrayInputStream`, for use when reading the received message.
+4. Here, we import the Java class `DataInputStream`, for use when reading the received message.
 
-5. Here we declare a new function that accepts a channel, player, and message. This function serves as the listener function and is called when a message is received. `channel` represents the channel the message was received on. `player` is the player the message was sent through. `message` is a byte array representing the actual payload of the message.
+5. Here, we import the Java class `ByteArrayInputStream`, for use when reading the received message.
 
-6. Since the message payload is a raw byte array, we need to use the `ByteStreams` class to decode it. Here, we create a new data input to read the message.
+6. Here, `@plugin_message_listener('BungeeCord')` registers `message_received` as a listener on the `BungeeCord` channel.
 
-7. Here, we read the first part of the message, which is the subchannel of the message, which is the internal channel specified when sending the message.
+7. Here we declare the listener function. `channel` is the channel the message was received on, `player` is the player the message was sent through, and `message` is the raw byte array payload.
 
-8. We are interested in receiving the message on our specific internal channel only, so we check if the subchannel is "InternalChannel".
+8. Since the message payload is a raw byte array, we use the `ByteStreams` class to decode it. Here, we create a new data input to read the message.
 
-9. Next, we read the length of the inner message payload.
+9. Here, we read the first part of the message — the subchannel, which corresponds to the internal channel specified when the message was sent.
 
-10. Next, we create a new empty byte array, with a length corresponding to the length of the inner message payload we fetched on the previous line.
+10. We are interested in receiving the message on our specific internal channel only, so we check if the subchannel is "InternalChannel".
 
-11. Here, we read the actual content of the inner payload into the empty byte array we created earlier.
+11. Next, we read the length of the inner message payload.
 
-12. Next, we initialize a new input stream to translate the inner message payload from a raw byte array to human-readable text.
+12. Next, we create an empty byte array with a length matching the inner payload length.
 
-13. Finally, we read the string value of the inner message payload, which should be the UUID of the player, as specified earlier.
+13. Here, we read the actual inner payload content into the byte array.
+
+14. Next, we initialize a new input stream to translate the inner payload from a raw byte array to human-readable text.
+
+15. Finally, we read the string value of the inner payload, which is the banned player's UUID as specified when the message was sent.
 
 ## Summary
 
@@ -262,5 +307,8 @@ def message_received(channel, player, message): # (5)!
 - To send standard BungeeCord plugin messages, use the `sendBungeeMessage(player, message_type, *payload)` function.
 - For a complete list of BungeeCord plugin messages that can be sent/received, see [this page](https://docs.papermc.io/paper/dev/plugin-messaging/).
 - To send messages on a custom channel, use the `sendMessage(player, channel, *payload)` function.
-- To receive messages, create a listener function and register the listener with the `unregisterListener(listener)` function.
+- The recommended way to register a plugin message listener is via the `@plugin_message_listener(channel)` decorator from `decorators/plugin_message_listener.py`.
+- Listener functions must accept three arguments: `channel`, `player`, and `message` (a raw byte array).
+- Decorated functions gain a `.registered_listener` attribute (the `ScriptPluginMessageListener`) and an `.unregister()` method.
+- Alternatively, listeners can be registered manually via `messaging_manager().registerListener(function, channel)`.
 - Plugin message listeners are automatically unregistered when a script is stopped.

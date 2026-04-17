@@ -65,6 +65,53 @@ Available functions:
 
 For more information, see the [Publish/Subscribe](https://github.com/redis/lettuce/wiki/Pub-Sub) section of the lettuce documentation. See the [Code Examples](#code-examples) section below for example usage.
 
+#### Pub/Sub Listener Decorators
+
+PySpigot ships with a `decorators/redis.py` helper module that provides Python **decorators** for registering pub/sub listeners. Using the decorators is the recommended way to register listeners on a `RedisPubSubClient`.
+
+**Importing:**
+
+``` py
+from decorators.redis import pub_sub_listener        # (1)!
+from decorators.redis import async_pub_sub_listener
+```
+
+1. `pub_sub_listener` is an alias for `sync_pub_sub_listener`. Both are available — they are identical.
+
+Apply the decorator to a function to register it as a listener on a channel. The decorator takes the **already-opened** `RedisPubSubClient` as its first argument, and the channel name as its second:
+
+``` py linenums="1"
+from decorators.redis import pub_sub_listener, async_pub_sub_listener
+from dev.magicmq.pyspigot.manager.redis import ClientType
+import pyspigot as ps
+
+redis = ps.redis_manager()
+pub_sub_client = redis.openRedisClient(ClientType.PUB_SUB, 'localhost', 6379, None)
+
+@pub_sub_listener(pub_sub_client, 'test_channel') # (1)!
+def on_message_sync(channel, message): # (2)!
+    print(f'Received synchronously on \'{channel}\': {message}')
+
+@async_pub_sub_listener(pub_sub_client, 'test_channel') # (3)!
+def on_message_async(channel, message):
+    print(f'Received asynchronously on \'{channel}\': {message}')
+```
+
+1. Registers `on_message_sync` as a **synchronous** listener on `test_channel`. The `RedisPubSubClient` must already be open before the decorator is applied.
+2. Listener functions receive two arguments: `channel` (the name of the channel the message arrived on) and `message` (the message content).
+3. Registers `on_message_async` as an **asynchronous** listener on the same channel.
+
+When decorated, each function gains two attributes:
+
+- `.registered_listener` — the `ScriptPubSubListener` object representing the registered listener.
+- `.unregister()` — a convenience method that unregisters the listener.
+
+``` py linenums="1"
+on_message_sync.unregister()  # (1)!
+```
+
+1. Unregisters the `on_message_sync` listener. After this call, the function will no longer be called when a message arrives on `test_channel`.
+
 ## Using the Redis Manager
 
 There are several functions available for you to use in the redis manager to facilitate interaction with a redis server. They are:
@@ -158,41 +205,43 @@ print(commands.get('test_record')) # (7)!
 
 ### Pub/Sub Client Example
 
-The following example utilizes the pub/sub client to connect to a remote redis server and subscribe to and submit messages to its pub/sub messaging system.
+The following example utilizes the pub/sub client to connect to a remote redis server and subscribe to and publish messages on its pub/sub messaging system.
 
 ``` py linenums="1"
 import pyspigot as ps # (1)!
 from dev.magicmq.pyspigot.manager.redis import ClientType # (2)!
+from decorators.redis import async_pub_sub_listener # (3)!
 
-redis = ps.redis_manager() # (3)!
+redis = ps.redis_manager() # (4)!
 
-pub_sub_client = redis.openRedisClient(ClientType.PUB_SUB, 'localhost', '6379', None) # (4)!
+pub_sub_client = redis.openRedisClient(ClientType.PUB_SUB, 'localhost', 6379, None) # (5)!
 
-def message_received(channel, message): # (5)!
+@async_pub_sub_listener(pub_sub_client, 'test_channel') # (6)!
+def message_received(channel, message): # (7)!
     print(f'Received message on channel \'{channel}\': {message}')
 
-listener = pub_sub_client.registerAsyncListener(message_received, 'test_channel') # (6)!
+num_received = pub_sub_client.publishAsync('test_channel', 'This is a test message!') # (8)!
 
-num_received = pub_sub_client.publishAsync('test_channel', 'This is a test message!') # (7)!
-
-pub_sub_client.unregisterListener(listener) # (8)!
+message_received.unregister() # (9)!
 ```
 
 1. Here, we import PySpigot as `ps` to utilize the redis manager.
 
 2. Here, we import `ClientType` so it can be used later.
 
-3. Here, we get the database manager from `ps` and set it to `redis`.
+3. Here, we import the `async_pub_sub_listener` decorator.
 
-4. Here, we open a new redis client with the `PUB_SUB` client type, using the provided IP/address, port, and no password. We assign the connected client to `pub_sub_client`.
+4. Here, we get the redis manager from `ps` and assign it to `redis`.
 
-5. Here, we define a new function called `message_received`, that accepts two arguments: `channel` (a string), and `message` (also a string). Inside the function, we print a message that contains `channel` and `message`.
+5. Here, we open a new redis client with the `PUB_SUB` client type, connecting to `localhost` on port `6379` with no password. We assign the connected client to `pub_sub_client`.
 
-6. Here, we register a new *asynchronous* listener, passing the previously defined function `message_received`, as well as the channel we want to listen to (`test_channel` in this case). We assign the registered listener to `listener` so that we can unregister it later.
+6. Here, we register `message_received` as an asynchronous listener on `test_channel` using the decorator. The `pub_sub_client` must be open before the decorator is applied.
 
-7. Here, we publish a message *asynchronously* to the channel `test_channel` with the content `This is a test message!`. All functions that publish a message to a channel (both sychronous and asynchronous) return a value that represents the number of clients that received the message. We assign this value to `num_received`.
+7. The listener function receives two arguments: `channel` (the name of the channel the message arrived on) and `message` (the message content).
 
-8. Here, we unregister the previously registered listener by passing `listener` to the `unregisterListener` function.
+8. Here, we publish a message asynchronously to `test_channel`. The return value is a [RedisFuture](https://lettuce.io/lettuce-4/release/api/com/lambdaworks/redis/RedisFuture.html) that resolves to the number of clients that received the message.
+
+9. Here, we unregister the listener using the `.unregister()` method attached by the decorator.
 
 ???+ note
 
@@ -200,7 +249,7 @@ pub_sub_client.unregisterListener(listener) # (8)!
 
 ???+ note
 
-    Note that because the message is published *asynchronously*, `num_received` is a [RedisFuture](https://lettuce.io/lettuce-4/release/api/com/lambdaworks/redis/RedisFuture.html) object. Additional code, not shown here, is required to fetch the value from this object. If you need help with this, ask on Discord.
+    Because the message is published *asynchronously*, `num_received` is a [RedisFuture](https://lettuce.io/lettuce-4/release/api/com/lambdaworks/redis/RedisFuture.html) object. Additional code, not shown here, is required to fetch the value from this object. If you need help with this, ask on Discord.
 
 ???+ warning
 
@@ -212,5 +261,7 @@ pub_sub_client.unregisterListener(listener) # (8)!
 - There are three available client types: `ClientType.BASIC`, `ClientType.COMMAND`, and `ClientType.PUB_SUB`. Which one you should use depends on your specific use case.
 - Use the `openRedisClient` functions (along with the client type and other provided options, based on your specific situation) to connect to a redis server.
 - When connecting to a redis server, a redis client object (will be either a `ScriptRedisClient`, `RedisCommandClient`, or a `RedisPubSubClient`, depending on the specified client type) is returned by the `openRedisClient` functions, which is then used to interact with redis.
-- Interacting with a redis is an *I/O operation*. Except in very limited contexts, asynchronous functions should be used over the synchronous ones. For example, if using the `RedisPubSubClient`, `publishAsync` should be used instead of `publish` or `publishSync`.
+- For `RedisPubSubClient` listeners, the recommended approach is to use the `@pub_sub_listener` or `@async_pub_sub_listener` decorators from `decorators/redis.py`. Both decorators require the already-opened `RedisPubSubClient` as their first argument.
+- Decorated listener functions gain a `.registered_listener` attribute (the `ScriptPubSubListener`) and an `.unregister()` method.
+- Interacting with redis is an *I/O operation*. Except in very limited contexts, asynchronous functions should be used over synchronous ones. For example, if using the `RedisPubSubClient`, `publishAsync` should be used instead of `publish` or `publishSync`, and `@async_pub_sub_listener` should be preferred over `@pub_sub_listener`.
 - Redis clients are closed automatically when a script is stopped. At any other time, if you are finished using a redis client, it should be closed by calling either `closeRedisClient` or `closeRedisClientAsync` from the redis manager. The `closeRedisClient`/`closeRedisClientAsync` functions take the redis client object that was returned when opening the client.
