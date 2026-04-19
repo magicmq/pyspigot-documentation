@@ -40,7 +40,7 @@ def replace(offline_player, placeholder): # (2)!
         return 'Replace placeholder 2!'
 ```
 
-1. `@placeholder()` registers `replace` as the placeholder replacer function with default author (`'Script Author'`) and version (`'1.0.0'`). Since each script can only have one placeholder expansion registered at a time, handle multiple placeholder names inside this single function using `if`/`elif`.
+1. `@placeholder()` registers `replace` as the placeholder replacer function with the default identifier (`script:<scriptname>`), author (`'Script Author'`), and version (`'1.0.0'`). Handle multiple placeholder names inside this single function using `if`/`elif`.
 
 2. The replacer function receives two arguments: `offline_player` (the `OfflinePlayer` associated with the placeholder, or `None` if no player is associated) and `placeholder` (the specific placeholder text that was used).
 
@@ -48,16 +48,19 @@ def replace(offline_player, placeholder): # (2)!
 
 ### Optional Parameters
 
+- `identifier` — the identifier for the placeholder expansion. Defaults to `None`, which uses `script:<scriptname>` (e.g. `script:test` for `test.py`). Invalid characters (`_`, `%`, `{`, `}`) are automatically stripped from custom identifiers.
 - `author` — the author of the placeholder expansion. Defaults to `'Script Author'`.
 - `version` — the version of the placeholder expansion. Defaults to `'1.0.0'`.
 
 ``` py linenums="1"
 from decorators.placeholder import placeholder
 
-@placeholder(author='MyName', version='2.0.0')
+@placeholder(identifier='myplaceholder', author='MyName', version='2.0.0') # (1)!
 def replace(offline_player, placeholder):
     ...
 ```
+
+1. With a custom identifier `myplaceholder`, the placeholder format becomes `%myplaceholder_<placeholder>%` instead of the default `%script:<scriptname>_<placeholder>%`.
 
 ### Relational Placeholders
 
@@ -65,7 +68,7 @@ There are two ways to attach a relational placeholder function to a decorated pl
 
 #### Using the `.relational_function` Method
 
-When a function is decorated with `@placeholder`, it gains a `.relational_function` method that registers a relational replacer function for the same placeholder expansion:
+When a function is decorated with `@placeholder`, it gains a `.relational_function` method that registers a relational replacer for the same expansion:
 
 ``` py linenums="1"
 from decorators.placeholder import placeholder
@@ -81,24 +84,26 @@ def replace_relational(player_one, player_two, placeholder): # (2)!
         return str(player_one.getLocation().distance(player_two.getLocation()))
 ```
 
-1. Decorating `replace_relational` with `@replace.relational_function` registers it as the relational replacer for the same placeholder expansion.
+1. Decorating `replace_relational` with `@replace.relational_function` registers it as the relational replacer for the same placeholder expansion. This is the simplest approach when both functions are defined together.
 
 2. Relational replacer functions receive three arguments: `player_one`, `player_two` (the two players associated with the relational placeholder), and `placeholder` (the specific placeholder text used).
 
 #### Using the `@relational_placeholder` Decorator
 
-Alternatively, the standalone `@relational_placeholder` decorator registers a function as the relational replacer for the script's placeholder expansion directly via the manager:
+Alternatively, the `@relational_placeholder(identifier)` decorator factory registers a function as the relational replacer for a specific placeholder expansion by its identifier. This is useful when the relational function is defined separately or when working with a custom identifier:
 
 ``` py linenums="1"
 from decorators.placeholder import relational_placeholder
 
-@relational_placeholder # (1)!
-def replace_relational(player_one, player_two, placeholder):
+@relational_placeholder('myplugin') # (1)!
+def replace_relational(player_one, player_two, placeholder): # (2)!
     if placeholder == 'player_distance':
         return str(player_one.getLocation().distance(player_two.getLocation()))
 ```
 
-1. Note: unlike `@placeholder()`, `@relational_placeholder` is not a factory — it is applied without parentheses.
+1. `@relational_placeholder('myplugin')` registers `replace_relational` as the relational replacer for the placeholder expansion with identifier `myplugin`. Pass the same identifier that was used when registering the expansion with `@placeholder(identifier='myplugin')`. For the default identifier, pass `'script:<scriptname>'` (e.g. `'script:test'` for `test.py`).
+
+2. Relational replacer functions receive three arguments: `player_one`, `player_two`, and `placeholder`.
 
 ### Unregistering a Placeholder
 
@@ -108,7 +113,7 @@ When a function is decorated with `@placeholder`, an `.unregister()` method is a
 replace.unregister() # (1)!
 ```
 
-1. Unregisters the entire placeholder expansion. After this call, none of the placeholders handled by `replace` will be resolved.
+1. Unregisters the placeholder expansion. After this call, none of the placeholders handled by `replace` will be resolved.
 
 ???+ tip
 
@@ -116,35 +121,27 @@ replace.unregister() # (1)!
 
 ## Placeholder Manager Usage
 
-All placeholders created by scripts will follow this general format: `%script:<scriptname>_<placeholder>%`, where `<scriptname>` is the name of your script (without .py), and `<placeholder>` is the specific placeholder, which you will handle yourself in a placeholder "replacer" function. See the code example below for details.
+By default, placeholders follow the format `%script:<scriptname>_<placeholder>%`, where `<scriptname>` is the name of your script (without `.py`) and `<placeholder>` is the specific placeholder text. With a custom identifier, the format is `%<identifier>_<placeholder>%`.
 
-Relational placeholders can also be registered with the placeholder manager, and they follow the general format `%rel_script:<scriptname>_<placeholder>%`, where `<scriptname>` is the name of your script (without .py), and `<placeholder>` is the specific placeholder, which you will handle yourself in the relational placeholder "replacer" function. See the code example below for details.
+Relational placeholders follow the same pattern but are prefixed with `rel_`: `%rel_script:<scriptname>_<placeholder>%`, or `%rel_<identifier>_<placeholder>%` with a custom identifier.
 
-There are several functions available from the placeholder manager for registering/unregistering placeholders:
+???+ warning
 
-- `registerPlaceholder(placeholder_function)`: Registers a new placeholder expansion with default author ("Script Author") and version ("1.0.0").
-	- When the placeholder is used, `placeholder_function` is called. Should return the text that should replace the placeholder.
-	- Returns a `ScriptPlaceholder`, which represents the placeholder that was registered.
-- `registerPlaceholder(placeholder_function, relational_placeholder_function)`: Registers a new placeholder expansion with default author ("Script Author") and version ("1.0.0").
-	- When the placeholder is used, `placeholder_function` is called. Should return the text that should replace the placeholder. This argument can be `None`.
-	- When a relational placeholder is used, `relational_placeholder_function` is used. Should return the text that should replace the placeholder. This argument can be `None`.
-	- Returns a `ScriptPlaceholder`, which represents the placeholder that was registered.
-- `registerPlaceholder(placeholder_function, author, version)`: Registers a new placeholder expansion with a custom author and version.
-	- When the placeholder is used, `placeholder_function` is called. Should return the text that should replace the placeholder.
-	- Returns a `ScriptPlaceholder`, which represents the placeholder that was registered.
-- `registerPlaceholder(placeholder_function, relational_placeholder_function, author, version)`: Registers a new placeholder expansion with a custom author and version.
-	- When the placeholder is used, `placeholder_function` is called. Should return the text that should replace the placeholder.
-	- When a relational placeholder is used, `relational_placeholder_function` is used. Should return the text that should replace the placeholder. This argument can be `None`.
-	- Returns a `ScriptPlaceholder`, which represents the placeholder that was registered.
-- `unregisterPlaceholder(placeholder)`: Unregisters a previously registered placeholder. Takes a ScriptPlaceholder that was previously returned by the `registerPlaceholder` function.
+    Custom identifiers must not contain the characters `_`, `%`, `{`, or `}`. These characters are automatically stripped from the identifier before registration. If any invalid characters are detected, a warning is logged. Attempting to register a second expansion with the same identifier (after stripping) as an existing expansion for the same script will raise a `ScriptRuntimeException`.
+
+There are several functions available from the placeholder manager for registering and unregistering placeholders:
+
+- `registerPlaceholder(placeholder_function)`: Registers a placeholder expansion with the default identifier, author (`"Script Author"`), and version (`"1.0.0"`). Returns a `ScriptPlaceholder`.
+- `registerPlaceholder(placeholder_function, relational_placeholder_function)`: Same as above, but also registers a relational replacer function.
+- `registerPlaceholder(placeholder_function, identifier, author, version)`: Registers a placeholder expansion with a custom identifier, author, and version. Pass `None` for `identifier` to use the default (`script:<scriptname>`). Returns a `ScriptPlaceholder`.
+- `registerPlaceholder(placeholder_function, relational_placeholder_function, identifier, author, version)`: Same as above, but also registers a relational replacer function.
+- `setRelationalPlaceholderFunction(relational_function, identifier)`: Sets the relational replacer function for a previously registered placeholder expansion identified by `identifier`.
+- `unregisterPlaceholder(placeholder)`: Unregisters a placeholder expansion. Takes the `ScriptPlaceholder` returned by a register function.
+- `unregisterPlaceholder(placeholder_function)`: Unregisters any placeholder expansion whose replacer function matches `placeholder_function`.
 
 ???+ tip
 
 	You **do not** need to unregister your placeholders when your script is stopped/unloaded. PySpigot will handle this for you.
-
-???+ note
-
-	Scripts can only have one placeholder expansion registered at a time. To see how to define multiple placeholders for a script, see the code example below.
 
 ## Code Examples
 
@@ -165,7 +162,7 @@ def replace(offline_player, placeholder): # (3)!
 
 1. Here, we import the `placeholder` decorator.
 
-2. Here, `@placeholder()` registers `replace` as the placeholder replacer function for this script.
+2. Here, `@placeholder()` registers `replace` as the placeholder replacer function for this script, using the default identifier.
 
 3. Here, we define `replace`. This function takes two parameters: `offline_player`, a Bukkit `OfflinePlayer` representing the player associated with the placeholder, and `placeholder`, the text of the specific placeholder that was used.
 
@@ -205,7 +202,7 @@ def replace_relational(player_one, player_two, placeholder): # (4)!
 
 1. Here, we import the `placeholder` decorator.
 
-2. Here, `@placeholder()` registers `replace` as the replacer for this script's placeholder expansion. A regular replacer function is required even if only relational placeholders are needed; in that case, you can simply pass with no logic.
+2. Here, `@placeholder()` registers `replace` as the replacer for this script's placeholder expansion. A regular replacer function is required even if only relational placeholders are needed; in that case, you can simply `pass` with no logic.
 
 3. Here, `@replace.relational_function` registers `replace_relational` as the relational replacer for the same placeholder expansion.
 
@@ -233,17 +230,16 @@ replace.unregister() # (1)!
 
 ### Multiple Placeholders
 
-As you can see in the above example, you need not register a new placeholder expansion for each specific placeholder you want to define. Instead, all you need to do is check if the `placeholder` parameter of your replacer function is equal to the placeholder you want to define using `if` and `elif`.
+You do not need to register a new placeholder expansion for each specific placeholder you want to define. Instead, check the `placeholder` parameter of your replacer function using `if` and `elif` to handle as many placeholders as needed within a single expansion.
 
 ## Summary
 
-- Placeholders defined by scripts follow the format `%script:<scriptname>_<placeholder>%`.
-- Relational placeholders follow the format `%rel_script:<scriptname>_<placeholder>%`.
+- By default, placeholders follow the format `%script:<scriptname>_<placeholder>%`. With a custom identifier, the format is `%<identifier>_<placeholder>%`. Invalid characters (`_`, `%`, `{`, `}`) are automatically stripped from custom identifiers; a warning is logged if any are found.
+- Relational placeholders follow the same pattern prefixed with `rel_`: `%rel_script:<scriptname>_<placeholder>%` or `%rel_<identifier>_<placeholder>%`.
 - Regular placeholder replacer functions should take two parameters, `offline_player` and `placeholder`. `offline_player` is the player associated with the placeholder (or `None`); `placeholder` is the specific placeholder text that was used.
-- Relational placeholder replacer functions should take three parameters, `player_one`, `player_two`, and `placeholder`. `player_one` and `player_two` are the two players associated with the relational placeholder; `placeholder` is the specific placeholder text that was used.
-- The recommended way to register a placeholder is via the `@placeholder()` decorator from `decorators/placeholder.py`.
-- Attach a relational replacer to a decorated placeholder using the `.relational_function` method on the decorated function, or with the standalone `@relational_placeholder` decorator.
+- Relational placeholder replacer functions should take three parameters, `player_one`, `player_two`, and `placeholder`.
+- The recommended way to register a placeholder is via the `@placeholder()` decorator from `decorators/placeholder.py`. Optional parameters: `identifier`, `author`, `version`.
+- Attach a relational replacer using the `.relational_function` method on the decorated function, or with `@relational_placeholder(identifier)` for a specific expansion by identifier.
 - Decorated functions gain an `.unregister()` method for easy cleanup.
-- Alternatively, placeholders can be registered manually via the placeholder manager using `registerPlaceholder(placeholder_function, relational_placeholder_function)` or `registerPlaceholder(placeholder_function, relational_placeholder_function, author, version)`.
-- Each script can only have one placeholder expansion registered at a time. Check the `placeholder` parameter of your replacer function (using `if` and `elif`) to handle multiple placeholders.
+- Alternatively, placeholders can be registered manually via the placeholder manager using `registerPlaceholder(placeholder_function, identifier, author, version)` and related overloads.
 - You **do not** need to unregister placeholders when your script stops — PySpigot handles cleanup automatically.
