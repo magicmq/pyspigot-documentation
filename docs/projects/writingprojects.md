@@ -56,9 +56,10 @@ Projects can also be manually loaded using the load command:
 - On Velocity: `/pyvelocity reload <projectname>`
 - On BungeeCord: `/pybungee reload <projectname>`
 
-There is one config option related to loading projects:
+There are two config options related to loading projects:
 
-- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts and projects. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to load scripts and projects. To disable the load delay, set this value to `0` or `-1`.
+- `script-load-delay`: This is the delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts and projects. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 ticks (or 1 second) after the server finishes loading to begin loading scripts and projects. To disable the delay and begin loading scripts/projects immediately, set this value to `0` or `-1`.
+- `script-load-interval` This is the interval, in ticks, that PySpigot will wait **in between loading each script/project**. This option can be useful to reduce lag if there are many scripts/projects to be loaded. To disable the waiting period and load scripts/projects back-to-back, set this value to `0` or `-1`.
 
 ???+ notice
 

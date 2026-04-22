@@ -14,13 +14,27 @@ Default: `true`
 
 ## `script-load-delay`
 
-The delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 game ticks (or 1 real-world second) after the server finishes loading to load scripts. Set to `-1` to disable a load delay and load scripts immediately.
+The delay, in ticks, that PySpigot will wait **after server loading is completed** to load scripts/projects. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 game ticks (or 1 real-world second) after the server finishes loading to load scripts/projects.
+
+Set to `-1` to disable a load delay and load scripts/projects immediately.
 
 ``` yaml linenums="1"
 script-load-delay: 20
 ```
 
 Default: `20`
+
+## `script-load-interval`
+
+The interval, in ticks, that PySpigot will wait **in between loading each script/project**. There are 20 server ticks in one real-world second. For example, if the value is 20, then PySpigot will wait 20 game ticks (or 1 real-world second) between loading each script/project. This option can be useful to reduce lag if there are many scripts/projects to be loaded.
+
+Set to `0` or `-1` to disable an inter-script load interval and load scripts/projects back-to-back with no in-between waiting period.
+
+``` yaml linenums="1"
+script-load-interval: 1
+```
+
+Default: `1`
 
 ## `library-relocations`
 
@@ -297,11 +311,13 @@ The following example configuration contains default values for all parameters.
 ``` yaml linenums="1"
 # If false, will disable collection of metrics information by bStats for PySpigot. You may also disable bStats server-wide in the bStats config.yml under /plugins/bStats.
 metrics-enabled: true
-# The delay for loading scripts (in ticks) after the server finishes loading.
+# The delay to wait, after server initialization completes, to load scripts/projects. This value is in ticks; there are 20 server ticks per 1 real-world second.
 script-load-delay: 20
+# The delay, in ticks, PySpigot should wait in between loading each script/project. Setting this value to a higher number can help avoid server crashes, if there are many scripts/projects to load.
+script-load-interval: 1
 # List of relocation rules for libraries in the libs folder. Format as <pattern>|<relocated pattern>
 library-relocations: []
-# Date/time format for timestamps in script log files, written in Java's SimpleDateFormat pattern: https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html
+# Date/time format for timestamps in script log files, written in Java's SimpleDateFormat pattern: https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/format/DateTimeFormatter.html
 log-timestamp-format: 'MMM dd yyyy HH:mm:ss'
 # If true, will print log messages to console every time a script is loaded, run, and unloaded.
 script-action-logging: true
