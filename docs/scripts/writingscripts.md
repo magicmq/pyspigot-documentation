@@ -133,20 +133,52 @@ If you want to unload your script with a signal that an error occured, pass `1` 
 
     *Do not* use the script manager to unload a script from within itself! This will lead to unexpected bugs/issues.
 
-## Start and Stop Functions
+## Start and Stop Hook Functions
 
-There are two special functions you may include in your PySpigot scripts: `start` and `stop`.
+There are two decorators included in PySpigot to mark functions as `start` and `stop` hook functions. A function decorated with `start` will be called automatically by PySpigot when your script loads. Likewise, a function decorated with `stop` will be called automatically by PySpigot when your script unloads. This is analogous to the `onEnable` and `onDisable` methods in the main class of a Bukkit plugin.
 
-The `start` function is called automatically by PySpigot when your script loads. Likewise, the `stop` function is called automatically by PySpigot when your script unloads. If your script is unloaded as a result of an error, the `stop` function is *not* called. This error condition also includes unloading a script via `sys.exit` with an exit code of `1`.
+Your `start` and `stop` hook functions can accept either zero or one parameter:
 
-The `start` and `stop` functions can accept either zero or one parameter:
-
-- If you define one parameter, PySpigot will pass the [Script Object](../managers/core/scripts.md#the-script-object) to the function. This object is the representation of the loaded script at runtime. This allows you to obtain information about the script, as well as other key functions, including logging, the script file, and more within the `start` and/or `stop` function.
+- If you define one parameter, PySpigot will pass the [Script Object](../managers/core/scripts.md#the-script-object) to the function. This object is the representation of the loaded script at runtime. This allows you to obtain information about the script, as well as other key functions, including logging, the script file, and more.
 - If you define zero parameters, PySpigot will not pass any arguments to the function.
 
-???+ notice
+PySpigot will inspect the function definition at runtime to determine if any parameters should be passed.
 
-    The `start` and `stop` functions are optional. You do not need to define them in your script if they are not needed.
+???+ warning
+
+    If your script is unloaded as a result of an error, the `stop` hook function is *not* called. This error condition unloads a script via `sys.exit` with an exit code of `1`.
+
+The `start` and `stop` decorators are located in the `decorators.script` module.
+
+### Code Example
+
+``` py linenums="1"
+from decorators.script import start, stop # (1)!
+
+@start
+def start_function(script): # (2)!
+    # Perform startup tasks here...
+    print('Script ' + script.getName() + ' has finished loading')
+    return
+
+@stop
+def stop_function(script): # (3)!
+    # Perform shutdown tasks here...
+    print('Script ' + script.getName() + ' has been unloaded')
+    return
+```
+
+1.  Import the decorators first.
+2.  This function will be called automatically when the script loads. The functions decorated with `start` and `stop` may optionally accept the runtime script object, as noted above. PySpigot will pass this to the function when it is called.
+3.  This function will be called automatically when the script unloads, *unless* if it was unloaded because of an error.
+
+???+ once-upon-a-time "Once Upon a Time..."
+
+    Prior to PySpigot version 0.10.0, `start` and `stop` functions were actually named `start` and `stop`; there were no decorators available. Decorators are now the preferred method to denote `start` and `stop` functions. If PySpigot detects a script using the old, non-preferred method, a notice like this will be printed to the console:
+
+    `This script uses the old, non-preferred method to specify a start hook function (naming the function 'start'), which will be removed in a future release. Instead, use the new '@start' decorator from the 'decorators.script' module to specify start hook functions.`
+
+    If you see this, update the script to use `start` and `stop` decorators, because the old method will be removed in a future release.
 
 ## The `pyspigot.py` Helper Module
 

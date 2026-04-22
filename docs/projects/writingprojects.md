@@ -92,11 +92,11 @@ If you want to unload your project with a signal that an error occured, pass `1`
 
     *Do not* use the script manager to unload a project from within itself! This will lead to unexpected bugs/issues.
 
-## Start and Stop Functions
+## Start and Stop Hook Functions
 
-The `start` and `stop` functions work in the exact same way for projects as they do for single-file scripts, with the important caveat that they **must be placed in the main module of your script**.
+The `start` and `stop` decorators work in the exact same way for projects as they do for single-file scripts, with the important caveat that they **must decorate functions in the main module of your project**.
 
-For more detailed information, see the [section on start and stop functions for single-file scripts](../scripts/writingscripts.md#start-and-stop-functions).
+For more detailed information, see the [section on start and stop functions for single-file scripts](../scripts/writingscripts.md#start-and-stop-hook-functions).
 
 ## The `pyspigot.py` Helper Module
 
