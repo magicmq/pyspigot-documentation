@@ -95,10 +95,6 @@ The following functions are available from the packet events manager:
 
     You **do not** need to unregister your packet listeners when your script is stopped/unloaded. PySpigot will handle this for you.
 
-???+ note
-
-    Each script may only register one packet listener per packet type. Attempting to register a second listener for the same packet type within the same script will throw a `ScriptRuntimeException`.
-
 If you prefer to register packet listeners manually without using the decorator, the functions above are available as an alternative.
 
 ## Packet Types
@@ -265,7 +261,6 @@ ps.packet_events.unregisterPacketListener(packet_listener) # (1)!
 - The listener type (receive vs. send) is determined **automatically** from the packet type — no need to specify direction manually.
     - Packet types under `*.Client` (e.g., `PacketType.Play.Client.*`) produce a `PacketReceiveEvent`.
     - Packet types under `*.Server` (e.g., `PacketType.Play.Server.*`) produce a `PacketSendEvent`.
-- Each script may only register **one** packet listener per packet type.
 - The recommended way to register a packet listener is via the `@packet_listener(PacketType)` decorator from `decorators/packet_events.py`.
 - Decorated functions gain a `.registered_listener` attribute (the `ScriptPacketListener`) and an `.unregister()` method for easy cleanup.
 - Alternatively, packet listeners can be registered manually via the packet events manager using `registerPacketListener(function, type)`.
